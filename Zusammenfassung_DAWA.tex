@@ -15,7 +15,8 @@
 \usepackage[table]{xcolor}
 \usepackage{array}
 \usepackage{wrapfig}
-\usepackage{subfigure}
+\usepackage{subcaption}
+\usepackage{csquotes}
 
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
 \newcommand{\shl}{~~\shortstack[l]}
@@ -32,6 +33,8 @@
 
 \section{Die Notwendigkeit von Data Warehouses}
 \subsection{Entscheidungsunterstützung (Buch S11)}
+Data Warehouses sind keine neue Erfindung. Bereits in den 1960er Jahren wurden sogenannte \textbf{Managementsinformationssysteme} entwickelt. Diese MIS dienten dazu, Entscheidungsträgern alle benötigten Informationen zeitnah, fehlerfrei, flexibel, ergonomisch, effizient, effektiv und inspirativ zur Verfügung zu stellen.
+
 Es gibt vier Arten der Entscheidungsunterstützung:
 
 \begin{description}
@@ -179,7 +182,7 @@ $\rightarrow$ Neuer Ansatz der Datenabfrage muss her: \textbf{OLAP}
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[keepaspectratio=true,height=18\baselineskip]{DIWW.png}
+	\includegraphics[keepaspectratio=true,height=18\baselineskip]{DIWW.PNG}
 	\caption{DIKW-Pyramid}
 	\label{fig:dikw}
 \end{figure}
@@ -193,29 +196,63 @@ Bei Entscheidungsfindungen muss unterschieden werden zwischen
 	\item Weisheit
 \end{itemize}
 
-\begin{wrapfigure}{L}{0.7\textwidth}
+\paragraph{Daten}
+Daten sind das, was in Datenbanken oder Excel-Tabellen gespeichert wird. \textbf{Unstrukturierte Fakten} wie z.B die Zahlenreihenfolge 
+\begin{center}
+\textbf{	Rot, 192.234.235.245.678.v2.0}
+\end{center}
+
+\paragraph{Informationen}
+Aus Daten alleine werden wir nicht schlau. Diese Daten müssen zuerst in einen \textbf{Zusammenhang} gebracht werden:
+
+\begin{center}
+\textbf{	Das südliche Rotlicht Pitt/George St. ist soeben rot geworden }
+\end{center}
+
+Nun können wir aus dieser, vorher völlig nutzlosen Zahlenreihe eine \textbf{Information} extrahieren. Nämlich dass sie Koordinaten sind und sich das "Rot" auf ein Lichtsignal bezieht..
+
+Die Daten stellen zwar den eigentlichen Wert der Information dar (die Koordinaten und Rotlicht-Licht), sind aber ohne Zusammenhang völlig wertlos.
+
+\paragraph{Wissen}
+Aus Informationen \textbf{Wissen} zu machen ist nun, zumindest maschinell gesehen wesentlich schwerer. Wir Menschen generieren Wissen, indem wir Informationen geistig verarbeiten. Soll heissen, wir \textbf{interpretieren und ordnen} die gegebene Information.
+
+Das heisst in diesem Fall, wir checken wo wir sind und in welche Richtung wir uns bewegen. Je nach dem ist das Wissen dann:
+
+\begin{center}
+\textbf{	Ich fahre in eine völlig andere Richtung, diese Information interessiert mich nicht.}
+\end{center}
+
+oder aber
+
+\begin{center}
+\textbf{	Das Rotlicht, auf welches ich zufahre, ist gerade rot geworden}
+\end{center}
+
+\paragraph{Weisheit}
+Weisheit wird definiert als \textbf{Anwendung von Wissen auf eine Problemlösung}. Das heisst, das erworbene Wissen wird mit einer Portion Erfahrung und gesundem Menschenverstand gemixt. In unserem Fall, angenommen wir fahren auf das Rotlicht zu, sagt uns die Erfahrung, dass man bei einem roten Rotlicht stoppen soll und der gesunde Menschenverstand wirft noch ein, dass es entweder einen Unfall geben wird oder aber sicherlich eine Busse, sollte man erwischt werden. Das Ganze resultiert in:
+
+\begin{center}
+\textbf{	Ich sollte vermutlich nächstens einmal anhalten}
+\end{center}
+
+\vspace*{20px}
+
+\begin{figure}[htb]
 	\centering
-	\includegraphics[keepaspectratio=true,height=10\baselineskip]{BspDaten.png}
-	\caption{Beispiel Daten}
-	\label{fig:bspdata}
-\end{wrapfigure} 
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{DIKW.PNG}
+	\caption{Die Beziehung zwischen Daten - Informationen - Wissen - Weisheit}
+	\label{fig:DIKW}
+\end{figure}
 
-\textbf{Daten} sind das, was in Datenbanken oder Excel-Tabellen gespeichert wird: Rohe Daten (z.B. Bild \ref{fig:bspdata}). Damit kann nicht viel angefangen werden. Diese Daten müssen zuerst gefiltert, sortiert, zusammengefasst etc. werden. Anschliessend hat man \textbf{Informationen} (z.B. Bild \ref{fig:bspinfo} )
-
-%\begin{wrapfigure}{R}{0.3\textwidth}
-%	\centering
-%	\includegraphics[keepaspectratio=true,height=10\baselineskip]{BspInfo.png}
-%	\caption{Beispiel Informationen}
-%	\label{fig:bspinfo}
-%\end{wrapfigure}
+Zusammengefasst kann man also sagen, Informationen sind das Verständnis von Zusammenhängen in Daten, oder auch \textbf{was die Daten bedeuten}. Wissen ist das Verständnis dieser Information (\textbf{was heisst das für mich?}) und Weisheit bestimmt, \textbf{was nun zu tun sei}. 
+\newpage
 
 %ToDo: Unterschied Daten, Information, Wissen, Weisheit??
-
 \section{Das Data Warehouse}
 
 \begin{wrapfigure}{R}{0.5\textwidth}
 	\centering
-	\includegraphics[keepaspectratio=true,height=10\baselineskip]{datawarehouse.png}
+	\includegraphics[keepaspectratio=true,height=10\baselineskip]{datawarehouse.PNG}
 	\caption{Aufbau eines Datawarehouses}
 	\label{fig:datawarehouse}
 \end{wrapfigure}
@@ -238,16 +275,18 @@ Daten sind in der Praxis meist nicht optimal abgelegt. Daten existieren meist
 $\rightarrow$ Lösung: \textbf{Data-Warehouse}
 
 \subsection{Definition Data-Warehouse (Buch S 33)}
+	
+\blockquote[Oracle corp: Data warehousing Guide 11g (2007)]{A data warehouse is a relational database that is designed for query and analysis rather than for transaction processing. It usually contains historic data derived from transaction data, but can incude data from other sources. Data warehouses separate analysis workload from transactin workload and enable an organisation to consoldiate data from several sources.} 
+ 
 
-A data warehouse is a relational database that is designed for query and analysis rather than for transaction processing. It usually contains historic data derived from transaction data, but can incude data from other sources. Data warehouses separate analysis workload from transactin workload and enable an organisation to consoldiate data from several sources. - Oracle corp: Data warehousing Guide 11g (2007) 
-
-A data warehouse is a organisation's data with a corporate wide scope for use in decision support and informational applications. - IBM Corp: Enterprise Data Warehousing with DB2.9 - Redbook (2008)
+\blockquote[IBM Corp: Enterprise Data Warehousing with DB2.9 - Redbook (2008)]{A data warehouse is a organisation's data with a corporate wide scope for use in decision support and informational applications.}
+\vspace*{10px}
 
 Zusammengefasst kann man also sagen, ein Data Warehouse ist eine Datenbank, welche nicht (ausschliesslich) zur Speicherung von Informationen genutzt wird, sondern hauptsächlich als Hilfsmittel bei Entscheidungen eingesetzt wird ($\rightarrow$ Experten-Systeme)
 
-%Todo als Zitat formatieren
 
-\subsection{Bestandteile eines Data-Warehouses}
+
+\subsection{Bestandteile eines Data-Warehouses (Buch S39)}
 
 \begin{description}
 	\item [SSRS: ] SQL Server Reporting Services
@@ -257,9 +296,31 @@ Zusammengefasst kann man also sagen, ein Data Warehouse ist eine Datenbank, welc
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[keepaspectratio=true,height=18\baselineskip]{bestandteiledatawarehouse.png}
+	\includegraphics[keepaspectratio=true,height=18\baselineskip]{bestandteiledatawarehouse.PNG}
 	\caption{Bestandteile eines Data-Warehouses}
 	\label{fig:bstdw}
 \end{figure}
+
+\newpage
+
+\subsection{Welche Datenbank für welche Tasks? (Buch S40f)}
+
+\begin{figure}[htb]
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{whichDB.PNG}
+		\caption{Welche Datenbank für welche Tasks verwendet werden kann}
+		\label{fig:whichDB}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{referenceArch.PNG}
+		\caption{Referenzmodell nach Bauer \& Günzel}
+		\label{fig:refArch}
+	\end{subfigure}
+\end{figure}
+
+Verschiedene Datenbanken können (und sollten) für verschiedene Tasks verwendet werden.
 
 \end{document}
