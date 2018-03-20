@@ -17,6 +17,9 @@
 \usepackage{wrapfig}
 \usepackage{subcaption}
 \usepackage{csquotes}
+\usepackage{lscape}
+\usepackage{afterpage}
+\usepackage{geometry}
 
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
 \newcommand{\shl}{~~\shortstack[l]}
@@ -32,8 +35,8 @@
 \graphicspath{{./Pictures/}}
 
 \section{Die Notwendigkeit von Data Warehouses}
-\subsection{Entscheidungsunterstützung (Buch S11)}
-Data Warehouses sind keine neue Erfindung. Bereits in den 1960er Jahren wurden sogenannte \textbf{Managementsinformationssysteme} entwickelt. Diese MIS dienten dazu, Entscheidungsträgern alle benötigten Informationen zeitnah, fehlerfrei, flexibel, ergonomisch, effizient, effektiv und inspirativ zur Verfügung zu stellen.
+\subsection{Entscheidungsunterstützung (Skript S11)}
+Data Warehouses sind keine neue Erfindung. Bereits in den 1960er Jahren wurden sogenannte \textbf{Managementsinformationssysteme} entwickelt. Diese MIS dienten dazu, Entscheidungsträgern alle benötigten Informationen zeitnah, fehlerfrei, flexibel, ergonomisch, effizient, effektiv und inspirativ zur Verfügung zu stellen. Diese Systeme treffen also nicht selbst Entscheidungen, sie \textbf{unterstützen} die Entscheidungsträger lediglich bei ihrer Entscheidung.
 
 Es gibt vier Arten der Entscheidungsunterstützung:
 
@@ -49,50 +52,32 @@ Ein Expertensystem (XPS oder ES) ist ein Computerprogramm, das Menschen bei der 
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[keepaspectratio=true,height=18\baselineskip]{expertensystem.png}
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{expertensystem.png}
 	\caption{Beispiel eines Expertensystems}
 	\label{fig:xps}
 \end{figure}
 
 \newpage
 
-\subsection{Ungenügen der "gängigen" Datenhaltung (Buch S13)}
+\subsection{Ungenügen der "gängigen" Datenhaltung (Skript S13)}
 
 \begin{itemize}
 	\item Verschiedene Datenformate
 	\item Verschiedene Werkzeuge
 	\item Heterogenität der Daten
-		\subitem Technisch
-			\subsubitem Mainframe
-			\subsubitem DBMS
-			\subsubitem Flatfile
-		\subitem Logisch
-			\subsubitem Schemata
-			\subsubitem Formate
-			\subsubitem Darstellungen
-		\subitem Syntaktisch
-			\subsubitem Datum
-			\subsubitem Codierung
-			\subsubitem Währung
-		\subitem Qualitativ
-			\subsubitem Fehlende Werte
-			\subsubitem Falsche Werte
-			\subsubitem Doppelte Werte
-		\subitem Verfügbarkeit
-			\subsubitem Permanent
-			\subsubitem Periodisch
-			\subsubitem Temporär
-		\subitem Rechtlich
-			\subsubitem Datenschutz
-			\subsubitem Zugriffsverwaltung
-			\subsubitem Archivierung
+		\subitem Technisch (Mainframe / DBMS / Flatfile etc)
+		\subitem Logisch (Schemata / Formate / Darstellungen etc.)
+		\subitem Syntaktisch (Datum / Codierung / Währung)
+		\subitem Qualitativ (Fehlende / Falsche / Doppelte Werte)
+		\subitem Verfügbarkeit (Permanent / Periodisch / Temporär)
+		\subitem Rechtlich (Datenschutz / Zugriffsverwaltung / Archivierung)
 \end{itemize}
 
 $\longrightarrow$ Neuer Ansatz einer Datenaufbereitung muss her: \textbf{Homogenisierung}
 
-\subsection{Ungenügen der operativen Datenbanken für Entscheide (Buch S13)}
+\subsection{Ungenügen der operativen Datenbanken für Entscheide (Skript S13)}
 
-"Reguläre" Datenbanken im Geschäftsumfeld sind zu fest mit gesellschaftsrelevanten Lese- und Schreiboperationen beschäftigt. Bei solchen Datenbanken spricht man von OLTP-System (Online Transactional Processing). Diese Datenbanken sind aus Performance-Gründen ziemlich schlecht geeignet für eine analytische, vorausschauende Bewirtschaftung.
+"Reguläre" Datenbanken im Geschäftsumfeld sind zu fest mit geschäftsrelevanten Lese- und Schreiboperationen beschäftigt. Bei solchen Datenbanken spricht man von OLTP-System (Online Transactional Processing). Diese Datenbanken sind also ziemlich schlecht geeignet für eine analytische, vorausschauende Bewirtschaftung, da solche Auswertung viel Zeit und vor allem Rechen-Performance benötigen.
 
 Ausserdem liegen Daten in OLTP-Datenbanken meist in der 3. Normalform vor. Während dies eine sehr vernetze und effiziente Art der Datenspeicherung ist, ist die 3. Normalform ein schlechtes Abbild des intuitiven Denkens eines Managers.
 
@@ -101,88 +86,92 @@ $\rightarrow$ Neuer Ansatz einer Datenbank muss her: \textbf{analytische Datenba
 \subsection{SQL-Abfragen für Management-Zwecke}
 Zusätzlich zu den vorhin genannten Gründen, sind Manager des SQL meist nicht mächtig. Sie wollen lieben "Drag and Drop" Interfaces, um sich ihre Daten "zusammenzuklicken" wie z.b. Microsoft Access.
 
+Zudem sind Datenbank-Abfragen stets \textbf{zweidimensional} in Tabellen dargestellt. Wenn man nun aber Daten in drei Dimensionen auswerten will (z.B. Zeit, Ort und Anzahl), so ist dies zwar möglich mittels Tabellen, aber nicht sonderlich leserfreundlich.
+
 $\rightarrow$ Neuer Ansatz der Datenabfrage muss her: \textbf{OLAP}
 
+\begin{landscape}
 \subsection{OLAP vs OLTP}
+	
+	\begin{tabular}[htbp]{|l|r|r|}
+		\hline 
+		Merkmal & OLTP System  & OLAP System  \\ 
+		\hline 
+		Ausrichtung auf & Programm, BWL Prozess & Mensch, Analyse\\ 
+		\hline 
+		Zeitliche Reichweite & Taktisch & Strategisch \\ 
+		\hline 
+		Entscheidungsstufe & Tief & Hoch \\ 
+		\hline
+		Zweck & Rationalisierung \& Automatisierung & Planung \& Entscheidung \\
+		\hline
+		Anwenderzahl &Hoch & Tief \\
+		\hline
+		Entscheidung & Deduktiv & Induktiv / Explorativ \\
+		\hline
+		Bewirtschaftung I & Ändernd & Befragend \\
+		\hline
+		Bewirtschaftung II & Auf Datensatzebene & Auf Aggregatsebene \\
+		\hline
+		Anwendungsmuster & Voraussehbar & Variierend \\
+		\hline
+		Befragungsmuster & Einfach & Komplex \\
+		\hline
+		Bearbeitung & Repetitiv & Ad hoc / unstrukturiert \\
+		\hline
+		Betriebliches Wissen & Verarbeitend & Generierend \\
+		\hline
+		Verteilungsgrad & Dezentral & Zentral \\
+		\hline
+		Performance-Bedarf & Durchgehend hoch & Variierend \\
+		\hline
+		Mehrbenutzersynchronisation & Hoch & Tief bis keine \\
+		\hline
+		Optimierung & Schneller Insert \& Delete & Schnelles Lesen \\
+		\hline
+		Transaktionsdurchsatz & Hoch & Tief \\
+		\hline
+		Transaktionsdauer & Kurte Mutationen weniger Tupel & Lange Abfragen vieler Tupel \\
+		\hline
+		Abfragen & Häufige, einfache Abfragen & Weniger häufige, komplexe Anfragen \\
+		\hline
+		Antwortzeiten & (Mili)sekunden & Sekunden, Minuten, Stunden \\
+		\hline
+		Endbenutzerwerkzeug-Hersteller & DB-Hersteller & Markt \\
+		\hline
+		Zeitbezug & Aktuell & Historisch \\ 
+		\hline
+		Zeitdimension & Zeitpunkt & Zeitraum \\
+		\hline
+		Beständigkeit & Dynamisch & Statisch \\
+		\hline
+		Granularität & Fein & Grob \\
+		\hline
+		Datenbestand & Vollständig & Lückenhaft \\
+		\hline
+		Redundanz & Normalisiert & Denormalisiert \\
+		\hline
+		Datenqualität / Aussagekraft & Tief & Hoch \\
+		\hline
+		Aufbereitung & Anwendungsneutral & Analyseorientiert \\
+		\hline
+		Aktualisierung & Laufend & Periodisch \\
+		\hline
+		Verarbeitungseinheit & Keon & Gross \\
+		\hline
+		Verteilungsgrad & Dezentral & Zentral \\
+		\hline
+		Datenquelle & Aktuelle Unternehmensdaten & Interne \& externe Daten \\
+		\hline
+	\end{tabular} 
+	\end{landscape}
 
-\begin{tabular}{|l|r|r|}
-	\hline 
-	Merkmal & OLTP System  & OLAP System  \\ 
-	\hline 
-	Ausrichtung auf & Programm, BWL Prozess & Mensch, Analyse\\ 
-	\hline 
-	Zeitliche Reichweite & Taktisch & Strategisch \\ 
-	\hline 
-	Entscheidungsstufe & Tief & Hoch \\ 
-	\hline
-	Zweck & Rationalisierung \& Automatisierung & Planung \& Entscheidung \\
-	\hline
-	Anwenderzahl &Hoch & Tief \\
-	\hline
-	Entscheidung & Deduktiv & Induktiv / Explorativ \\
-	\hline
-	Bewirtschaftung I & Ändernd & Befragend \\
-	\hline
-	Bewirtschaftung II & Auf Datensatzebene & Auf Aggregatsebene \\
-	\hline
-	Anwendungsmuster & Voraussehbar & Variierend \\
-	\hline
-	Befragungsmuster & Einfach & Komplex \\
-	\hline
-	Bearbeitung & Repetitiv & Ad hoc / unstrukturiert \\
-	\hline
-	Betriebliches Wissen & Verarbeitend & Generierend \\
-	\hline
-	Verteilungsgrad & Dezentral & Zentral \\
-	\hline
-	Performance-Bedarf & Durchgehend hoch & Variierend \\
-	\hline
-	Mehrbenutzersynchronisation & Hoch & Tief bis keine \\
-	\hline
-	Optimierung & Schneller Insert \& Delete & Schnelles Lesen \\
-	\hline
-	Transaktionsdurchsatz & Hoch & Tief \\
-	\hline
-	Transaktionsdauer & Kurte Mutationen weniger Tupel & Lange Abfragen vieler Tupel \\
-	\hline
-	Abfragen & Häufige, einfache Abfragen & Weniger häufige, komplexe Anfragen \\
-	\hline
-	Antwortzeiten & (Mili)sekunden & Sekunden, Minuten, Stunden \\
-	\hline
-	Endbenutzerwerkzeug-Hersteller & DB-Hersteller & Markt \\
-	\hline
-	Zeitbezug & Aktuell & Historisch \\ 
-	\hline
-	Zeitdimension & Zeitpunkt & Zeitraum \\
-	\hline
-	Beständigkeit & Dynamisch & Statisch \\
-	\hline
-	Granularität & Fein & Grob \\
-	\hline
-	Datenbestand & Vollständig & Lückenhaft \\
-	\hline
-	Redundanz & Normalisiert & Denormalisiert \\
-	\hline
-	Datenqualität / Aussagekraft & Tief & Hoch \\
-	\hline
-	Aufbereitung & Anwendungsneutral & Analyseorientiert \\
-	\hline
-	Aktualisierung & Laufend & Periodisch \\
-	\hline
-	Verarbeitungseinheit & Keon & Gross \\
-	\hline
-	Verteilungsgrad & Dezentral & Zentral \\
-	\hline
-	Datenquelle & Aktuelle Unternehmensdaten & Interne \& externe Daten \\
-\end{tabular} 
-
-\newpage
 
 \section{Daten vs. Informationen vs. Wissen vs. Weisheit}
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[keepaspectratio=true,height=18\baselineskip]{DIWW.PNG}
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{DIWW.PNG}
 	\caption{DIKW-Pyramid}
 	\label{fig:dikw}
 \end{figure}
@@ -247,7 +236,6 @@ Weisheit wird definiert als \textbf{Anwendung von Wissen auf eine Problemlösung
 Zusammengefasst kann man also sagen, Informationen sind das Verständnis von Zusammenhängen in Daten, oder auch \textbf{was die Daten bedeuten}. Wissen ist das Verständnis dieser Information (\textbf{was heisst das für mich?}) und Weisheit bestimmt, \textbf{was nun zu tun sei}. 
 \newpage
 
-%ToDo: Unterschied Daten, Information, Wissen, Weisheit??
 \section{Das Data Warehouse}
 
 \begin{wrapfigure}{R}{0.5\textwidth}
@@ -274,7 +262,9 @@ Daten sind in der Praxis meist nicht optimal abgelegt. Daten existieren meist
 
 $\rightarrow$ Lösung: \textbf{Data-Warehouse}
 
-\subsection{Definition Data-Warehouse (Buch S 33)}
+\newpage
+
+\subsection{Definition Data-Warehouse (Skript S 33)}
 	
 \blockquote[Oracle corp: Data warehousing Guide 11g (2007)]{A data warehouse is a relational database that is designed for query and analysis rather than for transaction processing. It usually contains historic data derived from transaction data, but can incude data from other sources. Data warehouses separate analysis workload from transactin workload and enable an organisation to consoldiate data from several sources.} 
  
@@ -286,7 +276,7 @@ Zusammengefasst kann man also sagen, ein Data Warehouse ist eine Datenbank, welc
 
 
 
-\subsection{Bestandteile eines Data-Warehouses (Buch S39)}
+\subsection{Bestandteile eines Data-Warehouses (Skript S39)}
 
 \begin{description}
 	\item [SSRS: ] SQL Server Reporting Services
@@ -296,7 +286,7 @@ Zusammengefasst kann man also sagen, ein Data Warehouse ist eine Datenbank, welc
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[keepaspectratio=true,height=18\baselineskip]{bestandteiledatawarehouse.PNG}
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{bestandteiledatawarehouse.PNG}
 	\caption{Bestandteile eines Data-Warehouses}
 	\label{fig:bstdw}
 \end{figure}
@@ -307,20 +297,118 @@ Zusammengefasst kann man also sagen, ein Data Warehouse ist eine Datenbank, welc
 
 \begin{figure}[htb]
 	\centering
-	\begin{subfigure}{0.45\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{whichDB.PNG}
-		\caption{Welche Datenbank für welche Tasks verwendet werden kann}
-		\label{fig:whichDB}
-	\end{subfigure}
-	\begin{subfigure}{0.45\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{referenceArch.PNG}
-		\caption{Referenzmodell nach Bauer \& Günzel}
-		\label{fig:refArch}
-	\end{subfigure}
+	\includegraphics[keepaspectratio=true,height=18\baselineskip]{bestandteileDW.png}
+	\caption{Welche Bestandteile eines Data-Warehouses werden für was benutzt?}
+	\label{fig:bestDW}
 \end{figure}
 
+
 Verschiedene Datenbanken können (und sollten) für verschiedene Tasks verwendet werden.
+
+\newpage
+
+\section{Referenzarchitekturen}
+\begin{wrapfigure}[16]{L}{0.5\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=18\baselineskip]{refModell.png}
+	\caption{Referenzmodell eines Data Warehouses nach Bauer \& Günzel}
+	\label{fig:refModel}
+\end{wrapfigure}
+
+
+Eine \textbf{Referenzarchitektur} ist ein Referenzmodell für eine Überklasse von Architekturen, in unserem Falle von Date Warehouses.
+
+Ein \textbf{Referenzmodell} ist ein allgemeines Modell für eine Klasse von Dingen. Ein Referenzmodell sollte folgende zwei Eigenschaften haben:
+
+\begin{itemize}
+	\item Es können bestimmte Sachverhalte oder Modelle auf dessen Basis erstellt werden.
+	\item Das allgemeine Modell kann als Vergleichsobjekt dienen.
+\end{itemize}
+
+In diesem Modul wird ausschliesslich mit dem hier dargestellten Referenzmodell von Bauer \& Günzel gearbeitet.
+
+\vspace{2cm}
+
+\subsection{Bestandteile des Referenzmodells (Skript S41)}
+\subsubsection{Datenquelle}
+Als \textbf{Datenquelle} eines Data-Warehouses werden oft beliebige\textit{ Bezugs-Datenbestände} benutzt (auch \textit{effektive Daten} oder \textit{Primärdaten} genannt)
+
+Das können zum Beispiel:
+\begin{itemize}
+	\item Daten aus \textbf{Legacy-Systemen}
+	\item Daten aus \textbf{Anwendungsprogrammen}
+	\item Daten aus \textbf{zentralen/dezentralen Arbeitsplatz-DBs}
+	\item \textbf{Textdateien} (z.B. im ASCII oder UTF-8 Format)
+	\item Tabellen aus z.B Excel
+\end{itemize}
+
+sein.
+
+\newpage
+
+Es gibt weiterhin einige Probleme mit Datenquellen aus verschiedenen Systemen, wie zum Beispiel:
+\begin{itemize}
+	\item Unterschiedliche Zeichencodierung (ASCII, ANSI, UTF-8)
+	\item Unterschiedliche Trennzeichen zwischen Datenfeldern (Komma, Semikolon)
+	\item Unterschiedliche Zeilenwechsel (CR/LF, LF)
+	\item Unterschiedlichen Sortierungen (alphanumerisch, numerisch)
+\end{itemize}
+
+Deshalb wird immer häufiger auf einheitliche XML-Inputs zurückgegriffen.
+
+\subsubsection{Arbeitsbereich / Staging Area}
+Der Arbeitsbereich integriert die Daten aus den verschiedenen vorhin genannten Datenquellen. Diese Integration passiert nach der Extraktion aus diesen Datenquellen.
+
+Die Daten werden mit Hilfe des Metadaten-Repository anhand ihrer Metadaten zusammengefügt und abgelegt.
+
+Das \textbf{Metadaten-Repository} besteht normalerweise aus verschiedenen Datenbank-Tabellen zur Verwaltung von Metadaten. Diese Metadaten stammen aus sehr unterschiedlichen Systemen und enthalten alle notwendigen Beschreibungen zu ihrem System und der Umwelt. Somit können die heterogenen Daten fast ohne Programmieraufwand zu einer homogenen Masse zusammengefügt werden.
+
+\vspace{5px}
+
+\noindent Die Staging Area ist ein \textbf{flüchtiges Zwischendepot} für die Daten. Hier werden die notwendigen Transformationen durchgeführt werden, welche in weiteren Schritten notwendig sind.
+
+\subsubsection{Basis-DB / Operational Data Store (ODS)}
+Ein ODS ist eine Datenbank, welche aktuelle/operative Daten hält, meist in kleinen Teilmengen unterteilt. Diese Datenbank ist eine \textbf{temporäre} Zwischenstation zwischen der Staging Area und dem Data Warehouse. 
+
+\vspace{5px}
+
+Das Datenmodell des OBS entspricht meist demjenigen der Datenquelle. Dies ist vor allem dann der Fall, wenn der OBS aus Leistungsgründen vom Quellsystem getrennt wurde und benutzt wird um gelegentliche Einzelfall-Analysen durchzuführen.
+
+\vspace{5px}
+
+Das Datenmodell des OBS kann andererseits auch demjenigen des Data Warehouses entsprechen. Dies ist dann der FAll, wenn der ODS als temporärer Zwischenspeicher zwischen den Quelldaten und dem Data Warehouse genutzt wird, oder aber wenn der ODS vom Data Warehouse Daten erhält.
+
+Eine Basis-DB/ein ODS muss nach Gauer \& Günzel folgende Eigenschaften haben:
+\begin{itemize}
+	\item Die Daten sind \textbf{integriert} von den jeweiligen Datenquellen. Das heisst die verschiedenen Datenformate und Schematas wurden vereinheitlicht.
+	\item Sie enthält nebst aktuellen Daten auch \textbf{historische Daten}, jedoch in geringerer Feingranularität wie das Data Warehouse.
+	\item Sie ist \textbf{Anwendungsneutral}, d.h. sie ist nicht für eine spezielle Anwendung optimiert bzw. fokussiert.
+	\item Nach einer definierten Zeitspanne werden die Daten in die \textbf{Ableitungsdatenbank} übertragen, wo sie je nach Auswertungsbedarf in einem anderen Detaillierungsgrad abgelegt werden.
+	\item Die \textbf{Aktualisierung} der Daten erfolgt zu \textbf{beliebigen Zeitpunkten}. Dieser Zeitpunkt wird durch den Aktualisierungsbedarf gesteuert.
+	\item Die Daten wurden bereits in der Staging Area bereinigt.
+\end{itemize}
+
+\vspace{5px}
+
+Der ODS wird entweder laufend oder periodisch mit Daten aus der Staging Area gefüttert. Vor allem in kleineren Data Warehouse Systemen fällt der ODS sogar manchmal ganz weg und die Staging Area übernimmt auch diese Arbeiten. Im professionellen Umfeld sind jedoch sowohl der ODS wie auch die Stagin-Area ein integraler Bestandteil der Data Warehouse Architektur. 
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{ODS.png}
+	\caption{Eingliederung des ODS in die Data Warehouse Architektur}
+	\label{fig:ODS}
+\end{figure}
+
+\newpage
+
+\subsubsection{Ableitungsdatenbank (=(Enterprise-)Data Warehouse)}
+Wenn von einem Data Warehouse gesprochen wird, ist in der Regel ein \textit{Enterprise-Data-Warehouse} gemeint (= ein DWH mit unternehmensweitem Datenmodell und unternehmensweiten, universellen Datenbestand). 
+
+\vspace{5px}
+
+Die Datenbestände eines Data Warehouses werden zwar periodisch ergänzt, jedoch werden praktisch nie Daten gelöscht oder verändert, wenn sie mal im Data Warehouse sind. Aufgrund dessen beinhalten solche Systeme eine enorme Menge von Daten (auch VLDBs für Very Large DataBases).
+
+Es ist jedoch selten nötig auf den gesamten Datenbestand dieser riesigen Datenbanken zuzugreifen. Aufgrund dessen werden Daten, die sehr selten benutzt werden in grossen Unternehmungen meist in Teilkopien des Data Warehouses, sogenannten \textit{Data Marts} gespeichert.
+
 
 \end{document}
