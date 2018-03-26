@@ -410,5 +410,50 @@ Die Datenbestände eines Data Warehouses werden zwar periodisch ergänzt, jedoch
 
 Es ist jedoch selten nötig auf den gesamten Datenbestand dieser riesigen Datenbanken zuzugreifen. Aufgrund dessen werden Daten, die sehr selten benutzt werden in grossen Unternehmungen meist in Teilkopien des Data Warehouses, sogenannten \textit{Data Marts} gespeichert.
 
+\subsubsection{Auswertungsdatenbank (Data-Mart)}
+Ein Data-Mart ist eine \textbf{Teilkopie} eines Data-Warehouses, die aber auf demselben Datenmodell basieren. Solche Data-Marts werden meist für Abteilungen einer Unternehmung wie z.B. das Marketing erstellt. Der Vorteil dieser Data-Marts ist, dass diese unabhngig sind vom zentralen DW.
+
+Vorteile eines Data-Marts sind z.B. 
+
+\begin{itemize}
+	\item Bessere Leistung, da nicht alle Analysen/Auswertungen auf dem zentralen DW gemacht werden müssen
+	\item Entlastung des DW
+	\item Im Falle von lokalen Data-Marts weniger Netzwerkbelastung
+\end{itemize}
+
+Die Pflege und (Weiter)Entwicklung des Data-Marts liegt jeweils in der Verantwortung der einzelnen Abteilungen.
+
+\vspace{5px}
+
+Dass ein Data-Mart existieren kann, \textbf{muss} ein zentrales Data-Warehouse existieren. Deshalb werden solche Data-Marts meist als \textbf{abhängige Data-Marts} bezeichnet.
+
+\vspace{5px}
+
+Diese abhängigen Data-Marts stehen im Gegensatz zu den (historischen) \textbf{unabhängigen Data-Marts}. Diese Data Mars erhalten ihre Daten direkt von verschiedenen Quellsystemen (gehen also nicht über ein zentrales Data-WArehouse). Jedoch widerspricht das dem Gedanken von einem zentralen "Datenhort" des Data-Warehousing und \textit{sollten} heute nicht mehr verwendet werden (oder man sollte sie zumindest nicht mehr als Data-Marts bezeichnen...)
+
+Ein "Problem" von Data-Marts ist, dass sie unabhängig voneinander sind. Somit werden meist dieselben Aggregationen mehrmals auf verschiedenen Data-Marts durchgeführt, was auf längere Zeit nicht sehr kosteneffizient ist. Stattdessen sollten diese Aggregationen eher auf dem zentralen DW durchgeführt werden (was aber nicht immer geht, da die verschiedenen Abteilungen nicht wissen, dass diese Aggregation bereits in einem anderen Data-Mart durchgeführt wurde)
+
+\subsection{Integrationsbereich (Skript S51)}
+Der Integrationsbereich bereitet die Daten, die aus verschiedenen Datenquellen kommen via staging area und ODS so auf, dass sie ins zentrale DW überführt werden können. 
+
+Im Zusammenhang mit dem Integrationsbereich wird oft von \textbf{ETL} gesprochen. ETL steht für \textit{Extract - Transfer - Load} und entspricht den wesentlichen Arbeitsschritten, die durchgeführt werden müssen, bis die Daten vom Quellsystem im DW landen.
+
+\subsubsection{ETL}
+\paragraph{Extraktion}
+Unter Extraktion versteht man die \textbf{Übertragung der Daten vom Quellsystem in die Staging Area}
+
+Je nach dem, welche \textbf{Monitorstrategie} gewählt wurde, müssen dabei noch geänderte Datenbestände selektiert werden.
+
+\begin{description}
+	\item[Triggerbasiert] Jede Datenmanipulation löst einen Trigger aus
+	\item[Replikationsbasiert] Geänderte Tupel werden in spezielle Tabellen geschrieben
+	\item[Zeitstempelbasiert] Jeder Datensatz hat ein Zeitstempel, welcher bei jeder Änderung aktualisiert wird. Anhand dieser Zeitstempel kann entschieden werden, welche Daten seit der letzten Extraktion geändert wurden.
+	\item[Logbasiert] Jede Änderung wird in einer Logdatei protokolliert. Durch die Auswertung dieser Logdatei wird entschieden, welche Daten geändert und somit extrahiert werden müssen
+	\item[Snapshotbasiert] Der gesamte Datenbestand wird periodisch in eine Datei geschrieben. Durch den Vergleich zweier solcher Snapshot-Dateien sieht man, welche Dateien zwischen den Snapshots geändert wurden.
+\end{description}
+
+\paragraph{Tranformation}
+\paragraph{Load}
+
 
 \end{document}
