@@ -20,6 +20,7 @@
 \usepackage{lscape}
 \usepackage{afterpage}
 \usepackage{geometry}
+\usepackage{listings}
 
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
 \newcommand{\shl}{~~\shortstack[l]}
@@ -363,20 +364,20 @@ Die Daten werden mit Hilfe des Metadaten-Repository anhand ihrer Metadaten zusam
 
 Das \textbf{Metadaten-Repository} besteht normalerweise aus verschiedenen Datenbank-Tabellen zur Verwaltung von Metadaten. Diese Metadaten stammen aus sehr unterschiedlichen Systemen und enthalten alle notwendigen Beschreibungen zu ihrem System und der Umwelt. Somit können die heterogenen Daten fast ohne Programmieraufwand zu einer homogenen Masse zusammengefügt werden.
 
-\vspace{5px}
+\vspace{10px}
 
 \noindent Die Staging Area ist ein \textbf{flüchtiges Zwischendepot} für die Daten. Hier werden die notwendigen Transformationen durchgeführt werden, welche in weiteren Schritten notwendig sind.
 
 \subsubsection{Basis-DB / Operational Data Store (ODS)}
 Ein ODS ist eine Datenbank, welche aktuelle/operative Daten hält, meist in kleinen Teilmengen unterteilt. Diese Datenbank ist eine \textbf{temporäre} Zwischenstation zwischen der Staging Area und dem Data Warehouse. 
 
-\vspace{5px}
+\vspace{10px}
 
-Das Datenmodell des OBS entspricht meist demjenigen der Datenquelle. Dies ist vor allem dann der Fall, wenn der OBS aus Leistungsgründen vom Quellsystem getrennt wurde und benutzt wird um gelegentliche Einzelfall-Analysen durchzuführen.
+\noindent Das Datenmodell des OBS entspricht meist demjenigen der Datenquelle. Dies ist vor allem dann der Fall, wenn der OBS aus Leistungsgründen vom Quellsystem getrennt wurde und benutzt wird um gelegentliche Einzelfall-Analysen durchzuführen.
 
-\vspace{5px}
+\vspace{10px}
 
-Das Datenmodell des OBS kann andererseits auch demjenigen des Data Warehouses entsprechen. Dies ist dann der FAll, wenn der ODS als temporärer Zwischenspeicher zwischen den Quelldaten und dem Data Warehouse genutzt wird, oder aber wenn der ODS vom Data Warehouse Daten erhält.
+\noindent Das Datenmodell des OBS kann andererseits auch demjenigen des Data Warehouses entsprechen. Dies ist dann der FAll, wenn der ODS als temporärer Zwischenspeicher zwischen den Quelldaten und dem Data Warehouse genutzt wird, oder aber wenn der ODS vom Data Warehouse Daten erhält.
 
 Eine Basis-DB/ein ODS muss nach Gauer \& Günzel folgende Eigenschaften haben:
 \begin{itemize}
@@ -388,9 +389,9 @@ Eine Basis-DB/ein ODS muss nach Gauer \& Günzel folgende Eigenschaften haben:
 	\item Die Daten wurden bereits in der Staging Area bereinigt.
 \end{itemize}
 
-\vspace{5px}
+\vspace{10px}
 
-Der ODS wird entweder laufend oder periodisch mit Daten aus der Staging Area gefüttert. Vor allem in kleineren Data Warehouse Systemen fällt der ODS sogar manchmal ganz weg und die Staging Area übernimmt auch diese Arbeiten. Im professionellen Umfeld sind jedoch sowohl der ODS wie auch die Stagin-Area ein integraler Bestandteil der Data Warehouse Architektur. 
+\noindent Der ODS wird entweder laufend oder periodisch mit Daten aus der Staging Area gefüttert. Vor allem in kleineren Data Warehouse Systemen fällt der ODS sogar manchmal ganz weg und die Staging Area übernimmt auch diese Arbeiten. Im professionellen Umfeld sind jedoch sowohl der ODS wie auch die Stagin-Area ein integraler Bestandteil der Data Warehouse Architektur. 
 
 \begin{figure}[htb]
 	\centering
@@ -404,9 +405,9 @@ Der ODS wird entweder laufend oder periodisch mit Daten aus der Staging Area gef
 \subsubsection{Ableitungsdatenbank (=(Enterprise-)Data Warehouse)}
 Wenn von einem Data Warehouse gesprochen wird, ist in der Regel ein \textit{Enterprise-Data-Warehouse} gemeint (= ein DWH mit unternehmensweitem Datenmodell und unternehmensweiten, universellen Datenbestand). 
 
-\vspace{5px}
+\vspace{10px}
 
-Die Datenbestände eines Data Warehouses werden zwar periodisch ergänzt, jedoch werden praktisch nie Daten gelöscht oder verändert, wenn sie mal im Data Warehouse sind. Aufgrund dessen beinhalten solche Systeme eine enorme Menge von Daten (auch VLDBs für Very Large DataBases).
+\noindent Die Datenbestände eines Data Warehouses werden zwar periodisch ergänzt, jedoch werden praktisch nie Daten gelöscht oder verändert, wenn sie mal im Data Warehouse sind. Aufgrund dessen beinhalten solche Systeme eine enorme Menge von Daten (auch VLDBs für Very Large DataBases).
 
 Es ist jedoch selten nötig auf den gesamten Datenbestand dieser riesigen Datenbanken zuzugreifen. Aufgrund dessen werden Daten, die sehr selten benutzt werden in grossen Unternehmungen meist in Teilkopien des Data Warehouses, sogenannten \textit{Data Marts} gespeichert.
 
@@ -423,13 +424,13 @@ Vorteile eines Data-Marts sind z.B.
 
 Die Pflege und (Weiter)Entwicklung des Data-Marts liegt jeweils in der Verantwortung der einzelnen Abteilungen.
 
-\vspace{5px}
+\vspace{10px}
 
-Dass ein Data-Mart existieren kann, \textbf{muss} ein zentrales Data-Warehouse existieren. Deshalb werden solche Data-Marts meist als \textbf{abhängige Data-Marts} bezeichnet.
+\noindent Dass ein Data-Mart existieren kann, \textbf{muss} ein zentrales Data-Warehouse existieren. Deshalb werden solche Data-Marts meist als \textbf{abhängige Data-Marts} bezeichnet.
 
-\vspace{5px}
+\vspace{10px}
 
-Diese abhängigen Data-Marts stehen im Gegensatz zu den (historischen) \textbf{unabhängigen Data-Marts}. Diese Data Mars erhalten ihre Daten direkt von verschiedenen Quellsystemen (gehen also nicht über ein zentrales Data-WArehouse). Jedoch widerspricht das dem Gedanken von einem zentralen "Datenhort" des Data-Warehousing und \textit{sollten} heute nicht mehr verwendet werden (oder man sollte sie zumindest nicht mehr als Data-Marts bezeichnen...)
+\noindent Diese abhängigen Data-Marts stehen im Gegensatz zu den (historischen) \textbf{unabhängigen Data-Marts}. Diese Data Mars erhalten ihre Daten direkt von verschiedenen Quellsystemen (gehen also nicht über ein zentrales Data-WArehouse). Jedoch widerspricht das dem Gedanken von einem zentralen "Datenhort" des Data-Warehousing und \textit{sollten} heute nicht mehr verwendet werden (oder man sollte sie zumindest nicht mehr als Data-Marts bezeichnen...)
 
 Ein "Problem" von Data-Marts ist, dass sie unabhängig voneinander sind. Somit werden meist dieselben Aggregationen mehrmals auf verschiedenen Data-Marts durchgeführt, was auf längere Zeit nicht sehr kosteneffizient ist. Stattdessen sollten diese Aggregationen eher auf dem zentralen DW durchgeführt werden (was aber nicht immer geht, da die verschiedenen Abteilungen nicht wissen, dass diese Aggregation bereits in einem anderen Data-Mart durchgeführt wurde)
 
@@ -438,22 +439,111 @@ Der Integrationsbereich bereitet die Daten, die aus verschiedenen Datenquellen k
 
 Im Zusammenhang mit dem Integrationsbereich wird oft von \textbf{ETL} gesprochen. ETL steht für \textit{Extract - Transfer - Load} und entspricht den wesentlichen Arbeitsschritten, die durchgeführt werden müssen, bis die Daten vom Quellsystem im DW landen.
 
-\subsubsection{ETL}
-\paragraph{Extraktion}
+\section{ETL}
+\subsection{Extraktion}
+
 Unter Extraktion versteht man die \textbf{Übertragung der Daten vom Quellsystem in die Staging Area}
 
-Je nach dem, welche \textbf{Monitorstrategie} gewählt wurde, müssen dabei noch geänderte Datenbestände selektiert werden.
+\vspace{10px}
+
+\noindent Je nach dem, welche Extraktions-Strategie gewählt wurde, werden die Daten zu unterschiedlichen Zeitpunkten extrahiert:
 
 \begin{description}
-	\item[Triggerbasiert] Jede Datenmanipulation löst einen Trigger aus
-	\item[Replikationsbasiert] Geänderte Tupel werden in spezielle Tabellen geschrieben
-	\item[Zeitstempelbasiert] Jeder Datensatz hat ein Zeitstempel, welcher bei jeder Änderung aktualisiert wird. Anhand dieser Zeitstempel kann entschieden werden, welche Daten seit der letzten Extraktion geändert wurden.
-	\item[Logbasiert] Jede Änderung wird in einer Logdatei protokolliert. Durch die Auswertung dieser Logdatei wird entschieden, welche Daten geändert und somit extrahiert werden müssen
-	\item[Snapshotbasiert] Der gesamte Datenbestand wird periodisch in eine Datei geschrieben. Durch den Vergleich zweier solcher Snapshot-Dateien sieht man, welche Dateien zwischen den Snapshots geändert wurden.
+	\item[Sofort] Der Extraktionsprozess wird bei jeder Änderung sofort gestartet
+	\item[Trigger-/Ereignisbasiert] z.B. Beim Erreichen einer festgelegten Anzahl von Änderungen
+	\item[Periodisch] Die Daten haben eine geforderte Mindestaktualität. Nach Ablauf dieser festgelegten Periode werden die Änderungen in eine sog. Snapshot-Datei überführt, die anschliessend in die Datenbank importiert wird.
+	\item[Anfrage] Eine Anfrage auf die Datenbank erfordert aktualisierte Daten.
 \end{description}
 
-\paragraph{Tranformation}
-\paragraph{Load}
+\vspace{10px}
 
+\noindent Es gibt zwei grundsätzlich zwei \textbf{Extraktionstechniken}
+\begin{description}
+	\item[Replikationsbasiert] Geänderte Tupel werden in spezielle Tabellen geschrieben
+	\item[Logbasiert] Jede Änderung wird in einer Logdatei protokolliert. Durch die Auswertung dieser Logdatei wird entschieden, welche Daten geändert und somit extrahiert werden müssen
+\end{description}
+
+\noindent Die Extraktion geschieht meist über SQL und es werden meist Schnittstellen zu den Datenbanken verwendet wie z.B. ODBC, OLE DB oder JDBC.
+
+\vspace{10px}
+
+\noindent \textbf{Open Database Connectivity (ODBC)} ist eine standardisierte Datenbankschnittstelle, mit welcher über SQL auf die Datenbank zugegriffen werden kann. Der Vorteil von ODBC ist, dass es eine API gibt, die es einem erlaubt, eine DB-Anwendung zu schreiben, die unabhängig vom Datenbankmanagement-System (DBMS) (mySQL, postgreSQL, Oracle etc) funktioniert, solange ODBC einen Treiber dafür hat.
+
+\vspace{10px}
+
+\noindent \textbf{Java Database Connectivity (JDBC)} ist eine universelle Java-basierte Datenbankschnittstelle für Datenbanken diverser Hersteller. JDBC ist vor allem auf relationale Datenbanken ausgelegt.
+
+
+\subsection{Tranformation}
+
+Nach der Extraktion müssen diese rohen Daten transformiert werden. Das heisst, sie müssen so aufbereitet werden, dass sie auch tatsächlich Sinn ergeben. Die Transformation lässt sich auf folgende Arbeitsschritte herunterbrechen:
+
+\begin{description}
+	\item[Data migration / Data wrangling] Daten werden \textbf{vereinheitlicht} also dass sie z.B. dieselben Masseinheiten oder Datenformate verwenden.
+	\item[Data clean(s)ing] Daten werden \textbf{bereinigt}, also doppelte Daten gelöscht, falsche Daten korrigiert oder veraltete Daten aktualisiert.
+\end{description}
+
+\vspace{10px}
+
+\noindent Dabei nimmt das Data Wrangling mit Abstand am meisten Zeit in Anspruch (bis zu 80\%)
+
+
+\subsection{Load}
+
+Die extrahierten und bereinigten Daten müssen nun noch in die \textbf{Basis- oder Ableitungsdatenbank übertragen} werden. Daür werden meist Ladewerkzeuge des Datenbankherstellers verwendet (SSIS bei SQL oder SQL*Loader bei Oracle)
+
+\vspace{10px}
+
+\noindent 
+Weitere Möglichkeiten sind z.B. die SSIS Integration von Visual Studio, SSIS direkt oder DataWriter von IBM
+
+\vspace{10px}
+
+\textbf{SQL-Codebeispiele für den Load-Prozess}
+
+\vspace{10px}
+
+\noindent SQL-INSERT
+
+\begin{lstlisting}[language=SQL]
+INSERT INTO table_name
+	VALUES (
+		value1,
+		value2,
+		value3,
+		...
+	)
+; 
+\end{lstlisting}
+
+\noindent SQL BULK INSERT
+
+\begin{lstlisting}[language=SQL]
+//FileType=1 (TxtFile1.txt)
+
+"Kelly","Reynold","kelly@reynold.com" 
+"John","Smith","bill@smith.com" 
+"Sara","Parker", "sara@parker.com"
+
+//FileType=2 (TxtFile2.txt) 
+
+Kelly,Reynold,kelly@reynold.com 
+John,Smith,bill@smith.com 
+Sara,Parker,sara@parker.com 
+
+BULK INSERT TmpStList FROM 'c:\TxtFile1.txt' WITH (FIELDTERMINATOR = '","') 
+BULK INSERT tmpStList FROM 'c:\TxtFile2.txt' WITH (FIELDTERMINATOR = ',')
+\end{lstlisting}
+
+
+\vspace{10px}
+
+\noindent Aufgrund dessen, dass während des Ladens die betroffenen Datenbanken gar nicht oder nur eingeschränkt nutzbar sind, ist die Effizienz des Ladevorgang essentiell. Aus diesem Grund werden Ladevorgänge meist in der Nacht, am frühen Morgen oder übers Wochenende durchgeführt.
+
+Es wird dabei zwischen \textbf{Online- und Offline-Ladevorgängen} unterschieden. Beim Online-Laden kann die Datenbank weiterhin verwendet werden. Beim Offline-Ladevorgang ist die Datenbank während des Vorgangs offline, kann also nicht verwendet werden. Ob eine Datenbank einen Online-Ladevorgang unterstützt, hängt davon ab, ob die verwendete Anwendung oder Datenbank dies zur Verfügung stellt. So könnten z.B. während des Ladevorgang die Datenänderungen in ein Logfile geschrieben werden und dieses Logfile wird nach erfolgreichem Ladevorgang in die aktualisierte Datenbank übertragen.
+
+Ebenfalls unterscheidet man zwischen dem \textbf{Initialisierungsladen} (alle Daten, DB wird zum ersten Mal gefüllt) und dem \textbf{Aktualisierungsladen} (nur geänderte Daten werden in die DB geladen)
+
+Daten werden entweder in eine Basis- Ableitungs- oder Auswertungsdatenbank geladen. Aufgrund der grossen Datenmengen können nicht die normalen Datenmanipulationswerkzeuge eingesetzt werden. Stattdessen werden meist sog. \textbf{Bulk-Loader},die auf genau diese Tasks spezialisiert sind, verwendet. Diese Bulk-Loader verwenden aus Effizienzgründen keine Schnittstelle zur DB, sondern greifen direkt darauf zu. Deshalb können bestimmte Bulk-Loader auch nur für bestimmte Datenbanken verwendet werden. 
 
 \end{document}
