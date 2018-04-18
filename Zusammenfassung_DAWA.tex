@@ -239,7 +239,7 @@ Zusammengefasst kann man also sagen, Informationen sind das Verständnis von Zus
 
 \section{Das Data Warehouse}
 
-\begin{wrapfigure}{R}{0.5\textwidth}
+\begin{wrapfigure}[10]{R}{0.5\textwidth}
 	\centering
 	\includegraphics[keepaspectratio=true,height=10\baselineskip]{datawarehouse.PNG}
 	\caption{Aufbau eines Datawarehouses}
@@ -409,7 +409,7 @@ Wenn von einem Data Warehouse gesprochen wird, ist in der Regel ein \textit{Ente
 
 \noindent Die Datenbestände eines Data Warehouses werden zwar periodisch ergänzt, jedoch werden praktisch nie Daten gelöscht oder verändert, wenn sie mal im Data Warehouse sind. Aufgrund dessen beinhalten solche Systeme eine enorme Menge von Daten (auch VLDBs für Very Large DataBases).
 
-Es ist jedoch selten nötig auf den gesamten Datenbestand dieser riesigen Datenbanken zuzugreifen. Aufgrund dessen werden Daten, die sehr selten benutzt werden in grossen Unternehmungen meist in Teilkopien des Data Warehouses, sogenannten \textit{Data Marts} gespeichert.
+Es ist jedoch selten nötig auf den gesamte§n Datenbestand dieser riesigen Datenbanken zuzugreifen. Aufgrund dessen werden Daten, die sehr selten benutzt werden in grossen Unternehmungen meist in Teilkopien des Data Warehouses, sogenannten \textit{Data Marts} gespeichert.
 
 \subsubsection{Auswertungsdatenbank (Data-Mart)}
 Ein Data-Mart ist eine \textbf{Teilkopie} eines Data-Warehouses, die aber auf demselben Datenmodell basieren. Solche Data-Marts werden meist für Abteilungen einer Unternehmung wie z.B. das Marketing erstellt. Der Vorteil dieser Data-Marts ist, dass diese unabhngig sind vom zentralen DW.
@@ -428,17 +428,41 @@ Die Pflege und (Weiter)Entwicklung des Data-Marts liegt jeweils in der Verantwor
 
 \noindent Dass ein Data-Mart existieren kann, \textbf{muss} ein zentrales Data-Warehouse existieren. Deshalb werden solche Data-Marts meist als \textbf{abhängige Data-Marts} bezeichnet.
 
-\vspace{10px}
-
-\noindent Diese abhängigen Data-Marts stehen im Gegensatz zu den (historischen) \textbf{unabhängigen Data-Marts}. Diese Data Mars erhalten ihre Daten direkt von verschiedenen Quellsystemen (gehen also nicht über ein zentrales Data-WArehouse). Jedoch widerspricht das dem Gedanken von einem zentralen "Datenhort" des Data-Warehousing und \textit{sollten} heute nicht mehr verwendet werden (oder man sollte sie zumindest nicht mehr als Data-Marts bezeichnen...)
+ Diese abhängigen Data-Marts stehen im Gegensatz zu den (historischen) \textbf{unabhängigen Data-Marts}. Diese Data Mars erhalten ihre Daten direkt von verschiedenen Quellsystemen (gehen also nicht über ein zentrales Data-WArehouse). Jedoch widerspricht das dem Gedanken von einem zentralen "Datenhort" des Data-Warehousing und \textit{sollten} heute nicht mehr verwendet werden (oder man sollte sie zumindest nicht mehr als Data-Marts bezeichnen...)
 
 Ein "Problem" von Data-Marts ist, dass sie unabhängig voneinander sind. Somit werden meist dieselben Aggregationen mehrmals auf verschiedenen Data-Marts durchgeführt, was auf längere Zeit nicht sehr kosteneffizient ist. Stattdessen sollten diese Aggregationen eher auf dem zentralen DW durchgeführt werden (was aber nicht immer geht, da die verschiedenen Abteilungen nicht wissen, dass diese Aggregation bereits in einem anderen Data-Mart durchgeführt wurde)
 
-\subsection{Integrationsbereich (Skript S51)}
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=18\baselineskip]{DWH_Bereiche.png}
+	\caption{Bereiche eines Data-Warehouses nach Bauer \& Günzel}
+	\label{fig:bereiche}
+\end{figure}
+
+\subsubsection{Integrationsbereich (Skript S51)}
+
 Der Integrationsbereich bereitet die Daten, die aus verschiedenen Datenquellen kommen via staging area und ODS so auf, dass sie ins zentrale DW überführt werden können. 
 
 Im Zusammenhang mit dem Integrationsbereich wird oft von \textbf{ETL} gesprochen. ETL steht für \textit{Extract - Transfer - Load} und entspricht den wesentlichen Arbeitsschritten, die durchgeführt werden müssen, bis die Daten vom Quellsystem im DW landen.
 
+\subsubsection{Verwaltungsbereich}
+%TODO
+\subsubsection{Auswertungsbereich}
+%TODO
+
+\subsection{Referenzmodelle in die Praxis umgesetzt}
+\subsubsection{"Hub and Spoke"-Architektur}
+\begin{wrapfigure}[16]{L}{0.5\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=18\baselineskip]{HubAndSpoke.PNG}
+	\caption{Hub and Spoke / Nabe und Speiche Architektur}
+	\label{label}
+\end{wrapfigure}
+
+Bei der Hub and Spoke (auch Nabe und Speiche Arhictektur) werden aus mehreren Quellsystemen (Speichen/Spokes) Daten in eine Basisdatenbank geladen, dort ETL-ed und anschliessend in eine Ableitungsdatenbank überführt (Hub/Nabe). Von dort werden sie anschliessend wieder in verschiedene Auswertung-Datenbanken verteilt (Speiche/Spokes).
+\vspace{10px}
+
+\noindent Das Core-Data-Warehouse ist also eine der zentralen Naben oder Hubs und ist verantwortlich für die Integration, QA und die Verteilung von Daten an die verschiedenen Data-Marts (Auswertungs-Datenbanken). 
 \section{ETL}
 \subsection{Extraktion}
 
@@ -545,5 +569,21 @@ Es wird dabei zwischen \textbf{Online- und Offline-Ladevorgängen} unterschieden
 Ebenfalls unterscheidet man zwischen dem \textbf{Initialisierungsladen} (alle Daten, DB wird zum ersten Mal gefüllt) und dem \textbf{Aktualisierungsladen} (nur geänderte Daten werden in die DB geladen)
 
 Daten werden entweder in eine Basis- Ableitungs- oder Auswertungsdatenbank geladen. Aufgrund der grossen Datenmengen können nicht die normalen Datenmanipulationswerkzeuge eingesetzt werden. Stattdessen werden meist sog. \textbf{Bulk-Loader},die auf genau diese Tasks spezialisiert sind, verwendet. Diese Bulk-Loader verwenden aus Effizienzgründen keine Schnittstelle zur DB, sondern greifen direkt darauf zu. Deshalb können bestimmte Bulk-Loader auch nur für bestimmte Datenbanken verwendet werden. 
+
+\subsection{Monitor}
+Der Monitor spielt je nach Extraktionsstrategie eine wichtige Rolle. Er überwacht die Datenquellen und bemerkt somit Datenänderungen sofort. Je nach Extraktionsstrategie wird somit ein ETL-Prozess getriggert, ein Logeintrag oder eine Snapshot-Datei gemacht o.ä. 
+
+Monitore haben vor allem in Data Warehouses eine sehr grosse Bedeutung. Dank ihnen müssen weniger DB-Zugriffe gemacht werden und gleichzeitig werden Redundanzen vermieden.
+
+\vspace{10px}
+
+\noindent Es gibt einige Sachen, die zu bedenken sind beim Einführen einer Monitor-Lösung:
+\begin{itemize}
+	\item Wird die gesamte Änderung festgehalten oder nur das neue/geänderte Tupel? ($\rightarrow$ Je nach dem Platzproblem)
+	\item Benachricht das Quellsystem den Monitor sobald es eine Änderung gegeben hat ($\rightarrow$ Triggering) oder fragt der Monitor regelmässig beim Quellsystem nach ($\rightarrow$ Polling)? ($\rightarrow$ je nach dem, Überbelastung von Quell- oder Zielsystem)
+	\item Überwacht das Quellsystem selbst, welche Änderungen erfolgen, oder wird dies von einem externen Dienst übernommen? ($\rightarrow$ Überbelastung Quellsystem vs. Kosten eines externen Dienstes)
+	\item Sollen Änderungen sofort zum Data Warehouse gepusht werden oder nur zu bestimmten Zeiten (z.B. über Nacht)? ($\rightarrow$ Belastung des Data Warehouses und Quellsystems vs. Synchrone Daten.)
+	
+\end{itemize}
 
 \end{document}
