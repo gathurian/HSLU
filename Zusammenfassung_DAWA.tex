@@ -449,20 +449,76 @@ Im Zusammenhang mit dem Integrationsbereich wird oft von \textbf{ETL} gesprochen
 %TODO
 \subsubsection{Auswertungsbereich}
 %TODO
+\newpage
 
-\subsection{Referenzmodelle in die Praxis umgesetzt}
+\subsection{Referenzmodelle in die Praxis umgesetzt (Skript S60)}
 \subsubsection{"Hub and Spoke"-Architektur}
-\begin{wrapfigure}[16]{L}{0.5\textwidth}
+\begin{wrapfigure}[15]{L}{0.5\textwidth}
 	\centering
-	\includegraphics[keepaspectratio=true,height=18\baselineskip]{HubAndSpoke.PNG}
+	\includegraphics[keepaspectratio=true,height=13\baselineskip]{HubAndSpoke.PNG}
 	\caption{Hub and Spoke / Nabe und Speiche Architektur}
 	\label{label}
 \end{wrapfigure}
 
 Bei der Hub and Spoke (auch Nabe und Speiche Arhictektur) werden aus mehreren Quellsystemen (Speichen/Spokes) Daten in eine Basisdatenbank geladen, dort ETL-ed und anschliessend in eine Ableitungsdatenbank überführt (Hub/Nabe). Von dort werden sie anschliessend wieder in verschiedene Auswertung-Datenbanken verteilt (Speiche/Spokes).
+
 \vspace{10px}
 
 \noindent Das Core-Data-Warehouse ist also eine der zentralen Naben oder Hubs und ist verantwortlich für die Integration, QA und die Verteilung von Daten an die verschiedenen Data-Marts (Auswertungs-Datenbanken). 
+
+\vspace{10px}
+
+
+\subsubsection{Star-Architektur}
+
+\begin{wrapfigure}[17]{R}{0.45\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=13\baselineskip]{starschema.jpg}
+	\caption{Starschema mit einer Fakttabelle in der Mitte und fünf Dimensionstabellen}
+	\label{fig:star}
+\end{wrapfigure}
+
+Die Star- oder Stern-Architektur ist eine der drei am weitesten verbreiteten Datenmodelle. Sie besteht aus einer sog. \textbf{Faktentabelle} in der Mitte, die von mehreren \textbf{Dimensionstabellen} sternförmig umgeben ist. 
+
+Durch eine solche Anordnung sind die Datenbanken normalerweise \textit{denormalisiert}, können also redundante Daten enthalten. Jedoch wird dieser eventuelle höhere Speicherbedarf in Kauf genommen, da ein solches Sternschema eine wesentliche höhere Performance bietet im ETL-Bereich wie eine normalisierte Datenbank.
+
+\vspace{10px}
+
+\noindent Eine weitere Verbesserung der Performance könnte man mit dem, aus der Stern-Architektur abgeleiteten \textbf{Schneeflockenarchitektur} erzielen.
+
+\vspace{20px}
+
+\subsubsection{Snowflake-Architektur}
+\begin{wrapfigure}[9]{L}{0.5\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=12\baselineskip]{snowflake.PNG}
+	\caption{caption}
+	\label{label}
+\end{wrapfigure}
+
+Die Snowflake- oder Schneeflocken-Architektur ist eng mit der Stenr-Architektur verbunden. Der einzige Unterschied zwischen der Stern- und der Schneeflocken-Architektur ist, dass die Dimensionstabellen gleichzeitig auch Faktentabellen sind, die wiederum von anderen Tabellen umgeben sind. Diese Dimensionstabellen werden über Joins verknüpft. 
+
+\vspace{70px}
+
+\subsubsection{Galaxy-Architektur}
+
+\begin{wrapfigure}[16]{R}{0.5\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=12\baselineskip]{galaxy.PNG}
+	\caption{Galaxy-Architektur}
+	\label{fig:galaxy}
+\end{wrapfigure}
+
+Die Galaxy- oder Galaxie-Architektur ist ebenfalls stark mit dem Stern-Schema verwandt. Allerdings können sich hier mehrere Faktentabelle eine Dimensionstabelle teilen.
+
+\vspace{20px}
+
+\noindent Bei den drei oben genannten Architekturen werden Daten als \textbf{Fakten} bezeichnet und somit in der \textbf{Faktentabelle} gespeichert. Fakten werden, je nach Literatur auch \textbf{Metriken} oder \textbf{Kennzahlen} genannt. Solche Faktentabellen können über die Zeit sehr gross werden und enthalten Kennzahlen, die sich aus dem laufenden Geschäft ableiten lassen, wie z.B. Profitabilität, Kosten oder Ausgaben.
+
+Sie in Abbildung \ref{fig:star} zu sehen ist, enthalten Faktentabellen Fremdschlüssel zu den Einträgen in den Dimensionstabellen. Das impliziert, dass es jeden Eintrag zu einer Kombination von Dimensionen nur einmal geben kann.
+
+Im Gegensatz zu den riesigen und volatlen Faktentabellen sind Dimenstionstabellen recht statisch und vergleichsweise klein. 
+
 \section{ETL}
 \subsection{Extraktion}
 
@@ -585,5 +641,56 @@ Monitore haben vor allem in Data Warehouses eine sehr grosse Bedeutung. Dank ihn
 	\item Sollen Änderungen sofort zum Data Warehouse gepusht werden oder nur zu bestimmten Zeiten (z.B. über Nacht)? ($\rightarrow$ Belastung des Data Warehouses und Quellsystems vs. Synchrone Daten.)
 	
 \end{itemize}
+
+\section{Unstrukturierte Daten}
+Ein Grossteil der Daten, der uns heute vorliegt, ist \textbf{unstrukturiert}. Das heisst, es ist mit viel Aufwand verbunden, aus grossen Datenmengen Informationen zu extrahieren (man denke z.B. daran, wie viel Aufwand es benötigen würde, um 10'000 E-Mails nach Thema zu sortieren vs. wie viel Aufwand es benötigt, 10'000 Datensätze nach ID zu sortieren).
+
+Mithilfe von \textbf{strukturierten Daten} kann man \textit{automatisiert} Informationen aus Datenquellen extrahieren und aufbereiten.
+
+\subsection{Nutzen}
+
+\noindent Wenn man heute unstrukturierte Daten auswerten würde, könnte man z.B. automatisch Kundenbewertungen und -beschwerden aus Foren und Blogs auslesen, Twitter-Posts analysieren u.v.m. 
+
+Zusammengefasst kann man sagen: Unstrukturierte Daten ermöglichen \textbf{Analysen, die zu schnellen Reaktionen und Entscheidungen führen}.
+
+\subsection{Herausforderungen}
+
+\begin{itemize}
+	\item Kein vorgegebenes/einheitliches Schema
+	\item Kein vorgegebenes/einheitliches Datenformat
+	\item Semantikabhängig (z.B. JSON vs. XML)
+	\item Grosse Mengen $\rightarrow$ können nicht manuell ausgewertet werden.
+	\item Priorität kann nicht automatisiert gemessen werden.
+	\item Datenqualität kann nicht automatisiert gemessen werden
+\end{itemize}
+
+\subsection{Analyse}
+
+\subsubsection{NLP - Natural Language Processing (Skript S70)}
+ NLP beschreibt die Techniken und Methoden zur maschinellen Verarbeitung natürlicher Sprache. Ziel ist eine direkte Kommunikation zwische nMensch und coputer auf Basis der natürlichen (menschlichen) Sprache.
+
+NLP ist eine sehr AI-lastige Technologie und mittels welcher Text in strukturierte Informationen gebündelt werden kann. NLP setzt sich mittels der Verarbeitung der natürlichen Sprache, dem Verstehen und der Semantik von 
+Wörtern und Sätzen der Klassifizierung von Texten auseinander.
+
+\subsubsection{Data Mining (Skript S71)}
+ Data Mining ist die systematische Anwendung statistischer Methoden auf grosse Datenbestände mit dem Ziel, neue Querverbindungen und Trends zu erkennen.
+
+\subsubsection{Text Mining (Skript S71)}
+ Text Mining ist eine Untermethode von Data Mining und konzentriert sich vor allem auf Data Mining von grossen Texten wie z.B. die Plagiaterkennung, die gesamte Doktorarbeiten durchliest und analysiert.
+ 
+ \subsubsection{Klassifikation}
+ Klassifikation versucht, den Datenbestand in vorgegebene Klassen zuzuordnen.
+ 
+ \subsubsection{Clustering}
+ Clustering ist ähnlich wie die Klassifikation, allerdings werden beim Clustering-Verfahren automatisch passende Klassen erstellt. Das Clustering-Verfahren zielt darauf ab, Gruppen oder Klassen zu erstellen, innerhalb von welchen sich die Objekte sehr ähnlich sind. Gleichzeitig sollten sich die erstellten Gruppen aber möglichst stark voneinander unterscheiden.
+ 
+ Clustering wird normalerweise nur zu Beginn ausgeführt, um Klassen zu erstellen, mit welchen anschliessend eine Klassifikation durchgeführt werden kann.
+ 
+ 
+
+
+
+
+
 
 \end{document}
