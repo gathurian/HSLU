@@ -22,8 +22,7 @@
 \usepackage{geometry}
 \usepackage{listings}
 
-\newcommand{\tabitem}{~~\llap{\textbullet}~~}
-\newcommand{\shl}{~~\shortstack[l]}
+\geometry{a4paper, margin=1in}
 
 \begin{document}
 \title{Zusammenfassung Data Warehousing FS2018}
@@ -48,8 +47,8 @@ Es gibt vier Arten der Entscheidungsunterstützung:
 	\item [KI: ] Basierend auf Vorschlägen von Systemen, die Entscheidungen auf Basis von Daten und/oder gelernten Inhalten ($\longrightarrow$ Machine Learning)
 \end{description}
 
-\subsubsection{Expertensystem}
-Ein Expertensystem (XPS oder ES) ist ein Computerprogramm, das Menschen bei der Lösung von komplexen Problemen wie ein menschlicher Experte unterstützen kann, indem es Handlungsempfehlungen aus einer Wissensbasis ableitet.
+
+\paragraph{Ein Expertensystem}(XPS oder ES) ist ein Computerprogramm, das Menschen bei der Lösung von komplexen Problemen wie ein menschlicher Experte unterstützen kann, indem es Handlungsempfehlungen aus einer Wissensbasis ableitet.
 
 \begin{figure}[htb]
 	\centering
@@ -309,7 +308,7 @@ Verschiedene Datenbanken können (und sollten) für verschiedene Tasks verwendet
 \newpage
 
 \section{Referenzarchitekturen}
-\begin{wrapfigure}[16]{L}{0.5\textwidth}
+\begin{wrapfigure}[15]{L}{0.5\textwidth}
 	\centering
 	\includegraphics[keepaspectratio=true,height=18\baselineskip]{refModell.png}
 	\caption{Referenzmodell eines Data Warehouses nach Bauer \& Günzel}
@@ -328,7 +327,7 @@ Ein \textbf{Referenzmodell} ist ein allgemeines Modell für eine Klasse von Ding
 
 In diesem Modul wird ausschliesslich mit dem hier dargestellten Referenzmodell von Bauer \& Günzel gearbeitet.
 
-\vspace{2cm}
+\vspace{3cm}
 
 \subsection{Bestandteile des Referenzmodells (Skript S41)}
 \subsubsection{Datenquelle}
@@ -400,8 +399,6 @@ Eine Basis-DB/ein ODS muss nach Gauer \& Günzel folgende Eigenschaften haben:
 	\label{fig:ODS}
 \end{figure}
 
-\newpage
-
 \subsubsection{Ableitungsdatenbank (=(Enterprise-)Data Warehouse)}
 Wenn von einem Data Warehouse gesprochen wird, ist in der Regel ein \textit{Enterprise-Data-Warehouse} gemeint (= ein DWH mit unternehmensweitem Datenmodell und unternehmensweiten, universellen Datenbestand). 
 
@@ -453,9 +450,9 @@ Im Zusammenhang mit dem Integrationsbereich wird oft von \textbf{ETL} gesprochen
 
 \subsection{Referenzmodelle in die Praxis umgesetzt (Skript S60)}
 \subsubsection{"Hub and Spoke"-Architektur}
-\begin{wrapfigure}[15]{L}{0.5\textwidth}
+\begin{wrapfigure}[14]{L}{0.5\textwidth}
 	\centering
-	\includegraphics[keepaspectratio=true,height=13\baselineskip]{HubAndSpoke.PNG}
+	\includegraphics[keepaspectratio=true,height=16\baselineskip]{HubAndSpoke.PNG}
 	\caption{Hub and Spoke / Nabe und Speiche Architektur}
 	\label{label}
 \end{wrapfigure}
@@ -466,14 +463,14 @@ Bei der Hub and Spoke (auch Nabe und Speiche Arhictektur) werden aus mehreren Qu
 
 \noindent Das Core-Data-Warehouse ist also eine der zentralen Naben oder Hubs und ist verantwortlich für die Integration, QA und die Verteilung von Daten an die verschiedenen Data-Marts (Auswertungs-Datenbanken). 
 
-\vspace{10px}
+\vspace{80px}
 
 
 \subsubsection{Star-Architektur}
 
-\begin{wrapfigure}[17]{R}{0.45\textwidth}
+\begin{wrapfigure}[16]{R}{0.5\textwidth}
 	\centering
-	\includegraphics[keepaspectratio=true,height=13\baselineskip]{starschema.jpg}
+	\includegraphics[keepaspectratio=true,height=16\baselineskip]{starschema.jpg}
 	\caption{Starschema mit einer Fakttabelle in der Mitte und fünf Dimensionstabellen}
 	\label{fig:star}
 \end{wrapfigure}
@@ -486,25 +483,23 @@ Durch eine solche Anordnung sind die Datenbanken normalerweise \textit{denormali
 
 \noindent Eine weitere Verbesserung der Performance könnte man mit dem, aus der Stern-Architektur abgeleiteten \textbf{Schneeflockenarchitektur} erzielen.
 
-\vspace{20px}
+\newpage
 
 \subsubsection{Snowflake-Architektur}
-\begin{wrapfigure}[9]{L}{0.5\textwidth}
+\begin{wrapfigure}[21]{L}{0.7\textwidth}
 	\centering
-	\includegraphics[keepaspectratio=true,height=12\baselineskip]{snowflake.PNG}
-	\caption{caption}
+	\includegraphics[keepaspectratio=true,height=18\baselineskip]{snowflake.PNG}
+	\caption{Beispiel einer Schneeflocken-Architektur}
 	\label{label}
 \end{wrapfigure}
 
 Die Snowflake- oder Schneeflocken-Architektur ist eng mit der Stenr-Architektur verbunden. Der einzige Unterschied zwischen der Stern- und der Schneeflocken-Architektur ist, dass die Dimensionstabellen gleichzeitig auch Faktentabellen sind, die wiederum von anderen Tabellen umgeben sind. Diese Dimensionstabellen werden über Joins verknüpft. 
 
-\vspace{70px}
-
 \subsubsection{Galaxy-Architektur}
 
-\begin{wrapfigure}[16]{R}{0.5\textwidth}
+\begin{wrapfigure}[19]{R}{0.7\textwidth}
 	\centering
-	\includegraphics[keepaspectratio=true,height=12\baselineskip]{galaxy.PNG}
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{galaxy.PNG}
 	\caption{Galaxy-Architektur}
 	\label{fig:galaxy}
 \end{wrapfigure}
@@ -515,7 +510,7 @@ Die Galaxy- oder Galaxie-Architektur ist ebenfalls stark mit dem Stern-Schema ve
 
 \noindent Bei den drei oben genannten Architekturen werden Daten als \textbf{Fakten} bezeichnet und somit in der \textbf{Faktentabelle} gespeichert. Fakten werden, je nach Literatur auch \textbf{Metriken} oder \textbf{Kennzahlen} genannt. Solche Faktentabellen können über die Zeit sehr gross werden und enthalten Kennzahlen, die sich aus dem laufenden Geschäft ableiten lassen, wie z.B. Profitabilität, Kosten oder Ausgaben.
 
-Sie in Abbildung \ref{fig:star} zu sehen ist, enthalten Faktentabellen Fremdschlüssel zu den Einträgen in den Dimensionstabellen. Das impliziert, dass es jeden Eintrag zu einer Kombination von Dimensionen nur einmal geben kann.
+Wie in Abbildung \ref{fig:star} zu sehen ist, enthalten Faktentabellen Fremdschlüssel zu den Einträgen in den Dimensionstabellen. Das impliziert, dass es jeden Eintrag zu einer Kombination von Dimensionen nur einmal geben kann.
 
 Im Gegensatz zu den riesigen und volatlen Faktentabellen sind Dimenstionstabellen recht statisch und vergleichsweise klein. 
 
@@ -653,6 +648,8 @@ Mithilfe von \textbf{strukturierten Daten} kann man \textit{automatisiert} Infor
 
 Zusammengefasst kann man sagen: Unstrukturierte Daten ermöglichen \textbf{Analysen, die zu schnellen Reaktionen und Entscheidungen führen}.
 
+\newpage
+
 \subsection{Herausforderungen}
 
 \begin{itemize}
@@ -672,25 +669,101 @@ Zusammengefasst kann man sagen: Unstrukturierte Daten ermöglichen \textbf{Analy
 NLP ist eine sehr AI-lastige Technologie und mittels welcher Text in strukturierte Informationen gebündelt werden kann. NLP setzt sich mittels der Verarbeitung der natürlichen Sprache, dem Verstehen und der Semantik von 
 Wörtern und Sätzen der Klassifizierung von Texten auseinander.
 
-\subsubsection{Data Mining (Skript S71)}
+\subsubsection{Data Mining}
  Data Mining ist die systematische Anwendung statistischer Methoden auf grosse Datenbestände mit dem Ziel, neue Querverbindungen und Trends zu erkennen.
 
-\subsubsection{Text Mining (Skript S71)}
+\subsubsection{Text Mining}
  Text Mining ist eine Untermethode von Data Mining und konzentriert sich vor allem auf Data Mining von grossen Texten wie z.B. die Plagiaterkennung, die gesamte Doktorarbeiten durchliest und analysiert.
  
  \subsubsection{Klassifikation}
  Klassifikation versucht, den Datenbestand in vorgegebene Klassen zuzuordnen.
  
+ \newpage
+ 
  \subsubsection{Clustering}
+ 
+  \begin{figure}[htb]
+ 	\centering
+ 	\includegraphics[keepaspectratio=true,height=12\baselineskip]{clustering.png}
+ 	\caption{Partitionierendes vs. Hierarchisches Clustering}
+ 	\label{fig:Clustering}
+ \end{figure}
+ 
  Clustering ist ähnlich wie die Klassifikation, allerdings werden beim Clustering-Verfahren automatisch passende Klassen erstellt. Das Clustering-Verfahren zielt darauf ab, Gruppen oder Klassen zu erstellen, innerhalb von welchen sich die Objekte sehr ähnlich sind. Gleichzeitig sollten sich die erstellten Gruppen aber möglichst stark voneinander unterscheiden.
  
  Clustering wird normalerweise nur zu Beginn ausgeführt, um Klassen zu erstellen, mit welchen anschliessend eine Klassifikation durchgeführt werden kann.
  
+ \vspace{10px}
  
+ \noindent Es wird generell zwischen dem \textbf{partitionierenden} Clustering und dem \textbf{hierarchischen} Clustering unterschieden (Abbildung \ref{fig:Clustering}):
+ 
+ \paragraph{Partitionierendes Clustering} unterteilt die gegebenen Daten in eine \textbf{vorgegebene Anzahl} von Klassen. Dabei werden zuerst die vorgebene Anzahl Clusterzentren/Klassen aus den Datensätzen ausgewählt. Anschliessend werden die restlichen Datensätze diesen Clusterzentren zugeordnet. 
+ 
+ Nach dem ersten Durchgang werden erneut Clusterzentren/Klassen gewählt und die Daten werden wiederum diesen, neuen, Clusterzentren zugeordnet. Dieses ganze Spiel wird solange wiederholt, bis die Daten 'optimal' geclustert sind (möglichst ähnlich innerhalb der Klasse/des Clusters, möglichst verschieden zwischen den Klassen/Cluster).
+ 
+   \begin{figure}[htb]
+ 	\centering
+ 	\includegraphics[keepaspectratio=true,height=12\baselineskip]{hierarchical_clustering.png}
+ 	\caption{Beispiel von agglomerativem (oben) und diversiven (unten) clustering}
+ 	\label{fig:hierCluster}
+ \end{figure}
+ 
+ \paragraph{Hierarchisches Clusteriong} kann wiederum in \textit{agglomeratives} und \textit{diversives} Clustering unterteilt werden. (Siehe Abbildung \ref{fig:hierCluster})
+ 
+ Das \textit{agglomerative} Clustering funktioniert so, dass jeder Datensatz eine eigene Klasse/ein eigenes Cluster ist. Anschliessend werden die \textbf{zwei ähnlichsten Klassen zu einer zusammengefasst}. Dieses Zusammenfassen zweier ähnlicher Klassen wird solange durchgeführt wird, bis alle Daten in einem einzigen Cluster zusammengeführt sind.
+ 
+ \vspace{10px}
+ 
+ \noindent Beim \textit{diversiven} Clustering geht es in die andere Richtung. Die Datensätze werden bei jeder Iteration so halbiert, dass die Elemente innerhalb eines Clusters sich so ähnlich wie möglich sind, die Cluster untereinander aber möglichst unterschiedlich zueinander sind ('optimale' Cluster also). Diese Unterteilung wird solange fortgesetzt, bis jeder Datensatz seinen eigenen Cluster hat. Dieses Verfahren wird in der Praxis aber eher weniger angewandt.
+ 
+ \subsubsection{Visualisierungstechnik}
+ \begin{wrapfigure}[10]{L}{0.6\textwidth}
+ 	\centering
+ 	\includegraphics[keepaspectratio=true,height=13\baselineskip]{streudiagramm.PNG}
+ 	\caption{Daten visuell aufbereitet mittels eines Streudiagrammes}
+ 	\label{fig:streu}
+ \end{wrapfigure}
+ Bei der Visualisierungstechnik überlässt man die tatsächliche Auswertung dem Menschen. Die Daten werden mittels \textbf{zwei bis drei Merkmalen} im \textbf{zwei- oder dreidimensionalen} Raum dargestellt (z.B. Streudiagramm, siehe Abbildung \ref{fig:streu}). Es ist nun dem Menschen überlassen, aus dieser Grafik etwas nützliches herauszulesen.
+ 
+ \vspace{90px}
 
+\subsubsection{Fallbasierte Systeme}
 
+\begin{wrapfigure}[12]{R}{0.5\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=12\baselineskip]{fallbasiert.png}
+	\caption{Funktionsweise eines Fallbasierten Systemes}
+	\label{fig:fallbasiert}
+\end{wrapfigure}
 
+Solche Systeme greifen auf Daten von ähnlichen, bereits gelösten Problemen zurück. Es gibt eine \textbf{Falldatenbank} gefüllt mit bereits gelösten, getaggeden oder anderswie codierten Problemen, auf welche zugegriffen werden kann. (Siehe Abbildung \ref{fig:fallbasiert})
 
+Dieses System beruht auf der Annahme, dass geringe Änderungen an einer Problemstellung auch nur geringe Änderungen am Lösungsweg zur Konsequenz habenn (also \textbf{lineare Probleme}). Somit sind fallbasierte Systeme \textit{nicht} geeignet, um komplexe Probleme zu lösen.
+
+\newpage
+
+\subsubsection{Entscheidungsbaumverfahren (Buch S136)}
+Ein Entscheidungsbaum ist die \textbf{grafische Darstellung einer Datenteilung} (z.B. mittels Clustering). Dabei stellen die nicht-Blatt Knoten des Baumes die Merkmale der Daten dar, nach denen der Datensatz geteilt wird. Über die Kanten werden diese Merkmale verbunden. Die Teildatenbestände (z.B. Cluster oder Klassen) werden schlussendlich in den Blättern dargestellt.
+
+\vspace{10px}
+
+\noindent Ein solcher Baum wird mittels des \textbf{Entscheidu9ngsbaumverfahrens}. Zuerst wird ein Merkmal bestimmt, nach welchem sortiert werden soll (in Abbildung \ref{fig:tree} wäre dies z.B. ob \\ 
+$Schalengewicht <= 0.168$ und  $MSE = 10.273$ ist) und es wird danach sortiert. Dieser Vorgang wird nun wiederholt (dieses mal ist z.B. das Merkmal links $Schalengewicht <=0.059$ und $MSE = 4.635$ ist).
+
+Der Vorgang wird nun solange wiederholt, bis alle Datensätze zu einem Cluster gehören, oder sich kein Merkmal mehr finden lässt, durch welches geteilt werden kann.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=13\baselineskip]{tree.png}
+	\caption{Beispiel eines Entscheidungsbaumes}
+	\label{fig:tree}
+\end{figure}
+
+Um Bäume zu verbessern, die eine hohe Fehlerquote aufweisen, kann \textbf{Pruning} verwendet werden. Dabei werden einzelne Knoten und Kanten des Baumes entfernt, um den Baum zu verkleinern und somit die Teilgenauigkeit des Baumes insgesamt zu erhöhen.
+
+\vspace{10px}
+
+\noindent Entscheidungsbäume werden zum Beispiel zur \textbf{Klassifizierung} von Daten hinzugezogen werden, um die Klassen einfacher und übersichtlicher darstellen zu können.
 
 
 \end{document}
