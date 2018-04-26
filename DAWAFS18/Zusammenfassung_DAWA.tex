@@ -23,6 +23,7 @@
 \usepackage{listings}
 
 \geometry{a4paper, margin=1in}
+\renewcommand{\figurename}{Abb.}
 
 \begin{document}
 \title{Zusammenfassung Data Warehousing FS2018}
@@ -90,8 +91,12 @@ Zudem sind Datenbank-Abfragen stets \textbf{zweidimensional} in Tabellen dargest
 
 $\rightarrow$ Neuer Ansatz der Datenabfrage muss her: \textbf{OLAP}
 
+\newgeometry{margin=0.5in}
+
 \begin{landscape}
 \subsection{OLAP vs OLTP}
+	
+	\centering
 	
 	\begin{tabular}[htbp]{|l|r|r|}
 		\hline 
@@ -166,6 +171,7 @@ $\rightarrow$ Neuer Ansatz der Datenabfrage muss her: \textbf{OLAP}
 	\end{tabular} 
 	\end{landscape}
 
+\restoregeometry
 
 \section{Daten vs. Informationen vs. Wissen vs. Weisheit}
 
