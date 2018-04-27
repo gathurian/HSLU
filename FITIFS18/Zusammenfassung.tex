@@ -134,8 +134,54 @@ Es kann auch zu 'Show-Stopper' kommen beim Verbindungsaufbau mit IPSec, die verh
 
 In aller Regel sind Site-To-Site VPNs aber trotzdem möglich, solange die verwendeten Algorithmen bekannt und kompatibel sind.
 
+\newpage<
+
 \subsection{WAN-Technologien}
- 
+\subsubsection{Definition}
+WAN (Wide Area Network) sind \textbf{Netzwerk-Verbindungen} über \textbf{weite Distanzen}. Die Nutzen von WAN werden aufgeteilt in \textit{internet-basierte} und \textit{nicht-internet-basierte} Nutzen.
+\vspace{10px}
+  
+\noindent  Internetbasierte Nutzen von WAN sind z.B. der Zugriff auf entfernte Ressoourcen über RDP oder Citrix, SSL-VPN oder Site-to-Site VPN via Internet.
+
+\vspace{10px}
+
+\noindent Nicht internet-basierte Nutzen von WAN sind z.B. Dark Fiber (Eine direkte Point-to-Point Verbindung zwischen zwei Standorten, die nicht am Internet hängt. Dark Fiber hat eine Reichweite von max 50km), LAN-Interconnect (Die Vereinigung zweier LANs über WAN), Private Lines oder Business VPN.
+
+\subsubsection{Beurteilungskriterien}
+Die Qualität von WAN-Verbindungen kann anhand verschiedener Kriterien gemessen werden.
+
+\begin{description}
+\item[Geschwindigkeit: ] Kann die Geschwindigkeit, die der ISP verspricht auch garantiert werden?
+\item [Zuverlässigkeit: ] Wird die vereinbarte SLA zuverlässig eingehalten?
+\item[Kosten: ] Hat der Service ein vertretbares Kosten/Nutzen Verhältnis?
+\item[Redundanz: ] Garantiert der ISP eine Redundanz, falls eine Line unterbrochen wird?
+\item[Konfiguration \& Management: ] Welche Möglichkeiten bietet der ISP?
+\item[Provider/ISP: ] Welche Reputation hat der ISP? Wo ist er (vgl. Datenschutz), wie steht er wirtschaftlich da?
+\item[Sicherheit: ] Wie schützt der ISP die Verbindung?
+\end{description}
+
+\subsection{IPv6}
+IPv6 (Internet Protocol version 6) ist der Nachfolger des heute am weitesten verbreiteten Internet Protokoll IPv4. IPv4 wurde in den Anfangsjahren des Internets entwickelt und ware nie dazu gedacht, solche Mengen von Geräten zu managen, die heute am Internet hängen. Deshalb bietet es nur eine sehr begrenzte Anzahl von öffentlichen IP-Adressen an (4.3 Milliarden öffentliche IPs vs. ca. 11.2 Milliarden Geräte in 2018 \footnote{Quelle: https://www.gartner.com/newsroom/id/3598917})). Durch 'verschwenderische' Vergabe dieser IP-Adressen in den 90er Jahren und strukturelle Begebenheiten des Protokolls (subnetting als Beispiel), sind diese IPs heutzutage so gut wie erschöpft.
+
+IPv6, das bereits 1998(!!) vom IETF standardisiert wurde, besteht aus einer 128bit langen hexadezimal-Zeichenfolge. Dadurch bietet das Protokoll \textbf{340 Sextilionen ($340 * 10^{36} $) Adressen}. Ausserdem bietet es weitere, nützliche Features wie eingebautes QoS, Mobile IP oder erweiterte automatische Konfigurationen der Netzwerkschnittstellen.
+
+\subsubsection{Adressierung}
+Eine IPv6-Adresse ist ein 128bit langer hexadezimal-String. Er wird in 8 Blöcke zu je 16bit unterteilt, die mit einem Doppelpunkt voneinander getrennt werden.
+
+Da 128bit hexadezimal-Strings ein bisschen komplizierter sind wie 32bit dezimal-Nummern, gibt es einige Vereinfachungen und Guidelines, die das Arbeiten mit IPv6 vereinfachen sollen:
+
+\begin{itemize}
+	\item Falls ein Block mit Nullen startet, können diese weggelassen werden. Somit wird die Adresse 2001:0db8:0000:08d3:0000:8a2e:0070:7344 zu 2001:db8:0:8d3:0:8a2e:70:7344
+	\item Falls ein ganzer Block (oder mehrere aufeinanderfolgende) ausschliesslich aus Nullen besteht, so kann er ganz weggelassen werden. Das darf jedoch nur \textit{einmal} pro Adresse gemacht werden. 2001:0db8:0000:08d3:0000:8a2e:0070:7344 kann also abgekürzt werden zu 2001:db8::8d3:0:8a2e:70:7344.
+	\item Die letzten 4 Bytes (32bit) einer Adresse dürfen auch in Dezimal angegeben werden. Dies ist vor allem hilfreich, wenn IPv4 Adressen zu IPv6 Adressen umgewandelt werden. So kann die IPv4 localhost Adresse 127.0.0.1, die eigentlich zu  0:0:0:0:0:ffff:7f00:1 wird, kann zur besseren Verständlichkeit auch als 0:0:0:0:0:ffff:127.0.0.1 (oder abgekürzt ::ffff:127.0.0.1) geschrieben werden.
+\end{itemize}
+
+IPv6 unterscheidet im Gegensatz zu IPv4 nicht zwischen public und private IP Adressen. Diese Tatsache eigentlich auch das NAT obsolet, dessen einzige Aufgabe es war, mehrere private IPs zu einer public IP zu mappen. Stattdessen wird eine Subnetzmaske definiert (standartmässig 64bit). Die ersten 64bit identifizeren das Netzwerk und die restlichen 64bit identifizieren den Host in diesem Netzwerk. 2001:0db8:85a3:08d3:1319:8a2e:0370:7347/64 bezeichnet also den Host/die NIC 1319:8a2e:0370:7347 im Netzwerk 2001:0db8:85a3:08d3. Analog wie im IPv4 bezeichnet 2001:0db8:85a3:08d3::/64 das gesamte Netzwerk (wie 192.168.0.0 in IPv4). 
+
+\vspace{10px}
+
+\noindent IPv6 Adressen werden zwar nicht in private und public Adressen unterteilt, jedoch wird zwischen Link Local Unicast, Unique Local Unicast u,  
+
 
 \section{Identity Management}
 
