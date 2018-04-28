@@ -24,8 +24,11 @@
 
 \geometry{a4paper, margin=1in}
 \renewcommand{\figurename}{Abb.}
+\newcommand{\code}[1]{\texttt{#1}}
+
 
 \begin{document}
+	
 \title{Zusammenfassung Future IT-Infrastructure FS2018}
 \author{Alex Neher}
 \maketitle
@@ -134,7 +137,7 @@ Es kann auch zu 'Show-Stopper' kommen beim Verbindungsaufbau mit IPSec, die verh
 
 In aller Regel sind Site-To-Site VPNs aber trotzdem möglich, solange die verwendeten Algorithmen bekannt und kompatibel sind.
 
-\newpage<
+\newpage
 
 \subsection{WAN-Technologien}
 \subsubsection{Definition}
@@ -171,16 +174,33 @@ Eine IPv6-Adresse ist ein 128bit langer hexadezimal-String. Er wird in 8 Blöcke
 Da 128bit hexadezimal-Strings ein bisschen komplizierter sind wie 32bit dezimal-Nummern, gibt es einige Vereinfachungen und Guidelines, die das Arbeiten mit IPv6 vereinfachen sollen:
 
 \begin{itemize}
-	\item Falls ein Block mit Nullen startet, können diese weggelassen werden. Somit wird die Adresse 2001:0db8:0000:08d3:0000:8a2e:0070:7344 zu 2001:db8:0:8d3:0:8a2e:70:7344
-	\item Falls ein ganzer Block (oder mehrere aufeinanderfolgende) ausschliesslich aus Nullen besteht, so kann er ganz weggelassen werden. Das darf jedoch nur \textit{einmal} pro Adresse gemacht werden. 2001:0db8:0000:08d3:0000:8a2e:0070:7344 kann also abgekürzt werden zu 2001:db8::8d3:0:8a2e:70:7344.
-	\item Die letzten 4 Bytes (32bit) einer Adresse dürfen auch in Dezimal angegeben werden. Dies ist vor allem hilfreich, wenn IPv4 Adressen zu IPv6 Adressen umgewandelt werden. So kann die IPv4 localhost Adresse 127.0.0.1, die eigentlich zu  0:0:0:0:0:ffff:7f00:1 wird, kann zur besseren Verständlichkeit auch als 0:0:0:0:0:ffff:127.0.0.1 (oder abgekürzt ::ffff:127.0.0.1) geschrieben werden.
+	\item Falls ein Block mit Nullen startet, können diese weggelassen werden. Somit wird die Adresse \code{2001:0db8:0000:08d3:0000:8a2e:0070:7344} zu \code{2001:db8:0:8d3:0:8a2e:70:7344}
+	\item Falls ein ganzer Block (oder mehrere aufeinanderfolgende) ausschliesslich aus Nullen besteht, so kann er ganz weggelassen werden. Das darf jedoch nur \textit{einmal} pro Adresse gemacht werden. \code{2001:0db8:0000:08d3:0000:8a2e:0070:7344} kann also abgekürzt werden \\
+	zu \code{2001:db8::8d3:0:8a2e:70:7344}.
+	\item Die letzten 4 Bytes (32bit) einer Adresse dürfen auch in Dezimal angegeben werden. Dies ist vor allem hilfreich, wenn IPv4 Adressen zu IPv6 Adressen umgewandelt werden. So kann die IPv4 localhost Adresse \code{127.0.0.1}, die eigentlich zu \code{0:0:0:0:0:ffff:7f00:1} wird, kann zur besseren Verständlichkeit auch als \code{0:0:0:0:0:ffff:127.0.0.1} (oder abgekürzt \code{::ffff:127.0.0.1}) geschrieben werden.
 \end{itemize}
 
-IPv6 unterscheidet im Gegensatz zu IPv4 nicht zwischen public und private IP Adressen. Diese Tatsache eigentlich auch das NAT obsolet, dessen einzige Aufgabe es war, mehrere private IPs zu einer public IP zu mappen. Stattdessen wird eine Subnetzmaske definiert (standartmässig 64bit). Die ersten 64bit identifizeren das Netzwerk und die restlichen 64bit identifizieren den Host in diesem Netzwerk. 2001:0db8:85a3:08d3:1319:8a2e:0370:7347/64 bezeichnet also den Host/die NIC 1319:8a2e:0370:7347 im Netzwerk 2001:0db8:85a3:08d3. Analog wie im IPv4 bezeichnet 2001:0db8:85a3:08d3::/64 das gesamte Netzwerk (wie 192.168.0.0 in IPv4). 
+IPv6 unterscheidet im Gegensatz zu IPv4 nicht zwischen public und private IP Adressen. Diese Tatsache eigentlich auch das NAT obsolet, dessen einzige Aufgabe es war, mehrere private IPs zu einer public IP zu mappen. Stattdessen wird eine Subnetzmaske definiert (standartmässig 64bit). Die ersten 64bit identifizeren das Netzwerk und die restlichen 64bit identifizieren den Host in diesem Netzwerk. \code{2001:0db8:85a3:08d3:1319:8a2e:0370:7347/64} bezeichnet also den Host/die NIC \code{1319:8a2e:0370:7347} im Netzwerk. Analog wie im IPv4 bezeichnet \code{2001:0db8:85a3:08d3::/64} das gesamte Netzwerk (wie \code{192.168.0.0} in IPv4). 
 
 \vspace{10px}
 
-\noindent IPv6 Adressen werden zwar nicht in private und public Adressen unterteilt, jedoch wird zwischen Link Local Unicast, Unique Local Unicast u,  
+\noindent IPv6 Adressen werden zwar nicht in private und public Adressen unterteilt, jedoch wird zwischen verschiedenen \textbf{Adressarten} unterschieden:
+
+\begin{description}
+	\item[Link Local Unicast: ] Jede NIC/jeder Host, der IPv6-enabled ist, erhält automatisch eine Link Local Adresse. Sie wird \textbf{automatisch erstellt} und ist einzigartig für jeden Host und wird von dessen MAC-Adresse abgeleitet. Dieser Adresstyp wird \textbf{nicht geroutet}, soll heissen diese Adresse ist nur vom lokalen Subnetz aus anpingbar. 
+	
+	Mithilfe der Link Local Adresse wird z.B. Neighbour-Discovery gemacht. Ebenfalls wird normalerweise die Link Local Adresse des Routers als Gateway angegeben. 
+	\item[Unique Local Unicast: ] Wie bereits erwähnt, arbeitet IPv6 nicht mit private und public Adressen, was NAT eigentlich obsolet macht. Jedoch ist es manchmal trotzdem wünschenswert, ausschliesslich im lokalen Netz zu kommunizieren. Unique Local Unicasts werden \textbf{ausschliesslich im eigenen LAN geroutet}, nicht jedoch im Internet.
+	\item[Global Unicast: ] Dies ist die öffentliche IP des Host. Sie wird \textbf{im LAN und im Internet geroutet}.
+	\item[Multicast: ] Multicasts werden verschickt, wenn die Link Local Adresse eines Hosts noch nicht bekannt ist. Sie sind das \textbf{Equivalent des IPv4 Broadcasts}.
+	\item[Site Local Unicast: ] Vorgänger des Unique Local Unicasts, veraltet.
+\end{description}
+
+\subsection{Software Defined Networks}
+\subsubsection{Momentaner State-of-the-Art}
+Momentan werden Netzwerke \textbf{statisch} aufgebaut. Es wird geplant, getestet und anschliessend aufgebaut. Jede Änderung unterliegt dem \textbf{Change-Management} und muss zuerst genehmigt werden. Dasselbe gilt für virtualisierte Netzwerke wie z.B. VMWare-Cluster etc.).
+
+Zudem hat jeder Hardware-Hersteller seine eigene, meist proprietäre Management-Konsole/Management-Tool
 
 
 \section{Identity Management}
