@@ -200,10 +200,53 @@ IPv6 unterscheidet im Gegensatz zu IPv4 nicht zwischen public und private IP Adr
 \subsubsection{Momentaner State-of-the-Art}
 Momentan werden Netzwerke \textbf{statisch} aufgebaut. Es wird geplant, getestet und anschliessend aufgebaut. Jede Änderung unterliegt dem \textbf{Change-Management} und muss zuerst genehmigt werden. Dasselbe gilt für virtualisierte Netzwerke wie z.B. VMWare-Cluster etc.).
 
-Zudem hat jeder Hardware-Hersteller seine eigene, meist proprietäre Management-Konsole/Management-Tool
+%TODO
 
 
 \section{Identity Management}
+
+\subsection{Geschichtliches}
+Als der Übergang von standalone-Systemen zu vernetzten Rechnersystemen stattfand, mussten Rechner plötzlich Informationen von anderen Rechnern im gleichen Netzwerk abfragen (wie z.B. IP- oder MAC-Adressen). Zudem mussten Benutzer in der Lage sein, Informationen/Dateien von anderen Rechnern abrufen und bearbeiten zu können. 
+
+In den 8er Jahren kam schlussendlich die Idee auf, eine weltweite Datenbank mit allen vernetzten Rechnern aufzusetzen:
+
+\paragraph{X.500} sollte folgende Eigenschaften besitzen:
+\begin{itemize}
+	\item Verteilte Informationen
+		\subitem Jede Firma verwaltet seine Informationen selbst
+		\subitem Jede Firma bestimmt, welche Informationen veröffentlicht werden, also von aussen zugänglich sind.
+		\subitem Alle Firmen können auf veröffentliche Informationen von anderen zugreifen.
+	\item Hierarchische Struktur mit objektorientierter Ausrichtung
+		\subitem Vorwiegend geographisch aufgebaut.
+		\subitem Hierarchie ist den konkreten Bedürfnissen anpassbar.
+		\subitem Berechtigungen und Sicherheit sind auf jeder Hierarchiestufe definierbar.
+	\item Hohe Verfügbarkeit
+		\subitem Verteilte Datenbanken 
+		\subitem Replizierte Datenbestände
+		\subitem Verteilte Administration
+\end{itemize}
+
+Es stellte sich jedoch recht schnell heraus, dass eine einzige, globale Datenbank schlicht und einfach zu komplex ist. Zudem wurde X.500 praktisch nicht genutzt, höchstens als E-Mail-Adressen-Verzeichnis. Daraus folgt, dass es fast keine Produkte auf dem Markt gab, was die gesamte Situation nicht wirklich verbesserte. Aufgrund dessen erachteten es Betriebssystem-Hersteller auch nicht für nötig, native Unterstützung dieser Norm zu implementieren. $\rightarrow$ \textbf{X.500 starb recht schnell wieder aus.}
+
+\newpage
+
+\subsection{Begriffe}
+\begin{wrapfigure}[10]{R}{0.4\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=10\baselineskip]{DIT.PNG}
+	\caption{Beispiel eines DIT}
+	\label{fig:dti}
+\end{wrapfigure}
+\paragraph{DIT - Directory Information Tree}\mbox{}\\
+Der DIT wird verwendet, um Netzwerke darzustellen. Informationen werden hierarchisch dargestellt (siehe Abb. \ref{fig:dti} ). Im FAlle von X.500 war die Hierarchie Country (C) $\rightarrow$ Organization (O) $\rightarrow$ Organization Unit (OU). OUs halten weitere OUs oder Objekte, die mit einem Common Name adressiert werden. Am Beispiel von Abb. \ref{fig:dti} wäre ein Commmon Name 
+
+\begin{lstlisting}
+CN=Markus Waldmann, OU=Informatik, 
+OU=I, O=HSLU, C=CH
+\end{lstlisting}
+
+\paragraph{DIB - Directory Information Base} \mbox{} \\
+
 
 \section{Cloud Resources}
 
