@@ -2,7 +2,7 @@
 
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
-
+\usepackage{amsmath}
 \usepackage{comment} % enables the use of multi-line comments (\ifx \fi) 
 \usepackage{lipsum} %This package just generates Lorem Ipsum filler text. 
 \usepackage{fullpage} % changes the margin
@@ -21,6 +21,8 @@
 \usepackage{afterpage}
 \usepackage{geometry}
 \usepackage{listings}
+\usepackage{xcolor}
+\usepackage{ulem}
 
 \geometry{a4paper, margin=1in}
 \renewcommand{\figurename}{Abb.}
@@ -643,6 +645,8 @@ Monitore haben vor allem in Data Warehouses eine sehr grosse Bedeutung. Dank ihn
 	
 \end{itemize}
 
+\newpage
+
 \section{Unstrukturierte Daten}
 Ein Grossteil der Daten, der uns heute vorliegt, ist \textbf{unstrukturiert}. Das heisst, es ist mit viel Aufwand verbunden, aus grossen Datenmengen Informationen zu extrahieren (man denke z.B. daran, wie viel Aufwand es benötigen würde, um 10'000 E-Mails nach Thema zu sortieren vs. wie viel Aufwand es benötigt, 10'000 Datensätze nach ID zu sortieren).
 
@@ -652,9 +656,7 @@ Mithilfe von \textbf{strukturierten Daten} kann man \textit{automatisiert} Infor
 
 \noindent Wenn man heute unstrukturierte Daten auswerten würde, könnte man z.B. automatisch Kundenbewertungen und -beschwerden aus Foren und Blogs auslesen, Twitter-Posts analysieren u.v.m. 
 
-Zusammengefasst kann man sagen: Unstrukturierte Daten ermöglichen \textbf{Analysen, die zu schnellen Reaktionen und Entscheidungen führen}.
-
-\newpage
+Zusammengefasst kann man sagen: Unstrukturierte Daten ermöglichen \textbf{Analysen, die zu schnellen Reaktionen und Entscheidungen führen}.5
 
 \subsection{Herausforderungen}
 
@@ -682,7 +684,65 @@ Wörtern und Sätzen der Klassifizierung von Texten auseinander.
  Text Mining ist eine Untermethode von Data Mining und konzentriert sich vor allem auf Data Mining von grossen Texten wie z.B. die Plagiaterkennung, die gesamte Doktorarbeiten durchliest und analysiert.
  
  \subsubsection{Klassifikation}
- Klassifikation versucht, den Datenbestand in vorgegebene Klassen zuzuordnen.
+ Klassifikation ist eine Unterart des Data-Minings und versucht, den Datenbestand in vorgegebene Klassen zuzuordnen.
+ 
+ \subsubsection{Regression}
+ Die Regression ist eine Unterart des Data-Minings und zielt darauf ab, einen Ursache-Wirkung-Zusammenhang zwischen einzelnen Merkmalen der zugrunde liegenden Datenbasis zu ermitteln. 
+ 
+ Am Beispiel von Abbildung \ref{fig:regclass} kann Klassifikation vs. Regression so unterschieden werden: Mittels \textbf{Klassifikation} kann ermittelt werden, dass ca. die Hälfte der untersuchten Gene krank sind, während mit der \textbf{Regression} gezeigt werden kann, dass, je höher die Konzentration von Gen 1 ist, desto länger leben die Patienten (Trend)
+ 
+ \begin{figure}[htb]
+ 	\centering
+ 	\includegraphics[keepaspectratio=true,height=15\baselineskip]{regressionvsclassification.png}
+ 	\caption{Klassifikation (links) vs. Regression (rechts)}
+ 	\label{fig:regclass}
+ \end{figure}
+
+\newpage
+
+\subsubsection{Abhängigkeitsentdeckung / Assoziationsanalyse}
+Die Abhängigkeitsentdeckung oder auch Assoziationsanalyse wird verwendet, um Zusammenhänge von Merkmalen und Muster und/oder Abhängigkeiten in grossen Datenbeständen zu finden. 
+
+Ein Beispiel davon ist die \textbf{Warenkorbanalyse}. Es soll gezeigt werden, dass Kunden, die Zahnbürsten kaufen, mit einer grossen Wahrscheinlichkeit auch Zahnpasta kaufen.
+\vspace{10px}
+
+\noindent Die Analyste geschieht auf Basis von zwei Werten. Dem \textbf{Support} und der \textbf{Confidence}. Der Support ist die Wahrscheinlichkeit, dass der Kunde sowohl X, wie auch Y kauft. Die Confidence ist die Wahrscheinlichkeit, mit welcher der Kunde noch Y kauft, nachdem er bereits X im Warenkorb hat.
+\vspace{10px}
+
+\noindent Mathematisch kann das so ausgedrückt werden:
+
+\begin{equation}
+confidence({X} \rightarrow {Y}) = \dfrac{support({X, Y})}{support({X})}
+\end{equation}
+
+Ein ebenfalls wichtiger Begriff ist der \textbf{Lift}. Er beschreibt die Abhängkeit zwischen der Zahnbürste und der Zahnpasta im Warenkorb.
+
+\begin{description}
+	\item[Lift = 1: ] X und Y werden unabhängig voneinander gekauft.
+	\item[Lift $>$ 1: ] Es besteht eine positive Abhängigkeit. Wenn jemand X kauft, kauft er wahrscheinlich auch Y.
+	\item[Lift $<$ 1: ] Es besteht eine negative Abhängigkeit. Wenn jemand X kauft, ist es unwahrscheinlich, dass er auch Y kauft.
+\end{description}
+
+\paragraph{Beispiel}
+Es soll die Abhängigkeit zwischen dem Verkauf von \textbf{Zahnbürsten} und \textbf{Zahnpasta} überprüft werden.
+
+\begin{itemize}
+	\item 20\% aller Kunden kaufen sowohl eine Zahnbürste, wie auch Zahnpasta.
+	\item 10\% aller Kunden kaufen nur eine Zahnbürste.
+	\item 40\% aller Kunden kaufen nur Zahnpasta
+\end{itemize}
+
+\begin{equation}
+lift(Zahnbuerste \rightarrow Zahnpasta) = \dfrac{support({Zahnbuerste \rightarrow Zahnpasta})}{support(Zahnbuerste) * support(Zahnpasta)}
+\end{equation}
+
+Mit den oben genannten Zahlen eingesetzt ergibt dies:
+
+\begin{equation}
+	lift(Zahnbuerste \rightarrow Zahnpasta) = \dfrac{0.2}{0.1 * 0.4} = 5
+\end{equation}
+
+Der Lift ist also wesentlich höher wie 1, woraus geschlossen werden kann, dass eine \textbf{starke Abhängigkeit} besteht zwischen dem Kauf von Zahnbürsten und Zahnpasta.
  
  \newpage
  
@@ -770,6 +830,157 @@ Um Bäume zu verbessern, die eine hohe Fehlerquote aufweisen, kann \textbf{Pruni
 \vspace{10px}
 
 \noindent Entscheidungsbäume werden zum Beispiel zur \textbf{Klassifizierung} von Daten hinzugezogen werden, um die Klassen einfacher und übersichtlicher darstellen zu können.
+
+\newpage
+
+\subsection{Architekturen}
+\subsubsection{Keine physische Integration}
+Strukturierte und unstrukturierte Daten existieren \textbf{parallel} in verschiedenen Speicherungsmöglichkeiten. Diese Daten werden nur verknüpft, falls beide für eine Auswertung benötigt werden.
+
+\subsubsection{Pysische aber nicht logische Integration}
+Strukturierte und unstrukturierte Daten werden zwar in der gleichen Speicherungsmöglichkeit abgelegt, sind jedoch nicht verknüpft.
+
+Unstrukturierte Daten werden oft als BLOB (Binary Large Object) gespeichert. BLOBS sind prinzipiell einfach riesige Binär-Dateien, in welche alle unstrukturierten Daten (Blogposts, Bewertungen, YouTube Videos etc.) reingeschmissen werden.
+
+In relationalen Datenbanken werden BLOBS oft extern gespeichert. Das heisst, die Datenbank legt nur eine Referenz ab, wo das BLOB gefunden werden kann, sollte es gebraucht werden.
+
+Je nach dem welcher DB-Engine verwendet wird, muss eine BLOB-Spalte in einer DB-Tabelle als \textit{BLOB, LONGBLOB, LONGRAW} oder auch \textit{BYTEA} definiert werden.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{blob}
+	\caption{Beispiel von BLOBs und strukturierten Daten in der selben DB}
+	\label{fig:blob}
+\end{figure}
+
+\newpage
+
+\subsubsection{Physische und logische Integration}
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{unstruktdata.PNG}
+	\caption{Die drei verschiedenen Methoden zur Integration von unstrukturierten Daten.}
+	\label{fig:logInt}
+\end{figure}
+
+\noindent {\color{cyan}\textbf{Extraktion von unstrukturierten Daten}} geschieht meist mittles NPL und UIMA (Unstructured Information Management Architecture). Dabei muss darauf geachtet werden, dass zwar alle unnützen Formatierungen entfernt werden, so dass die Daten gesäubert und integriert werden können, jedoch die wichtigen Formatierngen beibehalten werden (wie z.B. HTML-tags für title o.ä)
+
+\vspace{10px}
+
+\noindent {\color{cyan}\textbf{Transformation von unstrukturierten Daten}} hat fast noch eine grössere Bedeutung als die Bereinigung von strukturierten Daten. Der Prozess besteht hauptsächlich daraus, Synonyme, Homonyme und Ähnlichkeit zu erkennen, irrelevante Daten wie Füllwörter oder Formatierungszeichen zu entfernen und/oder Daten in andere Sprachen zu übersetzen.
+
+Für diesen Task werden Werkzeuge wie z.b. der DataWrangler, Open Refine oder DataCleaner verwendet, oder aber auch NLP-Werkzeuge wie GATE, UIMA oder Stanford's Core NLP Suite.
+\vspace{10px}
+
+\noindent {\color{cyan}\textbf{Laden von unstrukturierten Daten}}
+\begin{description}
+	\item[a) / Basisdatenbank] Die Daten werden bereits im Datenbeschaffungsprozess analysiert, aufbereitet und strukturiert bevor sie in der DB abgelegt werden. 
+	
+	Eine Verwendung der unstrukturierten Daten ist nach Ablegung nicht mehr möglich.
+	\item[b) / Data Warehouse] Die Daten werden möglichst ohne Informationsverlust in der Basis-DB/ODS abgelegt und erst anschliessend im Data-Warehouse strukturiert.
+	\item[c) / Hybrid-Architektur: ] Die strukturierten und unstrukturierten Daten werden parallel in der Basis-DB abgelegt.
+\end{description}
+
+\newpage
+
+\subsubsection{Beispiel}
+\textbf{Aufgabenstellung: } Folgende E-Mail soll in ein Data-Warehouse integriert werden.
+
+\begin{lstlisting}
+Subject: Beschwerde
+Von: peer.haber@bluewin.ch
+Gesendet: Di. 18.10.2016 15:27
+An: Customer Service
+------------------------------------------------
+Geehrtes Support Team
+leider bin ich mit dem Vertrag vom 21.10.2016 nicht zufrieden. sie haben mir 
+am Telefon erklaert, dass im Vertrag 5GB Daten inbegriffen sind. 
+Leider ist dem nicht so. Bitte kontaktieren Sie mich unter folgender Nummer:
+
++41 79 678 23 63
+
+mit freundlichen Gruessen
+Peer Haber
+peer.haber@bluewin.ch
+
+\end{lstlisting}
+
+Die Mail soll in die Architektur 3a) integriert werden. Dies geschieht in vier Schritten:
+
+\begin{enumerate}
+	\item Extraktion der Daten aus den jeweiligen Ursprungsformaten $\rightarrow$ Extraktion
+	\item Analyse der Daten $\rightarrow$ Transformation
+	\item Datenbereinigung $\rightarrow$ Transformation
+	\item Laden der Daten in ein Datenbanksystem des Wata-Warehosues $\rightarrow$ Laden
+\end{enumerate}
+
+\paragraph{Schritt 1 - Extraktion} \mbox{}\\
+Der Text des E-Mails wird aus dem Ursprungsformat extrahiert:
+
+\begin{lstlisting}
+Geehrtes Support Team
+leider bin ich mit dem Vertrag vom 21.10.2016 nicht zufrieden. sie haben mir 
+am Telefon erklaert, dass im Vertrag 5GB Daten inbegriffen sind. 
+Leider ist dem nicht so. Bitte kontaktieren Sie mich unter folgender Nummer:
+
++41 79 678 23 63
+
+mit freundlichen Gruessen
+Peer Haber
+peer.haber@bluewin.ch
+\end{lstlisting}
+
+\newpage
+
+\paragraph{Schritt 2 - Analyse der Daten} \mbox{} \\
+Der extrahierte Text wird mittels Data Mining oder NLP analysiert:
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{NLP_email.PNG}
+	\caption{E-Mail-Analyse mit dem Text-Mining Tool UIMA}
+	\label{fig:nlpemail}
+\end{figure}
+
+Die \textit{semantische Auswertung} der oben gezeigten E-Mail zeigt folgendes:
+
+\begin{description}
+	\item[Kategorisierung: ] Kategorie: Beschwerde
+	\item[Auswertung Freitexteingabe: ] Unzufriedener Kunde.
+	\item[Auswertung Dokument: ] Analyse des Vertrages, ob Kunde recht hat.
+\end{description}
+
+\paragraph{Schritt 3 - Datenbereinigung}
+\begin{itemize}
+	\item Erkennen von Synonymen und Homonymen
+	\item Beseitigung von irrelevanten Daten (z.B. Füllwörtern)
+	\item Evtl. Übersetzung in andere Sprachen.
+\end{itemize}
+
+\noindent \sout{Geehrtes} \textbf{Support Team},
+
+\noindent \sout{leider bin ich mit dem} \textbf{Vertrag vom 21.10.2016 nicht zufrieden}. \sout{Sie
+haben mir am} \textbf{Telefon}\sout{ erklärt, dass im} \textbf{ Vertrag 5 GB Data} \sout{inbegriffen
+sind. Leider ist dem nicht so. Bitte kontaktieren Sie mich unter folgender Nummer:}
+
+\noindent \textbf{+41 79 678 23 63}
+
+\noindent \sout{mit freundlichen Grüssen}
+
+\noindent \textbf{Peer Haber}
+
+\noindent \textbf{peer.haber@bluewin.ch}
+
+\paragraph{Schritt 4 - laden der Datenin ein Datenbanksystemd es Data-Warehouses}\mbox{} \\
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=3.5\baselineskip]{haber_peer.PNG}
+\end{figure}
+
+\section{Informations- und Datenqualität}
+\subsection{Definition}
+\blockquote[DIN 55350/1995]{Qualität ist die Gesamtheit von Eigenschaften und Merkmalen eines Produktes oder einer Tätigkeit, die sich auf deren Eignung zur Erfüllung festgelegter oder vorausgesetzter Erfordernisse beziehen.}
+
 
 
 \end{document}
