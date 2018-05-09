@@ -27,6 +27,11 @@
 \geometry{a4paper, margin=1in}
 \renewcommand{\figurename}{Abb.}
 
+\definecolor{system}{RGB}{141,0,76}
+\definecolor{inhalt}{RGB}{2,47,99}
+\definecolor{darstellung}{RGB}{116,117,117}
+\definecolor{nutzung}{RGB}{207,2,127}
+
 \begin{document}
 \title{Zusammenfassung Data Warehousing FS2018}
 \author{Alex Neher}
@@ -970,7 +975,7 @@ sind. Leider ist dem nicht so. Bitte kontaktieren Sie mich unter folgender Numme
 
 \noindent \textbf{peer.haber@bluewin.ch}
 
-\paragraph{Schritt 4 - laden der Datenin ein Datenbanksystemd es Data-Warehouses}\mbox{} \\
+\paragraph{Schritt 4 - laden der Daten in ein Datenbanksystem des Data-Warehouses}\mbox{} \\
 
 \begin{figure}[htb]
 	\centering
@@ -980,7 +985,164 @@ sind. Leider ist dem nicht so. Bitte kontaktieren Sie mich unter folgender Numme
 \section{Informations- und Datenqualität}
 \subsection{Definition}
 \blockquote[DIN 55350/1995]{Qualität ist die Gesamtheit von Eigenschaften und Merkmalen eines Produktes oder einer Tätigkeit, die sich auf deren Eignung zur Erfüllung festgelegter oder vorausgesetzter Erfordernisse beziehen.}
+\vspace{10px}
 
+\noindent Eine weitere Definition nach Cordts 2009 lautet: \textit{Die Datenqualität ist der Grad der Eignung von Daten zur Erfüllung eines bestimmten Verwendungszweck.}
+
+Solche Erfordernisse sind zum Beispiel:
+\begin{itemize}
+	\item Korrektheit
+	\item Vollständigkeit
+	\item Relevanz
+	\item Konsistenz
+	\item Aktualität
+\end{itemize}
+
+\subsection{Ursachen und Orte von Qualitätsmängel}
+Schätzungsweise 10-20\% aller Daten in einem operativen System sind fehlerhaft. Diese Daten zu verbessern nimmt ca. 80\% des Aufwands im ETL-Prozess in Anspruch.
+
+Schlechte Datenqualität kann folgende Ursachen haben:
+
+\begin{description}
+	\item[Schlechte Datenerfassung: ] Durch menschliches Versagen in der Dateneingabe/Datenerfassung; Falsch (oder gar nicht) geschulter Mitarbeiter.
+	\item[Schlechte Prozesse: ] Durch mangelhaft definierte Abläufe und Zuständigkeiten
+	\item[Schlechte Architektur: ] Durch unsaubere/überhastete Systemwechsel/Migrationen oder infolge von Sparmassnahmen am falschen Ort.
+	\item[Schlechte Definitionen: ] Durch mangelhafte/fehlende Planung oder Sorgfalt. Durch mangelhafte/fehlende Doku.
+\end{description}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[keepaspectratio=true,height=13\baselineskip]{data_quality.PNG}
+	\caption{Beispiel von schlechter Datenqualität}
+\end{figure}
+
+\newpage
+
+\subsection{Messbarkeit von Datenqualität}
+Momentan gibt es noch keine akzeptierte Metrik für die Beurteilung der Datenqualität. Allerdings gibt es Grafiken zur Visualisierung des "sweet spot" zwischen überhöhten Kosten durch schlechte Datenquaität und überhöhten Kosten durch zu hohe Investitionen in die Verbesserung der Datenqualität (Abb. \ref{fig:costQuality}). 
+
+\begin{figure}[htb!]
+\centering
+\begin{minipage}{.45\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=10\baselineskip]{messungDatenQualitaet.PNG}
+	\captionof{figure}{"Messung" der Datenqualität}
+	\label{fig:measureQuality}
+\end{minipage}
+\begin{minipage}{.45\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=10\baselineskip]{kostenNutzung.PNG}
+	\captionof{figure}{Kosten-Qualitäts Gegenüberstellung}
+	\label{fig:costQuality}
+\end{minipage}
+\end{figure}
+
+\begin{wrapfigure}[17]{R}{0.6\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=18\baselineskip]{dgiq.PNG}
+\end{wrapfigure}
+
+\noindent Zudem hat die DGIQ (Deutsche Gesellschaft für Informations- und Datenqualität) 15 Dimensionen der Datenqualität definiert. Diese sind in vier Kategorien eingeteilt. Diese Einteilung basiert auf einer Studie des MITs.
+
+\color{system}{
+\begin{description}
+	\item[Zugänglichkeit: ]  Informationen sind  \\ zugänglich, wenn sie anhand einfacher Verfahren auf direktem Weg für den Anwender abrufbar sind. 
+	\item[Bearbeitbar: ]  Informationen sind leicht bearbeitbar, wenn sie leicht zu ändern/für unterschiedliche Zwecke zu verwenden sind. 
+\end{description}
+}
+
+\color{inhalt}{
+\begin{description}
+	\item[Hohes Ansehen: ]  Informationen sind hoch angesehen, wenn die Informationsquelle, das Transportmedium und das verarbeitenden System im Ruf einer hohen Vertrauenswürdigkeit und Kompetenz stehen.
+	\item[Fehlerfrei: ] Informationen sind fehlerfrei, wenn sie mit der Realität übereinstimmen 
+	\item[Objektiv: ] Informationen sind objektiv, wenn sie streng sachlich und wertfrei sind.
+	\item[Glaubwürdig: ] Informationen sind glaubwürdig, wenn Zertifikate einen hohen Qualitätsstandard ausweisen oder die Informationsgewinnung und -verbreitung mit hohem Aufwand betrieben werden.
+\end{description}
+}
+
+\color{darstellung}{
+\begin{description}
+	\item[Eindeutig auslegbar: ]  Informationen sind eindeutig auslegbar, wenn sie in gleicher, fachlich korrekter Art und Weise begriffen werden.
+	\item[Einheitlich dargestellt: ] Informationen sind einheitlich dargestellt, wenn die Informationen fortlaufend auf dieselbe Art und Weise abgebildet werden.
+	\item[Übersichtlich]  Informationen sind übersichtlich, wenn genau die benötigten Informationen in einem passenden und leicht fassbaren Format dargestellt sind.
+	\item[Verständlich] Informationen sind verständlich, wenn sie unmittelbar von den Anwendern verstanden und für deren Zwecke eingesetzt werden können
+\end{description}
+}
+
+\color{nutzung}{
+\begin{description}
+	\item[Relevant: ]  Informationen sind relevant, wenn sie für den Anwender notwendige Informationen liefern.
+	\item[Angemessener Umfang: ] Informationen sind von angemessenem Umfang, wenn die Menge der verfügbaren Information den gestellten Anforderungen genügt.
+	\item[Vollständig: ]  Informationen sind vollständig, wenn sie nicht fehlen und zu den festgelegten Zeitpunkten in den jeweiligen Prozess-Schritten zur Verfügung stehen.
+	\item[Wertschöpfend: ] Informationen sind wertschöpfend, wenn ihre Nutzung zu einer quantifizierbaren Steigerung einer monetären Zielfunktion führen kann.
+	\item[Aktuell: ] Informationen sind aktuell, wenn sie die tatsächliche Eigenschaft des beschriebenen Objektes zeitnah abbilden
+\end{description}
+}
+
+\newpage
+
+\color{black}
+\subsection{Verbesserung der Datenqualität}
+
+\begin{wrapfigure}[17]{R}{0.5\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=18\baselineskip]{dataImprovement.PNG}
+	\caption{Vorgehensmodell zur Datenqualitätsverbesserung}
+\end{wrapfigure}
+
+Die Verbesserung der Datenqualität kann in drei Phasen aufgeteilt werden, die wiederum in mehrere Tasks unterteilt sind.
+
+\begin{enumerate}
+	\item Daten verstehen
+		\subitem Data Identification
+		\subitem Data Profiling
+	\item Daten verbessern
+		\subitem Data Standardisation
+		\subitem Data Enrichment
+		\subitem Data Deduplication
+	\item Daten Steuern
+		\subitem Data Monitoring
+\end{enumerate}
+
+\subsubsection{Daten verstehen}
+Was für Daten liegen vor?, Welche Daten kann man benutzen? Wo liegen diese Daten? Wer hat die Rechte auf diese Daten zuzugreifen? Wer kann die Daten für die weitere Verwendung "freigeben"? Was bedeuten diese Daten? In welchem Kontext stehen diese Daten?
+
+\paragraph{Data Identification}\mbox{}\\
+Woher kommen unsere Daten? Durch die Auswertung der Metadaten kann einiges ermittelt werden, wie zum Beispiel die Art des Quellsystems.
+
+\begin{itemize}
+	\item Wie und von wem wurden die Daten erstellt?
+	\item Welche Benutzer greifen am häufigsten zu?
+	\item Für welche Zwecke werden die Daten vor allem eingesetzt?
+	\item In welchem Zustand befinden sich die Daten?	
+\end{itemize}
+
+Bei der Data Identification werden die benötigten Daten identifiziert (wie das der Name schon sagt), ihr Ist-Zustand beschrieben und spezifiziert. 
+
+Das Ziel der Data Identification ist es, schlussendlich eine Metadatensammlung vorliegen zu haben und anhand dessen erste Angaben zur Datenqualität machen zu können.
+
+\paragraph{Data Profiling} \mbox{}\\
+Nachdem im vorherigen Schritt der Ist-Zustand der Daten beschrieben wurde, wird im Data-Profiing der Soll-Zustand beschrieben und spezifiziert. Das heisst, es werden Kriterien definiert wie zum Beispiel
+
+\begin{itemize}
+	\item Benennungen
+	\item Datentypen
+	\item Domänen
+	\item Minima und Maxima
+	\item Kardinalitäten
+	\item Muster
+	\item Fehlertoleranz
+\end{itemize}
+
+Ausserdem werden Beziehungen von Daten untereinander festgehalten. 
+
+Jede Abweichung des Ist-Zustands vom definierten Soll-Zustand ist ein Qualitätsmangel. Somit kann 
+
+\subsubsection{Daten verbessern}
+Je gründlicher das Data Profiling durchgeführt wird, desto zuverlässiger und besser ist die Bereinigung. je besser de Bereinigung, desto höher die Datenqualität.
+
+\subsubsection{Daten steuern}
+Da sich Daten immer wieder ändern, können Sie sich auch ungewollt verschlechtern. Ein System- und/oder Datenqualitätsowner muss da dauernd ein Auge darauf haben.
 
 
 \end{document}
