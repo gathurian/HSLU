@@ -102,7 +102,7 @@ Jedes IPSec Endgerät kann \textbf{beliebig viele} SA speichern. Eine SA ist gru
 \noindent Beim Verbindungsaufwand wird diese SA aufgebaut. Dazu wird das \textbf{ISAKMP (Internet Security Association Key Management Protocol)} verwendet. 
 
 \paragraph{ISAKMP}\mbox{} \\
- Das ISAKMP Protokoll besteht aus zwei Phasen:
+Das ISAKMP Protokoll besteht aus zwei Phasen:
 \begin{description}
 	\item[Phase 1: ] Ein \textbf{gemeinsamer Schlüssel} wird mit einem \textbf{erweiterten Diffie-Hellman-Verfahren} ausgehandelt (Bürgler lässt grüssen). Anschliessend werden die \textbf{Verschlüsselungs- und Hash-Protokolle ausgehandelt (nun in verschlüsselter Kommunikation)}. Dabei gibt es zwei verschiedene Modi: Im Main-Modus einigen sich beide Parteien auf die verwendeten Protokolle, während im Aggressiven Modus der Initiator 'seine' Protokolle vorgibt. Die Partner authentisieren sich via PSK, ihre Digitale Signatur, RSA oder El-Gamal.
 	\item[Phase 2: ] Die SA wird nun aufgebaut und die weiteren Parameter für die IPSec-Verschlüsselung und den Tunnel werden ausgetauscht.
@@ -143,7 +143,7 @@ In aller Regel sind Site-To-Site VPNs aber trotzdem möglich, solange die verwen
 \subsubsection{Definition}
 WAN (Wide Area Network) sind \textbf{Netzwerk-Verbindungen} über \textbf{weite Distanzen}. Die Nutzen von WAN werden aufgeteilt in \textit{internet-basierte} und \textit{nicht-internet-basierte} Nutzen.
 \vspace{10px}
-  
+
 \noindent  Internetbasierte Nutzen von WAN sind z.B. der Zugriff auf entfernte Ressoourcen über RDP oder Citrix, SSL-VPN oder Site-to-Site VPN via Internet.
 
 \vspace{10px}
@@ -154,13 +154,13 @@ WAN (Wide Area Network) sind \textbf{Netzwerk-Verbindungen} über \textbf{weite 
 Die Qualität von WAN-Verbindungen kann anhand verschiedener Kriterien gemessen werden.
 
 \begin{description}
-\item[Geschwindigkeit: ] Kann die Geschwindigkeit, die der ISP verspricht auch garantiert werden?
-\item [Zuverlässigkeit: ] Wird die vereinbarte SLA zuverlässig eingehalten?
-\item[Kosten: ] Hat der Service ein vertretbares Kosten/Nutzen Verhältnis?
-\item[Redundanz: ] Garantiert der ISP eine Redundanz, falls eine Line unterbrochen wird?
-\item[Konfiguration \& Management: ] Welche Möglichkeiten bietet der ISP?
-\item[Provider/ISP: ] Welche Reputation hat der ISP? Wo ist er (vgl. Datenschutz), wie steht er wirtschaftlich da?
-\item[Sicherheit: ] Wie schützt der ISP die Verbindung?
+	\item[Geschwindigkeit: ] Kann die Geschwindigkeit, die der ISP verspricht auch garantiert werden?
+	\item [Zuverlässigkeit: ] Wird die vereinbarte SLA zuverlässig eingehalten?
+	\item[Kosten: ] Hat der Service ein vertretbares Kosten/Nutzen Verhältnis?
+	\item[Redundanz: ] Garantiert der ISP eine Redundanz, falls eine Line unterbrochen wird?
+	\item[Konfiguration \& Management: ] Welche Möglichkeiten bietet der ISP?
+	\item[Provider/ISP: ] Welche Reputation hat der ISP? Wo ist er (vgl. Datenschutz), wie steht er wirtschaftlich da?
+	\item[Sicherheit: ] Wie schützt der ISP die Verbindung?
 \end{description}
 
 \subsection{IPv6}
@@ -213,17 +213,17 @@ In den 8er Jahren kam schlussendlich die Idee auf, eine weltweite Datenbank mit 
 \paragraph{X.500} sollte folgende Eigenschaften besitzen:
 \begin{itemize}
 	\item Verteilte Informationen
-		\subitem Jede Firma verwaltet seine Informationen selbst
-		\subitem Jede Firma bestimmt, welche Informationen veröffentlicht werden, also von aussen zugänglich sind.
-		\subitem Alle Firmen können auf veröffentliche Informationen von anderen zugreifen.
+	\subitem Jede Firma verwaltet seine Informationen selbst
+	\subitem Jede Firma bestimmt, welche Informationen veröffentlicht werden, also von aussen zugänglich sind.
+	\subitem Alle Firmen können auf veröffentliche Informationen von anderen zugreifen.
 	\item Hierarchische Struktur mit objektorientierter Ausrichtung
-		\subitem Vorwiegend geographisch aufgebaut.
-		\subitem Hierarchie ist den konkreten Bedürfnissen anpassbar.
-		\subitem Berechtigungen und Sicherheit sind auf jeder Hierarchiestufe definierbar.
+	\subitem Vorwiegend geographisch aufgebaut.
+	\subitem Hierarchie ist den konkreten Bedürfnissen anpassbar.
+	\subitem Berechtigungen und Sicherheit sind auf jeder Hierarchiestufe definierbar.
 	\item Hohe Verfügbarkeit
-		\subitem Verteilte Datenbanken 
-		\subitem Replizierte Datenbestände
-		\subitem Verteilte Administration
+	\subitem Verteilte Datenbanken 
+	\subitem Replizierte Datenbestände
+	\subitem Verteilte Administration
 \end{itemize}
 
 Es stellte sich jedoch recht schnell heraus, dass eine einzige, globale Datenbank schlicht und einfach zu komplex ist. Zudem wurde X.500 praktisch nicht genutzt, höchstens als E-Mail-Adressen-Verzeichnis. Daraus folgt, dass es fast keine Produkte auf dem Markt gab, was die gesamte Situation nicht wirklich verbesserte. Aufgrund dessen erachteten es Betriebssystem-Hersteller auch nicht für nötig, native Unterstützung dieser Norm zu implementieren. $\rightarrow$ \textbf{X.500 starb recht schnell wieder aus.}
@@ -246,6 +246,136 @@ OU=I, O=HSLU, C=CH
 \end{lstlisting}
 
 \paragraph{DIB - Directory Information Base} \mbox{} \\
+Die DIB ist eine Datenbank, in der alle Objekte des DIT gespeichert werden. Jedes Objekt hat verschiedene Attribute, die unterschiedliche Werte annehmen können.
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=10\baselineskip]{DIB.PNG}
+\end{figure}
+
+\paragraph{Schema}\mbox{}\\
+eine Schema ist eine Ansammlung von Regeln, die Strukturen, Objekte und Datentypen beschreibt. Bei Bedarf kann ein Schema auch erweitert werden. Dank einem Schema ist eine Datenbank konsistent. 
+
+Beispiel von Regeln sind:
+\begin{itemize}
+	\item Regeln zur Namenskonvention
+	\item Regeln zur DIT-Struktur
+	\subitem Wo können Objkete eingetragen werden?
+	\subitem Welches sind zugelassene Super-Klassen?
+	\item Regeln zu Objekt-Klassen
+	\subitem Welhe Attribute kann und muss ein Objekt haben?
+	\item Regeln zu Attributen
+	\subitem Mögliche Datentpyen
+	\subitem Mögliche Wertebereiche
+\end{itemize}
+
+\paragraph{ASN.1 - Abstract Syntax Notation}\mbox{}\\
+Wie vorhin bereits erwähnt, besteht ein X.500 System ausschiesslich aus Objekten. Diese Objekte müssen irgendwie beschreiben werden. ASN.1 ist eine Sprache zur Beschreibung eines solchen Objekts.
+
+\begin{lstlisting}
+Name: Jan peter Schmidt
+Geburtstag: 17.07.1957
+...
+
+PersonnelRecord ::= [APPLICATION 0] IMPLICIT SET {
+Name, 
+Titel [0] VisibleString, 
+DateOfBirth [1] Date, 
+(weitere Definitionen von Datentypen) 
+} 
+Name ::= [APPLICATION 1] IMPLICIT SEQUENCE {
+Vorname VisibleString, 
+Mittelname VisibleString, 
+Nachname VisibleString 
+} 
+\end{lstlisting}
+
+\paragraph{BER - Basic Encoding Rules}\mbox{}\\
+BER basiert auf ASN.1 und übersetzt komplexe Daten in einen Datenstrom.
+
+Aus
+\begin{lstlisting}
+Person   ::=  SET{
+name     IA5String,
+age      INTEGER
+female   BOOLEAN
+}
+
+SET IA5String Maggie INTEGER 4 BOOLEAN TRUE
+(Maggie ist eine 4 Jahre alte Frau)
+\end{lstlisting}
+wird
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=2.5\baselineskip]{maggie.PNG}
+\end{figure}
+
+\newpage
+
+\subsection{LDAP}
+LDAP steht für \textit{Lightweight Directory Access Protocol} und ist prinzipiell nichts anderes wie X.500 mit dem TCP/IP Protokoll. Die Grundfunktionen von X.500 wurden beibehalten, jedoch lange nicht alle Funktionen.
+
+Am Anfang wurden LDAP und X.500 parallel eingesetzt, indem ein Client übers Internet auf einen LDAP-Server zugreift, der die Anfrage schliesslich an einen X.500 Server weiterleitet (Abb. \ref{fig:ldapx500}).
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=2.5\baselineskip]{ldapx500.PNG}
+	\caption{X.500 mit einem vorgeschalteten LDAP-Server}
+	\label{fig:ldapx500}
+\end{figure}
+
+Später wurden die Funktionen, die vom X.500 nicht ins LDAP übernommen wurden schlicht nicht mehr benutzt, und der X.500 Service konnte immer mehr weggelassen werden, was heute immer noch der Standard ist (Abb. \ref{fig:ldaponly}).
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=2.5\baselineskip]{ldaponly.PNG}
+	\caption{LDAP-Server ohne X.500 System dahinter}
+	\label{fig:ldaponly}
+\end{figure}
+
+Zusätzlich wurden neue Features ausschliesslich in LDAP implementiert, wie z.b. Sicherheitsanforderungen, Erweiterbarkeit, Zeichensätze oder auch die Möglichkeit fremde LDAP Server zu referenzieren.
+
+\vspace{10px}
+
+\noindent Heute sind LDP Server Standard sowohl im UNIX wie auch im MS-Umfeld und immer mehr neue Anbieter (wie vCloud von VMWare) setzen auf LDAP. Jedoch ist die Interoperabilität zwischen einzelnen Produkten eher mangelhaft. Obwohl Interoperabilität zwischen verschiedenen Organisationen theoretisch möglich wäre, wird es praktisch nie eingesetzt.
+
+\subsection{Microsoft Active Directory}
+MS AD ist ein zentraler Ort für alle möglichen IT-Infrastruktur-Informationen wie
+\begin{itemize}
+	\item Benutzerverwaltung
+	\item File Sharing und Berechtigungen
+	\item Drucker
+	\item Digitale Zertifikate
+	\item Mail- und Fax-Adressen
+	\item Kontakte
+	\item Workstation- und Server-Konfiguration
+\end{itemize}
+
+Dank dem AD müssen Applikationen nicht mehr einzeln auf 500 Workstations installiert und konfiguriert werden, sondern das kann alles zentral über sog. Group Policies erreicht werden. Das AD funktioniert auch als globales E-Mail Adressenverzeichnis.
+
+\newpage
+
+\noindent MS AD unterstützt Standards wie LDAP, Kerberos (Authentifizierung), DNS, DHCP und RADIUS. Ausserdem bietet es ein ausgereiftes Administrationsmodell, welches eine Netzwerkweite Administration oder die auch die Delegation von einzelnen administrativen Aufgaben unterstützt. Das Active Directory kann auch in grossen Organisationen eingesetzt werden, da es auch mit mehreren Millionen Objekten problemlosläuft und dank einem organisationsweiten Schema werden auch Regeln für die Objekterstellung forciert.
+
+\vspace{10px}
+
+\noindent Objekte können auf verschiedene Arten angesprochen werden: 
+
+\begin{description}
+	\item[LDAP-Qualifizierter Name: ] CN=MWaldmann, OU=I, DC=HSLU, DC=CH
+	\item[UNC/URL Notation: ] hslu.ch/I/MWaldmann
+	\item[UPN Notation: ] MWaldmann.I@hslu.ch
+	\item[GUID: ] tawaldma
+	
+	Die GUID ist insofern heikel, dass sie im gesamten AD gültig sind, das heisst "sekretariat" kann z.B. in einer grösseren Organisation mit verschiedenen Departementen nicht mehr verwendet werden, da der Name AD-weit eindeutig sein muss. $\rightarrow$ Eine AD-weite Namenskonvention muss definiert werden.
+\end{description}
+
+\subsection{Identity Management}
+\blockquote{Entität = Etwas das existiert, etwas Seiendes.
+	
+	Identität = Völlige Gleichheit, Übereinstimmung in allen Merkmalen}
+
+\blockquote{Eine digitale Identität ist die Teilmenge der Attribute einer Entität, welche diese Identität in einem bestimmten Kontext im Unterschied zu anderen Entitäten bestimmbar machen.
+
+Eine Entität kann abhängig vom Kontext und den dadurch erforderlichen Attributen auch mehrere digitale Identitäten besitzen.}
 
 
 \section{Cloud Resources}
