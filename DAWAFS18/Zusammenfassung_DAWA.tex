@@ -1,4 +1,4 @@
-\documentclass[a4paper, 11pt]{article}
+\documentclass[a4paper, 11pt, nofootinbib]{article}
 
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
@@ -456,9 +456,9 @@ Der Integrationsbereich bereitet die Daten, die aus verschiedenen Datenquellen k
 Im Zusammenhang mit dem Integrationsbereich wird oft von \textbf{ETL} gesprochen. ETL steht für \textit{Extract - Transfer - Load} und entspricht den wesentlichen Arbeitsschritten, die durchgeführt werden müssen, bis die Daten vom Quellsystem im DW landen.
 
 \subsubsection{Verwaltungsbereich}
-%TODO
+%TODO: Verwaltungsbereich
 \subsubsection{Auswertungsbereich}
-%TODO
+%TODO: Auswertungsbereich
 \newpage
 
 \subsection{Referenzmodelle in die Praxis umgesetzt (Skript S60)}
@@ -1108,7 +1108,7 @@ Die Verbesserung der Datenqualität kann in drei Phasen aufgeteilt werden, die w
 Was für Daten liegen vor?, Welche Daten kann man benutzen? Wo liegen diese Daten? Wer hat die Rechte auf diese Daten zuzugreifen? Wer kann die Daten für die weitere Verwendung "freigeben"? Was bedeuten diese Daten? In welchem Kontext stehen diese Daten?
 
 \paragraph{Data Identification}\mbox{}\\
-Woher kommen unsere Daten? Durch die Auswertung der Metadaten kann einiges ermittelt werden, wie zum Beispiel die Art des Quellsystems.
+\textit{Woher kommen unsere Daten?} Durch die Auswertung der Metadaten kann einiges ermittelt werden, wie zum Beispiel die Art des Quellsystems.
 
 \begin{itemize}
 	\item Wie und von wem wurden die Daten erstellt?
@@ -1121,6 +1121,8 @@ Bei der Data Identification werden die benötigten Daten identifiziert (wie das 
 
 Das Ziel der Data Identification ist es, schlussendlich eine Metadatensammlung vorliegen zu haben und anhand dessen erste Angaben zur Datenqualität machen zu können.
 
+\newpage
+
 \paragraph{Data Profiling} \mbox{}\\
 Nachdem im vorherigen Schritt der Ist-Zustand der Daten beschrieben wurde, wird im Data-Profiing der Soll-Zustand beschrieben und spezifiziert. Das heisst, es werden Kriterien definiert wie zum Beispiel
 
@@ -1129,20 +1131,133 @@ Nachdem im vorherigen Schritt der Ist-Zustand der Daten beschrieben wurde, wird 
 	\item Datentypen
 	\item Domänen
 	\item Minima und Maxima
-	\item Kardinalitäten
+	\item Kardinalitäten (Beziehungen zwischen Tabellen)
 	\item Muster
 	\item Fehlertoleranz
+	\item Geschäftsregeln
 \end{itemize}
 
 Ausserdem werden Beziehungen von Daten untereinander festgehalten. 
 
-Jede Abweichung des Ist-Zustands vom definierten Soll-Zustand ist ein Qualitätsmangel. Somit kann 
+Jede Abweichung des Ist-Zustands vom definierten Soll-Zustand ist ein Qualitätsmangel. Somit kann genauer eingeschätzt werden, in welchem Gesamtzustand sich die Daten befinden. Dies wiederum ermöglicht es, Fehler zu ermitteln, priorisieren und anschliessend die Ursache zu beheben.
+
+\vspace{10px}
+
+\noindent Es gibt grundsätzlich drei verschiedene Arten des Data-Profiling:
+
+\begin{description}
+\item[deskriptiv/beschreibend: ] Analyse von Häufigkeiten, Abhängigkeitsanalysen, Ausreisser-Tests etc.
+\item[kognitiv/lernend: ] Regelinduktionen, Segmentierungen oder Klassifizierungen
+\item[deduktuv/ableitend: ] (Geschäfts-)Regelanalyse
+\end{description}
+
+Eine oder mehrere dieser Data-Profiling Methoden wird auf sämtliche Datenobjekte des Systems sowie deren Beziehungen untereinander angewandt. Man untersucht die Daten einer Spalte auf die oben genannten Kriterien und kann somit Rückschlüsse auf die Datenqualität ziehen ($\rightarrow$ Column Profiling)
+
+Ebenfalls untersucht man die Abhängigkeiten von mehreren Spalten in einer Tabelle und kann somit z.B. überprüfen, in welcher Normalform sie sich befinden oder wie viele Fremdschlüssel in der Tabelle vorhanden sind ($\rightarrow$ Multi Column Profiling) 
+
+\vspace{10px}
+
+\noindent Das Ziel des Data-Profilings ist es, ein sogenanntes Soll-Metadatenreqpositorium vorliegen zu haben. Das heisst soviel wie, es soll eine Spezifikation vorliegen, wie die Metadaten der Daten aussehen müssen, bevor sie ins Zielsystem integriert werden können. Ausserdem liegt nach dem Data Profiling normalerweise ein detaillierteres Verständnis der vorliegenden Daten vor, da man sich eingehend mit ihnen beschäftigt hat.
+
+\newpage
 
 \subsubsection{Daten verbessern}
 Je gründlicher das Data Profiling durchgeführt wird, desto zuverlässiger und besser ist die Bereinigung. je besser de Bereinigung, desto höher die Datenqualität.
 
+\paragraph{Data Standardisation}\mbox{}\\
+Daten müssen vereinheitlicht werden. Vereinheitlichung heisst meist auch Homogenisierung. Daten müssen in ein einheitliches Format und eine einheitliche Semantik gebracht werden.
+
+Data Standardisation beinhaltet vor allem folgende Themen:
+
+\begin{description}
+	\item[Vervollständigen: ] z.B. fehlende Vornamen nachtragen
+	\item[Synonyme entfernen: ] Mehrere Schreibweisen eines Wortes mit der gleichen Bedeutung 
+		\subitem Fa. vs. Firma
+		\subitem unverheiratet vs. ledig
+		\subitem Herr vs. Hr. vs. Mr.
+		\subitem etc.
+	\item[Homonyme entfernen: ] Eine Schreibweise eines Wortes mit mehreren Bedeutungen
+		\subitem Peter (Vor- oder Nachname?)
+		\subitem Kim (männlich oder weiblich?)
+		\subitem Lieferung (Von hier oder zu hier?)
+		\subitem etc...
+	\item[Felder zusammennehmen: ] Strasse und Hausnummer gehören zusammen
+	\item[Felder aufteilen: ] Vor- und Nachname erhalten je ein eigenes Feld
+	\item[Rauschdaten eliminieren: ] Entweder Jahrgang \textbf{oder} Alter. Beides ist überflüssig
+	\item[Rechtschreibung: ]  Straße / Strasse oder Brun-Brücke / Brunbrücke 
+	\item[Einheitliche Darstellung: ] +41 79 vs. 0079 / 03.02.2018 vs. 2018-02-03
+	\item[Eliminatin von Stoppwörtern: ] z.B. der, die, das, und, oder, doch
+	\item[Einheitliche Abwandlungsformen: ]  Konjugation und Deklination
+		\subitem \textbf{Konjugation: }z.B. Welche Personenform wird genommen? (Er hat am 03.02 Geburtstag vs. Ich habe am 03.02 Geburtstag)
+		\subitem \textbf{Deklination: }Welche Fälle werden verwendet? (die schönen Häuser vs. der schönen Häuser)
+	\item[Einheitliche Einheiten: ] Nur metrisch oder nur imperial
+\end{description}\footnote{Stoppwörter nennt man Wörter, die bei einer Volltextindizierung nicht beachtet werden, da sie sehr häufig auftreten und keine Relevanz für die Erfassung der Daten besitzen.}
+
+Data Standardisation wird häufig mittels linguistischen und algorithmischen Verfahren durchgeführt. Dabei werden Referenzdaten gesammelt, die anschliessend gepflegt werden müssen, dass sie später wieder angewendet werden können.
+
+Das Zeil der Data Standardisation ist es, Daten in einer strukturell und inhaltlich direkt vergleichbaren Einheit vorliegen zu haben.
+
+\paragraph{Data Enrichment}\mbox{}\\
+Nachdem in der Data Standardisation unnötige Informationen entfernt worden sind, werden im Schritt des Data Enrichment zusätzliche, nützliche Informationen hinzugefügt, die zukünftige Analysen vereinfachen sollen. Dies können z.B. sein:
+
+\begin{description}
+	\item[Demographische Daten: ] Nationalität, Herkunft, Schulbildung, Einkommen etc.
+	\item[Geographische Daten: ] Land, Provinz, Bevölkerungsidchte etc. (Geodaten helfen oft bei der Deduplizierung von Daten)
+	\item[Produktcode: ] EAN / EPC / ISBN etc. von Produkten
+	\item[Kundeninformationen: ] Bestell- und Zahlungsverhalten, Interessen etc.
+	\item[Tags: ] z.B. "Spätzahler", "Tierliebhaber", "Technologiebegeistert"
+	\item[Umsatz: ] Umsatz, der der Kunde generiert.
+	\item[Sumindex: ] Summe aller Bestellungen, die der Kunde im Laufe einer Zeitspanne aufgegeben hat.
+\end{description}
+
+Das Ziel des Data Enrichments ist es, Daten in so einem Format vorliegen zu haben, die die Suche nach Dubletten vereinfacht. Ebenfalls können mit diesen angereicherten Daten bessere Analysen durchgeführt werden. Data Enrichment hat überhaupt keinen Einfluss auf die Datenqualität, jedoch kann die Datenmenge erheblich ansteigen.
+
+\paragraph{Data Deduplication}\mbox{}\\
+Dubletten oder auch Duplikate sind Datensätze, die zwar syntaktisch unterschiedlich sind, semantisch jedoch dasselbe meinen. Es wird zwischen zwei Arten von Dubletten unterschieden: Den \textit{vollständig identischen} und den \textit{sich bis zu einem gewissen Grad ähnlichen} Dubletten.
+
+Dubletten sind redundant und verstossen somit gegen die Information Quality Dimensionen. Ursachen für Dubletten können z.B. ein Fehler bei der Data Standardisation sein (Grösse sowohl in inch wie auch in cm angegeben), oder auch nicht aktuelle Daten (Kunde zweimal erfasst nachdem er umgezogen ist, einmal mit der neuen und einmal mit der alten Adresse).
+
+Es gibt jedoch auch Fälle, da sind Dubletten gewollt. Das kann z.B. sein bei einer Mehrfachablage für eine Verlosung, oder aber auch bei Gratis Trials von Online-Diensten (ich bin einmal Peter Müller und nach dem Ablauf des Gratis Trials bin ich plötzlich Sandro Hüsler, aber eigentlich immer noch die selbe Person)
+
+Dubletten können Anomalien und Fehlern in Analysen und Prognosen auslösen oder können in grosser Anzahl auch zu einem Ressourcenproblem führen. Deshalb sollten sie so gut wie möglich beseitigt werden. Diese Beseitigung findet in zwei Teilschritten statt:
+
+\begin{enumerate}
+	\item Dublettenerkennung Dies wird meist mittels Clustering durchgeführt. Die gefundenen möglichen Dubletten werden aufgelistet und auf Redundanz untersucht.
+	\item Eliminierung und/oder Merging von Dubletten (Siehe Abb. \ref{fig:dubl})
+\end{enumerate}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[keepaspectratio=true,height=14\baselineskip]{DublettenBeseitigung.jpg}
+	\caption{Prozess der Dublettenbeseitigung als iterativer Prozess}
+	\label{fig:dubl}
+\end{figure}
+
+%TODO: Verschiedene Arten der Dublettenerkennung (LS06)
+
+\newpage
+
 \subsubsection{Daten steuern}
 Da sich Daten immer wieder ändern, können Sie sich auch ungewollt verschlechtern. Ein System- und/oder Datenqualitätsowner muss da dauernd ein Auge darauf haben.
+
+\paragraph{Data Monitoring}\mbox{}\\
+Wie bei den letzten paar Themen klar geworden sein sollte, ist die Datenqualitätspflege ein iterativer Prozess. Das Monitoring begleitet diesen Prozess und dokumentiert und misst diesen.
+
+Aufgaben des Data Monitorings sind z.B. 
+\begin{itemize}
+	\item Messen und Steuern der Datenqualitätskennzahlen ($\rightarrow$ Data Auditing)
+	\item Alarmierung bei Regelverletzung
+	\item Erkennen von (Daten-)Trends
+\end{itemize}
+
+Das Ziel des Data Monitorings ist es, ein Höchstmass von Wissen und Bewusstsein für den momentanen Stand der Datenqualität zu haben.
+
+\section{Historisierung}
+\subsection{Definition}
+
+
+
+
 
 
 \end{document}
