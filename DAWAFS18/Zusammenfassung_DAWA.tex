@@ -26,6 +26,7 @@
 
 \geometry{a4paper, margin=1in}
 \renewcommand{\figurename}{Abb.}
+\newcommand{\code}[1]{\texttt{#1}}
 
 \definecolor{system}{RGB}{141,0,76}
 \definecolor{inhalt}{RGB}{2,47,99}
@@ -1252,12 +1253,55 @@ Aufgaben des Data Monitorings sind z.B.
 
 Das Ziel des Data Monitorings ist es, ein Höchstmass von Wissen und Bewusstsein für den momentanen Stand der Datenqualität zu haben.
 
+\newpage
+
 \section{Historisierung}
-\subsection{Definition}
+Unter der Historisierung versteht man, dass man nicht nur aktuelle Datenbestände verwaltet, sondern auch veraltete Daten. Wenn also z.B. ein Mitarbeiter eine Lohnerhöhung erhält, so wird der alte Lohn nicht überschrieben, sondern beide Einträge existieren parallel.
+
+Es existieren verschiedene Methoden zur Historisierung. In diesem Modul wird hauptsächlich die SCD-Versionierung behandelt. SCD steht für Slowly Changing Dimensions. Es gibt die SCD-Typen 0, 1, 2 und 3. Wir werden uns ebenfalls kurz mit der Tupelversionierung auseinandersetzen.
+
+\subsection{SCD Typ 0 - Keine Historisierung, keine Aktualisierung}
+Es wird \textbf{keine Historisierung} durchgeführt. Es wird überprüft, ob unter diesem Primärschlüssel bereits ein Datensatz existiert. Falls dem so ist, \textbf{wird nichts gemacht}. Ansonsten wird der neue Datensatz in die Datenbank eingefügt.
+
+\vspace{10px}
+
+\noindent Es werden also nur neue Daten hinzugefügt, bereits existierende Datensätze werden jedoch \textbf{nicht} verändert.
+
+\subsection{SCD Typ I - Keine Historisierung, Aktualisierung}
+Es wird ebenfalls\textbf{ keine Historisierung} durchgeführt. Im Gegensatz zu SCD Typ 0 sind Aktualisierungen jedoch möglich. Erhält ein Mitarbeiter also eine Lohnerhöhung von CHF 5'000 und sein Lohn steigt von CHF 10'000 auf CHF 15'000, dann wird der alte Lohn in der Datenbank mit dem neuen Lohn überschrieben. Es gibt kein Zeichen mehr davon, dass der Mitarbeiter jemals nicht CHF 15'000 verdient hat.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=4\baselineskip]{scd_type1.png}
+	\caption{Beispiel einer Aktualisierung.}
+	\label{fig:scd1}
+\end{figure}
+
+Es muss jedoch darauf geachtet werden, dass z.B. persistente Datenaggregate (z.B. Views), die mit dem alten Datensatz zusammenhängen nun evtl. nicht mehr korrekt sind und somit neu berechnet werden müssen.
+
+\subsection{SCD Typ II - Vollhistorisierung}
+Diese Methode findet am meisten Anwendung. Es wird \textbf{nichts überschrieben}. Stattdessen werden zwei Extra-Spalten \code{dat-von} und \code{dat-bis} unterhalten, in denen festgehalten wird, in welchem Zeitraum dieser Datensatz gültig ist.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=5\baselineskip]{scd_type2.png}
+	\caption{Beispiel einer Vollhistorisierung.}
+	\label{fig:scd2}
+\end{figure}
+
+\noindent Im Gegensatz zu SCD Typ 1 sind persistente Datenaggregate immer noch korrekt, da der alte Datensatz ja noch existiert. Sofern sie mit den korrekten Versionen verbunden sind zumindest.
 
 
+\subsection{SCD Typ III - Historisierung mit neuem Attribut (Spalte)}
+Bei jeder Aktualisierung eines Datensatzes wird der gesamten Tabelle eine neue Spalte angehängt, in welche der alte Wert geschrieben wird.
 
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=4.5\baselineskip]{scd_type3.png}
+	\caption{Beispiel einer Historisierung mit neuer Spalte.}
+	\label{fig:scd3}
+\end{figure}
 
-
+Bei dieser Art der Historisierung wird jedoch meistens nur der letzte alte Wert gespeichert. Sollte die Acme Aupply Co nun also wieder in einen neuen Staat ziehen, so wird CA mit IL überschrieben und IL wird mit dem aktuellen Staat überschrieben. Somit ist diese Art von Historisierung eigentlich nur bei solchen Daten zu empfehlen, bei welchen eine einmalige Änderung zu erwarten ist.
 
 \end{document}
