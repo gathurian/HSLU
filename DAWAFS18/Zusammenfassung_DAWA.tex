@@ -25,8 +25,12 @@
 \usepackage{ulem}
 
 \geometry{a4paper, margin=1in}
+
 \renewcommand{\figurename}{Abb.}
 \newcommand{\code}[1]{\texttt{#1}}
+\renewcommand{\contentsname}{Inhalt}
+\renewcommand{\listfigurename}{Abbildungsverzeichnis}
+
 
 \definecolor{system}{RGB}{141,0,76}
 \definecolor{inhalt}{RGB}{2,47,99}
@@ -40,11 +44,13 @@
 
 \tableofcontents
 \newpage
+\listoffigures
+\newpage
 
 \graphicspath{{./Pictures/}}
 
 \section{Die Notwendigkeit von Data Warehouses}
-\subsection{Entscheidungsunterstützung (Skript S11)}
+\subsection{Entscheidungsunterstützung (Skript S15)}
 Data Warehouses sind keine neue Erfindung. Bereits in den 1960er Jahren wurden sogenannte \textbf{Managementsinformationssysteme} entwickelt. Diese MIS dienten dazu, Entscheidungsträgern alle benötigten Informationen zeitnah, fehlerfrei, flexibel, ergonomisch, effizient, effektiv und inspirativ zur Verfügung zu stellen. Diese Systeme treffen also nicht selbst Entscheidungen, sie \textbf{unterstützen} die Entscheidungsträger lediglich bei ihrer Entscheidung.
 
 Es gibt vier Arten der Entscheidungsunterstützung:
@@ -68,7 +74,7 @@ Es gibt vier Arten der Entscheidungsunterstützung:
 
 \newpage
 
-\subsection{Ungenügen der "gängigen" Datenhaltung (Skript S13)}
+\subsection{Ungenügen der "gängigen" Datenhaltung (Skript S17)}
 
 \begin{itemize}
 	\item Verschiedene Datenformate
@@ -84,7 +90,7 @@ Es gibt vier Arten der Entscheidungsunterstützung:
 
 $\longrightarrow$ Neuer Ansatz einer Datenaufbereitung muss her: \textbf{Homogenisierung}
 
-\subsection{Ungenügen der operativen Datenbanken für Entscheide (Skript S13)}
+\subsection{Ungenügen der operativen Datenbanken für Entscheide (Skript S18)}
 
 "Reguläre" Datenbanken im Geschäftsumfeld sind zu fest mit geschäftsrelevanten Lese- und Schreiboperationen beschäftigt. Bei solchen Datenbanken spricht man von OLTP-System (Online Transactional Processing). Diese Datenbanken sind also ziemlich schlecht geeignet für eine analytische, vorausschauende Bewirtschaftung, da solche Auswertung viel Zeit und vor allem Rechen-Performance benötigen.
 
@@ -92,7 +98,7 @@ Ausserdem liegen Daten in OLTP-Datenbanken meist in der 3. Normalform vor. Währ
 
 $\rightarrow$ Neuer Ansatz einer Datenbank muss her: \textbf{analytische Datenbanken}
 
-\subsection{SQL-Abfragen für Management-Zwecke}
+\subsection{SQL-Abfragen für Management-Zwecke (Skript S18ff)}
 Zusätzlich zu den vorhin genannten Gründen, sind Manager des SQL meist nicht mächtig. Sie wollen lieben "Drag and Drop" Interfaces, um sich ihre Daten "zusammenzuklicken" wie z.b. Microsoft Access.
 
 Zudem sind Datenbank-Abfragen stets \textbf{zweidimensional} in Tabellen dargestellt. Wenn man nun aber Daten in drei Dimensionen auswerten will (z.B. Zeit, Ort und Anzahl), so ist dies zwar möglich mittels Tabellen, aber nicht sonderlich leserfreundlich.
@@ -181,7 +187,7 @@ $\rightarrow$ Neuer Ansatz der Datenabfrage muss her: \textbf{OLAP}
 
 \restoregeometry
 
-\section{Daten vs. Informationen vs. Wissen vs. Weisheit}
+\section{Daten vs. Informationen vs. Wissen vs. Weisheit (Skript S26)}
 
 \begin{figure}[htb]
 	\centering
@@ -252,14 +258,16 @@ Zusammengefasst kann man also sagen, Informationen sind das Verständnis von Zus
 
 \section{Das Data Warehouse}
 
+\blockquote[Buch, S32]{In einer optimalen Welt würden Daten "perfekt" abgelegt werden, leicht zugänglich, platzsparend, sicher und für verschiedene Zwecke nützlich. Da wir aber leider nicht in einer optimalen Welt leben, ist dies nicht der Fall.}
+\vspace{10px}
+
+
 \begin{wrapfigure}[10]{R}{0.5\textwidth}
 	\centering
 	\includegraphics[keepaspectratio=true,height=10\baselineskip]{datawarehouse.PNG}
 	\caption{Aufbau eines Datawarehouses}
 	\label{fig:datawarehouse}
 \end{wrapfigure}
-
-In einer optimalen Welt würden Daten "perfekt" abgelegt werden, leicht zugänglich, platzsparend, sicher und für verschiedene Zwecke nützlich. Da wir aber leider nicht in einer optimalen Welt leben, ist dies nicht der Fall. (Buch S32)
 
 Daten sind in der Praxis meist nicht optimal abgelegt. Daten existieren meist
 \begin{itemize}
@@ -278,7 +286,7 @@ $\rightarrow$ Lösung: \textbf{Data-Warehouse}
 
 \newpage
 
-\subsection{Definition Data-Warehouse (Skript S 33)}
+\subsection{Definition Data-Warehouse (Skript S 37)}
 	
 \blockquote[Oracle corp: Data warehousing Guide 11g (2007)]{A data warehouse is a relational database that is designed for query and analysis rather than for transaction processing. It usually contains historic data derived from transaction data, but can incude data from other sources. Data warehouses separate analysis workload from transactin workload and enable an organisation to consoldiate data from several sources.} 
  
@@ -290,7 +298,7 @@ Zusammengefasst kann man also sagen, ein Data Warehouse ist eine Datenbank, welc
 
 
 
-\subsection{Bestandteile eines Data-Warehouses (Skript S39)}
+\subsection{Bestandteile eines Data-Warehouses (Skript S43)}
 
 \begin{description}
 	\item [SSRS: ] SQL Server Reporting Services
@@ -307,7 +315,7 @@ Zusammengefasst kann man also sagen, ein Data Warehouse ist eine Datenbank, welc
 
 \newpage
 
-\subsection{Welche Datenbank für welche Tasks? (Buch S40f)}
+\subsection{Welche Datenbank für welche Tasks? (Buch S40ff)}
 
 \begin{figure}[htb]
 	\centering
@@ -343,8 +351,8 @@ In diesem Modul wird ausschliesslich mit dem hier dargestellten Referenzmodell v
 
 \vspace{3cm}
 
-\subsection{Bestandteile des Referenzmodells (Skript S41)}
-\subsubsection{Datenquelle}
+\subsection{Bestandteile des Referenzmodells (Skript S45ff)}
+\subsubsection{Datenquelle (Skript S46)}
 Als \textbf{Datenquelle} eines Data-Warehouses werden oft beliebige\textit{ Bezugs-Datenbestände} benutzt (auch \textit{effektive Daten} oder \textit{Primärdaten} genannt)
 
 Das können zum Beispiel:
@@ -370,7 +378,7 @@ Es gibt weiterhin einige Probleme mit Datenquellen aus verschiedenen Systemen, w
 
 Deshalb wird immer häufiger auf einheitliche XML-Inputs zurückgegriffen.
 
-\subsubsection{Arbeitsbereich / Staging Area}
+\subsubsection{Arbeitsbereich / Staging Area (Skript S46 / Buch S55)}
 Der Arbeitsbereich integriert die Daten aus den verschiedenen vorhin genannten Datenquellen. Diese Integration passiert nach der Extraktion aus diesen Datenquellen.
 
 Die Daten werden mit Hilfe des Metadaten-Repository anhand ihrer Metadaten zusammengefügt und abgelegt.
@@ -381,7 +389,7 @@ Das \textbf{Metadaten-Repository} besteht normalerweise aus verschiedenen Datenb
 
 \noindent Die Staging Area ist ein \textbf{flüchtiges Zwischendepot} für die Daten. Hier werden die notwendigen Transformationen durchgeführt werden, welche in weiteren Schritten notwendig sind.
 
-\subsubsection{Basis-DB / Operational Data Store (ODS)}
+\subsubsection{Basis-DB / Operational Data Store (ODS) (Skript S47 / Buch S58)}
 Ein ODS ist eine Datenbank, welche aktuelle/operative Daten hält, meist in kleinen Teilmengen unterteilt. Diese Datenbank ist eine \textbf{temporäre} Zwischenstation zwischen der Staging Area und dem Data Warehouse. 
 
 \vspace{10px}
@@ -413,7 +421,7 @@ Eine Basis-DB/ein ODS muss nach Gauer \& Günzel folgende Eigenschaften haben:
 	\label{fig:ODS}
 \end{figure}
 
-\subsubsection{Ableitungsdatenbank (=(Enterprise-)Data Warehouse)}
+\subsubsection{Ableitungsdatenbank (=(Enterprise-)Data Warehouse) (Skript S47/Buch S64)}
 Wenn von einem Data Warehouse gesprochen wird, ist in der Regel ein \textit{Enterprise-Data-Warehouse} gemeint (= ein DWH mit unternehmensweitem Datenmodell und unternehmensweiten, universellen Datenbestand). 
 
 \vspace{10px}
@@ -422,7 +430,7 @@ Wenn von einem Data Warehouse gesprochen wird, ist in der Regel ein \textit{Ente
 
 Es ist jedoch selten nötig auf den gesamte§n Datenbestand dieser riesigen Datenbanken zuzugreifen. Aufgrund dessen werden Daten, die sehr selten benutzt werden in grossen Unternehmungen meist in Teilkopien des Data Warehouses, sogenannten \textit{Data Marts} gespeichert.
 
-\subsubsection{Auswertungsdatenbank (Data-Mart)}
+\subsubsection{Auswertungsdatenbank (Data-Mart) (Skript S50/Buch S67)}
 Ein Data-Mart ist eine \textbf{Teilkopie} eines Data-Warehouses, die aber auf demselben Datenmodell basieren. Solche Data-Marts werden meist für Abteilungen einer Unternehmung wie z.B. das Marketing erstellt. Der Vorteil dieser Data-Marts ist, dass diese unabhngig sind vom zentralen DW.
 
 Vorteile eines Data-Marts sind z.B. 
@@ -443,6 +451,8 @@ Die Pflege und (Weiter)Entwicklung des Data-Marts liegt jeweils in der Verantwor
 
 Ein "Problem" von Data-Marts ist, dass sie unabhängig voneinander sind. Somit werden meist dieselben Aggregationen mehrmals auf verschiedenen Data-Marts durchgeführt, was auf längere Zeit nicht sehr kosteneffizient ist. Stattdessen sollten diese Aggregationen eher auf dem zentralen DW durchgeführt werden (was aber nicht immer geht, da die verschiedenen Abteilungen nicht wissen, dass diese Aggregation bereits in einem anderen Data-Mart durchgeführt wurde)
 
+\newpage
+
 \begin{figure}[htb]
 	\centering
 	\includegraphics[keepaspectratio=true,height=18\baselineskip]{DWH_Bereiche.png}
@@ -450,19 +460,70 @@ Ein "Problem" von Data-Marts ist, dass sie unabhängig voneinander sind. Somit w
 	\label{fig:bereiche}
 \end{figure}
 
-\subsubsection{Integrationsbereich (Skript S51)}
+\subsubsection{Integrationsbereich (Skript S54)}
 
 Der Integrationsbereich bereitet die Daten, die aus verschiedenen Datenquellen kommen via staging area und ODS so auf, dass sie ins zentrale DW überführt werden können. 
 
 Im Zusammenhang mit dem Integrationsbereich wird oft von \textbf{ETL} gesprochen. ETL steht für \textit{Extract - Transfer - Load} und entspricht den wesentlichen Arbeitsschritten, die durchgeführt werden müssen, bis die Daten vom Quellsystem im DW landen.
 
-\subsubsection{Verwaltungsbereich}
-%TODO: Verwaltungsbereich
-\subsubsection{Auswertungsbereich}
-%TODO: Auswertungsbereich
+
+
+\subsubsection{Auswertungsbereich (Buch S72)}
+Der Auswertungsbereich des Data Warehouses umfasst die \textbf{Ableitungsdatenbank/Data Warehouse} und die \textbf{Auswertungsdatenbank}. Genaueres über diese beiden Bestandteile des Auswertungsbereiches können in Kapitel 4.1.4 - Ableitungsdatenbank und 4.1.5 - Auswertungsdatenbank nachgelesen werden.
+
+\vspace{10px}
+
+\noindent Wie der Name schon vermuten lässt, werden die Daten, die von den Datenquellen über ETL-Prozesse in die Basisdatenbank geladen wurden, hier ausgewertet. 
+
+Auswerten kann vieles sein. So können einfache Aggergationsfunktionen zur Auswertung benutzt werden, aber auch komplexe statistische Methoden, die z.B. beim Data Mining zum Einsatz kommen.
+
+Zusammengefasst kann man sagen: Eine \textbf{Auswertung} ist die \textit{Anwendung von Auswertefunktionen auf ausgewählte Daten zur Generierung von neuer Information} .
+
+Zudem werden die ausgewerteten Daten so aufbereitet und bereitgestellt, dass sie auch in anderen Systemen weiterverarbeitet werden können und/oder an andere Personen/Unternehmen weitergegeben werden.
+
+Last but not least werden die Ergebnisse der Auswertung wieder in die Basisdatenbank zurückgegspeichert, so dass sie die Qualität der Datenbasis erhöht und zukünftige Auswertungen somit verbessert. 
+
+
+\subsubsection{Verwaltungsbereich (Skript S272)}
+Der Verwaltungsbereich eines Data Warehouses enthält den \textbf{Data Warehouse Manager}, den \textbf{Metadaten Manager} und das \textbf{Repositorium} (Abb. \ref{fig:bereiche})
+
+\paragraph{Data Warehouse Manager}\mbox{}\\
+Wie der Name dies schon vermuten lässt, managt der Data Warehouse Manager (ein \textbf{Mensch}) das Data Warehouse, oder besser gesagt, dessen Prozesse. 
+
+Wie in Abb. \ref{fig:bereiche} zu sehen ist, übernimmt der Data Warehouse Manager hauptsächlich die Steuerung der folgenden Prozesse:
+
+\begin{itemize}
+	\item Monitor
+	\item Extraktion
+	\item Transformation
+	\item Laden
+	\item Auswertung
+\end{itemize}
+\vspace{10px}
+
+\noindent Aufgrund dessen, dass er den Monitor überwacht, der wiederum die Datenquellen überwacht, kann der Data Warehouse Manager die \textbf{Datenbeschaffung triggern}.
+
+\paragraph{Metadaten Manager (Buch S. 43ff)}\mbox{}\\
+Ähnlich wie beim Data Warehouse Manager kann beim Metadaten Manager recht einfach auf dessen Tätigkeit geschlossen werden: Es ist eine \textbf{Software}, die die Metadaten überwacht, steuert und initialisiert des Data Warehouses.
+
+\vspace{10px}
+
+\noindent Genauer gesagt heisst das, der Metadaten Manager verwaltet das \textbf{Metadaten Repositorium}, in welchem alle Metadaten (also Operative, Struktur-, Prozess- und Begriffsmetadaten) gespeichert werden.
+
+Es können ausserdem Metadaten aus Entwurfs- und Modellierungswerkzeugen (wie z.B. SSMS oder MySQL Workbench) extrahiert werden
+
+\vspace{10px}
+
+\noindent Der Metadaten Manager übergibt ausserdem die Metadaten, die er aus dem Repositorium zieht dem Data Warehouse Manager, der diese wiederum an die metadatengesteuerten Werkzeuge, die diese zur Laufzeit lesen, interpretieren und ausführen. Diese Werkzeuge erzeugen selbst wieder Metadaten (z.B. Log- oder Reportdateien), die schlussendlich wieder im Repositorium landen und später wieder diesen Tools gefüttert werden. 
+
+Das Ziel ist es, eine vollständig automatisierte Aktualisierung der Metadaten zu erreichen.
+
+\paragraph{Repositorium (Buch S79)}\mbox{}\\
+Das Repositorium ist der zentrale Storage für die Metadaten im Data Warehouse.
+
 \newpage
 
-\subsection{Referenzmodelle in die Praxis umgesetzt (Skript S60)}
+\subsection{Referenzmodelle in die Praxis umgesetzt (Skript S63)}
 \subsubsection{"Hub and Spoke"-Architektur}
 \begin{wrapfigure}[14]{L}{0.5\textwidth}
 	\centering
@@ -677,7 +738,7 @@ Zusammengefasst kann man sagen: Unstrukturierte Daten ermöglichen \textbf{Analy
 
 \subsection{Analyse}
 
-\subsubsection{NLP - Natural Language Processing (Skript S70)}
+\subsubsection{NLP - Natural Language Processing (Skript S74)}
  NLP beschreibt die Techniken und Methoden zur maschinellen Verarbeitung natürlicher Sprache. Ziel ist eine direkte Kommunikation zwische nMensch und coputer auf Basis der natürlichen (menschlichen) Sprache.
 
 NLP ist eine sehr AI-lastige Technologie und mittels welcher Text in strukturierte Informationen gebündelt werden kann. NLP setzt sich mittels der Verarbeitung der natürlichen Sprache, dem Verstehen und der Semantik von 
@@ -1303,5 +1364,41 @@ Bei jeder Aktualisierung eines Datensatzes wird der gesamten Tabelle eine neue S
 \end{figure}
 
 Bei dieser Art der Historisierung wird jedoch meistens nur der letzte alte Wert gespeichert. Sollte die Acme Aupply Co nun also wieder in einen neuen Staat ziehen, so wird CA mit IL überschrieben und IL wird mit dem aktuellen Staat überschrieben. Somit ist diese Art von Historisierung eigentlich nur bei solchen Daten zu empfehlen, bei welchen eine einmalige Änderung zu erwarten ist.
+
+\subsection{Tupelversionierung}
+Bei der Tupelversionierung werden die Tupel nicht mit einem Zeitstempel, wie in SCD Typ II, sondern mit einer Versionierungsnummer versehen. Es werden keine bestehenden Tupel aktualisiert, sondern nur neue Tupel erzeugt. Das Tupel mit der höchsten Versionierungsnummer ist jeweils das aktuelle gültige.
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[keepaspectratio=true,height=17\baselineskip]{tupelversionierung.PNG}
+	\caption{Tupelversionierung}
+	\label{fig:tupel}
+\end{figure}
+
+\newpage
+
+\section{Multidimensionale Datenmodellierung}
+\begin{wrapfigure}[18]{R}{0.65\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=18\baselineskip]{erd.JPG}
+	\caption{Ein solches ERD ist nicht mehr übersichtlich und somit nutzlos}
+	\label{fig:erd}
+\end{wrapfigure}
+Ab einer gewissen Komplexität sind Entity-Relationship Diagramme schlicht und einfach nicht mehr brauchbar (z.B. in Abb. \ref{fig:erd}).
+
+\vspace{10px}
+
+\noindent Ebenfalls benötigt man ab einer gewissen Komplexität eine unschön grosse Anzahl von Joins, um anständige Datenaggregate zu kriegen, was bald auch zu Performanceproblemen führt. 
+
+\vspace{10px}
+
+\noindent Die Lösung der beiden oben genannten Probleme heisst \textbf{multidimensionale Datenbanken}. Anstelle von einer komplizierten zweidimensionalen Darstellung der Daten nehmen wir einfach eine Dimension hinzu .
+
+\vspace{40px}
+
+\noindent Test
+
+
+
 
 \end{document}
