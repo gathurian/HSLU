@@ -483,6 +483,8 @@ Zudem werden die ausgewerteten Daten so aufbereitet und bereitgestellt, dass sie
 
 Last but not least werden die Ergebnisse der Auswertung wieder in die Basisdatenbank zurückgegspeichert, so dass sie die Qualität der Datenbasis erhöht und zukünftige Auswertungen somit verbessert. 
 
+%TODO: finish this
+
 
 \subsubsection{Verwaltungsbereich (Skript S272)}
 Der Verwaltungsbereich eines Data Warehouses enthält den \textbf{Data Warehouse Manager}, den \textbf{Metadaten Manager} und das \textbf{Repositorium} (Abb. \ref{fig:bereiche})
@@ -1378,6 +1380,7 @@ Bei der Tupelversionierung werden die Tupel nicht mit einem Zeitstempel, wie in 
 \newpage
 
 \section{Multidimensionale Datenmodellierung}
+\subsection{Nutzen von MDDB (Script S153 / Buch S201)}
 \begin{wrapfigure}[18]{R}{0.65\textwidth}
 	\centering
 	\includegraphics[keepaspectratio=true,height=18\baselineskip]{erd.JPG}
@@ -1396,9 +1399,93 @@ Ab einer gewissen Komplexität sind Entity-Relationship Diagramme schlicht und e
 
 \vspace{40px}
 
-\noindent Test
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=12.5\baselineskip]{mddbs.png}
+	\caption{Vergleich verschiedener Datenbank-Dimensionen}
+	\label{fig:mddbs}
+\end{figure}
 
+In Abbildung \ref{fig:mddbs} kann eine Gegenüberstellung der verschiedenen Datenbank-Dimensionen gesehen werden. Jede Dimension fügt ein zusätzlicher Wert hinzu. So wird in der 1-dimensionalen Datenbank nur das Kurszentrum gespeichert, während in der 2-dimensionalen Datenbank zusätzlich noch die Anzahl Kursteilnehmer pro Kurs hinterlegt wird. Die 3-dimensionale Datenbank schichtet nun mehrere 2-dimensionale Datenbank-"scheiben" aufeinander in eine Würfelform. Jede dieser "Scheiben" symbolisiert ein Monat.
 
+Anstelle, dass man nun ein ellenlanges Join-Statement von allen möglichen Tabellen machen muss, wenn man herausfinden will, wie viele Teilnehmer der Kurs K2 im Center C4 im Februar hatte, muss man nur die korrekten Koordinaten wissen (3/3/1).
+
+\newpage
+
+\noindent Eine MDDB (Multi-Dimensional Data Base) hat viele Vorteile. Einige davon sind:
+
+\begin{itemize}
+	\item Intuitive Benutzeroberfläche
+	\item Kurze und stabile Antwortzeiten
+	\item Hohe Zugriffs- Analyse- und Daten Präsentationsflexibilität
+	\item Interaktives Navigieren in den Datenbeständen
+	\item Schnelle Erstellung von geeigneten Ad-hoc-Berichten und Grafiken
+	\item Kein technisches Datenbank-Wissen vorausgesetzt
+	\item Vereinfachte Datenmustererkennung
+	\item Vereinfachte Erkennung von schlecht bereinigten Daten aufgrund von unplausiblen Analysedaten
+\end{itemize}
+
+\subsection{Kennzahlen, Fakten und Dimensionen}
+
+\noindent \textbf{OLAP-Systeme} werden verwendet, um anhand von Kennzahlen Entscheidungen zu treffen (Siehe Kap. 1.3-1.5). Das heisst, in den Datenbanken werden \textbf{Kennzahlen} gespeichert. 
+
+\vspace{10px}
+
+\noindent Eine solche \textbf{Kennzahl} symbolisiert eine \textbf{Eigenschaft}. Das mag z.B. ein Umsatz, ein Preis oder auch ein monatlicher Stromverbrauch sein.
+
+Ein anderer Begriff für Kennzahlen sind \textbf{Fakten}. Mehrere Fakten können zu einem neuen Fakt aggregiert werden (z.B. Kennzahl 330 und Kennzahl 54 können aggregiert werden zum Fakt, dass das Produkt mit der PID 54 CHF330.- kostet.)
+
+Zusätzlich wird der \textbf{Geschäftsaspekt}, auch \textbf{Dimension} genannt hinzugenommen. Er beschreibt den \textbf{Beobachtungspunkt oder -raum} der Kennzahl/des Fakts. So ein Dimension kann z.B. eine Filiale, eine Abteilung oder auch ein Quartal sein. Dimensionen sind sogenannte \textbf{deskriptiven Werte}, das heisst sie enthalten \textbf{keine messbaren Werte}, sondern geben den vorhandenen Kennzahlen lediglich einen \textbf{Kontext}.
+
+Dabei liefern gröbere Dimensionen eine gröbere Granularität des Faktes (Dimension HSLU vs. Dimension Student $\rightarrow$ Fakt Verwaltungskosten Universität vs. Verwaltungskosten Student).
+
+Es ist nicht immer einfach, Fakten und Dimensionen auseinanderzuhalten. So kann ein Preis sowohl Fakt, wie auch Dimension sein. Wenn man die Entwicklung des Preises im Verlaufe der Zeit beobachtet, dann ist der Preis ein Fakt. Wenn man nun aber die Anzahl von verkauften Produkten in verschiedenen Preissegmenten beobachtet, dann ist der Preis die Dimension.
+
+\vspace{10px}
+
+\noindent Grundsätzlich kann man sagen \textit{Eine Analyse basiert primär auf der Interpretation der Ausprägungen eines Fakts in mehreren Dimensionen.}
+
+\newpage
+
+\subsection{OLAP Würfel-Paradigma}
+Je mehr Dimensionen man hat, desto feiner wird die Granularität der Analyse. 
+
+\vspace{10px}
+
+\noindent Um zurückzukommen auf Abb. \ref{fig:mddbs}: In der 1-dimensionalen Datenbank kann eine 1-dimensionale Analyse durchgeführt werden: \\
+
+\centerline{\textit{Wie viele Kursteilnehmer hat das Kurszentrum C3}.} 
+
+\vspace{10px}
+
+\noindent \textbf{Dimension: } Kurszentren \\
+\noindent \textbf{Fakten: } Kursteilnehmen
+
+\vspace{10px}
+
+\noindent Nehmen wir eine Dimension hinzu, so kann in der 2-dimensionalen Datenbank bereits eine 2-dimensionale Analyse durchgeführt werden. Zusätzlich kommt nun noch die Kurs-Dimension hinzu: \\
+
+\centerline{\textit{Wie viele Kursteilnehmer hat der Kurs K2 im Kurszentrum C3}}
+
+\vspace{10px}
+
+\noindent \textbf{Dimension: } Kurszentren, Kurs \\
+\noindent \textbf{Fakten: } Kursteilnehmen
+
+\vspace{10px}
+
+\noindent Nehmen wir nun zusätzlich noch die dritte Dimension hinzu, so kann nun eine 3-dimensionale Analyse durchgeführt werden, die wiederum feingranularer ist wie die 2-dimensionale Analyse: \\
+
+\centerline{\textit{Wie viele Kursteilnehmer hat der Februar-Kurs K2 im Kurszentrum C3}}
+
+\vspace{10px}
+
+\noindent \textbf{Dimension: } Kurszentren, Kurs, Monat \\
+\noindent \textbf{Fakten: } Kursteilnehmen
+
+\vspace{10px}
+
+\noindent Man kann nun noch beliebig viele Dimensionen hinzufügen, bis man die gewünschte Granularität erreicht hat (Wie viele weibliche Kursteilnehmer in der Altersgruppe 35-40, die im Bereich Gesundheitspflege tätig sind, hatte der Februar-Kurs K2 2016 im Kurszentrum C3?). Man ist nicht an den 'phyischen' 3-Dimensionalen Raum gebunden, sondern kann so viele Dimensionen erstellen, wie man wünscht, denn \textbf{der Würfel ist nur ein Modell und nirgends so materialisiert.} Das einzige Problem, das auftauchen könnte ist, dass es ein bisschen schwierig ist, ein 10-dimensionaler Würfel auf Papier darzustellen.
 
 
 \end{document}
