@@ -377,6 +377,75 @@ Dank dem AD müssen Applikationen nicht mehr einzeln auf 500 Workstations instal
 
 Eine Entität kann abhängig vom Kontext und den dadurch erforderlichen Attributen auch mehrere digitale Identitäten besitzen.}
 
+\subsection{Laws of Identity}
+
+
+\subsubsection{IAM in Firmen}
+\begin{itemize}
+	\item Applikationsspezifische Applikationsverwaltung
+	\item ID-Daten in verschiedenen ID-Stores abgelegt
+	\item Benutzer muss sich mehrere Passwörter merken
+	\item Meist keine einheitlichen Security-Policies
+	\item Keine durchgehenden Berechtigungsvergabe-Prozesse
+	\item Manuelles Erzeugen/Löschen von Accounts
+	\item Kein zentrales Access Management
+	\item Viele grössere Organisationen haben zusammengeschusterte Lösungen
+	\item IAM-Lösungen langen auf dem Vormarsch
+\end{itemize}
+
+\subsubsection{IAM im Internet}
+\begin{itemize}
+	\item Benutzer hat meist mehrere Identitäten
+		\subitem Cloud
+		\subitem Social Networks
+		\subitem Shopping
+		\subitem Online Games
+		\subitem etc...
+	\item Pro Identität nur ein Account möglich
+		\subitem Wobei heute Login via FaceBook / Google vielerorts möglich ist
+	\item Viele Benutzer greifen zu Notlösungen, um ihre Identitäten im Griff zu halten
+		\subitem Überall gleiche Credentials
+		\subitem Vergessene Credetials
+		\subitem Passwörter aufschreiben
+	\item Singe Sign On ist ein Bedürfnis
+		\subitem Jedoch soll der Nutzer trotzdem noch die Kontrolle über seine Daten haben.
+\end{itemize}
+
+$\rightarrow$ Federated Identity Management
+
+\subsubsection{Federated Identity Management}
+
+\begin{wrapfigure}[16]{R}{0.55\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{fim.jpg}
+	\caption{Beispiel von Federated Identity Management}
+	\label{fig:fim}
+\end{wrapfigure}
+
+Federated Identify Management ermöglicht es Benutzer, sich einmal bei einem Identity Provider einzuloggen. Alle anderen Services vertrauen anschliessend diesem Identity Provider, so dass sich der Benutzer nicht mehr bei ihnen einloggen muss ($\rightarrow$ Single Sign On).
+
+Dank dem Federated Identity Management können nun system- und serviceübergreifend Authentifizierung und Autorisierung durchgeführt werden.
+
+\vspace{10px}
+
+\noindent Federated Identity Management ist essentiell für Cloud-Computing. Die meisten grösseren Cloud-Anbieter unterstützen bereits eine Art von Federated Identity Managent (SAML2 / ADFS von Microsoft, OpenID Connect, Shibboleth)
+
+\paragraph{SAML 2}\mbox{}\\
+SAML (Security Assertion markup Language) ist eine organisationsübergreifende Auszeichnungssprache für den Austausch von Authentifizierungs- und Autorisierungsinformationen,die auf XML basiert. 
+
+Der Identity Provider ist die die Asserting Party (SAML Authority), welche die Identität eines Subjekts garantieren kann. Der Service Provider bietet einen Service an und vertraut dem Identity Provider.
+
+\vspace{10px}
+
+\noindent SAML 2.0 definiert sechs Protokille (auch XML-Schematas). Diese Protokolle dienen dazu, den Identity Provider dazu aufzufordern, einen Benutzer zu authentifizieren. 
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{sso.jpg}
+	\caption{Ablauf einer Authentisierung mit SSO Profil}
+	\label{fig:sso}
+\end{figure}
+
 
 \section{Cloud Resources}
 

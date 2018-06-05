@@ -1487,5 +1487,64 @@ Je mehr Dimensionen man hat, desto feiner wird die Granularität der Analyse.
 
 \noindent Man kann nun noch beliebig viele Dimensionen hinzufügen, bis man die gewünschte Granularität erreicht hat (Wie viele weibliche Kursteilnehmer in der Altersgruppe 35-40, die im Bereich Gesundheitspflege tätig sind, hatte der Februar-Kurs K2 2016 im Kurszentrum C3?). Man ist nicht an den 'phyischen' 3-Dimensionalen Raum gebunden, sondern kann so viele Dimensionen erstellen, wie man wünscht, denn \textbf{der Würfel ist nur ein Modell und nirgends so materialisiert.} Das einzige Problem, das auftauchen könnte ist, dass es ein bisschen schwierig ist, ein 10-dimensionaler Würfel auf Papier darzustellen.
 
+\paragraph{Die 10 OLAP Würfel-Paradigmen}\mbox{}\\
+\begin{enumerate}
+	\item Sechs bis max. acht Dimensionen bleiben analystisch überschaubar und praktikabel
+	\item Die verwendeten Dimensionen müssen unabhängig voneinander sein
+	\item Die verwendeten Dimensionen können durchaus einer parallelen Dimensionshierarchie entnommen sein wie z.B. Print oder Broadcast
+	\item Es muss nicht an jeder Dimensionskante gleich viele Elemente haben. In Abb. \ref{fig:mddbs} hat es z.B. 5 Kurse und 6 Monate.
+	\item Die Elemente einer Dimension müssen immer die gleiche Granularität besitzen. Ihre Fakten sind also unmittelbar vergleichbar. Im Beispiel von Abb. \ref{fig:mddbs} sind es Monate als Zeitangabe und nicht z.B. Monate und Quartale gemischt.
+	\item Unter Kombination mehrerer Dimensionen lassen sich mit dem gleichen Zahlenmaterial unterschiedliche Würfel herstellen. Jeder Würfel ist auf ein Analysemuster hin optimiert. Jede Analyse braucht ihren eigenen Würfel.
+	\item Das Produkt (Projektion) aller Elemente aller Dimensionen ergibt die Anzahl der Fakten (oder NULL falls keine Daten vorhanden sind)
+	\item Eine Zeitdimension hat es fast immer. Eine solche lässt zeitbezogene Entwicklungsanalysen zu.
+	\item Die Fakten eines Würfels dokumentieren immer je nur eine relevante Kenngrösse wie z.B. den Umsatz oder den Gewinn
+	\item Eine Dimension bringt Fakten immer in die gleiche Klasse von Beobachtungsräumen: Pro Monat, pro Quartal, pro Jahr, pro Abteilung etc.
+\end{enumerate}
+
+\subsection{Dimensionstruktur, -klassifizierung und -hierarchie}
+
+Jede Dimension sollte eine Zusammenfassung mehrerer Elemente zu einem neuen, übergeordneten Dimensionswert ermöglichen ($\rightarrow$ roll-up). Das Gegenteil von roll-up ist drill-down. Diese beiden Funktionen ergeben einen hierarchischen 1:n Klassifikationspfad, wie zu sehen in Abb. \ref{fig:dimhier}.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{dimension_hierarchy.jpg}
+	\caption{Klassfikiationshierarchie}
+	\label{fig:dimhier}
+\end{figure}
+
+\paragraph{Die 9 Regeln der Klassifikationshierarchie}
+
+\begin{enumerate}
+	\item Die Klassifikationsstruktur ist strukturiert
+	\item Der Klassifikationsbaum muss vollständig sein. (Gehen wir davon aus, dass der Baum nach Radio und TV noch weitergeht)
+	\item Die Bestimmung der Elemente und Zuordnung der Unterelemente ist schwer aber unerlässlich für künftige Analysen (Gehören Plakat-Aktionen zu Print oder Broadcast?)
+	\item Die Bestimmung der Hierarchiestufen ist schwer.
+	\item Höchstens 7 Hierarchiestufen mit je max. 15 - 20 Elementen um die Übersicht zu bewahren
+	\item Es ist durchaus möglich, dass die gleichen Strukturelemente bis hin zur Wurzel parallel nach einer weiteren Sachlogik zusammengefasst werden. Im abgebildeten Beispiel analysieren wir nach dem Medium. Es könnte aber auch nach Zielgruppe zerlegt werden. So entsteht eine neue, parallele Klassifikationshierarchie.
+	\item Dimensionen aus parallelen Klassifiationshierarchien gelten als unabhängig und können deshalb im Würfel eigene Kanten bilden.
+	\item Die Hierarchie stellt uns oft vor die Frage wonach man detaillieren soll. Straftaten nach Alter oder nach Geschlecht oder nach Nationalität? Dies wird durch die geplanten Analysen bestimmt. Die Managementfragen sind zentral, bevor man mit dem Design der Dimensionsstruktur beginnt. Es kann dann halt sein, dass in mehreren Ästen eines Baumes gleiche Elemente vorkommen.
+	\item Eine zusammengefasste Dimension ist eine neue Dimension. Aber die beiden Dimensionen sind nicht unabhängig, können also keine eigenen Würfel-Kanten sein. Parallele Dimensionen sind unabhängig.
+\end{enumerate}
+
+\subsection{Dünnbesetztheit}
+In der Praxis sind längst nicht alle Würfel 'voll besetzt'. Diese fehlenden Daten werden auch als 'missing Data' bezeichnet. Es wird prinzipiell zwischen drei Arten von missing Data unterschieden:
+
+\begin{description}
+	\item[unmöglich] Es ist unmöglich, solche Daten zu erheben
+	\item[unbekannt:] Die Daten sind einfach nicht bekannt.
+	\item[(noch) nicht eingetreten: ] Das Event für diese Daten ist (noch) nicht eingetreten.
+\end{description}
+
+\noindent Zusätzlich wird zwischen der natürlichen und der logischen Dünnbesetztheit unterschieden.
+
+\paragraph{Natürliche Dünnbesetztheit} beschreibt die Dünnbesetztheit aufgrund von nicht eingetretenen Daten (non-event) (Im Juli werden keine Skis verkauft). Jedoch hat man nicht NULL Skis verkauft, sondern 0. Mathematisch gesehen ist der Würfel also voll besetzt und es kann problemlos gerechnet werden.
+
+\paragraph{Logische Dünnbesetztheit} beschreibt ebenfalls die Dünnbesetztheit von nicht eingetretenen Daten, jedoch nicht non-event nicht-Daten sondern event-not-applicable nicht-Daten. Nehmen wir an, ein Produkt ist im Feb.2018 auf den Markt gekommen. Es ist recht schwer, Verkaufsdaten für dieses Produkt im Nov. 16 zu finden. Diese Verkaufszahlen wären undefined oder NULL. Im Gegensatz zur natürlichen Dünnbesetztheit kann mit der logischen Dünnbesetztheit nicht korrekt gerechnet werden, da gewisse Anfragen aufgrund einer Unmöglichkeit zurückgewiesen werden und somit zu fehlenden oder verfälschten Analysen führen können.
+
+Deshalb müssen undefinierte Felder in einem Würfel dementsprechend gekennzeichnet werden (entweder mit NULL oder n/a (not applicable)). Welcher Wert genau in undefinierte Datenfelder geschrieben werden soll, müsste in den Metadaten hinterlegt werden.
+
+\vspace{10px}
+
+\noindent Bei einem logisch dünnbesetzten Würfel kann die Anzahl der undefinierten und diejenige der definierten (auch 0) Zellen verglichen werden. Daraus erhält man den Füllgrad des Würfels, d.h. wie viel Prozent des Würfels enthält tatsächlich Daten. Bei einem sehr hohen Füllgrad spricht von von einem dicht besetzt (engl. dense) Würfel im Gegensatz zu einem dünn besetzten (sparse) Würfel.
 
 \end{document}
