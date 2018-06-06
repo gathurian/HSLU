@@ -23,6 +23,9 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{ulem}
+\usepackage{chngcntr}
+
+\counterwithin{figure}{section}
 
 \geometry{a4paper, margin=1in}
 
@@ -1487,7 +1490,7 @@ Je mehr Dimensionen man hat, desto feiner wird die Granularität der Analyse.
 
 \noindent Man kann nun noch beliebig viele Dimensionen hinzufügen, bis man die gewünschte Granularität erreicht hat (Wie viele weibliche Kursteilnehmer in der Altersgruppe 35-40, die im Bereich Gesundheitspflege tätig sind, hatte der Februar-Kurs K2 2016 im Kurszentrum C3?). Man ist nicht an den 'phyischen' 3-Dimensionalen Raum gebunden, sondern kann so viele Dimensionen erstellen, wie man wünscht, denn \textbf{der Würfel ist nur ein Modell und nirgends so materialisiert.} Das einzige Problem, das auftauchen könnte ist, dass es ein bisschen schwierig ist, ein 10-dimensionaler Würfel auf Papier darzustellen.
 
-\paragraph{Die 10 OLAP Würfel-Paradigmen}\mbox{}\\
+\subsubsection{Die 10 OLAP Würfel-Paradigmen}
 \begin{enumerate}
 	\item Sechs bis max. acht Dimensionen bleiben analystisch überschaubar und praktikabel
 	\item Die verwendeten Dimensionen müssen unabhängig voneinander sein
@@ -1501,6 +1504,30 @@ Je mehr Dimensionen man hat, desto feiner wird die Granularität der Analyse.
 	\item Eine Dimension bringt Fakten immer in die gleiche Klasse von Beobachtungsräumen: Pro Monat, pro Quartal, pro Jahr, pro Abteilung etc.
 \end{enumerate}
 
+\subsubsection{Grundoperationen am Würfel}
+
+\begin{description}
+	\item[Slicing: ] Ausschneiden von Scheiben aus dem Würfel. Ändert nichts an der Granularität, macht aus einer 3-D Analyse eine 2-D Analyse
+	\item[Dicing: ] Durch Einschränken von einer (oder mehreren) Dimensionen wird aus dem Würfel ein kleinerer erzeugt. (Z.B. aus dem Würfel in Abb. \ref{fig:mddbs} den Würfel der Kursteilnehmer von Kurs K2/K3 im Zentrum C2/C3 während Jan/Feb ausschneiden.)
+	\item[Pivoting/Rotateion: ] Drehen des Würfels, so dass min. eine andere Dimension sichtbar ist
+	\item[Drill-Down: ] Detaillierung eines Datenfeldes auf einzelne Werte (z.B. von Monaten auf einzelne Tage)
+	\item[Drill-Up / Roll-Up: ] Gegenteil von Drill-Down; Verallgemeinerung eines Datenfeldes (z.B. von Monaten auf Quartalssicht)
+	\item[Drill-Across: ] Verschiebung des Fokus auf derselben Dimensionsstufe (z.B. andere Region oder anderes Produkt)
+	\item[Drill-Through: ] Ähnlich wie Drill-Across; Auswertung der gleichen Ansicht mit anderen Würfeln
+	\item[Drill-In / Merge: ] Verringerung der Granularität durch Entfernen von eizelnen Dimensionen
+	\item[Split: ] Gegenteil von Merge; Erhöhung der Granularität eines einzelnen Wertes durch Hinzufügen zusätzlicher Dimensionen (z.B. den Umsatz dieses Produktes in dieser exakten Filiale berechnen)
+\end{description}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=8\baselineskip]{drill_across.jpg}
+	\caption{Beispiel einer Dril-Across Operation}
+	\label{fig:rel}
+\end{figure}
+
+
+\newpage
+
 \subsection{Dimensionstruktur, -klassifizierung und -hierarchie}
 
 Jede Dimension sollte eine Zusammenfassung mehrerer Elemente zu einem neuen, übergeordneten Dimensionswert ermöglichen ($\rightarrow$ roll-up). Das Gegenteil von roll-up ist drill-down. Diese beiden Funktionen ergeben einen hierarchischen 1:n Klassifikationspfad, wie zu sehen in Abb. \ref{fig:dimhier}.
@@ -1512,7 +1539,7 @@ Jede Dimension sollte eine Zusammenfassung mehrerer Elemente zu einem neuen, üb
 	\label{fig:dimhier}
 \end{figure}
 
-\paragraph{Die 9 Regeln der Klassifikationshierarchie}
+\subsubsection{Die 9 Regeln der Klassifikationshierarchie}
 
 \begin{enumerate}
 	\item Die Klassifikationsstruktur ist strukturiert
@@ -1546,5 +1573,60 @@ Deshalb müssen undefinierte Felder in einem Würfel dementsprechend gekennzeich
 \vspace{10px}
 
 \noindent Bei einem logisch dünnbesetzten Würfel kann die Anzahl der undefinierten und diejenige der definierten (auch 0) Zellen verglichen werden. Daraus erhält man den Füllgrad des Würfels, d.h. wie viel Prozent des Würfels enthält tatsächlich Daten. Bei einem sehr hohen Füllgrad spricht von von einem dicht besetzt (engl. dense) Würfel im Gegensatz zu einem dünn besetzten (sparse) Würfel.
+
+\newpage
+
+\subsection{Modelle in multidimensionallen Datenbanken}
+
+In den bisher bekannten Datenbanken benötigt man zwei Modelle bzw. Schemata: Das \textbf{logische Modell} und das \textbf{physiche Modell}. Bei multidimensionalen Datenbanken kommt nun zusätzlich noch das \textbf{semantische Modell} dazu.
+
+Die folgenden Modelle sind nach absteigendem Abstraktionslevel geordnet.
+
+\subsubsection{semantisches Modell}
+Der Datenwürfel mit seinen Dimensionen, Hierarchien und Fakten ist ein gutes semantisches Modell und hilft uns bei der Vorstellung von mehrdimensionalen Analysen. Der Datenwürfel ist eine möglichst wahrheitsgetreue Abbildung der Realität.
+
+\subsubsection{logisches Modell}
+Das logische Modell wird benötigt, um die Business-Logik (Requirements, interne Organisation, Prozesse etc.) darzustellen. Das Endprodukt eines logischen Modells ist normalerweise das \textbf{ERD} (Entity Relation Diagram). Das ERD zeigt die Beziehungen zwischen verschiedenen Kategorien von Daten und ist essenziell für das Datenbank-Design. 
+
+\subsubsection{physisches Modell}
+Das physische Modell baut anschliessend auf dem vorher erstellten logischen Modell auf und zeigt das tatsächliche Layout der Datenbank.
+
+Nun werden Tabellen und Spalten mit Primär- und Fremdschlüssel erstellt nach den Vorgaben des logischen Modells. Im Gegensatz zum logischen Model ist das physische Model abhängig von der verwendeten Datenbank-Software.
+
+
+\subsection{OLAP-Modelle in multidimensionalen Datenbanken}
+Wie bereits in Kap. 1.5 besprochen wurde, wird OLAP (Online Analytical Processing) für die Analyse von Daten verwendet. Es wird zwischen vier Varianten des OLAP unterschieden:
+
+\begin{description}
+	\item[MOLAP:] Datenanalysen in multidimensionalen Systemen. MOLAP speichert Zahlen in Form von \textbf{Datenpunkten} und hat deshalb einen Performance-Vorteil gegenüber anderen OLAP-Systemen, die Daten als Datensätze speichern.
+	\item[ROLAP: ] Datenanalysen in relationalen Systemen. Das System zieht Daten direkt aus bestehenden Datenbanken und benötigt so wesentlich weniger Speicherplatz.
+	\item[HOLAP: ] Datenanalysen in hybriden Systemen. Hybrid für sowohl relational wie auch multidimensional.
+	\item[DOLAP: ] Datenanlaysen in Desktop Systemen. Bei diesen Systemen nimmt nicht die tatsächliche Analyse die meiste Zeit in Anspruch, sondern das Erstellen und Auffrischen der dargestellten Daten-Würfel auf dem Desktop.
+\end{description}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=21\baselineskip]{OLAP}
+	\caption{Vor- und Nachteile der verschiedenen OLAP-Systemen}
+	\label{fig:OLAP}
+\end{figure}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=11\baselineskip]{comp_OLAP.jpg}
+	\caption{Vergleich der verschiedenen OLAP-Systeme}
+	\label{fig:comp_OLAP}
+\end{figure}
+
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=12\baselineskip]{performance_vs_functionality.jpg}
+	\caption{Abwägung der Performance vs. Funktionalität für die verschiedenen OLAP-Systeme}
+	\label{fig:performance_functionality}
+\end{figure}
+
+
+
 
 \end{document}

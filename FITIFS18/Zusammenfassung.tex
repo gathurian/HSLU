@@ -21,10 +21,16 @@
 \usepackage{afterpage}
 \usepackage{geometry}
 \usepackage{listings}
+\usepackage{chngcntr}
+
+\counterwithin{figure}{section}
 
 \geometry{a4paper, margin=1in}
 \renewcommand{\figurename}{Abb.}
 \newcommand{\code}[1]{\texttt{#1}}
+
+\renewcommand{\contentsname}{Inhalt}
+\renewcommand{\listfigurename}{Abbildungsverzeichnis}
 
 
 \begin{document}
@@ -34,6 +40,8 @@
 \maketitle
 
 \tableofcontents
+\newpage
+\listoffigures
 \newpage
 
 \graphicspath{{./Pictures/}}
@@ -379,6 +387,34 @@ Eine Entität kann abhängig vom Kontext und den dadurch erforderlichen Attribut
 
 \subsection{Laws of Identity}
 
+\begin{enumerate}
+	\item \textbf{User Control and Consent} \\
+			Ich kann dem System, das meine Daten speichert vertrauen, indem ich selbst entscheiden kann, welche Identitäten und Daten ich wem preisgibt.
+	\item \textbf{Minimal disclosuder for a constrained use}\\
+			Daten werden nur auf einer "need-to-know"-Basis gesammelt und nur so lange behalten wie unbedingt nötig. Dies aufgrund dessen, dass je weniger Daten gespeichert werden, desto weniger Daten können gestohlen werden.
+	\item \textbf{Justifiable parties}\\
+			Mit wem werden welche Informationen geteilt?. Ich habe das Anrecht darauf zu wissen, wem meine Daten zu welchem Zweck zur Verfügung gestellt werden.
+	\item \textbf{Directed Identification}\\
+			Es muss unterschieden werden zwischen "omnidirektional" und "unidirektionalen" Identifikatoren. 
+			
+			Ein omnidirektionaler Identifikator identifiziert sich gegenüber jedem, der sich dafür interessiert wie z.B. die URL www.microsoft.com mit einem gültigen SSL Zertifikat. Jeder den es interessiert, kann überprüfen, ob diese URL tatsächlich das ist, für was es sich ausgibt: Eine URL der Microsoft Corporation. 
+			
+			Der unidirektionale Identifikator wiederum identifiziert sich ausschliesslich gegenüber der fragenden Partei. Angenommen, eine Website fragt mich nach meinem Alter, dann werden diese Daten ausschliesslich an diese Website weitergeleitet und nirgendwo anders hin. Wenn ich 5min später auf eine andere Website geht, so kennt diese mein Alter nicht.
+	\item \textbf{Pluralism of Operators and Technologies}\\
+			Es soll mehrere, verschiedene Identifikationssysteme geben.
+			
+			Es macht keinen Sinn, sich mit der AHV-Nummer beim Geschäfts-PC einloggen zu können. Denn der Staat hat Informationen über mich, die den Arbeitgeber vermutlich nichts angehen. Das heisst, für verschiedene Dinge sollten unterschiedliche Identifikationssysteme mit unterschiedlichen Features verwendet werden.
+	\item \textbf{Human Integration}\\
+			Die bisherigen Laws of Identity befassen sich hauptsächlich mit System-System oder auch Benutzer-System Interaktion. Diese Kanäle sind bereits recht gut gesichert. Was ist aber mit der Benutzer-Benutzer Interaktion? Wie kann ich sicherstellen, dass der nigerianische Prinz, der mir sein ganzes Geld vermachen will auch tatsächlich der ist, für den er sich ausgibt und kein Betrüger?
+	\item \textbf{Consistent Experience Across Contexts}\\
+			Wie bereits in Punkt 5 angesprochen muss es verschiedene Identifikationssysteme geben. Ich gebe auf dem E-Banking Portal nicht dieselben Informationen preis, die ich auf Facebook preisgebe. Es ist ein anderer Kontext und somit eine andere digitale Identität. Das Ziel ist es, diese Identitäten greifbar zu machen, z.B. mit einem Icon auf dem Desktop, das ich doppelklicken, bearbeiten oder auch löschen kann, wie es mir beliebt.
+\end{enumerate}
+
+\noindent Zusammengefasst (und auf Englisch) kann man die Laws of Identity folgendermassen zusammenfassen:
+
+\blockquote[MSDN-Website für Laws of Identity]{Putting all the laws together, we can see that the request, selection, and proffering of identity information must be done such that the channel between the parties is safe. The user experience must also prevent ambiguity in the user's consent, and understanding of the parties involved and their proposed uses. These options need to be consistent and clear. Consistency across contexts is required for this to be done in a way that communicates unambiguously with the human system components.
+	
+As users, we need to see our various identities as part of an integrated world that nonetheless respects our need for independent contexts.}
 
 \subsubsection{IAM in Firmen}
 \begin{itemize}
@@ -437,14 +473,58 @@ Der Identity Provider ist die die Asserting Party (SAML Authority), welche die I
 
 \vspace{10px}
 
-\noindent SAML 2.0 definiert sechs Protokille (auch XML-Schematas). Diese Protokolle dienen dazu, den Identity Provider dazu aufzufordern, einen Benutzer zu authentifizieren. 
+\noindent SAML 2.0 definiert sechs Request-Response Protokolle,die über XML-Schemata definiert werden. Es gibt zum Beispiel den Authentication Request (Ein Service verlangt die Authentifizierung des Benutzers) oder den Assertion Query and Request (Der Identity Provider bestätigt, dass der Benutzer irgendwann irgendwie authentifiziert wurde).
+
+\vspace{10px}
+
+\noindent Zudem werden über 6 sog. Bindings definiert, wie XML-Daten mit SAML übertragen werden wie z.B. über SOAP, HTTP Redirect oder HTTP POST.
+
+\vspace{10px}
+
+\noindent SAML 2.0 wird in den letzten paar Jahren vermehrt in markttauglichen Produkten eingesetzt, wie z.B dem MS ADFS (Active Directory Federation Service)
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[keepaspectratio=true,height=15\baselineskip]{sso.jpg}
+	\includegraphics[keepaspectratio=true,height=20\baselineskip]{sso.jpg}
 	\caption{Ablauf einer Authentisierung mit SSO Profil}
 	\label{fig:sso}
 \end{figure}
+
+\paragraph{Shibboleth}\mbox{}\\
+Shibboleth bietet ein Federated Identity Framework, welches vorwiegend im universitären Umfeld eingesetzt wird. Es ermöglicht Zugriffskontrolle, die auf einem Standard-Set von Attributen aufbaut, das jedoch bei Bedarf erweitert werden kann. Shibboleth ist zwar etwas Anderes als SAML 2.0, jedoch werden diese beiden Systeme immer kompatibler miteinander.
+
+\vspace{10px}
+
+\noindent Die Authentifizierung über Shibboleth läuft folgendermassen ab:
+
+\begin{enumerate}
+	\item Anfrage auf Ressource 
+	\item Ressource redirected auf Discoveryservice (z.B. um auszuwählen zu welcher Hochschule ich gehöre) 
+	\item User wählt die Hochschule aus 
+	\item User wird zur Ressource redirected 
+	\item Die Ressource leitet auf die Ressource der spezifischen Hochschule weiter 
+	\item Dort muss sich der User mit den HS-Credentials anmelden 
+	\item Der User wird auf die gewünschte Ressource weitergeleitet 
+\end{enumerate}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{shibboleth.jpg}
+	\caption{Ablauf der Authentifizierung über Shibboleth}
+	\label{fig:rel}
+\end{figure}
+
+\paragraph{OpenID}\mbox{}\\
+OpenID ermöglicht die Authentifizierung über eine URL (z.B. portmal.clavid.com, www.clavid.com/portmann oder auch rportmann.startssl.com). Es gibt nur wenige Anbieter,die die Authentifizierung über OpenID zulassen und die Implementation hat noch einige Interoperabilitätsprobleme. Jedoch wäre dieser Standard Plattformunabhängig und stellt keinerlei Anforderungen an den Client.
+
+\paragraph{OAuth}\mbox[]\\
+OrganisationAuthentication ist ein open-source, tokenbasiertes Protokoll für die Autorisierung von APIs für sowohl Desktops wie auch Web- ud Mobile-Applikationen. Ein bekannteres Beispiel von OAuth ist die PKI-Karte. OAuth wird inzwischen von vielen grösseren Firmen intern verwendet und einige Cloud Anbieter haben es ebenfalls implementiert.
+
+\paragraph{OpenID Conncect}\mbox{}\\
+OpenID Connect gehört nicht zu OpenID sondern zu OAuth. Es fügt dem Autorisierungsprotokoll noch einen zusätzlichen Authentifizierungslayer hinzu. 
+
+\paragraph{Digitale Signatur}\mbox{}\\
+Zumindest in der Schweiz ist die digitale Signatur der handschriftlichen rechtlich gleichgestellt. Jedoch gibt es noch einige Probleme. So gibt es in der Schweiz zur drei zugelassene CAs, viele Signatursoftwares überprüfen nicht alle PDFs, sondern nur PDF-A Formate. Zudem müssen einige Geschäftsprozesse angepasst werden und die Archivierung muss regelkonform sein. Deshalb gibt es erst einige wenige tatsächliche Anwendung der digitalen Signatur hier.
 
 
 \section{Cloud Resources}
