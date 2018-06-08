@@ -22,12 +22,16 @@
 \usepackage{geometry}
 \usepackage{listings}
 \usepackage{chngcntr}
+\usepackage{multicol}
 
 \counterwithin{figure}{section}
 
 \geometry{a4paper, margin=1in}
 \renewcommand{\figurename}{Abb.}
+\renewcommand{\tablename}{Tabelle}
 \newcommand{\code}[1]{\texttt{#1}}
+
+\renewcommand*{\thead}[1]{\bfseries #1}
 
 \renewcommand{\contentsname}{Inhalt}
 \renewcommand{\listfigurename}{Abbildungsverzeichnis}
@@ -511,7 +515,7 @@ Shibboleth bietet ein Federated Identity Framework, welches vorwiegend im univer
 	\centering
 	\includegraphics[keepaspectratio=true,height=15\baselineskip]{shibboleth.jpg}
 	\caption{Ablauf der Authentifizierung über Shibboleth}
-	\label{fig:rel}
+	\label{fig:shibboleth}
 \end{figure}
 
 \paragraph{OpenID}\mbox{}\\
@@ -529,7 +533,143 @@ Zumindest in der Schweiz ist die digitale Signatur der handschriftlichen rechtli
 
 \section{Cloud Resources}
 
+Fallstudie
+
+\newpage
+
 \section{Evalutation von Cloud-Services}
+
+Einige Aspekte die bei der Evaluation eines Cloud-Services berücksichtigt werden sollen:
+
+\begin{multicols}{2}
+	\begin{itemize}
+		\item Kosten
+		\item(Preis / Leistung)
+		\item Funktionsumfang
+		\item Vertragskonditionen (Wartung, Support, Ausstieg, usw.)
+		\item Unterstützte Plattformen
+		\item Sicherheit (Autorisierung, Datenschutz)
+		\item Anpassungen des Service / Software
+		\item Ruf der Firma
+		\item Ausbau des RZ bezüglich Katastrophenschutz
+		\item Wie oft gibt es einen neuen Release
+		\item Einfachheit des Updateprozesses
+		\item Performance
+		\item Verfügbarkeit
+		\item Skalierbarkei
+		\item Wie viele andere Kunden gibt es
+		\item Usability
+	\end{itemize}
+\end{multicols}
+
+\subsection{Charakteristika eines Cloud-Services}
+
+\begin{description}
+	\item[On-Demand Self Service: ] Selbstzuweisung von Leistungen und Ressourcen aus der Cloud durch den Nutzer, die bei Bedarf bereitstehen.
+	\item[Rapid Elasticity / Scalability: ] Funktionen und Ressourcen können schnell und dynamisch bereitgestellt werden, wenn möglich sogar automatisch. Aus Benutzersicht sind die Ressourcen "unlimitiert" und können jederzeit erweitert werden.
+	\item[Broad Network Access: ] Die Services werden über ein internes oder externes Netzwerk zur Verfügung gestellt und können über standardisierte Schnittstellen auf unterschiedlichen Plattformen (wie Mobile oder Mac) genutzt werden.
+	\item[Resource Pooling: ] Die Ressourcen des Providers werden nicht fest einem Benutzer zugeteilt, sondern alle verfügbaren Ressourcen werden in einem Pool gebündelt und dynamisch an die Benutzer vergeben, die es momentan brauchen.
+	\item[Measured Service: ] Der Provider führt laufend QA	durch und versucht, seinen Dienst stetig zu verbessern.
+\end{description}
+
+\newpage
+
+\subsection{Merkmale und Service/Deployment Modelle}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{merkmale_cloud.jpg}
+	\caption{Visualisierung der verschiedenen Service \& Deployment Modellen}
+	\label{fig:merkmale_cloud}
+\end{figure}
+\begin{center}
+\begin{tabular}{|l|p{10cm}|}
+	\hline 
+	\thead{Deployment Model} & \thead{In der Regel bedeutet das} \\ 
+	\hline 
+	Public Cloud & Für jedermann zugänglich. im Eigentum des Providers \\ 
+	\hline 
+	Community Cloud & Nur für bestimmte Gruppen von Benutzern oder Unternehmen zugänglich. Im Eigentum der Nutzer/eines Providers \\ 
+	\hline 
+	Private Cloud & Von einer einzigen Organisation genutzt. Kann im Eigentum dieser Organisation oder eines Providers sein.  \\ 
+	\hline 
+	Hybrid Cloud & Kombination aus verschiedenen Modellen. \\ 
+	\hline 
+\end{tabular} 
+\captionof{table}{Unterscheidung verschiedener Cloud-Modelle}
+
+\vspace{10px}
+
+
+\begin{tabular}{|l|l|l|l|}
+	\hline 
+	\thead{Subkategorie} & \thead{Betreiber} & \thead{Standort} & \thead{Ressourcen-Sharing}\\ 
+	\hline 
+	Intern & Interne IT & Nutzer & Keines\\ 
+	\hline 
+	Outgesourced & Lieferant & Nutzer & Keines\\ 
+	\hline 
+	Hosted & Lieferant & Lieferant & Innerhalb des RZ und Netzwerks\\ 
+	\hline 
+	Virtual & Lieferant & Lieferant & Variabel\\ 
+	\hline 
+\end{tabular} 
+\captionof{table}{Subkateorien von Privaten Clouds}
+\end{center}
+
+\subsection{ERP- und E-Business-System}
+\paragraph{ERP System}\mbox{}\\
+\begin{itemize}
+	\item Aus mehreren Komponenten bestehendes integriertes Anwendungspaket
+	
+	(Integriert = Zieht Daten direkt aus der Datenbank, anstelle dass es selbst eine unterhält)
+	\item Unterstützt die Abwicklung von Geschäftstransaktionen auf operativer Ebene
+	\item Integriert in allen wesentlichen betrieblichen Funktionsbereichen
+	\item Integration durch zentrale Datenbank
+	\item Ermöglicht Abteilungsübergreifende Geschäftsprozesse
+\end{itemize}
+
+\paragraph{E-Business System}\mbox{}\\
+Ein ERP-System mit einigen zusätzlichen Funktionen wie z.B.
+\begin{itemize}
+	\item Ermöglicht Betriebsübergreifende Prozesse
+	\item Internet-Nutzung
+	\item Zugang über Internet-Portale möglich
+\end{itemize}
+
+\subsection{Evaluationsverfahren}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=25\baselineskip]{evaluation.jpg}
+	\caption{Evaluationsvorgang bei der Auswahl eines Cloud-Services}
+	\label{fig:eval}
+\end{figure}
+
+\subsubsection{Phase I - Anforderungen und Pflichtenheft erarbeiten}
+
+\paragraph{Beschaffungsteam bilden}\mbox{}\\
+Das Ziel dieses Arbeitsschrittes ist ziemlich selbsterklärend: Es soll ein Team gebildet werden, welches für die Evaluation und die Beschaffung des Services verantwortlich ist. Wichtig ist, dass die Endnutzer ebenfalls in den Prozess miteinbezogen werden.
+
+Es sollten also Anforderungen für die gewünschten Personen definiert werden. Personen, die diese Anforderungen erfüllen können ins Team aufgenommen werden. Allenfalls muss noch ein externer Fachmann hinzugezogen werden.
+
+Ebenfalls sollten alle involvierten Benutzer (also der Auftraggeber, die Steuerungsgruppe, der Projektleiter und die Endbenutzer) informiert werden.
+
+\paragraph{Planung}\mbox{}\\
+Das Ziel dieses Arbeitsschrittes ist es, den Scope, das Vorgehen und das Budget definiert zu haben. Es sollte ebenfalls bereits eine Deadline definiert sein. Schlussendlich sollte ein genehmigter Kosten- und Terminplan stehen.
+
+Die Planung beinhaltet folgende Schritte:
+
+\begin{enumerate}
+	\item Ressourcen und Kapazitäten erfassen
+	\item Evaluationsvorgang planen
+	\item Kosten der Planungseinheiten abschätzen
+	\item Planung abnehmen lassen
+\end{enumerate}
+
+\paragraph{Anforderungen ermitteln}\mbox{}\\
+Bevor man sich für einen Service entscheiden kann, sollte man vorher noch abklären, zu was der denn überhaupt fähig sein müsste. Es muss also ein Anforderungskatalog erstellt werden, in dem die Anforderungen an den Service, dessen Dienstleister oder Lieferanten festgelegt werden.
+
 
 \section{Platform Trends}
 

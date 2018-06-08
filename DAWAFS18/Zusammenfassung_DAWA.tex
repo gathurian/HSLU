@@ -25,20 +25,45 @@
 \usepackage{ulem}
 \usepackage{chngcntr}
 
+%Abbildungen werden pro Kapitel nummeriert (Abb. 1.4, Abb. 4.7 etc)
 \counterwithin{figure}{section}
 
 \geometry{a4paper, margin=1in}
 
+%Bilder haben die Unterschrift Abb. anstelle von Figure
 \renewcommand{\figurename}{Abb.}
+
+%\code{Text} formatiert Text als monospace Schrift
 \newcommand{\code}[1]{\texttt{#1}}
+
+%Table of Contents und List of Figures werden in Inhalt und Abbildungsverzeichnis umbenannt
 \renewcommand{\contentsname}{Inhalt}
 \renewcommand{\listfigurename}{Abbildungsverzeichnis}
 
+%Wie sollen Code-Snippets mit \lstinline|code| aussehen?
+\lstset{frame=tb,
+	language=sql,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{darkgreen},
+	stringstyle=\color{violet},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
 
+%RGB-Definition von eiigen Farben
 \definecolor{system}{RGB}{141,0,76}
 \definecolor{inhalt}{RGB}{2,47,99}
 \definecolor{darstellung}{RGB}{116,117,117}
 \definecolor{nutzung}{RGB}{207,2,127}
+\definecolor{darkgreen}{RGB}{39,117,1}
 
 \begin{document}
 \title{Zusammenfassung Data Warehousing FS2018}
@@ -425,7 +450,7 @@ Eine Basis-DB/ein ODS muss nach Gauer \& Günzel folgende Eigenschaften haben:
 \end{figure}
 
 \subsubsection{Ableitungsdatenbank (=(Enterprise-)Data Warehouse) (Skript S47/Buch S64)}
-Wenn von einem Data Warehouse gesprochen wird, ist in der Regel ein \textit{Enterprise-Data-Warehouse} gemeint (= ein DWH mit unternehmensweitem Datenmodell und unternehmensweiten, universellen Datenbestand). 
+Wenn von einem Data Warehouse gesprochen wird, ist in der Regel ein \textit{Enterprise-Data-Warehouse} gemeint (= ein Data-Warehouse mit unternehmensweitem Datenmodell und unternehmensweiten, universellen Datenbestand). 
 
 \vspace{10px}
 
@@ -593,6 +618,108 @@ Die Galaxy- oder Galaxie-Architektur ist ebenfalls stark mit dem Stern-Schema ve
 Wie in Abbildung \ref{fig:star} zu sehen ist, enthalten Faktentabellen Fremdschlüssel zu den Einträgen in den Dimensionstabellen. Das impliziert, dass es jeden Eintrag zu einer Kombination von Dimensionen nur einmal geben kann.
 
 Im Gegensatz zu den riesigen und volatlen Faktentabellen sind Dimenstionstabellen recht statisch und vergleichsweise klein. 
+
+\subsubsection{Beispiel zur Erstellung eines Datenbankschemas}
+Es soll das DB-Design für eine Kursverwaltung erstellt werden. Die DB soll in einem Sternschema aufgebaut sein (Sternschema: Siehe Kap. 4.2.2)
+
+\vspace{10px}
+
+\noindent \textbf{Ablauf}
+
+\begin{enumerate}
+	\item Identifikation der Fakten
+	\item Identifikation der Dimensionen
+	\item Festlegen der Dimensionshierarchie
+	\item Herstellung der Beziehungen
+\end{enumerate}
+
+\paragraph{Identifizierung der Fakten}\mbox{}\\
+Welches sind die numerischen Werte, die die Entwicklung eines Geschäfts am Besten ausdrücken? 
+
+\vspace{10px}
+
+\noindent In unserem Fall wäre das sicher einmal die \textit{Anzahl der Kursbesucher}.
+
+\paragraph{Identifikation der Dimensionen}\mbox{}\\
+Was sind Dinge, die das wann, wo, was wer, etc. der Fakten beschreiben?  
+
+\vspace{10px}
+
+\noindent In unserem Fall wären das z.B. der Standort (wo?), die Zeit(wann?) und der Kurs (was?)
+
+Momentan sieht unser Schema also so aus:
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=10\baselineskip]{db-schema_empty.jpg}
+	\caption{Leeres Datenbank-Schema mit Dimensions- und Faktentabellen.}
+	\label{fig:empty_schema}
+\end{figure}
+
+\newpage
+
+\paragraph{Festlegen der Dimensionshierarchie}\mbox{}\\
+Nun wird geschaut, welche Elemente gehören zu den Dimension bzw. Fakten?
+
+Das leere Datenbankschema wird nun aufgefüllt:
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=8\baselineskip]{db-schema.jpg}
+	\caption{Datenbank-Schema mit Dimensions- und Faktentabellen.}
+	\label{fig:db-schema}
+\end{figure}
+
+\paragraph{Herstellen der Beziehungen}\mbox{}\\
+Ein DB-Schema, in welchem die Tabellen keine Beziehungen zueinander haben ist recht nutzlos. Nun muss geschaut werden, wie diese Tabellen oder Entitäten miteinander in Beziehung stehen. So hat z.B. ein Standort n Kurse. Diese Kurse werden zu n Zeiten durchgeführt. 
+
+Grafisch dargestellt sieht unser DB-Schema mit Beziehungen nun so aus:
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=9\baselineskip]{db-schema_bez.jpg}
+	\caption{Datenbank-Schema mit Dimensions- und Faktentabellen, die miteinander in Beziehung stehen.}
+	\label{fig:db-schema_bez}
+\end{figure}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=13\baselineskip]{star_schema.jpg}
+	\caption{Fertiges, ausnormalisiertes Sternschema der Kursverwaltung.}
+	\label{fig:star_schema}
+\end{figure}
+
+\newpage
+
+\noindent Werfen wir nun einen genaueren Blick auf die Tabellen, die hier dargestellt sind. 
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{dim_tables.jpg}
+	\caption{Dimensionstabellen für die Zeit, den Kurs und das Kurszentrum}
+	\label{fig:dim_tables}
+\end{figure}
+
+\begin{wrapfigure}[13]{R}{0.5\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=10\baselineskip]{fact_table.jpg}
+	\caption{Faktentabelle der Einschreibungen}
+	\label{fig:fact_table}
+\end{wrapfigure}
+
+\noindent In Abb. \ref{fig:fact_table} sieht man zudem noch die korrespondierende Faktentabelle. Es fällt auf, dass Dimensionstabellen weniger Einträge haben wie Faktentabellen und auch eher statisch sind. Nachdem man die gewünschten Attribute der Dimension erfasst hat, wird die Dimensionstabelle normalerweise nicht mehr gross geändert. Die Faktentabelle hingegen wächst stetig und kann in grösseren Data Warehouses problemlos mehrer 10 Millionen Einträge umfassen.
+
+\vspace{10px}
+
+\noindent Ebenfalls ist auffällig, dass die Dimensionstabelle erstaunlich viele Redundanzen hat. Jedoch ist dies gewollt. Man nimmt Redundanzen in Kauf, um dafür eine bessere Performance zu erhalten ($\rightarrow$ Denormalisierung).
+
+Faktentabellen, im Gegensatz dazu, besitzen keine Redundanzen. Diese doppelten Einträge, die zu sehen sind werden \textit{notwendige Redundanzen} genannt. Denn wenn man sie löschen würde, entnähme das dem System Informationen.
+
+\vspace{10px}
+
+\noindent Eine weiter auffällige Tatsache ist, dass die Primärschlüssel der Dimensionstabelle offenbar eine Semantik besitzen (1101 für den 01. Monat des Jahres 2011). Es ist zu empfehlen, jegliche Semantik wegzulassen bei Primärschlüsseln. Deshalb wird im produktiven Umfeld meist auf das \verb|IDENTITY| oder \verb|AUTO_INCREMENT| zurückgegriffen.
+
+\newpage
 
 \section{ETL}
 \subsection{Extraktion}
@@ -963,7 +1090,7 @@ Subject: Beschwerde
 Von: peer.haber@bluewin.ch
 Gesendet: Di. 18.10.2016 15:27
 An: Customer Service
-------------------------------------------------
+______________________________________________________
 Geehrtes Support Team
 leider bin ich mit dem Vertrag vom 21.10.2016 nicht zufrieden. sie haben mir 
 am Telefon erklaert, dass im Vertrag 5GB Daten inbegriffen sind. 
@@ -1521,7 +1648,7 @@ Je mehr Dimensionen man hat, desto feiner wird die Granularität der Analyse.
 \begin{figure}[htb]
 	\centering
 	\includegraphics[keepaspectratio=true,height=8\baselineskip]{drill_across.jpg}
-	\caption{Beispiel einer Dril-Across Operation}
+	\caption{Beispiel einer Drill-Across Operation}
 	\label{fig:rel}
 \end{figure}
 
@@ -1604,28 +1731,156 @@ Wie bereits in Kap. 1.5 besprochen wurde, wird OLAP (Online Analytical Processin
 	\item[DOLAP: ] Datenanlaysen in Desktop Systemen. Bei diesen Systemen nimmt nicht die tatsächliche Analyse die meiste Zeit in Anspruch, sondern das Erstellen und Auffrischen der dargestellten Daten-Würfel auf dem Desktop.
 \end{description}
 
-\begin{figure}[htb]
+\begin{figure}[htb!]
 	\centering
-	\includegraphics[keepaspectratio=true,height=21\baselineskip]{OLAP}
+	\includegraphics[keepaspectratio=true,height=20\baselineskip]{OLAP}
 	\caption{Vor- und Nachteile der verschiedenen OLAP-Systemen}
 	\label{fig:OLAP}
 \end{figure}
 
-\begin{figure}[htb]
+\begin{figure}[htb!]
 	\centering
 	\includegraphics[keepaspectratio=true,height=11\baselineskip]{comp_OLAP.jpg}
 	\caption{Vergleich der verschiedenen OLAP-Systeme}
 	\label{fig:comp_OLAP}
 \end{figure}
 
-
-\begin{figure}[htb]
+\begin{figure}[htb!]
 	\centering
-	\includegraphics[keepaspectratio=true,height=12\baselineskip]{performance_vs_functionality.jpg}
+	\includegraphics[keepaspectratio=true,height=11\baselineskip]{performance_vs_functionality.jpg}
 	\caption{Abwägung der Performance vs. Funktionalität für die verschiedenen OLAP-Systeme}
 	\label{fig:performance_functionality}
 \end{figure}
 
+\newpage
+
+\subsection{CUBE, ROLLUP und GROUPING SETS (Skript S177)}
+\code{GROUP BY [...] WITH CUBE} oder auch direkt \code{GROUP BY CUBE} liefern dasselbe Ergebnis wie \code{UNION ALL}, ist aber vor allem wenn \code{UNION ALL} in Kombination mit \code{GROUP BY} oder \code{ORDER BY} verwendet wird einfacher zu verstehen.
+
+\paragraph{ROLLUP}\mbox{}\\
+\code{ROLLUP} ist eine Erweiterung der \code{GROUP BY} 'Methode'. Es ermöglicht es, zusätzliche Zeilen einzufügen, die das Subtotal einer Query anzeigen.
+
+\begin{lstlisting}[language=sql, captionpos = b, caption={Beispiel der Nutzung von ROLLUP}]
+SELECT warehouse, product, SUM(quantity)
+FROM Inventory
+GROUP BY ROLLUP(warehouse, product)
+\end{lstlisting}
+
+\begin{figure}[htb]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[keepaspectratio=true, width=.8\linewidth]{warehouse_table.jpg}
+		\caption{Die Tabelle 'warehose'}
+		\label{fig:sub1}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=1\linewidth]{rollup.jpg}
+		\caption{Die Summe der einzelnen Produkte und in allen Warehouses}
+		\label{fig:sub2}
+	\end{subfigure}
+	\caption{Beispiel der Anwendung von ROLLUP}
+	\label{fig:rollup}
+\end{figure}
+
+\paragraph{CUBE}\mbox{}\\
+Ähnlich wie \code{ROLLUP} berechnet auch \code{CUBE} Subtotale von Queries. Allerdings generiert \code{CUBE} ein Subtotal von allen möglichen Kombinationen der spezifizierten \code{GROUP BY} Spalten
+
+\begin{lstlisting}[language=sql, captionpos=b, caption={Beispiel der Nutzung von CUBE}]
+SELECT warehouse, product, SUM(quantity)
+FROM Inventory
+GROUP BY CUBE(warehouse, product)
+ORDER BY warehouse, product
+\end{lstlisting}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=7\baselineskip]{cube.jpg}
+	\caption{Beispiel der Anwendung von CUBE}
+	\label{fig:cube}
+\end{figure}
+
+\paragraph{GROUPING SETS}\mbox{}\\
+\code{GROUPING SETS} erlauben es einem, Daten gleichzeitig nach verschiedenen Gruppen zu gruppieren. Im untenstehenden Beispiel werden die gleichen Daten sowohl nach \code{Color}, wie auch nach \code{Item} gruppiert.
+
+\begin{lstlisting}[language=SQL, captionpos=b, caption={Beispiel der Nutzung von GROUPING SETS}]
+SELECT Item, Color, SUM(Quantity) AS QtySum
+FROM Inventory
+GROUP BY GROUPOING SETS(Item, Color)
+\end{lstlisting}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=7\baselineskip]{grouping_sets.jpg}
+	\caption{Beispiel der Anwendung von GROUPING SETS}
+	\label{fig:cube}
+\end{figure}
+
+\section{MDX (Multidimensional Expressions) (Skript S196)}
+MDX steht für multidimensional expressions. Es ist eine von Microsoft entwickelter Standard und ist eine Query-Sprache, die auf SQL aufbaut und äusserst komplex aber auch extrem mächtig ist.
+
+\vspace{10px}
+
+\noindent Das Ziel von MDX ist es folgende Dinge zu definieren oder weiterzuentwickeln:
+\begin{itemize}
+	\item Eine standardisierte Query-Sprache mit eindeutiger Semantik
+	\item Standardisierte Zugriffsprotokolle
+	\item Abfrageoptimierungen
+	\item Zugriffsstrukturen für die Datenverwaltung
+	\item Standardisierte Datenaustauschformate
+\end{itemize}
+
+\vspace{10px}
+
+In MDX werden sehr viele Klammern gebraucht. Deren Bedeutung:
+
+\begin{description}
+	\item[Geschweifte Klammern {}: ] Eine Ansammlung von Tupel derselben Dimension als solche zu kennzeichnen
+	\item[Runde Klammern (): ] Definition der Tupel in der \code{WHERE} Bedingung
+	\item[Eckige Klammern []: ] Definiton der Namen von Dimensionen, Leveln und deren Membern, sowie auch Namen von Cubes.
+\end{description}
+
+\subsection{MDX SELECT}
+Der MDX \code{SELECT} Befehl ist grundsätzlich dasselbe wie in SQL: Er ermöglicht das Lesen und Verbinden von Daten aus Daten-Würfeln. 
+
+\vspace{10px}
+
+\noindent Der \code{SELECT} Befehl benötigt mindestens die Anzahl der Achsen, die das Resultat enthalten soll (\code{AXIS}). Es können maximal 128 Achsen angegeben werden, wobei jedoch maximal zwei Achsen angezeigt werden können. Dabei handelt es sich bei Achse 0 um Spalten und bei Achse 1 um Zeilen. Ebenfalls muss die Anzahl Elemente auf jeder Achse angegeben werden (\code{MEMBERS}). Schlussendlich muss noch der Datenwürfel mittels \code{CUBE} angegeben werden.
+\begin{lstlisting}[language=sql, captionpos=b, caption={Allgemeiner Syntax von MDX' SELECT}]
+SELECT Ausdruck1 ON COLUMNS, Ausdruck2 ON ROWS, Ausdruck3 ON AXIS(2), Ausdruck4 ON AXIS(3)
+FROMN CubeName
+\end{lstlisting}
+
+\begin{lstlisting}[language=sql, captionpos=b, caption={Beispiel MDX' SELECT}, label={fig:mdx_select}]
+SELECT 	{[Mitarbeiter].[Mitarbeiter].MEMBERS} ON AXIS(0) --kann alternativ auch als '0' oder 'COLUMNS' geschrieben werden.
+		{[Produkt].[Artikel]}.MEMBERS ON AXIS(1) --kann alternativ auch als '1' oder 'ROWS' geschrieben werden.
+FROM	[DW1fach]
+\end{lstlisting}
+
+Das Beispiel von Listing \ref{fig:mdx_select} beschreibt eine Abfrage, bei der alle Mitarbeiter in den Spalten stehen und alle Artikel in den Zeilen.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=17\baselineskip]{mdx.jpg}
+	\caption{Visualisierung des Codebeispiels von Listing \ref{fig:mdx_select}}
+	\label{fig:mdx}
+\end{figure}
+
+
+\subsection{DAX (Data Analysis Expression)}
+DAX ist die Sprache hinter PowerPivot, Power BI Desktop und SQL Server Analysis Services. Sie verwendet einige der typischen Excel-Funktionen, besitzt jedoch noch einige weitere Funktionen und Features, die mit relationalen Daten arbeiten und dynamische Aggregationen durchführen können.Es wird als Evolution der MDX mit einer Prise von Excel-Funktionen angeschaut, die einfach zu lernen ist und gleichzeitig die Flexibilität und Macht von PowerPivot bietet. 
+
+\section{Planung der Systemtechnischen Architektur (Skript S205)}
+
+\subsection{Realtime Data-Warehouse Systeme}
+Realtime Daa-Warehouse Systeme sind Data-Warehouses, die Daten in Realtime zur Verfügung stellen können. Jedoch muss man sich jeweils genau überlegen, ob eine solche "Data Freshness" überhaupt Sinn macht für die zu unterstützenden Geschäftsprozesse.
+
+Ein klassisches Data-Warehouse durchläuft in regelmässigen Zyklen von einem Tag bis zu einem Monat den Datenbeschaffungsprozess (Kap. 4.1.8). Es kann jedoch durchaus Prozesse geben, die täglich oder sogar im Minutentakt aktualisierte Daten benötigen. 
+
+Der Datenbeschaffunsprozess ist meist sehr rechenintensiv und wird deshalb in Off-Peak Zeiten (z.B. über Nacht) durchgeführt.
+
+\subsection{In-Memory Computing}
 
 
 
