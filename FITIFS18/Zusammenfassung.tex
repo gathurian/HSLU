@@ -222,7 +222,7 @@ Als der Übergang von standalone-Systemen zu vernetzten Rechnersystemen stattfan
 
 In den 8er Jahren kam schlussendlich die Idee auf, eine weltweite Datenbank mit allen vernetzten Rechnern aufzusetzen:
 
-\paragraph{X.500} sollte folgende Eigenschaften besitzen:
+\subsubsection{X.500} sollte folgende Eigenschaften besitzen:
 \begin{itemize}
 	\item Verteilte Informationen
 	\subitem Jede Firma verwaltet seine Informationen selbst
@@ -720,10 +720,95 @@ Anforderungen an ERP-Systeme lassen sich grundsätzlich in 5 Teilgebiete aufteil
 \begin{description}
 	\item[Functional Fit: ] Anforderungen an den Funktionsumfang; So wenige Funktionen wie möglich, aber so viele wie nötig.
 	\item[Flexibility: ] Anforderungen an die Integrationsfähigkeit sowie den zu betreibenden Anpassungsaufwand.
+		 
+		 \noindent Kann aufgeteilt werden in \textit{Services \& Software} und \textit{Software-Pakete}\\
+		\textbf{Services \& Software}
+		\begin{multicols}{2}
+			\begin{itemize}
+				\item Benutzerfreundlichkeit
+				\item Skalierbarkeit
+				\item Technologie (Stack/Sprache)
+				\item Anpassungsfähigkeit
+				\item Internationalisierung
+				\item Schnittstelle
+			\end{itemize}
+		\end{multicols}
+	
+		\textbf{Softwarepakete}
+		\begin{multicols}{2}
+			\begin{itemize}
+				\item Betriebssystemunabhängigkeit
+				\item DB-Unabhängigkeit
+				\item Upgrade/Update-Fähigkeit
+				\item Architektur
+			\end{itemize}
+		\end{multicols}
 	\item[Maturity: ] Anforderungen im Bezug auf die Ausgereiftheit eines Produktes oder die Erfahrung des Herstellers
 	\item[Support: ] Anforderungen bezüglich Support-Leisungen des Herstellers
 	\item[Continuity: ] Anforderungen bezüglich der technologischen und wirtschaflichen Stabilität des Herstellers
 \end{description}
+
+\paragraph{Beurteilungskriterien aufstellen}\mbox{}\\
+Nachdem die Anforderungen definiert wurden, müsste man auch noch wissen, wie man denn bewerten kann, wie gut eine Anforderung erfüllt oder eben nicht erfüllt wurde. Das Ziel dieses Arbeisschrittes ist es, schlussendlich für jede Funktion ein Rating zu haben (\textit{Rating(Lösung)}). Nur so kann man effektiv verschiedene, scheinbar gleiche Lösungen miteinander vergleichen und schlussendlich abwägen, welche davon die Beste ist.
+
+\vspace{10px}
+
+\noindent Für Muss-Anforderungen gestaltet sich das Beurteilungskriterium recht einfach: Ist die Anforderung vollauf erfüllt, ist gut; sonst fliegt die Lösung aus dem Katalog. Bei Kann-Anforderungen gestaltet sich das je nach dem ein bisschen schwieriger. Deshalb gibt es das \textbf{Prioritäts-Erfüllungsgrad Modell}. 
+
+\vspace{10px}
+
+\noindent Bei jeder Lösung wird für jede Kann-Anforderung der folgende Wert berechnet:
+\begin{center}
+	\scalebox{2}{$w_{i} =  P_{i} *  E_{i} $}
+\end{center}
+
+\noindent wobei $P_{i}$ für die Priorität und $E_{i}$ für den Erfüllungsgrad der Anforderung $i$ steht. Das schlussendliche Rating der Lösung $L$ ergibt sich dann aus 
+
+\begin{center}
+	\scalebox{2}{$ \sum_i w_{i} $}
+\end{center}
+
+\begin{multicols}{2}
+	\textbf{Priorität}
+	\begin{enumerate} \setcounter{enumi}{-1}
+		\item Irrelevant
+		\item Geringer Nutzen/Nicht wichtig
+		\item Mittlerer Nutzen/Kompromiss denkbar
+		\item Hoher Nutzen/Nur schwer verzichtbar
+	\end{enumerate}
+	
+	\columnbreak
+	
+	\textbf{Erfüllungsgrad}
+	\begin{enumerate} \setcounter{enumi}{-1}
+		\item Nicht erfüllt
+		\item Für nächste Version geplant
+		\item Anpassung oder Workaraound erforderlich
+		\item Erfüllt die Anforderung weitgehend
+		\item Erfüllt die Anforderung voll
+	\end{enumerate}
+\end{multicols}
+
+\paragraph{Randbedingungen festlegen}\mbox{}\\
+Zusätzlich muss festgelegt werden, welche Randbedingungen herrschen. Das können sein:
+\begin{multicols}{2}
+	\begin{itemize}
+		\item Bestehende Systemlandschaft
+		\item Vorhandene Hardware/Lieferanten
+		\item Vorhandenes Know-How
+		\item Gewohnheiten und Erfahrungen
+	\end{itemize}
+\end{multicols}
+
+\noindent Dabei geht man folgenderweise vor:
+
+\begin{enumerate}
+	\item Fakten ermitteln, die nicht geändert werden sollten
+	\item Einfluss dieser Fakten auf den Anforderungskatalog erfassen und auswerten
+	\item Gegenfalls Anforderungen anpassen und/oder neue hinzufügen
+\end{enumerate}
+
+\noindent \textbf{Die Randbedingungen sollten nicht zu eng gefasst sein, da sonst der Lösungsraum zu stark eingeschränkt ist}
 
 \section{Platform Trends}
 
