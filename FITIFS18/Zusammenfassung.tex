@@ -669,7 +669,61 @@ Die Planung beinhaltet folgende Schritte:
 
 \paragraph{Anforderungen ermitteln}\mbox{}\\
 Bevor man sich für einen Service entscheiden kann, sollte man vorher noch abklären, zu was der denn überhaupt fähig sein müsste. Es muss also ein Anforderungskatalog erstellt werden, in dem die Anforderungen an den Service, dessen Dienstleister oder Lieferanten festgelegt werden.
+\vspace{10px}
 
+\noindent Um eine Anforderung festlegen zu können, muss sie zuerst definiert werden. Was ist eine Anforderung?
+
+\begin{itemize}
+	\item Eine Forderung im Bezug auf etwas Bestimmtes
+		\subitem z.B. Daten, Menen, Kosten, Performance etc.
+	\item Diese Forderung steht einem direkten Nutzen gegenüber
+		\subitem z.B. weniger Kontrolle nötig, mehr Automatisierung möglich etc.
+	\item Der Nutzen muss quantifizierbar sein.
+		\subitem "Wir wollen 15\% unserer Arbeit automatisieren können."
+\end{itemize}
+
+Der Service wird in Muss- und in Kann-Anforderungen unterteilt. Die Muss-Anforderungen sind ein essenziell. Wenn ein Service aus der Liste eine Muss-Anforderung nicht erfüllt, so ist er raus. 
+
+Kann-Anforderungen sind "nice to have" und machen etwa 90\% aller Anforderungen aus.
+\vspace{10px}
+
+\noindent Anforderungen werden nach einer umgekehrten Pyramide geprüft. Wenn ein Service bereits durch die grobkörnige Prüfung rasselt, so kann er in den feinkörnigen Prüfungen gar nicht gut absschneiden. So kann Aufwand gespart werden, indem nicht bei jedem Service jede Anforderung bis ins Detail geprüft wird.
+
+Ein Beispiel einer solchen umgekehrten Pyramide:
+
+\begin{description}
+	\item[Grobkörnig: ] Der Service muss einen Webshop haben
+	\item[Feinkörnig: ] Der Service muss einen Webshop mit integrierten Bewertungssystem und one-click Shopping haben 
+\end{description} 
+
+Wenn der Service keinen Webshop anbietet, so wird er auch keinen Webshop mit integriertem Bewertungssystem anbieten und man kann sich somit die Prüfung der weiteren Anforderungen getrost sparen.
+
+\newpage
+
+\noindent Man kann das Vorgehen bei der Anforderungsermittlung also folgendermassen zusammenfassen:
+
+\begin{enumerate}
+	\item Ist-Zustand erfassen
+		\subitem Welche Prozesse und Ressourcen sind betroffen?
+		\subitem Wie sieht unsere momentane IT-Infrastruktur aus?
+	\item Allgemeine und Softwarespezifische Checklisten konsultieren
+		\subitem Fachliteratur, Internet etc.
+		\subitem Damit keine wichtigen Punkte vergessen gehen
+	\item Workshops mit Business-Siete durchführen
+	\item Anforderungskatalog erstellen
+		\subitem Nach Detailgrad strukturieren
+		\subitem In "Muss" und "Kann" Anforderungen aufteilen.
+\end{enumerate}
+
+\paragraph{Anforderungen an ERP-Services und -Software}\mbox{}\\
+Anforderungen an ERP-Systeme lassen sich grundsätzlich in 5 Teilgebiete aufteilen:
+\begin{description}
+	\item[Functional Fit: ] Anforderungen an den Funktionsumfang; So wenige Funktionen wie möglich, aber so viele wie nötig.
+	\item[Flexibility: ] Anforderungen an die Integrationsfähigkeit sowie den zu betreibenden Anpassungsaufwand.
+	\item[Maturity: ] Anforderungen im Bezug auf die Ausgereiftheit eines Produktes oder die Erfahrung des Herstellers
+	\item[Support: ] Anforderungen bezüglich Support-Leisungen des Herstellers
+	\item[Continuity: ] Anforderungen bezüglich der technologischen und wirtschaflichen Stabilität des Herstellers
+\end{description}
 
 \section{Platform Trends}
 
