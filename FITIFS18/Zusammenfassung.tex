@@ -769,7 +769,7 @@ Nachdem die Anforderungen definiert wurden, müsste man auch noch wissen, wie ma
 \end{center}
 
 \begin{multicols}{2}
-	\textbf{Priorität}
+	\textbf{Priorität $P_{i}$} 
 	\begin{enumerate} \setcounter{enumi}{-1}
 		\item Irrelevant
 		\item Geringer Nutzen/Nicht wichtig
@@ -779,7 +779,7 @@ Nachdem die Anforderungen definiert wurden, müsste man auch noch wissen, wie ma
 	
 	\columnbreak
 	
-	\textbf{Erfüllungsgrad}
+	\textbf{Erfüllungsgrad $E_{i}$}
 	\begin{enumerate} \setcounter{enumi}{-1}
 		\item Nicht erfüllt
 		\item Für nächste Version geplant
@@ -809,6 +809,86 @@ Zusätzlich muss festgelegt werden, welche Randbedingungen herrschen. Das könne
 \end{enumerate}
 
 \noindent \textbf{Die Randbedingungen sollten nicht zu eng gefasst sein, da sonst der Lösungsraum zu stark eingeschränkt ist}
+
+\vspace{10px}
+
+\noindent Nach Abschluss von Phase I sollte ein Pflichtenheft und ein Anforderungskatalog mit gewichteten Anforderungen erstellt sein.
+
+\subsubsection{Phase II - Erweiterte Papier-Evaluation}
+
+\paragraph{Marktübersicht verschaffen}\mbox{}\\
+In dieser Phase wird eine sogenannte \textit{Long-List} erstellt. Es sollte sich eine Übersicht verschafft werden, welche Produkte überhaupt existieren.
+
+\paragraph{Filterung der Long List}\mbox{}\\
+Nun wird die Long-List anhand der in Phase I erstellten Anforderungen gefiltert. Die daraus resultierende \textit{Short-List} sollte ca. 2-3 Kandidaten umfassen. 
+
+Mithilfe der umgekehrten Pyramide können Lösungen sehr schnell aussortiert werden, da viele der Long-List die eine oder andere Grobanforderung nicht erfüllen und somit direkt aus der Liste fliegen.
+
+\paragraph{Offerten einholen und beurteilen}\mbox{}\\
+Nun werden Offerten für die Lösungen der Short-List eingeholt. Diese Offerte kann verschiedenen Lösungen bieten:
+
+\begin{itemize}
+	\item Alle Anforderungen erfüllt
+	\item Lösung benötigt spezifische Erweiterungen und/oder Anpassungen
+	\item Extremfall: Keine der Offerten sind passend und es muss eine Individuallösung her
+\end{itemize}
+
+\paragraph{Entscheid über weiteres Vorgehen}\mbox{}\\
+Nach dem Einholen und Prüfen der Offerten muss das weitere Vorgehen mit dem Management besprochen werden. Es sollte ein Empfehlung mit Vor- und Nachteilen (inkl. deren Lösung) präsentiert werden.
+
+Es kann auch sein, dass keine der eingeholten Offerten den Anforderungen entspricht und man eine in-House Eigenentwicklung das Beste ist.
+
+\noindent Das Ziel dieser Phase ist es, eine Lösung gefunden zu haben, die man nun Testen, Kaufen und Einführen kann. Es ist jedoch auch möglich, dass die Beste Lösung eine Eigenentwicklung ist. Falls das der Fall ist, fällt Phase III weg.
+
+\newpage
+
+\subsubsection{Phase III - Use Case Evaluation \& Testing}
+
+\paragraph{Art der Hands-On Evaluation festlegen}\mbox{}\\
+In dieser Phase wird entschieden, welche Art der Evaluation durchgeführt wird: 
+
+\begin{itemize}
+	\item In-House, am eigenen System
+	\item Extern, bei Experten \\
+		\begin{tabular}{|l|p{12cm}|}
+			\hline
+			\thead{Vorteile}& 
+				\begin{itemize}
+					\item Experten haben Erfahrung auf breiter Produktpalette
+					\item Experten haben bereits viele Evaluationen durchgeführt
+				\end{itemize}\\
+			\hline
+			\thead{Nachteile}&
+				\begin{itemize}
+					\item Kosten
+					\item Zeitaufwand
+					\item Offelegung von Firmendaten
+				\end{itemize}\\
+			\hline
+		\end{tabular}
+	\item Third-Party / Referenzen
+		\subitem Wie wird die Lösung bei anderen Firmen eingesetzt?
+		\subitem Erfahrungen von Mitarbeiter anderer Firmen aufnehmen
+	\item Produktpräsentation
+		\subitem Keine "Hands-On" Evaluation
+		\subitem Man muss den Aussagen der Vertreter Glauben schenken
+\end{itemize}
+
+\paragraph{Anwendungsfälle zusammenstellen}\mbox{}\\
+Bei welchen Vorgängen und Prozessen soll eine Hands-On Evaluation durchgeführt werden? Es sollte eine Liste mit allen Anwendungsfällen erstellt werden, bei welchen eine Hands-On Evaluation durchgeführt werden muss.
+
+Solche Anwendungsfälle könnten Arbeitsschritte sein, die kritisch sind für das Unternehmen (z.B. Debitoren/Kreditoren Buchhaltung) oder auch solche, die im täglichen Alltag oft benutzt werden (Login)
+
+\paragraph{Evaluation durchführen}\mbox{}\\
+Nun wird \textbf{für alle 2-3 Lösungen der Short-List} die Evaluation durchgeführt, indem die vorhin bestimmten Anwendungsfälle getestet werden.
+
+\paragraph{Evaluationsbericht erstellen}\mbox{}\\
+Nun werden die Testergebnisse der Evaluation zusammengetragen, die Hauptkritikpunkte aufgestellt und zusammenfasst. Der Evaluationsbericht wird anschliessend in Form einer Kaufempfehlung dem Auftraggeber mitgeteilt.
+
+\paragraph{Software kaufen und einführen}\mbox{}\\
+Die evaluierte Software wird nun gekauft, allenfalls noch angepasst und über eine bestimmte Periode im System eingeführt.
+
+\newpage
 
 \section{Platform Trends}
 
