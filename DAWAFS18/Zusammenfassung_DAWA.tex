@@ -559,7 +559,8 @@ Das Repositorium ist der zentrale Storage für die Metadaten im Data Warehouse.
 	\centering
 	\includegraphics[keepaspectratio=true,height=16\baselineskip]{HubAndSpoke.PNG}
 	\caption{Hub and Spoke / Nabe und Speiche Architektur}
-	\label{label}
+	\label{fig:hubnspoke
+	}
 \end{wrapfigure}
 
 Bei der Hub and Spoke (auch Nabe und Speiche Arhictektur) werden aus mehreren Quellsystemen (Speichen/Spokes) Daten in eine Basisdatenbank geladen, dort ETL-ed und anschliessend in eine Ableitungsdatenbank überführt (Hub/Nabe). Von dort werden sie anschliessend wieder in verschiedene Auswertung-Datenbanken verteilt (Speiche/Spokes).
@@ -595,7 +596,7 @@ Durch eine solche Anordnung sind die Datenbanken normalerweise \textit{denormali
 	\centering
 	\includegraphics[keepaspectratio=true,height=18\baselineskip]{snowflake.PNG}
 	\caption{Beispiel einer Schneeflocken-Architektur}
-	\label{label}
+	\label{fig:snowflake}
 \end{wrapfigure}
 
 Die Snowflake- oder Schneeflocken-Architektur ist eng mit der Stenr-Architektur verbunden. Der einzige Unterschied zwischen der Stern- und der Schneeflocken-Architektur ist, dass die Dimensionstabellen gleichzeitig auch Faktentabellen sind, die wiederum von anderen Tabellen umgeben sind. Diese Dimensionstabellen werden über Joins verknüpft. 
@@ -1814,7 +1815,7 @@ GROUP BY GROUPOING SETS(Item, Color)
 	\centering
 	\includegraphics[keepaspectratio=true,height=7\baselineskip]{grouping_sets.jpg}
 	\caption{Beispiel der Anwendung von GROUPING SETS}
-	\label{fig:cube}
+	\label{fig:group_sets}
 \end{figure}
 
 \section{MDX (Multidimensional Expressions) (Skript S196)}
@@ -1873,15 +1874,130 @@ DAX ist die Sprache hinter PowerPivot, Power BI Desktop und SQL Server Analysis 
 
 \section{Planung der Systemtechnischen Architektur (Skript S205)}
 
-\subsection{Realtime Data-Warehouse Systeme}
+\subsection{Realtime Data-Warehouse Systeme (Skript S206)}
 Realtime Daa-Warehouse Systeme sind Data-Warehouses, die Daten in Realtime zur Verfügung stellen können. Jedoch muss man sich jeweils genau überlegen, ob eine solche "Data Freshness" überhaupt Sinn macht für die zu unterstützenden Geschäftsprozesse.
 
 Ein klassisches Data-Warehouse durchläuft in regelmässigen Zyklen von einem Tag bis zu einem Monat den Datenbeschaffungsprozess (Kap. 4.1.8). Es kann jedoch durchaus Prozesse geben, die täglich oder sogar im Minutentakt aktualisierte Daten benötigen. 
 
 Der Datenbeschaffunsprozess ist meist sehr rechenintensiv und wird deshalb in Off-Peak Zeiten (z.B. über Nacht) durchgeführt.
 
-\subsection{In-Memory Computing}
+\subsection{In-Memory Computing (Skript S207)}
+Realtime Data-Warehouses benötigen In-Memory Computing für die schnellere Verarbeitung von Daten. In-Memory Computing bedeutet, dass die Daten direkt im RAM gespeichert und verarbeitet werden. Aufgrund der wesentlich tieferen Zugriffszeiten und schnelleren Lese/Schreibe-Geschwindigkeit im Gegensatz zu normalen Festplatten kann die Datenverwaltung und -analyse so erheblich verschnellert werden.
 
+RAM ist per Definition volatil. Da man logischerweise nicht will, dass die gesamten Daten des Data-Warehouses nach einem allfälligen Neustart des Servers plötzlich weg sind, werden normale Festplatten trotzdem noch verwendet, jedoch nur zu Backup-Zwecken (Snapshots, Mirroring oder auch Transaction-Logs).
 
+\subsubsection{RAM-Management}
+In In-Memory DAta Warehouses wird die sogenannte NUMA-Architektur eingesetzt (Abb. \ref{fig:numa}).
 
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=10\baselineskip]{numa.png}
+	\caption{Vergleich der NUMA und UMA-Architektur}
+	\label{fig:numa}
+\end{figure}
+
+Im Gegensatz zu UMA (Uniform Memory Access) können hier nicht alle CPUs auf alle RAM-Bänke zugreifen, sondern jede CPU hat "ihre" RAM. Jedoch wissen alle CPUs auf welchen Bänken, bzw. bei welcher CPU sich die benötige Information befindet. So findet eine rege Kommunikation zwischen den einzelnen CPUs statt. Die Verwaltung, welche Informationen bei welcher CPU abgespeichert werden, wird vom Betriebssystem übernommen.
+
+\newpage
+
+\begin{wrapfigure}[17]{R}{0.55\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{SAP-HANA.jpg}
+	\caption{Speicherverwaltung von SAP-HANA}
+	\label{fig:sap_hana}
+\end{wrapfigure}
+
+Da das Betriebssystem aber meist keine Ahnung des Datenbankschemas und der verschiedenen Abhängigkeiten unter den jeweiligen Tabellen hat, kann es die Informationen gar nicht am effizientesten verteilen. Dafür hat die SAP eigens ein Tool entwickelt: SAP HANA. Beim Starten der Datenbank legt HANA seinen eigenen Hauptspeicher an (Abb. \ref{fig:sap_hana}). Dort wird der Programmcode für die Datenbanktabellen, die temporären Berechnungen und der Speicher für interne Prozesse gehandhabt. Wird in diesem Hauptspeicher wieder Platz frei, gibt HANA diesen Speicher nicht mehr ans Memory zurück, sondern behält es für allfällige spätere Nutzen noch bei sich. So muss es das Betriebssystem nicht mehr nach mehr Memory fragen, sondern kann diesen freien Speicher direkt wieder einem der in Abb. \ref{fig:sap_hana} dargestellten Bereiche zuordnen.
+
+\subsubsection{Zeilenorientiertes vs. Spaltenorientiertes Speichern}
+
+\begin{wrapfigure}[19]{L}{0.50\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{zeilenVsSpalten.jpg}
+	\caption{Klassisch- vs. Zeilen- vs. Spaltenbasierte Datenspeicherung}
+	\label{fig:zeilenVsSpalten}
+\end{wrapfigure}
+
+Im Gegensatz zu klassischen, relationalen Datenbanken (Abb. \ref{fig:zeilenVsSpalten} oben) abspeichern, werden Daten in In-Memory Datenbanken zeilen- oder spaltenbasiert (Abb. \ref{fig:zeilenVsSpalten} links, bzw. rechts) abgespeichert. Die Speicherungsart der Daten hängt davon ab, ob die Datenbank für OLAP oder OLTP verwendet wird.
+
+\vspace{10px}
+
+\noindent Bei OLTP-Systemen werden die Daten meist zeilenbasiert abgespeichert, da dies schnellen Schreibzugriff ermöglicht. Der Nachteil dabei ist der vergleichsweise langsame Lesezugriff, was bei OLTP-Systemen jedoch zu verkraften ist, da solche Systeme vor allem schreibe-heavy Operationen durchführen.
+
+Bei OLAP-Systemen ist es genau umgekehrt. Da man auf schnellen Lesezugriff angewiesen ist, werden die Daten meist spaltenorientiert abgespeichert. OLAP-Systeme müssen nicht so viele Daten schreiben, von da her kann die vergleichsweise langsame Schreibgeschwindigkeit vernachlässigt werden.
+
+\newpage
+
+\paragraph{Vergleich Zeilen- und Spaltenorientierte Abfragen}\mbox{}\\
+Welche Speicherart effizienter ist, hängt von der Art der Abfrage ab.
+
+\vspace{10px}
+
+\noindent Nehmen wir ein Beispiel, bei dem die spaltenorientierte Abspeicherung im Vorteil ist: 
+
+\begin{lstlisting}
+SELECT SUM(SALES)
+FROM SALES
+WHERE DATA > 2012-01-01
+\end{lstlisting}
+
+Wie in Abbildung \ref{fig:col_based} zu sehen ist, muss hier nur auf zwei Spalten zugegriffen werden: Man checkt in der \code{Date} Spalte, ob das Datum > 2012-01-01 ist und wenn ja, dann addiert man die korrespondierende Summe zum Resultat.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=10\baselineskip]{column_based.jpg}
+	\caption{Beispiel einer spaltenorientierten Abfrage}
+	\label{fig:col_based}
+\end{figure}
+
+\noindent Nehmen wir nun ein anderes Beispiel wie folgendes:
+
+\begin{lstlisting}
+SELECT *
+FROM SALES
+WHERE COUNTRY = 'INDIA'
+\end{lstlisting}
+
+\noindent so ist die zeilenbasierte Speicherart eindeutig effizienter, wie Abbildung \ref{fig:row_based} zeigt. Während eine spaltenbasierte Datenbank hier bei jeder Spalte überprüfen müsste, ob die korrespondierende \code{Country}-Spalte 'India' enthält, muss die zeilenbasierte Datenbank nur in einer Spalte 'India' suchen und dann dieser Zeile 'entlangfahren'
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=10\baselineskip]{row_based.jpg}
+	\caption{Beispiel einer zeilenorientierten Abfrage}
+	\label{fig:row_based}
+\end{figure}
+
+Zusammengefasst kann man sagen: Wenn die Abfrage wenige Spalten aber viele Zeilen beinhaltet, ist die spaltenbasierte Speicherart effizienter; bei vielen Spalten und wenigen Zeilen hat die zeilenbasierte Speicherung die Oberhand.
+
+\newpage
+
+\subsubsection{Chancen und Risiken des In-Memory Computing}
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{in_memory.jpg}
+\end{figure}
+
+\subsection{Cloud-basiertes Data-Warehouse (Skript S218)}
+
+Heutzutage ist alles mögliche und unmögliche in der Cloud. Wieso nicht auch das Data-Warehouse? Wieso mühselig und kostenintensiv ein eigenes Data-Warehouse aufbauen, wenn Grossanbieter wie Oracle und SAP dies bereits als SAAS anbieten? Es hat einige Vorteile, wie
+
+\begin{itemize}
+	\item Keine Wartungs- und Upgrade-Kosten
+	\item Kein Zeit- und Ressourcenaufwand für die Verwaltung der riesigen Datenmengen
+	\item Keine Kosten für den internen Betrieb
+	\item Dynamisch skalierbar
+\end{itemize}
+
+\newpage
+
+\subsubsection{Dictionary Daten-Komprimierung}
+
+Wie am Beispiel der Abbildung \ref{fig:dictComp} zu sehen ist, funktioniert die Dictionary-Compression so, dass es ein Dictionary gibt, in welchem alle Daten abgespeichert sind. Die Spalten halten schlussendlich keine Daten mehr, sondern nur noch Pointer zum Ort der Daten im Dictionary. So können Redundanzen (wie z.B. das Doppelte Speichern des Namen "John") vermieden werden.
+ 
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{dictionary_compression.JPG}
+	\caption{Beispiel der Dictionary Compression}
+	\label{fig:dictComp}
+\end{figure}
 \end{document}
