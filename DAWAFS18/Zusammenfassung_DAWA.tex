@@ -2000,4 +2000,58 @@ Wie am Beispiel der Abbildung \ref{fig:dictComp} zu sehen ist, funktioniert die 
 	\caption{Beispiel der Dictionary Compression}
 	\label{fig:dictComp}
 \end{figure}
+
+\newpage
+
+\section{Hadoop}
+Apache Hadoop ist ein in Java geschriebenes Framework für skalierbare, verteilt arbeitende Software. Es basiert auf dem MapReduce-Algorithmus von Google sowie auf Vorschlägen des Google-Dateisystems und ermöglicht es, intensive Rechenoperationen mit grossen Datenmengen im Petabyte-Bereich auf Computerclustern durchzuführen.
+
+\vspace{10px}
+
+\noindent Hadoop wurde von Apache entwickelt und ist open source. 
+
+\vspace{10px}
+
+\noindent Die bekanntesten Anwender von Hadoop sind wohl Facebook IBM, AOL und Yahoo
+
+\subsection{Anwendungen}
+Hadoop kann auf drei Arten verwendet werden.
+
+\begin{enumerate}
+	\item Als neuer Datenspeicher
+	\begin{figure}[htb!]
+		\centering
+		\includegraphics[keepaspectratio=true,height=10\baselineskip]{neuer_Datenspeicher.PNG}
+	\end{figure}
+	\item Als Datenplattform und zusätzlicher Input für das Enterprise Data Warehouse
+	\begin{figure}[htb!]
+		\centering
+		\includegraphics[keepaspectratio=true,height=10\baselineskip]{datei_plattform.PNG}
+	\end{figure}
+	\item Als Daten Plattform und Basis für BI und Analytics
+	\begin{figure}[htb!]
+		\centering
+		\includegraphics[keepaspectratio=true,height=10\baselineskip]{datei_plattform_2.PNG}
+	\end{figure}
+\end{enumerate}
+
+\subsection{Motivation}
+\begin{itemize}
+	\item Automatische Generierung von Daten führt zu wird riesigen Datenmengen
+	\item Kosten pro GB sind in den letzten paar Jahren extrem gesunken
+	\item Währenddessen haben sich die Transferzeiten nicht gross verändert
+		\subitem $\rightarrow$ Die Zeit, um eine komplette Festplatte auszulesen wird somit immer länger
+	\item Mehrere Server mit eigenen Festplatten werden zu Cluster verbunden
+	\item Durch die verteilte Speicherung ist parallele Verarbeitung möglich.
+\end{itemize}
+
+\subsection{Möglichkeiten von Hadoop}
+Hadoop kann intensive Rechenprozesse parallel in Clustern durchführen. Somit können grosse Datenmengen auf mehrere tausend Server verteilt werden.
+
+\vspace{10px}
+
+\noindent Hadoop wird als Schnittstelle zwischen Real Time Data und Data Warehouses verwendet.
+
+
+
 \end{document}
