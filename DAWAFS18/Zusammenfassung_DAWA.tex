@@ -24,6 +24,10 @@
 \usepackage{xcolor}
 \usepackage{ulem}
 \usepackage{chngcntr}
+\usepackage{multicol}
+
+%Tabellenheadings
+\renewcommand*{\thead}[1]{\bfseries #1}
 
 %Abbildungen werden pro Kapitel nummeriert (Abb. 1.4, Abb. 4.7 etc)
 \counterwithin{figure}{section}
@@ -518,9 +522,7 @@ Last but not least werden die Ergebnisse der Auswertung wieder in die Basisdaten
 Der Verwaltungsbereich eines Data Warehouses enthält den \textbf{Data Warehouse Manager}, den \textbf{Metadaten Manager} und das \textbf{Repositorium} (Abb. \ref{fig:bereiche})
 
 \paragraph{Data Warehouse Manager}\mbox{}\\
-Wie der Name dies schon vermuten lässt, managt der Data Warehouse Manager (ein \textbf{Mensch}) das Data Warehouse, oder besser gesagt, dessen Prozesse. 
-
-Wie in Abb. \ref{fig:bereiche} zu sehen ist, übernimmt der Data Warehouse Manager hauptsächlich die Steuerung der folgenden Prozesse:
+Der Data-Warehouse Manager (eine Person) initiiert, steuert und überwacht die einzelnen Data Warehouse Prozesse. Wie in Abb. \ref{fig:bereiche} zu sehen ist, übernimmt er unter anderem die zentrale Steuerung von: 
 
 \begin{itemize}
 	\item Monitor
@@ -529,12 +531,11 @@ Wie in Abb. \ref{fig:bereiche} zu sehen ist, übernimmt der Data Warehouse Manag
 	\item Laden
 	\item Auswertung
 \end{itemize}
-\vspace{10px}
 
-\noindent Aufgrund dessen, dass er den Monitor überwacht, der wiederum die Datenquellen überwacht, kann der Data Warehouse Manager die \textbf{Datenbeschaffung triggern}.
+Zudem kann er, wenn nötig auch den Datenbeschaffungsprozess triggern. Das kann manuell geschehen oder anhand des Monitors (Kap. 5.4)
 
 \paragraph{Metadaten Manager (Buch S. 43ff)}\mbox{}\\
-Ähnlich wie beim Data Warehouse Manager kann beim Metadaten Manager recht einfach auf dessen Tätigkeit geschlossen werden: Es ist eine \textbf{Software}, die die Metadaten überwacht, steuert und initialisiert des Data Warehouses.
+Ähnlich wie beim Data Warehouse Manager kann beim Metadaten Manager recht einfach auf dessen Tätigkeit geschlossen werden: Es ist eine \textbf{Software}, die die Metadaten des Data Warehouses überwacht, steuert und initialisiert.
 
 \vspace{10px}
 
@@ -559,8 +560,7 @@ Das Repositorium ist der zentrale Storage für die Metadaten im Data Warehouse.
 	\centering
 	\includegraphics[keepaspectratio=true,height=16\baselineskip]{HubAndSpoke.PNG}
 	\caption{Hub and Spoke / Nabe und Speiche Architektur}
-	\label{fig:hubnspoke
-	}
+	\label{fig:hubnspoke}
 \end{wrapfigure}
 
 Bei der Hub and Spoke (auch Nabe und Speiche Arhictektur) werden aus mehreren Quellsystemen (Speichen/Spokes) Daten in eine Basisdatenbank geladen, dort ETL-ed und anschliessend in eine Ableitungsdatenbank überführt (Hub/Nabe). Von dort werden sie anschliessend wieder in verschiedene Auswertung-Datenbanken verteilt (Speiche/Spokes).
@@ -2003,7 +2003,7 @@ Wie am Beispiel der Abbildung \ref{fig:dictComp} zu sehen ist, funktioniert die 
 
 \newpage
 
-\section{Hadoop}
+\section{Hadoop (Skript S229)}
 Apache Hadoop ist ein in Java geschriebenes Framework für skalierbare, verteilt arbeitende Software. Es basiert auf dem MapReduce-Algorithmus von Google sowie auf Vorschlägen des Google-Dateisystems und ermöglicht es, intensive Rechenoperationen mit grossen Datenmengen im Petabyte-Bereich auf Computerclustern durchzuführen.
 
 \vspace{10px}
@@ -2021,19 +2021,21 @@ Hadoop kann auf drei Arten verwendet werden.
 	\item Als neuer Datenspeicher
 	\begin{figure}[htb!]
 		\centering
-		\includegraphics[keepaspectratio=true,height=10\baselineskip]{neuer_Datenspeicher.PNG}
+		\includegraphics[keepaspectratio=true,height=9\baselineskip]{neuer_Datenspeicher.PNG}
 	\end{figure}
 	\item Als Datenplattform und zusätzlicher Input für das Enterprise Data Warehouse
 	\begin{figure}[htb!]
 		\centering
-		\includegraphics[keepaspectratio=true,height=10\baselineskip]{datei_plattform.PNG}
+		\includegraphics[keepaspectratio=true,height=9\baselineskip]{datei_plattform.PNG}
 	\end{figure}
 	\item Als Daten Plattform und Basis für BI und Analytics
 	\begin{figure}[htb!]
 		\centering
-		\includegraphics[keepaspectratio=true,height=10\baselineskip]{datei_plattform_2.PNG}
+		\includegraphics[keepaspectratio=true,height=9\baselineskip]{datei_plattform_2.PNG}
 	\end{figure}
 \end{enumerate}
+
+\newpage
 
 \subsection{Motivation}
 \begin{itemize}
@@ -2045,13 +2047,363 @@ Hadoop kann auf drei Arten verwendet werden.
 	\item Durch die verteilte Speicherung ist parallele Verarbeitung möglich.
 \end{itemize}
 
-\subsection{Möglichkeiten von Hadoop}
+\subsection{Möglichkeiten}
 Hadoop kann intensive Rechenprozesse parallel in Clustern durchführen. Somit können grosse Datenmengen auf mehrere tausend Server verteilt werden.
+
+Für die parallele Verarbeitung mehrerer Tasks wird Nebenläufigkeit verwendet. Man verwendet bei schwächerer Hardware scheinbare Nebenläufigkeit handelt (präemptives Multitasking $\rightarrow$ Scheduler weist jedem Task gewisse CPU-Zeit zu) oder wenn mehrere Cores oder CPUs zur Verfügung stehen, kann echte Nebenläufigkeit durchgeführt werden.
 
 \vspace{10px}
 
 \noindent Hadoop wird als Schnittstelle zwischen Real Time Data und Data Warehouses verwendet.
 
+\subsection{Aufbau}
+Hadoop verwendet das HDFS (Hadoop Distributed File System) um Daten zu speichern und den MapReduce Algorithmus und diese zu verarbeiten. Weitere Bausteine,auf welche hier nicht weiter eingegangen wird, können im Skript auf S232 nachgesehen werden.
+
+\subsection{Architektur}
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=19\baselineskip]{hadoop_architektur.png}
+	\caption{Vergleich einer klassischen RDBMS-Architektur im Vergleich zu Hadoop}
+	\label{fig:hadoop_arch}
+\end{figure}
+
+\begin{minipage}[L]{0.45\textwidth}
+	\begin{description}
+		\item[Master: ] Verwaltet die Anfragen vom Client. Der Master enthält zusätzlich zu den Slaves eine NameNode sowie einen JobTracker
+		\item[Client: ] Der Client schickt Anfragen zum Speichern und Verarbeiten von Daten. Der Client kann ein Software-UI oder auch ein CMD-Tool sein
+		\item[Cluster/Rechnerverband: ] Ansammlung mehrerer Computer/Server (Nodes). Durch Cluster wird erstens die Rechenpower und zweitens die Redundanz und somit Verfügbarkeit erhöht.
+		\item[Node: ] Rechner in einem Cluster, jede Node enthält ein Task Tracker und eine Data Node
+	\end{description}
+\end{minipage}
+\begin{minipage}[R]{0.45\textwidth}
+	\begin{center}
+		\includegraphics[height=15\baselineskip, keepaspectratio=true]{hadoop_architektur_2.png}
+	\end{center}
+\end{minipage}
+
+\begin{description}
+	\item[HDFS: ] Hadoop Distributed File System. Hadoops Dateisystem
+	\item[Name Node: ] Managed das Dateisystem, die Indexierung und die Metadaten. Es gibt eine Active und eine Standby Name-Node, die im Falle des Ausfalls der Active NN einspringen könnte
+	\item[Data Node. ] Verwaltet die Daten und liefert sie den Clients. Die Name Node kommuniziert mit den Data Nodes
+	\item[Job Tracker Node: ] Erhält Anfragen vom Client und plant und überwacht das MapReducing. Nur 1 Job Tracker pro Cluster
+	\item[Task Tracker: ] Führt alle MapReduce Transaktionen aus, Mehere Task Tracker pro Cluster 
+\end{description}
+
+\subsection{MapReduce}
+Wie bereits erwähnt, verwendet Hadoop den MapReduce Algorithmus zur Verarbeitung von grossen Datenmengen. Das Ziel dieses Algorithmus ist es, ungeordnete Datenmengen in Key-Value Paare umzuwandeln:
+
+\begin{description}
+	\item[Map: ] Generiert für jeden Datensatz ein Key-Value Paar
+		\begin{multicols}{2}
+			\code{[Store, SalesAmount]}
+		\columnbreak
+		
+			\code{[New York, \$450]}	
+		\end{multicols}
+	\item[Reduce: ] Summiert dieselben Key-Value Paare
+		\begin{multicols}{2}
+			\code{[New York, \$450]}\\
+			\code{[New York, \$500]}\\
+			\code{[San Jose, \$444]}\\
+			\code{[San Jose, \$600]}
+		\columnbreak
+		
+			\code{[New York,\$950]}\\
+			\code{[San Jose, \$1044]}
+		\end{multicols}
+\end{description}
+
+\newpage
+
+\noindent Der MapReduce Algorithmus läuft folgendermassen ab:
+
+\begin{enumerate}
+	\item Verteile die Inputdaten (wenn möglich fair) auf die verfügbaren Nodes auf
+	\item Jede Node führt nun ein Map-Durchgang mit den ihr zugewiesenen Daten durch
+	\item Die entstandenen Key-Value Paare werden so gemischt, dass alle gleiche Keys bei derselben Node zu liegen kommen
+	\item Jede Node führt ein Reduce auf die ihr zugewiesenen Daten und Keys aus.
+\end{enumerate}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=14\baselineskip]{mapreduce.png}
+	\caption{MapReduce verwandelt ungeordnete Daten in Key-Value Paare}
+	\label{fig:mapreduce}
+\end{figure}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=20\baselineskip]{map_reduce_call.png}
+	\caption{Ablauf eines Map-Reduce Aufrufes}
+	\label{fig:mapreducecall}
+\end{figure}
+
+\vspace{10px}
+
+
+\subsection{Speichern mit HDFS}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=20\baselineskip]{hdfs_speichern.png}
+	\caption{Speichervorgang unter HDFS}
+\end{figure}
+
+\subsection{Anwendungen}
+Mehr Anwendungen von Hadoop können auf Seite 255 im Skript nachgelesen werden.
+
+\newpage
+
+\section{Speicherarten (Skript S256)}
+
+\begin{description}
+	\item[Klassiche Datenhaltung: ] Räumlich konzentriert halten und zentral/dezentral zur Verfügung stellen
+	\item[Daten-Prtitionierung: ] Räumlich verteilt halten und zentral/dezentral zur Verfügung stellen
+	\item[RAID] steht für \textit{Redundant Array of Independent Disks} und erlaubt die redundante Abspeicherung von Daten in einem Festplatten-Verbund, so dass keine Daten verloren gehen im Falle eines Festplatten-Defekt
+	\item[Dateidienste ] verwalten die Datenbestände mit einem eigenen Dienst-Betriebssystem, welches auch für Zugrifssicherung und ggf. Verschlüsselung zuständig ist.
+	\item[NAS-Systeme: ] \textit{Network Attached Storage} sind übers Netzwerk zugreifbar und sind auf Firmware basierte Dateidienste, die vorwiegend in kleinen Umgebungen zum Einsatz kommen
+	\item[SAN-Systeme: ] \textit{Storage Area Network} verteilen die Datenbestände über ein eigenes Storage-Netzwerk
+	\item[Speichervirtualisierung: ] Ist eine Speicherart, bei der direkt adressierbare Daten-Volumen auf mehrere Festplatten oder SAN-Nodes verteilt werden (z.B. LVM bei Linux). Speichervirtualisierung wird von NAS und SAN unterstützt.
+\end{description}
+
+\noindent In Data Warehouses benötigt man extreme Mengen von temporärem Speicherplatz zum Zwischenspeichern von Datensätzen beim Sortieren, Joinen oder sonstiges Aggregieren und es werden viele Daten ausgelagert. Deshalb wird in solchen Umgebungen meist mit Speichervirtualisierung mittels SAN gearbeitet.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=9\baselineskip]{storage.png}
+	\caption{Vergleich zwischen klassischer (links) und partitionierter (rechts) Datenhaltung}
+	\label{fig:storage}
+\end{figure}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=9\baselineskip]{raid.png}
+	\caption{Beispiel von RAID 6. Hier können 2 Festplatten defekt sein ohne dass ein Datenverlust auftritt}
+	\label{fig:raid}
+\end{figure}
+
+\newpage
+
+\subsection{Objektspeicher (Skript S258)}
+
+\subsubsection{Definiton}
+\begin{center}
+\blockquote{Objektspeicherung ist ein allgemeiner Begriff für einen Ansatz, wie man eigenständige Einheiten an Storage manipuliert und adressiert, die man Objekte nennt.}
+\end{center}
+
+Objekte enthalten Daten. Jedoch werden Objekte nicht hierarchisch gespeichert (wie z.B. Dateien, die normalerweise in einem Baum abgespeichert werden (/home/user/Documents/foo.txt)). Objekte sind flach organisiert. Jedes neue Objekt wird einfach in den Storage-Pool geschmissen. Ebenfalls sind Objekte atomar, es können also keine Objekte innerhalb von anderen Objekten abgelegt werden.
+
+Ebenso wie herkömmliche Dateien haben Objekte Metadaten. Das Objekt wird jedoch mithilfe dieser Metadaten charakterisiert. Jedes Objekt erhält eine unique ID, die in den erweiterten Metadaten abgelegt wird.
+
+Objektspeicherung wird meist mit dem Valet-Service in Restaurants verglichen: Der Besucher gibt sein Auto ab und erhält dafür einen Beleg. Der Valet parkt das Auto irgendwo, wo genau ist dem Besucher prinzipiell egal. Wenn der Besucher sein Auto wieder will, so kann er nur den Beleg abgeben und erhält so sein Auto wieder. 
+
+Bei Objektspeicher ist das sehr ähnlich. Der Besucher ist der Server oder der Enduser und das Auto sind Daten. Der Valet ist der Objektspeicher und der Beleg ist eine eindeutige ID des gespeicherten Objekts. Der Server übergibt dem Objektspeicher ein Objekt, das er speichern will. Er erhält dafür nun eine eindeutige ID zurück. Wenn er das Objekt wieder lesen will, muss er dem Server nur diese eindeutige ID mitgeben und erhält das abgespeicherte Objekt zurück.
+
+\subsubsection{Motivation}
+Es gibt mehrere Gründe, wieso en Objektspeicher einem klassischen Dateisystem vorzuziehen ist.
+
+\begin{itemize}
+	\item Objekte sind nicht hierarchisch organisiert. Der Storage Pool erlaubt die relativ einfache Speicherung von enormen Mengen von unstrukturierten Daten.
+	\item Ein hierarchisches Dateisystem ist ungeeignet wenn eine Datei aus Milliarden von Dateien gelesen werden soll.
+	\item Objektspeicher bestehen aus vergleichsweise günstigen Clustern
+	\item Storage Pools sind praktisch grenzenlos skalierbar 
+	\item Storage Pools erlauben einen schnellen Lese- und Schreibzugriff, auch bei enormen Datenmengen
+	\item Objektspeicherung erlaubt ein schnelles Indexieren, eine schnelle Suche und Langzeit-Archivierung
+	\item Storage Pools sind Cloud-fähig
+\end{itemize}
+
+Aus diesen und anderen Gründen verwenden viele grosse Player wie Spotify, Facebook und Google Objektspeicher.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=10\baselineskip]{objekt_speicher.png}
+	\caption{Vergleich Dateisystem (links) und Objektspeicherung (rechts)}
+	\label{fig:objStor}
+\end{figure}
+
+\newpage
+
+\subsubsection{Arhitektur}
+Objektspeicherungs-Software besteht aus vielen lose gekoppelten Services und ist Hardwareunabhängig. Ausserdem wird solche Software in drei Layer aufgeteilt:
+
+\begin{description}
+	\item[Storage-Layer: ] Schnittstelle zu den Data-Nodes
+	\item[Metadatenmanagement-Layer: ] Bestimmt wo die Objekte gespeichert werden, wie sie auf die Nodes verteilt werden und wie sie geschützt werden.
+	\item[Präsentation-Layer: ] Verwaltet die Schnittstelle zu den Clients sowohl über HTTP- wie auch über Dateisystem-Protokolle
+\end{description}
+
+Da Objektspeicher-Software meist über HTTP mit dem Client interagiert, wird auch hier die normale HTTP-API verwendet:
+
+\begin{description}
+	\item[\code{GET}] Objekt holen
+	\item[\code{PUT}] Objekt erstellen
+	\item[\code{COPY}] Objekt kopieren
+	\item[\code{DELETE}] Objekt löschen
+	\item[\code{HEAD}] Metadaten eines Objekt abrufen
+	\item[\code{POST}] Objekt-Metadaten erstellen oder bearbeiten
+\end{description}
+
+\newpage
+
+\newgeometry{margin=0.75in}
+
+\section{XMLA (Skript S268)}
+XMLA steht für \textit{XML for Analysis} und ist eine API, die es Programmen erlaubt, mit OLAP- oder MDDB-Systemen zu kommunizieren. Die Kommunikation läuft über HTTP, SOAP und XML.
+
+HTTP und XML sollten bereits bekannt sein. SOAP (Simple Object Access Protocol) ist ein Netzwerkprotkoll, mit dessen Hilfe Daten zwischen Systemen ausgetauscht und Remote Procedure Calls durchgeführt werden können.
+
+XMLA verwendet MDX (Siehe Kap. 10) als Abfragesprache. Die MDX-Statements werden in \code{<Statement>} Tags gehüllt. Zur Übertragung verwendet XMLA die SOAP-Methoden \code{Execute} und \code{Discover}
+
+\subsection{Execute}
+Das Rückgabewert einer \code{Execute} Methode ist ein Satz Tupel (entweder OLAP oder multidimensional). Die Methode verwendet das \code{<Command>} Tag, in welchem ein MDX, DMX oder auch SQL-Statement eingebettet werden kann, und das \code{<Properties>} Tag, in welchem gewissen Eigenschaften wie Timeout, Catalog name etc. mitgegeben werden können.
+
+\begin{lstlisting}[language=xml, captionpos=b, caption={MDX-SELECT Statement mit XMLA übermittelt}]
+<Execute xmlns="urn:schemas-microsoft-com:xml-analysis">
+	<Command>
+		<Statement>
+			SELECT [Measures].MEMBERS ON COLUMNS FROM [Adventure Works]
+		</Statement>
+	</Command>
+	<Properties>
+		<PropertyList>
+			<DataSourceInfo>
+				Provider=MSOLAP;Data Source=local;
+			</DataSourceInfo>
+			<Catalog>
+				Adventure Works DW Multidimensional 2012
+			</Catalog>
+			<Format>
+				Multidimensional
+			</Format>
+			<AxisFormat>
+				ClusterFormat
+			</AxisFormat>
+		</PropertyList>
+	</Properties>
+</Execute>
+\end{lstlisting}
+
+\newpage
+
+\subsection{Discover}\mbox{}\\
+Der Rückgabewert der \code{Discover} Methode ist ein Rowset voller Metadaten. Diese Methode macht Metadatenabfragen.
+
+\begin{lstlisting}[language=xml, captionpos=b, caption={Anfrage für Cube-Listen aus der einem bestimmten Catalog mit XMLA übermittelt}]
+<Discover xmlns="urn:schemas-microsoft-com:xml-analysis:rowset">
+	<RequestType>MDSCHEMA_CUBES</RequestType>
+	<Restrictions>
+		<RestrictionList>
+			<CATALOG_NAME>
+				Adventure Works DW Multidimensional 2012
+			</CATALOG_NAME>
+		</RestrictionList>
+	</Restrictions>
+	<Properties>
+		<PropertyList>
+			<DataSourceInfo>
+				Provider=MSOLAP;
+				Data Source=local;
+			</DataSourceInfo>
+			<Catalog>
+				Adventure Works DW Multidimensional 2012
+			</Catalog>
+			<Format>
+				Tabular
+			</Format>
+		</PropertyList>
+	</Properties>
+</Discover>
+\end{lstlisting}
+
+\noindent Das Ganze wird nun über SOAP übermittelt, was schlussendlich so aussieht:
+
+\begin{lstlisting}[language=xml, captionpos=b, caption={SELECT-Anfrage in XMLA verpackt, über SOAP versendet}]
+<soap:Envelope>
+	<soap:Body>
+		<Execute xmlns="urn:schemas-microsoft-com:xml-analysis">
+			<Command>
+				<Statement>
+					SELECT Measures.MEMBERS ON COLUMNS FROM Sales
+				</Statement>
+			</Command>
+			<Properties>
+				<PropertyList>
+					<DataSourceInfo/>
+						<Catalog>
+							FoodMart
+						</Catalog>
+						<Format>
+							Multidimensional
+						</Format>
+						<AxisFormat>
+							TupleFormat
+						</AxisFormat>
+				</PropertyList>
+			</Properties>
+		</Execute>
+	</soap:Body>
+</soap:Envelope>
+\end{lstlisting}
+\restoregeometry
+
+\section{Metadaten (Skript S271)}
+
+\subsection{Definition}
+\begin{center}
+	\blockquote[Bauer/Günzel, 2009]{Als Metadaten bezeichnen wir jede Art von Informationen, die für den Entwurf, die Konstruktion und die Benutzung eines Informationssystems benötigt wird \\}
+\end{center}
+
+\noindent Auf Data-Warehousing angewendet heisst das soviel wie
+
+\begin{center}
+	\blockquote[Kimball, 2008]{We think about metadata as all the information that defines and describes the structures, operations and contents of the DW/BI system}
+\end{center}
+
+\noindent Man kann also sagen, Metadaten beschreiben Daten/Datenstrukturen sowie manuelle und maschinelle Prozesse
+
+\subsection{Meta-Metamodell}
+
+\begin{minipage}{0.7\textwidth}
+	\includegraphics[keepaspectratio=true, height=15\baselineskip]{mof.png}
+	\captionof{figure}{MOFs 4-Ebenen Architektur \\ am Beispiel von Casablanca}
+	\label{fig:mof}
+\end{minipage}
+\begin{minipage}{0.3\textwidth}
+	\includegraphics[keepaspectratio=true, height=12\baselineskip]{mof2.png}
+	\captionof{figure}{Abstrahierte Version von \ref{fig:mof}}
+	\label{fig:mof2}
+\end{minipage}
+
+\vspace{10px}
+
+
+\noindent Die MOF (Meta Object Family) beschreibt eine 4-Schichten Metadaten-Architektur.
+
+\begin{description}
+	\item[M0 - Objekt] Konkrete, Real-Life Daten\\
+		\code{"Casablanca"}
+	\item[M1 - Modell] Modelle, wie UML- oder Objektmodelle, die die Objekte aus M0 beschreiben \\
+		\code{"Casablanca ist ein Video mit dem Titel 'Casablanca'}
+	\item[M2 - Meta-Modell] Meta-Modelle definieren, wie die Modelle von M1 aufgebaut und strukturiert sind \\
+		\code{"Ein Video ist eine Klasse mit definierten Attributen"}
+	\item[M3 - Meta-Meta-Modell] Das Meta-Meta-Modell definiert das Meta-Modell aus M2 und gleichzeitig sich selbst (M3). M3 stellt somit die oberste Ebene dar, die sich selbst beschreibt und somit ein unendlicher Meta-Loop generiert.\\
+		\code{"Eine Klasse ist eine Klasse ist eine Klasse ist eine..."}
+\end{description}
+
+\subsection{Data Warehouse Manager}
+Siehe Kap. 4.1.8 - Verwaltungsbereich
+
+\subsection{Metadaten Manager}
+Siehe Kap. 14.4
+
+\subsection{Unterscheidung von Metadaten}
+\begin{wrapfigure}[13]{R}{0.75\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=10\baselineskip]{metadaten.png}
+	\caption{Unterscheidung zwischen technischen und geschäftlichen Metadaten}
+	\label{fig:metadaten}
+\end{wrapfigure}
+Optimal hätte ein Data Warehouse ein zentrales Metadaten-\\ Repository. In Realität ist es jedoch meist so, dass zwischen technischen und geschäftlichen Metadaten unterschieden wird. Je nach dem, wen man fragt, kommen noch prozessuale Metadaten hinzu.Ngiidk6g
 
 
 \end{document}
