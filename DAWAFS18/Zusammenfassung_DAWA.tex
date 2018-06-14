@@ -29,6 +29,9 @@
 %Tabellenheadings
 \renewcommand*{\thead}[1]{\bfseries #1}
 
+%Ermöglicht bullet-points in Tabellen
+\newcommand \tabitem{\makebox[1em][r]{\textbullet~}}
+
 %Abbildungen werden pro Kapitel nummeriert (Abb. 1.4, Abb. 4.7 etc)
 \counterwithin{figure}{section}
 
@@ -140,7 +143,7 @@ $\rightarrow$ Neuer Ansatz der Datenabfrage muss her: \textbf{OLAP}
 \newgeometry{margin=0.5in}
 
 \begin{landscape}
-\subsection{OLAP vs OLTP}
+\subsection{OLAP vs OLTP (Skript S24)}
 	
 	\centering
 	
@@ -515,13 +518,11 @@ Zudem werden die ausgewerteten Daten so aufbereitet und bereitgestellt, dass sie
 
 Last but not least werden die Ergebnisse der Auswertung wieder in die Basisdatenbank zurückgegspeichert, so dass sie die Qualität der Datenbasis erhöht und zukünftige Auswertungen somit verbessert. 
 
-%TODO: finish this
-
 
 \subsubsection{Verwaltungsbereich (Skript S272)}
 Der Verwaltungsbereich eines Data Warehouses enthält den \textbf{Data Warehouse Manager}, den \textbf{Metadaten Manager} und das \textbf{Repositorium} (Abb. \ref{fig:bereiche})
 
-\paragraph{Data Warehouse Manager}\mbox{}\\
+\paragraph{Data Warehouse Manager (Buch S43)}\mbox{}\\
 Der Data-Warehouse Manager (eine Person) initiiert, steuert und überwacht die einzelnen Data Warehouse Prozesse. Wie in Abb. \ref{fig:bereiche} zu sehen ist, übernimmt er unter anderem die zentrale Steuerung von: 
 
 \begin{itemize}
@@ -534,7 +535,7 @@ Der Data-Warehouse Manager (eine Person) initiiert, steuert und überwacht die e
 
 Zudem kann er, wenn nötig auch den Datenbeschaffungsprozess triggern. Das kann manuell geschehen oder anhand des Monitors (Kap. 5.4)
 
-\paragraph{Metadaten Manager (Buch S. 43ff)}\mbox{}\\
+\paragraph{Metadaten Manager (Buch S. 82)}\mbox{}\\
 Ähnlich wie beim Data Warehouse Manager kann beim Metadaten Manager recht einfach auf dessen Tätigkeit geschlossen werden: Es ist eine \textbf{Software}, die die Metadaten des Data Warehouses überwacht, steuert und initialisiert.
 
 \vspace{10px}
@@ -723,7 +724,7 @@ Faktentabellen, im Gegensatz dazu, besitzen keine Redundanzen. Diese doppelten E
 \newpage
 
 \section{ETL}
-\subsection{Extraktion}
+\subsection{Extraktion (Skript S 55/Buch S56)}
 
 Unter Extraktion versteht man die \textbf{Übertragung der Daten vom Quellsystem in die Staging Area}
 
@@ -757,7 +758,7 @@ Unter Extraktion versteht man die \textbf{Übertragung der Daten vom Quellsystem
 \noindent \textbf{Java Database Connectivity (JDBC)} ist eine universelle Java-basierte Datenbankschnittstelle für Datenbanken diverser Hersteller. JDBC ist vor allem auf relationale Datenbanken ausgelegt.
 
 
-\subsection{Tranformation}
+\subsection{Tranformation (Skript S56/Buch S57)}
 
 Nach der Extraktion müssen diese rohen Daten transformiert werden. Das heisst, sie müssen so aufbereitet werden, dass sie auch tatsächlich Sinn ergeben. Die Transformation lässt sich auf folgende Arbeitsschritte herunterbrechen:
 
@@ -771,7 +772,7 @@ Nach der Extraktion müssen diese rohen Daten transformiert werden. Das heisst, 
 \noindent Dabei nimmt das Data Wrangling mit Abstand am meisten Zeit in Anspruch (bis zu 80\%)
 
 
-\subsection{Load}
+\subsection{Load (Skript S58/Buch S58)}
 
 Die extrahierten und bereinigten Daten müssen nun noch in die \textbf{Basis- oder Ableitungsdatenbank übertragen} werden. Daür werden meist Ladewerkzeuge des Datenbankherstellers verwendet (SSIS bei SQL oder SQL*Loader bei Oracle)
 
@@ -829,7 +830,7 @@ Ebenfalls unterscheidet man zwischen dem \textbf{Initialisierungsladen} (alle Da
 
 Daten werden entweder in eine Basis- Ableitungs- oder Auswertungsdatenbank geladen. Aufgrund der grossen Datenmengen können nicht die normalen Datenmanipulationswerkzeuge eingesetzt werden. Stattdessen werden meist sog. \textbf{Bulk-Loader},die auf genau diese Tasks spezialisiert sind, verwendet. Diese Bulk-Loader verwenden aus Effizienzgründen keine Schnittstelle zur DB, sondern greifen direkt darauf zu. Deshalb können bestimmte Bulk-Loader auch nur für bestimmte Datenbanken verwendet werden. 
 
-\subsection{Monitor}
+\subsection{Monitor (Skript S60/Buch S54)}
 Der Monitor spielt je nach Extraktionsstrategie eine wichtige Rolle. Er überwacht die Datenquellen und bemerkt somit Datenänderungen sofort. Je nach Extraktionsstrategie wird somit ein ETL-Prozess getriggert, ein Logeintrag oder eine Snapshot-Datei gemacht o.ä. 
 
 Monitore haben vor allem in Data Warehouses eine sehr grosse Bedeutung. Dank ihnen müssen weniger DB-Zugriffe gemacht werden und gleichzeitig werden Redundanzen vermieden.
@@ -847,7 +848,7 @@ Monitore haben vor allem in Data Warehouses eine sehr grosse Bedeutung. Dank ihn
 
 \newpage
 
-\section{Unstrukturierte Daten}
+\section{Unstrukturierte Daten (Skript S72)}
 Ein Grossteil der Daten, der uns heute vorliegt, ist \textbf{unstrukturiert}. Das heisst, es ist mit viel Aufwand verbunden, aus grossen Datenmengen Informationen zu extrahieren (man denke z.B. daran, wie viel Aufwand es benötigen würde, um 10'000 E-Mails nach Thema zu sortieren vs. wie viel Aufwand es benötigt, 10'000 Datensätze nach ID zu sortieren).
 
 Mithilfe von \textbf{strukturierten Daten} kann man \textit{automatisiert} Informationen aus Datenquellen extrahieren und aufbereiten.
@@ -869,9 +870,9 @@ Zusammengefasst kann man sagen: Unstrukturierte Daten ermöglichen \textbf{Analy
 	\item Datenqualität kann nicht automatisiert gemessen werden
 \end{itemize}
 
-\subsection{Analyse}
+\subsection{Analyse (Skript S74ff/Buch S131ff)}
 
-\subsubsection{NLP - Natural Language Processing (Skript S74)}
+\subsubsection{NLP - Natural Language Processing}
  NLP beschreibt die Techniken und Methoden zur maschinellen Verarbeitung natürlicher Sprache. Ziel ist eine direkte Kommunikation zwische nMensch und coputer auf Basis der natürlichen (menschlichen) Sprache.
 
 NLP ist eine sehr AI-lastige Technologie und mittels welcher Text in strukturierte Informationen gebündelt werden kann. NLP setzt sich mittels der Verarbeitung der natürlichen Sprache, dem Verstehen und der Semantik von 
@@ -1033,7 +1034,7 @@ Um Bäume zu verbessern, die eine hohe Fehlerquote aufweisen, kann \textbf{Pruni
 
 \newpage
 
-\subsection{Architekturen}
+\subsection{Architekturen (Skript S84/Buch S163ff)}
 \subsubsection{Keine physische Integration}
 Strukturierte und unstrukturierte Daten existieren \textbf{parallel} in verschiedenen Speicherungsmöglichkeiten. Diese Daten werden nur verknüpft, falls beide für eine Auswertung benötigt werden.
 
@@ -1177,7 +1178,7 @@ sind. Leider ist dem nicht so. Bitte kontaktieren Sie mich unter folgender Numme
 	\includegraphics[keepaspectratio=true,height=3.5\baselineskip]{haber_peer.PNG}
 \end{figure}
 
-\section{Informations- und Datenqualität}
+\section{Informations- und Datenqualität (Skript S95)}
 \subsection{Definition}
 \blockquote[DIN 55350/1995]{Qualität ist die Gesamtheit von Eigenschaften und Merkmalen eines Produktes oder einer Tätigkeit, die sich auf deren Eignung zur Erfüllung festgelegter oder vorausgesetzter Erfordernisse beziehen.}
 \vspace{10px}
@@ -1428,7 +1429,7 @@ Dubletten können Anomalien und Fehlern in Analysen und Prognosen auslösen oder
 	\label{fig:dubl}
 \end{figure}
 
-%TODO: Verschiedene Arten der Dublettenerkennung (LS06)
+\noindent Mehrere Arten der Dublettenerkennung und -entfernung finden sich im Skript auf S120ff.
 
 \newpage
 
@@ -1449,7 +1450,7 @@ Das Ziel des Data Monitorings ist es, ein Höchstmass von Wissen und Bewusstsein
 
 \newpage
 
-\section{Historisierung}
+\section{Historisierung (Skript S144/Buch S195)}
 Unter der Historisierung versteht man, dass man nicht nur aktuelle Datenbestände verwaltet, sondern auch veraltete Daten. Wenn also z.B. ein Mitarbeiter eine Lohnerhöhung erhält, so wird der alte Lohn nicht überschrieben, sondern beide Einträge existieren parallel.
 
 Es existieren verschiedene Methoden zur Historisierung. In diesem Modul wird hauptsächlich die SCD-Versionierung behandelt. SCD steht für Slowly Changing Dimensions. Es gibt die SCD-Typen 0, 1, 2 und 3. Wir werden uns ebenfalls kurz mit der Tupelversionierung auseinandersetzen.
@@ -1510,8 +1511,8 @@ Bei der Tupelversionierung werden die Tupel nicht mit einem Zeitstempel, wie in 
 
 \newpage
 
-\section{Multidimensionale Datenmodellierung}
-\subsection{Nutzen von MDDB (Script S153 / Buch S201)}
+\section{Multidimensionale Datenmodellierung (Script S153 / Buch S201)}
+\subsection{Nutzen von MDDB}
 \begin{wrapfigure}[18]{R}{0.65\textwidth}
 	\centering
 	\includegraphics[keepaspectratio=true,height=18\baselineskip]{erd.JPG}
@@ -1881,7 +1882,7 @@ Ein klassisches Data-Warehouse durchläuft in regelmässigen Zyklen von einem Ta
 
 Der Datenbeschaffunsprozess ist meist sehr rechenintensiv und wird deshalb in Off-Peak Zeiten (z.B. über Nacht) durchgeführt.
 
-\subsection{In-Memory Computing (Skript S207)}
+\subsection{In-Memory Computing (Skript S207/Buch S174)}
 Realtime Data-Warehouses benötigen In-Memory Computing für die schnellere Verarbeitung von Daten. In-Memory Computing bedeutet, dass die Daten direkt im RAM gespeichert und verarbeitet werden. Aufgrund der wesentlich tieferen Zugriffszeiten und schnelleren Lese/Schreibe-Geschwindigkeit im Gegensatz zu normalen Festplatten kann die Datenverwaltung und -analyse so erheblich verschnellert werden.
 
 RAM ist per Definition volatil. Da man logischerweise nicht will, dass die gesamten Daten des Data-Warehouses nach einem allfälligen Neustart des Servers plötzlich weg sind, werden normale Festplatten trotzdem noch verwendet, jedoch nur zu Backup-Zwecken (Snapshots, Mirroring oder auch Transaction-Logs).
@@ -2346,7 +2347,7 @@ Der Rückgabewert der \code{Discover} Methode ist ein Rowset voller Metadaten. D
 \end{lstlisting}
 \restoregeometry
 
-\section{Metadaten (Skript S271)}
+\section{Metadaten (Skript S271/Buch S339)}
 
 \subsection{Definition}
 \begin{center}
@@ -2403,7 +2404,248 @@ Siehe Kap. 14.4
 	\caption{Unterscheidung zwischen technischen und geschäftlichen Metadaten}
 	\label{fig:metadaten}
 \end{wrapfigure}
-Optimal hätte ein Data Warehouse ein zentrales Metadaten-\\ Repository. In Realität ist es jedoch meist so, dass zwischen technischen und geschäftlichen Metadaten unterschieden wird. Je nach dem, wen man fragt, kommen noch prozessuale Metadaten hinzu.Ngiidk6g
+Optimal hätte ein Data Warehouse ein zentrales Metadaten-\\ Repository. In Realität ist es jedoch meist so, dass zwischen technischen und geschäftlichen Metadaten unterschieden wird.
 
+Je nach dem, wen man fragt, kommen noch prozessuale Metadaten hinzu.
+
+\subsubsection{Technische Metadaten}
+Diese Metadaten beschreiben und definieren das Datenbank-System und werden meist automatisch angelegt. Sie sind Daten über das Data Warehouse Modell und sind meist im DBMS abgelegt
+
+Solche Metadaten umfassen zum Beispiel:
+
+\begin{multicols}{2}
+	\begin{itemize}
+		\item 	Server und Instanzen (Ort und Name)
+		\item 	Datenbankname 
+		\item 	Datenbankobjekte (Tabellen, Indizes, Sichten, etc.) 
+		\item 	Datenmodelle der Quellsysteme 
+		\item 	Datenextraktionsregeln 
+		\item 	Datentransformationsregeln 
+		\item 	Daten zur Versionierung 
+		\item 	Data Cleansing Regeln 
+		\item 	Daten Aggregations Regeln 
+		\item 	Namen von Tabellenviews 
+		\item 	Daten über die Steuerung des Ladeprozesses 
+		\item 	Daten über den Datenupdatezyklus 
+		\item 	Primär-/Fremdschlüssel Beziehungen 
+		\item 	Datenstrukturen 
+		\item 	Datenverteilung (Partitionierung) 
+		\item 	Quell- und Zielsystem Beschreibung von ETL-Prozessen 
+		\item 	etc.
+		\item 	Transformationsvorschriften, -richtlinien (Policies) - \item 	\item 	Datenqualitätskriterien 
+		\item 	Ausnahme- und Fehlerbehandlungen 
+		\item 	Datentypen, Wertebereiche (Domänen) 
+		\item 	Auskunft über Bezeichner (Namen) 
+		\item 	Auskunft über offene Transaktionen 
+		\item 	Rechtevergabe 
+		\item 	Statistiken über Mengeninformationen und Datendichte 
+		\item 	Serverstatistiken (Uptime, Anzahl Verbindungen, …) 
+		\item 	Zugriffsstatistiken (Häufigkeiten von richtigen und falschen Anmeldungen, …) 
+		\item 	System-, Versions- und Konfigurationsdaten 
+	\end{itemize}
+\end{multicols}
+
+\subsubsection{Geschäftliche Metadaten}
+Diese Metadaten beschreiben die Datenherkunft, ihre geschäftliche Bedutung, Rollen und Verwendung. Im Gegensatz zu den technischen Metadaten unterstützen sie die geschäftlichen Analysen.
+
+\begin{multicols}{2}
+	\begin{itemize}
+		\item Datenlieferanten 
+		\item Datennutzer 
+		\item Datenflüsse 
+		\item Bedeutung und Definition der Geschäftsdaten 
+		\item Geschäftsregeln der Datentransformation (Minimum, Maximum, NULLBehandlung usw.) 
+		\item Gruppierungen 
+		\item Aggregationen 
+		\item Dimensionshierarchien 
+		\item Vordefinierte Berichte 
+		\item Vordefinierte Queries 
+		\item Daten für die Query und Reporting Tools 
+		\item Report Verteilinformation 
+		\item Sicherheits- und Zugriffsprivilegien
+	\end{itemize}
+\end{multicols}
+
+\subsubsection{Prozessuale Metadaten}
+Diese Metadaten beschreiben die Prozesse im Data Warehouse
+
+\begin{multicols}{2}
+	\begin{itemize}
+		\item Regeln zur Datenextraktion, zur Transformation und zum Ladevorgang
+		\item Auslösezeiten, Endzeiten von Vorgängen 
+		\item Benutzte Ressourcen (CPU, Primär-, Sekundärspeicher usw.) 
+		\item Betroffene Objekte 
+		\item Mengen, z.B. Tupelmengen (Row Counts) 
+		\item Vollständigkeits- und Qualitätsstatistiken für die Auditierung 
+	\end{itemize}
+\end{multicols}
+
+\noindent Zudem wird unterschieden zwischen beschreibenden und vorgangsbezogenen Metadaten.
+
+\begin{multicols}{2}
+	\paragraph{Beschreibende Metadaten}\mbox{}\\
+	Darunter fallen Daten, die das System \textit{beschreiben} (wie der Name das schon vermuten lässt), also z.B. über alle Schnittstellen, Komponenten und Daten
+	\columnbreak
+	\paragraph{Vorgangsbezogene Metadaten}\mbox{}\\
+	Darunter fallen Daten, die wichtig sind in bestimmten Prozessen wie z.B. den ETL-Prozessen, also Daten über die Quell- und Zielsysteme, über die Quell- und Zieldaten etc.
+\end{multicols}
+
+\subsection{Metadaten-Strategie}
+Die Strategie befasst sich mit den Fragen \textit{Wie und wer pflegt und integriert die Metadaten?}
+
+\subsubsection{Wie}
+Die \textit{Wie}-Frage hängt extrem von denverwendeten Produkten ab, aber das Ziel w
+re eine totale Zentralisierung in einem einzigen Repository.
+
+Prinzipiell können drei Ansätze unterschieden werden:
+
+\begin{description}
+	\item[Do-it Yourself: ] Die Firma kümmert sich selbst um die Metadaten
+	\item[Kernprodukt: ] Die Firma verwendet ein Produkt, das das Repository und dessen Struktur vorgibt
+	\item[Gesamtlösung: ] Die Firma hat einen Lieferanten, der bereits die gesamte Infrastruktur geliefert hat und somit auch eine zentrale Repository-Lösung bieten muss.
+\end{description}
+
+\subsubsection{Wer}
+Die Person, die die Metadaten pflegt sollte optimalerweise alles wissen, sowohl im Geschäftlichen wie auch im Informatik-Aspekt. 
+
+Ein bisschen genauer heisst das:
+
+\begin{multicols}{2}
+	\begin{itemize}
+		\item Sehr gute Kenntnisse von DB/DBMS
+		\item Sehr gute Kenntnisse von SQL
+		\item Sehr gute Kenntnisse von XML
+		\item Sehr gute Kenntnisse von den verwendeten Diensten und Produkten
+		\item Gesunden Menschenverstand
+	\end{itemize}
+\end{multicols}
+
+\subsection{Normierung der Metadaten}
+Das Ziel ist nicht nur ein zentrales Repository, sondern auch eine Normierung aller Metadaten. Das heisst
+
+\begin{multicols}{2}
+	\begin{itemize}
+		\item Enheitlichkeit
+		\item Herstellerneutralität
+		\item Maschinenlesbarkeit
+		\item Einfach bearbeitbar mit Tools.
+	\end{itemize}
+\end{multicols}
+
+\noindent Ein recht verbreiteter Standard ist das \textit{Common Warehouse Metamodel} oder CWM. Es umfasst die Modellierung, Beschreibung, Zugriff und Austausch von Metadaten und die Beschreibung anderer Objekte und Komponenten.
+
+Das CWM wurde wie das MOF (Kap. 15.2) von der OMG entwickelt und greift bei verschiedenen Metadaten auch auf das MOF zurück, um eine gemeinsame Basis zu finden, mag das auf M2 oder auch erst M3 sein.
+
+CWM ermöglicht die Beschreibung der Datenmodelle der Quell- und Zielsysteme sowie die Datenverschiebungen zwischen diesen beiden Systemen. Zudem können via CWM Abbildungsvorschriften zwischen dem physischen und dem logischen Modell des Data Warehouse definiert werden.
+\vspace{10px}
+
+\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[keepaspectratio=true,height=10\baselineskip]{CWM_schichten.PNG}
+		\captionof{figure}{CWM-Schichtenmodell}
+		\label{fig:cwm_schichten}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+		\includegraphics[keepaspectratio=true,height=10\baselineskip]{CWM_metamodell.PNG}
+		\captionof{figure}{CWM-Metamodell}
+		\label{fig:cwm_meta}
+\end{minipage}
+
+\vspace{10px}
+
+\noindent Ein Ziel des CWM ist die Vereinfachung des Metadatenaustauschs. Es fungiert als gemeinsamer Nenner. Alle Metadaten laufen zuerst über das CWM bevor sie vom Quellsystem ins Zielsystem überführt werden.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=10\baselineskip]{CWM_schnittstellen.PNG}
+	\caption{Vereinfachung des Umherschiebens von Metadaten durch das CWM}
+	\label{fig:cwm_schittstellen}
+\end{figure}
+
+
+Zusammengefasst soll das CWM Dinge vereinfachen wie z.B.
+
+\begin{multicols}{2}
+	\begin{itemize}
+		\item ETL-Applikationsentwicklung
+		\item Tabellenerstellung in Data Warehouse und Data Mart
+		\item Erstellens des Database Persistence Layer
+		\item OLAP Persistenzschicht
+		\item Datenmigration vom Data Warehouse zum Data Mart
+		\item Aufsetzung des Reporting Tools
+	\end{itemize}
+\end{multicols}
+\vspace{10px}
+
+\noindent CWM-Definitionen werden in XMI verfasst. XMI steht für \textit{XML Metdata Interchange} und ist ein Standard der OMG für den Austausch von Metadaten
+
+\begin{lstlisting}[language=xml, captionpos=b, caption={Ausschnitt einer Definition einer relationalen 'Administrations'-Tabelle}]
+<?xml version="1.0" encoding="UTF-8"?> 
+<XMI xmi.version="1.1" timestamp="Jun 20 2005 09:35:52" xmlns:CWM="org.omg.CWM1.0" xmlns:CWMRDB="org.omg.CWM1.0/ Relational" xmlns:CWMOLAP="Olap" xmlns:CWMTFM="Transformation">
+	<XMI.header>
+		<XMI.documentation>
+			<XMI.exporter>Meta Integration Model Bridge</ XMI.
+			<XMI.exporterVersion>4.1.0 - Aug 16 2004 12:21:11</XMI.
+		</XMI.documentation>  <XMI.metamodel xmi.name="CWM" xmi.version="1.0"/>
+	</XMI.header>
+	<XMI.content>
+		<CWMRDB:Catalog xmi.id="_4" name="Model" visibility="public">
+			<CWM:Namespace.ownedElement>
+				<CWMOLAP:Schema xmi.id="_5" name="Logical" visibility="public" namespace="_4">
+					<CWMOLAP:Schema.dimension>    
+						<CWMOLAP:Dimension xmi.id="_6" name="Assessment Summary" visibility="public" schema="_2">
+							<CWM:Namespace.ownedElement>
+								<CWMTFM:TransformationMap xmi.id="7" visibility="public" namespace="_6">
+									<CWM:Namespace.ownedElement><CWMTFM:ClassifierMap xmi.id="_8" name="unnamed_8" visibility="public" namespace="7" transformationMap="7">
+\end{lstlisting}
+
+\section{Data Warehouse Strategie (Skripit S286)}
+\begin{wrapfigure}[16]{R}{0.5\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=18\baselineskip]{DWH_Strategie.PNG}
+	\caption{Data Warehouse Strategie}
+	\label{label}
+\end{wrapfigure}
+.
+\vspace{40px}
+
+Die Data Warehouse Strategie ist ein Teil der IT Strategie und sollte keinesfalls ein isolierter Prozess sein. Die IT-Strategie wiederum ist ein Teil der Unternehmensstrategie.
+
+Bei der Strategiefindung spielen nebst den Daten auch der Zweck des Warehouses, dessen Organisation, die Technik, das Budget und auch der Mensch eine entscheidende Rolle. 
+
+Wenn eine Strategie und Architektur des Data Warehouse gefunden ist, ist das Thema nicht abgeschlossen. Beide Dinge sollten ein permanenter Prozess sein.
+
+\subsection{Reifegradmodelle}
+Reifegradmodelle stufen den Zustand eines Systems oder eines Teilsystems innerhalb einer vordefinierten Abstufung ein. Diese Abstufungen zeigen den Ausprägungs- Entwicklungs und Leistungsstand des Systems.
+
+Ein Reifegradmodell dient zur Standortbestimmung und dient unter anderem dazu, festzustellen, wie gross der Aufwand ist, um zur nächsthöheren Stufe zu gelangen.
+
+Eine tiefere Stufe heisst nicht zwingend, dass das System eine niedrigere Qualität ht.
+
+\vspace{10px}
+
+\begin{tabular}{|p{7cm}|p{7cm}|}
+	\hline
+	\thead{Vorteile} & \thead{Nachteile}\\
+	\hline
+	\tabitem Standortbestimmung = Selbstreflexion \newline
+	\tabitem Erzwingt Systembetrachtung von anderem Winkel \newline
+	\tabitem Aufdeckung von Über- bzw. Unterentwicklung \newline
+	\tabitem Man kann gleich noch aufräumen \newline
+	\tabitem Bei gutem Reifegrad kann der in Kommunikation mit Partner verwendet werden & 
+	\tabitem Wildwuchs an Reifegradmodellen \newline
+	\tabitem Überaufwand für Erreichen bestimmter Stufen \newline
+	\tabitem Reifegrad basiert nur auf qualitativ und nicht quantitativ \newline
+	\tabitem Meist nur auf ein Teilsystem fokussiert. Keine Gesamtübersicht
+	\\
+	\hline
+\end{tabular}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=10\baselineskip]{reifegrad_bimm.PNG}
+	\caption{Beispiel eines Reifegradmodells (biMM)}
+	\label{fig:bimm}
+\end{figure}
 
 \end{document}
