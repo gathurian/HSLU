@@ -1,0 +1,135 @@
+\documentclass[a4paper, 11pt]{article}
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+\usepackage{comment} % enables the use of multi-line comments (\ifx \fi) 
+\usepackage{lipsum} %This package just generates Lorem Ipsum filler text. 
+\usepackage{fullpage} % changes the margin
+\usepackage[utf8]{inputenc}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{booktabs}% http://ctan.org/pkg/booktabs
+\usepackage{makecell}
+\usepackage{tabularx}
+\usepackage[table]{xcolor}
+\usepackage{array}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{csquotes}
+\usepackage{lscape}
+\usepackage{afterpage}
+\usepackage{geometry}
+\usepackage{listingsutf8}
+\usepackage{chngcntr}
+\usepackage{multicol}
+\usepackage{xcolor}
+
+
+\counterwithin{figure}{section}
+
+\geometry{a4paper, margin=1in}
+\renewcommand{\figurename}{Abb.}
+\renewcommand{\tablename}{Tabelle}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\renewcommand*{\thead}[1]{\bfseries #1}
+
+\renewcommand{\contentsname}{Inhalt}
+\renewcommand{\listfigurename}{Abbildungsverzeichnis}
+
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\definecolor{darkgreen}{rgb}{0.05,0.56,0.06}
+
+\lstdefinelanguage{JavaScript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{darkgreen}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+\lstset{frame=tlrb,
+	language=JavaScript,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{violet},
+	stringstyle=\color{darkgreen},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+
+
+\begin{document}
+	
+\title{Zusammenfassung WEBAPP FS2018}
+\author{Alex Neher}
+\maketitle
+
+\tableofcontents
+\newpage
+\listoffigures
+\newpage
+
+\graphicspath{{./Pictures/}}
+
+\section{JavaScript}
+Javascript, auch ECMAScript genannt ist eine clientseitige web-development Sprache. Javascript kann in HTML-Code eingebunden werden, entweder inline über \code{<script></script>}-Tags, es kann mittels \code{<script src=path/to/file.js/>} geholt werden oder direkt über EventHandler \code{<input type="checkbox" name="options" onchange="order.options.giftwrap = this.checked;">}
+
+\subsection{Basics}
+\subsubsection{Variablen definieren}
+
+Javascript hat keine Typisierung. Das heisst, Variablen können einfach mit dem Keyword \code{var} definiert werden, ohne dass ein Datentyp spezifiziert werden muss.
+
+\begin{lstlisting}
+var a = 2;  // a ist nun eine Nummer
+a = 'Jetzt bin ich ein String';
+a = false;
+\end{lstlisting}
+
+\subsubsection{Objekte}
+JavaScript kann auch objektbasiert programmiert werden:
+
+\begin{lstlisting}
+var bachelorModule = {
+	title: "Webapplication Development",
+	instructor: "Thomas Koller"
+};
+
+console.log(bachelorModule.title);  //Output: Webapplication Development
+console.log(bachelorModule["instructor"]); //Output: Thomas Koller
+
+\end{lstlisting}
+
+Objekte sind dynamisch. Das heisst, es können zur Laufzeit noch Properties hinzugefügt oder entfernt werden:
+
+\begin{lstlisting}
+//hinzufuegen von Properties
+bachelorModule.credits = 3;
+
+//entfernen von Properties
+delete bachelorModule.credits;
+
+//Ebenfalls kann gecheckt werden, ob ein Property existiert
+bachelorModule.hasOwnProperty("title"); //true
+bachelorModule.hasOwnProperty("credits"); //false
+\end{lstlisting}
+
+
+\end{document}
