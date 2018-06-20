@@ -72,7 +72,15 @@
 	stringstyle=\color{darkgreen},
 	breaklines=true,
 	breakatwhitespace=true,
-	tabsize=3
+	tabsize=3,
+	literate=%
+	{Ö}{{\"O}}1
+	{Ä}{{\"A}}1
+	{Ü}{{\"U}}1
+	{ß}{{\ss}}1
+	{ü}{{\"u}}1
+	{ä}{{\"a}}1
+	{ö}{{\"o}}1
 }
 
 
@@ -103,24 +111,112 @@ a = 'Jetzt bin ich ein String';
 a = false;
 \end{lstlisting}
 
-\subsubsection{Objekte}
-JavaScript kann auch objektbasiert programmiert werden:
+\subsubsection{Funktionen}
+In Javascript werden Funktionen als Objekte behandelt. Sie können ebenfalls mit dem Keyword \code{var} erstellt werden. Jede Funktion hat ihren eigenen Kontext/Scope. Jede Funktion hat per Default zwei Parameter: \code{this} und \code{arguments}.
+
+Der \code{this} Parameter gibt den Kontext der Funktion zurück. Dieser hängt davon ab, wie und wo die Funktion aufgerufen wird. \code{arguments} ist ein Array, in welchem alle mitgegebenen Argumente speichert.
 
 \begin{lstlisting}
+//1. Über anonymes Function Literal
+var add = function(a,b){
+	console.log(arguments[0]) //gibt den Wert von a zurück
+	return a+b;
+}
+
+//2. Über Function Literal mit Name
+var sub = function sub(a,b){
+	return a-b;
+}
+
+//3. Über Function Declaration
+function mult(a,b){
+	return a*b;
+}
+
+//4. Über Immediate Function Invocation
+var TenDividedByTwo = function(a,b){return a/b;}(10,5);
+console.log(TenDividedByTwo) //Output: 5
+\end{lstlisting}
+
+Funktionen können auch direkt in Objekten definiert werden
+\begin{lstlisting}
+var person = {
+	firstName = "Thomas",
+	lastName = "Koller",
+
+	printFullName: function(){
+		console.log(this.firstName + " " + this.lastName);
+	};
+}
+
+person.printFullName();
+\end{lstlisting}
+
+Mit dem 'apply'-Pattern können auch Funktionen von anderen Objekten aufgerufen werden
+
+\begin{lstlisting}
+var anotherPerson = {
+	firstName = "Donald",
+	lastName = "Trump"
+}
+
+anotherPerson.printFullName() //error: undefined
+
+aPerson.printFullName.apply(anotherPerson); //Output: Donald Trump
+\end{lstlisting}
+
+Wie bereits erwähnt, werden Funktionen als Objekte behandelt und haben ihren eigenen Kontext/Scope. Das heisst, von ausserhalb kann nicht direkt auf Variablen innerhalb einer Funktion zugegriffen werden, sondern nur über verschachtelte Funktionen. Dieses Konstrukt nennt man \textbf{Closure}.
+
+\begin{lstlisting}
+var myCounter = (function(){
+	var value = 0;
+	return {
+		increment: function(inc){
+			value =+ inc;
+		},
+		getValue: function(){
+			return value;
+		}
+	};
+}());
+
+myCounter.increment(10) //value = 10
+console.log(myCounter.value); //error: undefined
+console.log(myCounter.getValue()); //10
+\end{lstlisting}
+
+
+\subsubsection{Objekte}
+JavaScript kann auch objektbasiert programmiert werden. Es gibt grundsätzlich vier Möglichkeiten, Objekte zu instanziieren:
+
+\begin{lstlisting}
+//1. über "var"
 var bachelorModule = {
 	title: "Webapplication Development",
 	instructor: "Thomas Koller"
 };
 
+//2. über new und dem default-Konstruktor
+var bachelorModule = new Object();
+
+//3. über Object.create()
+var bachelorModule = Object.create(Object.prototype); //ein leeres Objekt
+
+//4. mit einem bereits bestehenden Objekt als Prototyp
+var masterModule = Object.create(bachelorModule) //ist jetzt ein "Klon" von bachelorModule
+\end{lstlisting}
+
+Der Zugriff auf Properties funktioniert wie bei anderen objektorientierten Sprachen
+
+\begin{lstlisting}
 console.log(bachelorModule.title);  //Output: Webapplication Development
 console.log(bachelorModule["instructor"]); //Output: Thomas Koller
-
 \end{lstlisting}
 
 Objekte sind dynamisch. Das heisst, es können zur Laufzeit noch Properties hinzugefügt oder entfernt werden:
 
 \begin{lstlisting}
-//hinzufuegen von Properties
+//hinzufügen von Properties
 bachelorModule.credits = 3;
 
 //entfernen von Properties
@@ -130,6 +226,106 @@ delete bachelorModule.credits;
 bachelorModule.hasOwnProperty("title"); //true
 bachelorModule.hasOwnProperty("credits"); //false
 \end{lstlisting}
+
+JavaScript hat, wie auch andere objektorientierten Sprachen, Konstruktoren (die immer gross geschrieben werden)
+
+\begin{lstlisting}
+function Name(vorname, nachname){
+	this.vorname = vorname;
+	this.nachname = nachname;
+	this.birthDate = {
+		year: 0,
+		month: 0,
+		day: 0
+	}
+}
+\end{lstlisting}
+
+\paragraph{Prototyp}\mbox{}\\
+
+Wie bereits im Kapitel 'Funktionen' beschrieben, können Funktionen direkt in Objekten definiert werden. Dann existieren sie jedoch nur für diese eine Objekt (z.B. dem Objekt aPerson). Wenn ich nun eine Funktion definieren will, die für alle \code{Name}-Objekte existiert, muss ich sie mithilfe dem \code{prototype}-Keyword definieren.
+
+\begin{lstlisting}
+Name.prototype.hello = function(){
+	console.log("Hello " + this.vorname); 
+}
+
+var aPerson = new Name("Thomas", "Koller");
+aPerson.hello();
+\end{lstlisting}
+
+Diese Methode funktioniert, da jedes Objekt ein Prototype hat. Wenn ein gesuchtes Property nicht im Objekt-eigenen Prototype gefunden, so wird rekursiv im Prototype des Prototype-Objekts gesucht, bis man ganz oben bei \code{Object} angekommen ist. Falls dort immer noch nichts gefunden wurde, wird \code{null} zurückgegeben. 
+
+Wenn ein Objekt mithilfe der \code{Object.create()}-Methode instanziiert wird, so hat das neu erstellte Objekt den Prototypen des mitgegebenen Objekts.
+
+\begin{lstlisting}
+var obj1 = {
+	a: 1
+}
+
+var obj2 = Object.create(obj1); //Der Prototyp von obj2 ist jetzt obj1
+
+console.log(obj2.a) //Output: 1
+\end{lstlisting}
+
+\code{obj2} selbst hat kein 'a'-Property, es wird also eine Stufe höher gesucht, im Property von \code{obj2}, also \code{obj1}
+
+\subsubsection{Arrays}
+
+\begin{lstlisting}
+//Instanziierung von Arrays über var
+var emptyArray = [];
+var numberArray = [1, 3, 6];
+
+//Instanziierung von Arrays über new
+var anotherEmptyArray = new Array();
+var arrayOfFive = new Array(5);
+
+//Da JavaScript keine Typisierung kennt, sind auch gemsiche Arrays möglich
+var mixedArray = ["String", 4, true];
+
+//Es können auch Objekte in Arrays verpackt werden
+var modulesArray = [
+	{title:"WEBAPP", instructor:"Koller"}, 
+	{title:"WEBTEC", instructor:"Infanger"}
+];
+
+//Zugriff und hinzufügen von Array-Elemente erfolgt gleich wie bei bekannten Sprachen
+console.log(numberArray[0]) //1
+numberArray[3] = "new Element"
+
+//Arrays müssen nicht zwingend ganz gefüllt sein
+var sparseArray = new Array(1000);
+console.log(sparseArray[500]); //undefined
+\end{lstlisting}
+
+\subsubsection{JavaScript und JSON}
+Javascript erlaubt die direkte Konvertierung von Objekten zu JSON. Die Methode \code{JSON.stringify()} ruft die Methode \code{toJSON()} auf (falls diese existiert) und serialisiert das zurückgegebene Objekt.
+
+Um JSON wieder in ein Objekt zurückzuverwandeln, ruft man \code{JSON.parse()} auf.
+
+\begin{lstlisting}
+var json = JSON.stringify(bachelorModule));
+//Output: {"title":"WebApp","instructor":"Thomas Koller"}
+
+var otherBachelorModule = JSON.parse(json);
+\end{lstlisting}
+
+\newpage
+
+\section{PHP}
+PHP ist eine serverseitige Script-Sprache. Also im Gegensatz zu JavaScript, bei welcher alles auf dem Computer des Benutzers berechnet wird, wird bei PHP alles bereits auf dem Webserver berechnet und nur die Resultate an den Browser des Benutzers geschickt. 
+
+Ein PHP-Request läuft folgendermassen ab:
+
+\begin{enumerate}
+	\item Der Client ruft eine PHP-Seite auf
+	\item Der Webserver leitet den Request an den PHP-Interpreter weiter
+	\item Der Interpreter verarbeitet die Seite und  schickt das Resultat zurück an den Server
+	\item Der Server schickt das Resultat zurück an den Client.
+\end{enumerate}
+
+
 
 
 \end{document}
