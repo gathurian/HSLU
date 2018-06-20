@@ -98,10 +98,9 @@
 \graphicspath{{./Pictures/}}
 
 \section{JavaScript}
-Javascript, auch ECMAScript genannt ist eine clientseitige web-development Sprache. Javascript kann in HTML-Code eingebunden werden, entweder inline über \code{<script></script>}-Tags, es kann mittels \code{<script src=path/to/file.js/>} geholt werden oder direkt über EventHandler \code{<input type="checkbox" name="options" onchange="order.options.giftwrap = this.checked;">}
+Javascript, auch ECMAScript genannt ist eine clientseitige web-Development Sprache für DOM- und CSS-Manipulation, AJAX oder EventHandling. Javascript kann in HTML-Code eingebunden werden, entweder inline über \code{<script></script>}-Tags, es kann mittels \code{<script src=path/to/file.js></script>} geholt werden oder direkt über EventHandler \code{<input type="checkbox" name="options" onchange="order.options.giftwrap = this.checked;">}. 
 
-\subsection{Basics}
-\subsubsection{Variablen definieren}
+\subsection{Variablen definieren}
 
 Javascript hat keine Typisierung. Das heisst, Variablen können einfach mit dem Keyword \code{var} definiert werden, ohne dass ein Datentyp spezifiziert werden muss.
 
@@ -111,7 +110,7 @@ a = 'Jetzt bin ich ein String';
 a = false;
 \end{lstlisting}
 
-\subsubsection{Funktionen}
+\subsection{Funktionen}
 In Javascript werden Funktionen als Objekte behandelt. Sie können ebenfalls mit dem Keyword \code{var} erstellt werden. Jede Funktion hat ihren eigenen Kontext/Scope. Jede Funktion hat per Default zwei Parameter: \code{this} und \code{arguments}.
 
 Der \code{this} Parameter gibt den Kontext der Funktion zurück. Dieser hängt davon ab, wie und wo die Funktion aufgerufen wird. \code{arguments} ist ein Array, in welchem alle mitgegebenen Argumente speichert.
@@ -186,7 +185,7 @@ console.log(myCounter.getValue()); //10
 \end{lstlisting}
 
 
-\subsubsection{Objekte}
+\subsection{Objekte}
 JavaScript kann auch objektbasiert programmiert werden. Es gibt grundsätzlich vier Möglichkeiten, Objekte zu instanziieren:
 
 \begin{lstlisting}
@@ -270,7 +269,7 @@ console.log(obj2.a) //Output: 1
 
 \code{obj2} selbst hat kein 'a'-Property, es wird also eine Stufe höher gesucht, im Property von \code{obj2}, also \code{obj1}
 
-\subsubsection{Arrays}
+\subsection{Arrays}
 
 \begin{lstlisting}
 //Instanziierung von Arrays über var
@@ -299,7 +298,7 @@ var sparseArray = new Array(1000);
 console.log(sparseArray[500]); //undefined
 \end{lstlisting}
 
-\subsubsection{JavaScript und JSON}
+\subsection{JavaScript und JSON}
 Javascript erlaubt die direkte Konvertierung von Objekten zu JSON. Die Methode \code{JSON.stringify()} ruft die Methode \code{toJSON()} auf (falls diese existiert) und serialisiert das zurückgegebene Objekt.
 
 Um JSON wieder in ein Objekt zurückzuverwandeln, ruft man \code{JSON.parse()} auf.
@@ -313,6 +312,82 @@ var otherBachelorModule = JSON.parse(json);
 
 \newpage
 
+\subsection{Verarbeitung von JavaScript}
+\begin{wrapfigure}[18]{R}{0.75\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{js_ausfuehrung.jpg}
+	\caption{Verschiedene Arten, wie JS verarbeitet werden kann}
+	\label{fig:rel}
+\end{wrapfigure}
+JavaScript kann normal, asynchron oder deferred ausgeführt werden. Bei der normalen Verarbeitung wird das HTML-Parsing pausiert, das JS-Skript heruntergeladen, kompiliert und ausgeführt und erst anschliessend mit dem HTML-Parsing weitergemacht. Wenn man die asynchrone Verarbeitung wählt, wird das JS-Skript im Hintergrund heruntergeladen. Erst wenn das Skript heruntergeladen wurde, wird das HTML-Parsing pausiert und das Skript wird ausgeführt. Bei der deferred-Methode wird das Skript ebenfalls im Hintergrund heruntergeladen. Jedoch wird hier gewartet, bis das gesamte HTML-Parsing abgeschlossen ist, bevor das Skript ausgeführt wird.
+
+\subsection{Verzögerte Ausführung}
+
+Mittels den Methoden \code{long setInterval(function f, unsigned long interval, any args)} und \code{long setTimeOut(function f, unsigned long timeout, any args)} kann die Ausführung der übergebenen Methode verzögert (setTimeOut) oder in einem definierten Intervall wiederholt (setInterval) werden. Die Ausführung der Methode \code{f} wird um \code{timeout} Millisekunden verzögert bzw. nach \code{interval} Millisekunden wiederholt.
+
+\subsection{DOM}
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=14\baselineskip]{DOM_structure.jpg}
+	\caption{Beispiel eines DOM-Baumes}
+	\label{fig:DOM}
+\end{figure}
+DOM steht für \textit{Document Object Model} und bezeichnet die Struktur einer HTML-Website. Alle Objekte der Website werden in der Baumstruktur des DOMs als Node abgespeichert. JavaScript kann direkt auf diese Nodes zugreifen z.B. wäre \code{"simple"} in Abb. \ref{fig:DOM} mittels \code{document.childNodes[0].childNodes[1].lastChild.firstChild.nextSibling.childNodes[0]} erreichbar. Da dies jedoch ein bisschen umständlich ist, werden im nächsten Kapitel einige einfachere Selektions-Methoden vorgestellt.
+
+\subsection{DOM-Manipulation}
+Wie bereits zu Beginn des Kapitels erwähnt, wird JavaScript unter anderem zur DOM-Manipulation verwendet. Um Elemente des DOM manipulieren zu können, muss dem Skript zuerst mitgeteilt werden, welches Element man manipulieren möchte. Dabei gibt es verschiedene Methoden:
+
+\paragraph{Über ID (empfohlen)}\mbox{}\\
+\begin{lstlisting}
+var button = document.getElementById("button1")
+\end{lstlisting}
+
+\begin{lstlisting}[language=html]
+<button id="button1">Click me!</button>
+\end{lstlisting}
+
+\paragraph{Über Namen}\mbox{}\\
+Diese Methode gibt eine NodeList zurück mit allen gefundenen Elementen
+\begin{lstlisting}
+var buttons = document.getElementsByName("option_buttons")
+console.log(buttons[0].tagName) //Output: button
+\end{lstlisting}
+\begin{lstlisting}[language=html]
+<button name="option_button">Pizza Margharita</button>
+<checkbox name="option_button">Pizza Diavola</checkbox>
+\end{lstlisting}
+
+\paragraph{Über Tags}\mbox{}\\
+Funktioniert gleich wie \code{getElementsByName} aber filtert nach HTML-Tags
+\begin{lstlisting}
+var buttons = document.getElementsByTagName("button")
+console.log(buttons[0].name) //Output: option_button
+\end{lstlisting}
+\begin{lstlisting}[language=html]
+<button name="option_button">Pizza Margharita</button>
+\end{lstlisting}
+
+\paragraph{Über Klasse(n)}\mbox{}\\
+Gibt eine HTML-Collection zurück. Falls mehrere Klassen spezifiziert werden, muss das Element Mitglied \textit{aller} Klassen sein
+\begin{lstlisting}
+var buttons = document.getElementsByClassName("options")
+console.log(buttons[0].name) //Output: option_button
+\end{lstlisting}
+\begin{lstlisting}[language=html]
+<button class="options">Pizza Margharita</button>
+\end{lstlisting}
+
+\paragraph{Über CSS-Selektoren}\mbox{}\\
+Nur kompatibel mit HTML5. Gibt eine NodeList zurück.
+\begin{lstlisting}
+var logs = document.querySelectorAll("#log>span)
+\end{lstlisting}
+\begin{lstlisting}[language=html]
+<div id=span>
+	<span>I'm selected</span>
+</div>
+\end{lstlisting}
+
 \section{PHP}
 PHP ist eine serverseitige Script-Sprache. Also im Gegensatz zu JavaScript, bei welcher alles auf dem Computer des Benutzers berechnet wird, wird bei PHP alles bereits auf dem Webserver berechnet und nur die Resultate an den Browser des Benutzers geschickt. 
 
@@ -325,7 +400,41 @@ Ein PHP-Request läuft folgendermassen ab:
 	\item Der Server schickt das Resultat zurück an den Client.
 \end{enumerate}
 
+PHP und HTML können in einer Datei gemischt werden.
 
+\begin{lstlisting}[language=php]
+<html>
+	<head>
+		<title>PHP-Stuff</title>
+	</head>
+	<body>
+		<?php echo "Hello World"; ?>
+	</body>
+</html>
+\end{lstlisting}
+
+Variablen in PHP beginnen immer mit einem \code{\$} und müssen nicht zwingend zuerst deklariert werden. Strings werden, wie gewohnt, entwerder mit Doppel- oder Einfachanführungszeichen geschrieben. Ebenfalls bereits bekannt aus anderen Sprachen ist das Abschliessen eines Statements mit dem ';'
+
+\vspace{10px}
+
+\noindent PHP kann ebenfalls objektorientiert programmiert werden und hat Java/.NET ähnliche Kontrollstrukturen wie Schlaufen oder Konditionen. Externe PHP-Dateien können mittels \code{import} oder \code{include} importiert werden.
+
+\vspace{10px}
+
+\noindent Falls eine Webapplikation eine SQL-Datenbank im Backend hat, wird meist über PHP darauf zugegriffen
+
+\begin{lstlisting}[language=php]
+include 'db_credentials.php'
+
+//$host, $user, $pass und $db sind im File 'db_credentials.php' gespeichert
+$mysqli = new mysqli($host, $user, $pass, $db);
+
+//mittels '->' kann auf Methoden zugegriffen werden, hier also die Methode 'query' vom mysqli-Objekt
+$result = $mysqli->query("SELECT * from personen");
+
+\end{lstlisting}
+
+Nebst plainText und HTML-Seiten kann PHP noch andere Content-Types zurücksenden, es muss jedoch als erstes im Header mittels \code{header("Content-Type: whatever");} spezifiziert werden (z.B. JSON)
 
 
 \end{document}
