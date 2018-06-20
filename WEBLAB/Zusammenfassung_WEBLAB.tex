@@ -98,7 +98,8 @@
 \graphicspath{{./Pictures/}}
 
 \section{JavaScript}
-Javascript, auch ECMAScript genannt ist eine clientseitige web-Development Sprache für DOM- und CSS-Manipulation, AJAX oder EventHandling. Javascript kann in HTML-Code eingebunden werden, entweder inline über \code{<script></script>}-Tags, es kann mittels \code{<script src=path/to/file.js></script>} geholt werden oder direkt über EventHandler \code{<input type="checkbox" name="options" onchange="order.options.giftwrap = this.checked;">}. 
+Javascript, auch ECMAScript genannt ist eine clientseitige web-Development Sprache für DOM- und CSS-Manipulation, AJAX oder EventHandling. Javascript kann in HTML-Code eingebunden werden, entweder inline über \code{<script></script>}-Tags, es kann mittels \\
+\code{<script src=path/to/file.js></script>} geholt werden oder direkt über EventHandler \code{<input type="checkbox" name="options" onchange="order.options.giftwrap = this.checked;">}. 
 
 \subsection{Variablen definieren}
 
@@ -334,6 +335,8 @@ Mittels den Methoden \code{long setInterval(function f, unsigned long interval, 
 \end{figure}
 DOM steht für \textit{Document Object Model} und bezeichnet die Struktur einer HTML-Website. Alle Objekte der Website werden in der Baumstruktur des DOMs als Node abgespeichert. JavaScript kann direkt auf diese Nodes zugreifen z.B. wäre \code{"simple"} in Abb. \ref{fig:DOM} mittels \code{document.childNodes[0].childNodes[1].lastChild.firstChild.nextSibling.childNodes[0]} erreichbar. Da dies jedoch ein bisschen umständlich ist, werden im nächsten Kapitel einige einfachere Selektions-Methoden vorgestellt.
 
+%TODO: Add Document Structure (Lecture Javascript Client Side, P23ff)
+
 \subsection{DOM-Manipulation}
 Wie bereits zu Beginn des Kapitels erwähnt, wird JavaScript unter anderem zur DOM-Manipulation verwendet. Um Elemente des DOM manipulieren zu können, muss dem Skript zuerst mitgeteilt werden, welches Element man manipulieren möchte. Dabei gibt es verschiedene Methoden:
 
@@ -388,6 +391,132 @@ var logs = document.querySelectorAll("#log>span)
 </div>
 \end{lstlisting}
 
+\subsection{JQuery}
+JQuery ist eines der inzwischen hunderten von JavaScript Frameworks. Genau wie JavaScript kann mit JQuery ebenfalls DOM- und CSS-Manipulation durchgeführt, sowie Browser Events und AJAX-Requests behandelt werden.
+
+\vspace{10px}
+
+\noindent JQuery Funktionen werden mittels \code{jQuery()} bzw. \code{\$()} aufgerufen. Da jede jQuery-Methode ein jQuery-Object zurückgibt, können beliebig viele Methoden aneinandergehängt werden (ob das leserlich ist, ist eine andere Frage):
+
+\begin{lstlisting}
+$("p.details").css("background-color","yellow").show("fast");
+\end{lstlisting}
+Die obenstehende jQuery-Methode selektiert alle \code{p}-Elemente der Klasse \code{details} mit der Hintergrundfarbe Gelb und zeigt sie an mit einer schnellen Animation.
+
+\vspace{10px}
+
+\noindent Man kann jQuery Methoden auf vier verschiedene Arten aufrufen:
+\begin{enumerate}
+	\item Selektion \\
+		\code{\$(selector, (optional)context)}
+	\item Wrapper\\
+		\code{\$(document), \$(window) etc.}
+	\item HTML-Elemente\\
+		\code{var img = \$("<img>", {src: url, css:{...}})}
+	\item Events\\
+		\code{\$(function)} $\leftarrow$ ist equivalent zu \code{\$(document).ready(function);}
+\end{enumerate}
+
+\vspace{10px}
+
+\noindent jQuery verfügt nur über eine getter/setter Methode. Je nach dem, ob der Methode ein Parameter übergeben wird, fungiert sie als getter oder setter.
+
+\begin{lstlisting}
+//Der Methode wird kein Parameter übergeben --> sie gibt den gefundenen Wert zurück
+$("#icon").attr("src");
+
+//Der Methode wird zusätzlich noch 'icon.gif' übergeben. --> Sie setzt den Wert
+$("#icon").attr("src", "icon.gif");
+\end{lstlisting}
+
+\noindent Dasselbe gilt nebst DOM-Manipulation auch für CSS-Manipulation
+\begin{lstlisting}
+//Kein Wert übergeben --> gibt die Wert von fontWeight zurück
+$("h1").css("fontWeight");
+
+//Es werden Parameter übergeben --> setzt den CSS-Style dementsprechend
+$("h1").css({
+	backgroundColor: "black",
+	textColor: "green",
+});
+\end{lstlisting}
+
+\noindent jQuery kann auch Text und HTML schreiben und lesen
+\begin{lstlisting}
+//Gibt den Dokument-Titel zurück
+var title = $("head title").text();
+
+//Gibt das HTML des ersten 'h1'-Elementes zurück
+var headline = $("h1").html();
+
+//Setzt jede 'h1'-Heading zu 'TITEL'
+$("h1").text(TITEL);
+\end{lstlisting}
+
+\noindent Mit dem \code{data()}-Attribut kann jQuery von jedem Element beliebig Daten lesen und schreiben. Der Syntax des \code{data()}-Attribut ist \code{jQuery.data(element, key, value)} wobei das \code{element} das DOM-Element ist, mit dem die Daten assoziiert sind, der \code{key} der Name der zu speichernden Daten und der \code{value} recht selbsterklärend der Wert der zu speichernden Daten ist.
+\begin{lstlisting}
+//Daten speichern.
+$.data(div, "test", {
+	first: "firstText",
+	pizza: "secondText"
+});
+
+//Daten abrufen und als Text im ersten bzw. letzten <span>-Element der Seite setzen
+$("span:first").text( jQuery.data(div, "test" ).first);
+$("span:last").text( jQuery.data(div, "test" ).pizza);
+\end{lstlisting}
+
+\noindent Wie bereits erwähnt, können mit jQuery auch EventHandler programmiert werden. Dabei folgen alle Browser derselben API (ausser alte IE-Versionen, aber das überrascht eigentlich niemanden).
+\begin{lstlisting}
+$("#imageShrinker").click(
+	function () {
+		$("img").animate({height: 0})
+	}
+);
+\end{lstlisting}
+\noindent Die obenstehende Funktion setzt die Höhe jedes Bildes auf 0 wenn der Button mit der id \code{imageShrinker} geklickt wird. Es gibt eine vordefinierte Liste von Events, auf welche reagiert werden kann wie z.B. \code{click(), keypress(), load(), focus()} etc.
+
+\vspace{10px}
+
+\noindent Das obere Codebeispiel deckt auch eine weitere Möglichkeit von jQuery ab: Es kann Animationen ausführen wie z.B. Elemente anzeigen und verschwinden lassen.
+
+\vspace{10px}
+
+\noindent jQuery kann auch andere Websites oder remote-Scripts laden und ausführen.
+\begin{lstlisting}
+//Eine externe Seite laden und im übergebenen Element anzeigen
+$("#stats").load("status_report.html");
+
+//Ein remote-Script laden
+$.getScript("https://trustworthySite.ru.cn/js/totallyNotACryptoMiner.js");
+
+//Ein remote-Script laden und anschliessend ausführen
+$.getScript("https://trustworthySite.ru.cn/js/totallyNotACryptoMiner.js", function(){
+	$(document).mineMonero();
+});
+\end{lstlisting}
+
+\vspace{10px}
+
+\noindent jQuery kann ebenfalls JSON laden und parsen
+\begin{lstlisting}
+$.getJSON("https://server.com/data.json", function(data){
+	//geparste Daten aus data.json verarbeiten
+});
+\end{lstlisting}
+
+\vspace{10px}
+
+\noindent Es können auch AJAX Request über jQuery gemacht werden
+\begin{lstlisting}
+$.ajax({
+	type: "GET", //GET-Request
+	url: url, //aufzurufende URL
+	data: null, //es sollen keine Daten mitgegeben werden
+	dataType: "script", //die Antwort ist ein sofort auszuführendes Script
+	success: callback //rufe diese Methode auf, wenn alles erledigt ist
+});
+\end{lstlisting}
 \section{PHP}
 PHP ist eine serverseitige Script-Sprache. Also im Gegensatz zu JavaScript, bei welcher alles auf dem Computer des Benutzers berechnet wird, wird bei PHP alles bereits auf dem Webserver berechnet und nur die Resultate an den Browser des Benutzers geschickt. 
 
