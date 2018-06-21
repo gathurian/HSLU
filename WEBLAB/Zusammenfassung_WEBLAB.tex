@@ -97,7 +97,7 @@
 
 \graphicspath{{./Pictures/}}
 
-\section{JavaScript}
+\section{JavaScript - Basics}
 Javascript, auch ECMAScript genannt ist eine clientseitige web-Development Sprache für DOM- und CSS-Manipulation, AJAX oder EventHandling. Javascript kann in HTML-Code eingebunden werden, entweder inline über \code{<script></script>}-Tags, es kann mittels \\
 \code{<script src=path/to/file.js></script>} geholt werden oder direkt über EventHandler \code{<input type="checkbox" name="options" onchange="order.options.giftwrap = this.checked;">}. 
 
@@ -313,6 +313,7 @@ var otherBachelorModule = JSON.parse(json);
 
 \newpage
 
+\section{Javascript - Advanced}
 \subsection{Verarbeitung von JavaScript}
 \begin{wrapfigure}[18]{R}{0.75\textwidth}
 	\centering
@@ -391,7 +392,7 @@ var logs = document.querySelectorAll("#log>span)
 </div>
 \end{lstlisting}
 
-\subsection{JQuery}
+\section{JQuery}
 JQuery ist eines der inzwischen hunderten von JavaScript Frameworks. Genau wie JavaScript kann mit JQuery ebenfalls DOM- und CSS-Manipulation durchgeführt, sowie Browser Events und AJAX-Requests behandelt werden.
 
 \vspace{10px}
@@ -517,6 +518,138 @@ $.ajax({
 	success: callback //rufe diese Methode auf, wenn alles erledigt ist
 });
 \end{lstlisting}
+
+\section{Asyncronous Javascript}
+\subsection{Callback}
+\begin{lstlisting}
+function doSomething(successCallback, failureCallback){
+if(a===1){
+successCallback(a);
+} else {
+failureCallback(new Error("failed"));
+}
+}
+
+//Aufruf mittels
+doSomething(successCallback, failureCallback);
+\end{lstlisting}
+Das obenstehende Codebeispiel demonstriert die Verwendung von Callbacks. Callbacks an sich sind eine gute Sache, jedoch läuft man in die Gefahr, dass man eine sog. \textit{Callback pyramid of hell} programmiert:
+
+\begin{lstlisting}
+doSomething(function successCallback(result){
+processResult(result, function successProcessing(newResult){
+finalThing(newResult, function finalSuccess(finalResult){
+console.log("Final Result");
+}, failureCallback);
+}, failureCallback);
+}, failureCallback);
+\end{lstlisting}
+Wie zu sehen ist, sind solche Konstrukte recht schwer zu lesen. Zudem haben Callback-Methoden keine returns und sie werfen keine Exceptions (aufgrund des fehlenden Callstacks).
+
+\noindent Die Lösung für das Problem sind:
+
+\subsection{Promises}
+\begin{lstlisting}
+var promise = doSomething(); //doSomething() gibt ein Promise zurück
+promise.then(successCallback, failureCallback);
+
+//oder, kompakter:
+doSomething().then(successCallback, failureCallback)
+
+//oder auch
+doSomething()
+.then(successCallback)
+.catch(failureCallback);
+\end{lstlisting}
+
+Promises sind Platzhalter für das Resultat einer späteren, asynchronen Methode. Je nachdem, was das Resultat von \code{doSomething()} ist, wird entweder der \code{.then}-Teil (bzw. \code{successCallback}) oder der \code{.catch}-Teil (bzw. \code{failureCallback}) ausgeführt. Welcher der beiden Teile ausgeführt wird, kann jedoch erst zur Laufzeit bestimmt werden. Zudem können mehrere \code{.then()} aneinander gekettet werden, ohne dass eine Callback pyramid of hell daraus resultiert:
+
+\begin{lstlisting}
+getSomeData()
+.then(processData)
+.then(storeData)
+.then(finalizeData)
+.catch(error)
+\end{lstlisting} 
+
+Promises können folgendermassen erstellt werden:
+\begin{lstlisting}
+var promise = new Promise(function(resolve, reject){
+//Methodenausführung, die immer ausgeführt wird
+if(//alles hat gefunzt){
+resolve("Stuff's working");
+} else{
+reject("Stuff didn't work);
+}
+});
+\end{lstlisting}
+
+\noindent Ein Promise kann vier Zustände haben:
+\begin{description}
+	\item[fulfilled: ] Promise wurde erfolgreich ausgeführt
+	\item[rejected: ] Promise wurde nicht erfolgreich ausgeführt
+	\item[pending: ] Promise wurde instanziiert aber noch nicht ausgeführt
+	\item[settled: ] Promise wurde ausgeführt (gibt jedoch nicht zurück ob erfolgreich oder nicht)
+\end{description}
+
+\newpage
+
+\section{TypeScript}
+TypeScript ist ein sog. \textbf{Superset} von JavaScript. Es ist eine Sprache, mit der objektorientiert in Klassen, Interfaces und Objekten programmiert werden kann. Jedoch kompiliert sie nach (ziemlich unleserlichem) JavaScript. Typescript unterstützt im Gegensatz zu JavaScript auch Types und somit auch Generics.
+
+\begin{lstlisting}
+interface LabelledValue {
+	label: string;
+	value?: string //optionaler Wert
+}
+function printLabel(labelledObj: LabelledValue){
+	console.log(labelledObj.label);
+}
+
+let myObj = {
+	label: "Size 10 Object",
+	value: "10"
+}
+printLabel(myObj);
+\end{lstlisting}
+
+\noindent TypeScript unterstützt auch verschiedene Sichtbarkeiten. So kann mittels \code{private} die Sichtbarkeit auf die eigene Klasse beschränkt werden. Wie in anderen OO-Sprachen kann mittels Setter- und Getter-Methoden immer noch auf das Attribut zugegriffen werden, sollte das denn vonnöten sein.
+\begin{lstlisting}
+class BachelorModule{
+	private _title: string;
+	
+	constructor(title: string){
+		this._title = title;
+	}
+	
+	get title(): string {
+		return this._title;
+	}
+	
+	set title(newTitle: string): void{
+		this._title = newTitle;
+	}
+}
+
+let WEBAPP = new BachelorModule("Web Applications");
+console.log(WEBAPP._title);		//error
+console.log(WEBAPP.title);		//OK
+let newtit: string = "WEBAPP";
+WEBAPP.title = newtit;			//OK
+\end{lstlisting}
+
+
+Mit TypeScript ist auch Vererbung möglich:
+\begin{lstlisting}
+class BDAModule extends BachelorModule{
+	private _expertName: string;
+	
+	constructor(name: string){
+		super(name);
+	}
+}
+\end{lstlisting}
+
 \section{PHP}
 PHP ist eine serverseitige Script-Sprache. Also im Gegensatz zu JavaScript, bei welcher alles auf dem Computer des Benutzers berechnet wird, wird bei PHP alles bereits auf dem Webserver berechnet und nur die Resultate an den Browser des Benutzers geschickt. 
 
