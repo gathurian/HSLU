@@ -59,6 +59,7 @@
 	morestring=[b]"
 }
 
+
 \lstset{frame=tlrb,
 	language=JavaScript,
 	aboveskip=3mm,
@@ -92,8 +93,6 @@
 \maketitle
 
 \tableofcontents
-\newpage
-\listoffigures
 \newpage
 
 \graphicspath{{./Pictures/}}
@@ -651,7 +650,8 @@ class BDAModule extends BachelorModule{
 }
 \end{lstlisting}
 
-\section{PHP}
+\section{Backend}
+\subsection{PHP}
 PHP ist eine serverseitige Script-Sprache. Also im Gegensatz zu JavaScript, bei welcher alles auf dem Computer des Benutzers berechnet wird, wird bei PHP alles bereits auf dem Webserver berechnet und nur die Resultate an den Browser des Benutzers geschickt. 
 
 Ein PHP-Request läuft folgendermassen ab:
@@ -699,7 +699,197 @@ $result = $mysqli->query("SELECT * from personen");
 
 Nebst plainText und HTML-Seiten kann PHP noch andere Content-Types zurücksenden, es muss jedoch als erstes im Header mittels \code{header("Content-Type: whatever");} spezifiziert werden (z.B. JSON)
 
+\subsection{NodeJS}
+Eine weitere Möglichkeit fürs Backend, nebst PHP bietet \textbf{NodeJS}. NodeJS ist Teil des MEAN-Stacks (MongoDB, Express, Angular.js, Node.js) und ist eine JavaScript RunTime. NodeJS hat eine Package-Struktur, mit welcher Libraries mittels dem Package-Manager NPM installiert werden können.
+\vspace{10px}
+
+\noindent NodeJS ist asynchron und Event-Basiert. Es unterstützt nur single-threaded Operationen, ist jedoch skalierbar und leicht (ausser man lädt. 2.9 Millionen npm-packages). NodeJS arbeitet, wie Angular auch, mit Modulen, die exportiert und importiert werden können:
+
+\begin{lstlisting}
+//circle.js
+exports.area=function(r){
+	return Math.PI * r * r;
+}
+
+//main.js
+var circle = require('./circle.js');
+console.log("The area of a circle with radius 4 is " + circle.area(4));
+
+//circleModule.js
+function Circle(){
+	this.r = 1;
+}
+//gleich wie bei JavaScript können einem Objekt mit 'prototype' neue Funktionen hinzugefügt werden.
+Circle.prototype.area=function(){
+	return Math.PI * this.r * this.r;
+};
+Circle.prototype.setRadius=function(r){
+	this.r = r;
+}
+module.exports = new Circle();
+//es kann auch nur der Konstruktur exportiert werden
+module.exports = Circle;
+
+//main.js
+var circle2 = require('./circleModule.js');
+	//Falls nur der Konstruktor exportiert worden ist, muss jetzt noch folgendes gemacht werden
+	var c = new circle2();
+circle2.setRadius(4);	//bzw. c.setRadius(4)
+console.log("The area of a circle with radius 4 is " + circle2.area());
+\end{lstlisting}
+
 \newpage
+
+\noindent NodeJS basiert auf dem sog. \textbf{Event-Loop} (siehe Abb. \ref{fig:nodejseventloop})
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=12\baselineskip]{event_loop.PNG}
+	\caption{NodeJS Event Loop}
+	\label{fig:nodejseventloop}
+\end{figure}
+\vspace{10px}
+
+\noindent NodeJS unterscheidet zwischen \textbf{blocking} und \textbf{non-blocking} Operationen.
+
+\begin{description}
+	\item[Blocking: ] Synchroner Aufruf. Warten auf Resultat einer (meist nicht JS-)Funktion.
+	\item[Non-Blocking: ] Asynchroner Aufruf mit Callback-Methode.
+\end{description}
+
+\begin{lstlisting}
+//Synchron/Blocking
+const fs = require('fs');
+const data = fs.readFileSync('/file.md');
+console.log(data);
+doMoreStuff(); //Wird erst nach dem console.log ausgeführt
+
+//Asynchron/Non-Blocking
+const fs = require('fs');
+fs.readFile('/file.md'), (err, data) => {
+	if(err)
+		throw err;
+	console.log(data);
+doMoreStuff(); //Wird vor dem console.log ausgeführt
+\end{lstlisting}
+
+\subsection{Express}
+Express ist eine Middleware und ein NodeJS Framework. Das Ziel davon ist die Verarbeitung von Requests über mehrere Stufen, unter dem Single Responsibility Prinzip. Jede Middleware führt ihre Änderungen an den Request- oder Response-Objekten durch und leitet sie anschliessend weiter an die nächste Middleware.
+
+\begin{lstlisting}
+//Loggen von jedem Request
+var myLogger = function (req, res, next) { 
+	console.log('LOGGED'); next(); 
+};
+app.use(myLogger); 
+app.get('/', function (req, res) { 
+	res.send('Hello World!'); }
+);
+app.listen(3000);
+\end{lstlisting}
+
+\subsection{Authentication}
+Es gibt drei Use-Cases für Authentication:
+
+\begin{enumerate}
+	\item Authentifizierung für Zugriff auf (WebServer basierte) WebApps
+	\item Authentifzierung für Zugriff au Web Services
+	\item Anbindung an andere Provider wie Facebook oder Google
+\end{enumerate}
+
+\subsubsection{Basic Authentication}
+\begin{enumerate}
+	\item Client will auf URL zugreifen
+	\item Web Server fordert im Header Authentifizierung für einen Bereich an: \\
+	\begin{lstlisting}
+	HTTP/1.1 401 Unauthorized 
+	WWW-Authenticate: Basic realm="RealmName"
+	\end{lstlisting}
+	\item Client schickt User/Passwort Base64-encoded im Header im Format User:Passwort \\
+	\begin{lstlisting}
+	Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+	\end{lstlisting}
+\end{enumerate}
+
+Jedoch ist die Basic Authentication nicht mehr sicher, da User/Passwort im Klartext übers Netzwerk geschickt werden.
+
+\subsubsection{Digest Authentication}
+Die Userdaten werden nicht im Plain Text verschickt, sondern es wird nur deren Hashwert (MD5) berechnet und verschickt. Der Server schickt einen sog. \textit{nonce} (Eindeutiger, einmaliger String) und \textit{opaque} (String, der vom Server definiert wurde und wieder zurück geschickt wird).
+\begin{enumerate}
+	\item Client will auf URL zugreifen
+	\item Web Server fordert im Header Authentifizierung für einen Bereich an und shickt \textit{nonce} und \textit{opaque}-Werte mit
+	\item Client berechnet die Digest Werte daraus und fügt sie dem Header hinzu
+	\item Server prüft Digest. Wenn erfolgreich, wird entweder Zugriff gewährt oder nächste Authentifizierungsphase eingeleitet.
+\end{enumerate}
+
+Digest Authentication ist zwar sicherer als Basic Authentication, ist aber immer noch nicht sicher verglichen zu einer Public Key Authentication, da es eigentlich nur das Passwort schützt. Alles andere ist immer noch öffentlich und kann abgehört werden.
+
+\newpage
+
+\subsubsection{Public Key Authentication}
+Die Authentifizierung geschieht über einen MAC (Message Authentication Code). Dieser Code wird über einen Privaten Access-Key und einem String berechnet
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=19.2\baselineskip]{aws_security_1.PNG}
+\end{figure}
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=19.2\baselineskip]{aws_security_2.PNG}
+\end{figure}
+
+\newpage
+
+\subsubsection{JWT (JSON Web Token)}
+JWTs werden benutzt, um JSON-Objekte sicher über das Netzwerk zu senden. Es besteht aus einem Header, einem Payload und einer Signatur.
+
+\paragraph{Header}\mbox{}\\
+Beinhaltet den verwendeten Algorithmus
+
+\paragraph{Payload}\mbox{}\\
+Beinhaltet die gesendeten Attribute (Claims). Diese können Private, Public oder Standard sein.
+
+Standard Claims sind z.B.
+
+\begin{multicols}{2}
+	\begin{description}
+		\item[iss: ] Issuer
+		\item[sub: ] Subject
+		\item[aud: ] Audience
+		\item[exp: ] Expiration Date
+		\item[nbf: ] Not Before
+		\item[iat: ] Issued At (Time)
+		\item[jti: ] JWT ID
+	\end{description}
+\end{multicols}
+
+\begin{lstlisting}
+{"iss": "www.hslu.ch",
+ "sub": "zakoller",
+ "name": "Thomas Koller",
+ "admin": true}
+\end{lstlisting}
+
+\paragraph{Signatur}\mbox{}\\
+Der Header und das Payload sind Base64 encoded und mit dem im Header angegebenen Protokoll verschlüsselt
+\begin{lstlisting}
+HMACSHA256( base64UrlEncode(header) + "." + base64UrlEncode(payload), secret)
+\end{lstlisting}
+
+\vspace{10px}
+
+\noindent Das gesamte Token ist nachher einfach ein String mit allen drei Teilen in Base64-encoding, die einzelnen Teile durch '.' getrennt:
+\begin{lstlisting}
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3d3cuaHNsdS5jaCIsInN1YiI6Inpha29sbGV
+yIiwibmFtZSI6IlRob21hcyBLb2xsZXIiLCJhZG1pbiI6dHJ1ZX0.gPO7XZYZ7Au83MHRuIMtq41LOl8fWYBG
+4-ylb4f2c4
+\end{lstlisting}
+
+\vspace{10px}
+
+\noindent JWT ist kleiner als XML, die Signatur lässt sich sehr einfach berechnen und das es JSON ist, ist das Parsing auch recht einfach. Zudem ist es self-contained, benötigt also keine zusätzlichen Pakete etc.
+
+\subsubsection{OAuth 2.0}
+OAuth 2.0 ist ein Authentifizierungs-Framework, das einer authentifizierenden third party beschränkten Zugriff 
 
 \section{Single Page Application}
 \subsection{Definition}
