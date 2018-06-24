@@ -24,6 +24,7 @@
 \usepackage{chngcntr}
 \usepackage{multicol}
 \usepackage{xcolor}
+\usepackage{pifont}
 
 
 \counterwithin{figure}{section}
@@ -697,6 +698,95 @@ $result = $mysqli->query("SELECT * from personen");
 \end{lstlisting}
 
 Nebst plainText und HTML-Seiten kann PHP noch andere Content-Types zurücksenden, es muss jedoch als erstes im Header mittels \code{header("Content-Type: whatever");} spezifiziert werden (z.B. JSON)
+
+\newpage
+
+\section{Single Page Application}
+\subsection{Definition}
+\begin{center}
+	\textit{"A Web app that fits on a single web page providing a fluid UX by loading all necessary code with a single page load"}
+\end{center}
+
+\noindent Eine SPA sit eine Rich Client Application im Browser, die keinen Page Reload benötigt, um eine neue Ressource zu laden ($\rightarrow$ die URL ändert sich nicht oder nur hinter dem \#). Zudem besteht sie aus reinem HTML und JS, benötigt also keine Plugins wie z.B. Flash o.ä.
+
+Man kann trotz fehlendem Page Reload den '$\leftarrow$'-Button benutzen, um zur vorherigen Ressource zurückzukehren. Ebenfalls können einzelne Ressourcen effektiv gebookmarked werden.
+
+Aufgrund des fehlenden Page Reloads funktioniert eine SPA, einmal aufgerufen, auch offline.
+\vspace{10px}
+
+\noindent Die Vorteile der SPA lassen sich mit den \textbf{3R} zusammenfassen:
+\begin{itemize}
+	\item \textbf{R}each
+	\item \textbf{R}ich User Experience
+	\item \textbf{R}educed Round Tripping
+\end{itemize}
+
+\subsection{Komponenten}
+%TODO do some shit with the 2Bit dudes presentation(s)
+
+\section{REST}
+REST steht für Representational State Transfer und ist ein zustandloses Client-Server Modell, das auf HTTP basiert. Zustandlos heisst, der Server speichert keine Kontextinformationen, sondern der Kontext muss bei jeder Anfrage mitgeschickt werden. REST eignet sich gut zum cachen von Informationen.
+\vspace{10px}
+
+\noindent REST besitzt eine einheitliche Schnittstelle, die auf vier Eigenschaften aufbaut:
+
+\begin{description}
+	\item[Identifikation von Ressourcen ] Jede Ressource ist eindeutig identifizierbar mittels ihrer URL. Umgekehrt wird jede Information, die eine URL/URI besitzt als Ressource gekennzeichnet.
+	\item[Manipulation der Ressourcen durch 'Representationen' ] Alle Ressourcen können unterschiedliche Repräsentationen haben. Je nach dem, welche Repräsentation der Client verlangt, kann der Server JSON, XML oder HTML formatierte Ressourcen ausliefern. \\
+	Der Client kann also folgende Anfrage schicken:
+	\begin{lstlisting}[language=html]
+	GET /notes/1234 HTTP/1.1 
+	Host: www.hslu.ch
+	Accept: application/xml, application/json
+	\end{lstlisting}
+	und erhält die Antwort entweder im XML- oder JSON-Format
+	Auch möglich ist ein \code{Content-Type: application/xml, application/json} anstelle von \code{Accept: } 
+	\item[Beschreibende Meldungen ] REST-Nachrichten verwenden die HTTP-Standartmethoden wie PUT, GET etc. 
+	\item[Hypermedia as the Engine of Application State (HATEOS)] Der Client der REST-Schnittstelle navigiert ausschliesslich über URLs, welche vom Server bereitgestellt werden.
+\end{description}
+\vspace{10px}
+
+\noindent Wie bereits bei Punkt eins erwähnt, wird alles, was eine URI besitzt als Ressource bezeichnet. Etwas allgemeiner kann man sagen, alles was für den Client interessant sein könnte ist eine Ressource und erhält somit eine URI.
+\vspace{10px}
+
+\begin{minipage}{0.45\textwidth}
+Bei REST-Methoden (was schlussendlich nichts anderes als HTTP-Methoden sind) gibt es \textbf{safe} und \textbf{idempotente} Methoden. Safe-Methoden sind solche, die Daten \textit{nicht verändern}, also keine Schreiboperationen durchführen. Idempotente Methoden sind Methoden, die die Daten auch bei mehrfacher Durchführung nicht verändern. So ist eine \code{GET}-Methode zum Beispiel sowohl safe wie auch idempotent. Denn mit der \code{GET}-Methode liest man Daten und die Antwort auf den 329839876432-ten \code{GET}-Request auf diese Ressource wird dieselbe sein wie die Antwort auf den ersten Request.
+\end{minipage}\hfil
+\begin{minipage}{0.45\textwidth}
+	\centering
+\begin{tabular}{|l|c|c|}
+	\hline
+	\thead{Methode} & \thead{Safe} & \thead{Idemptotent} \\
+	\hline
+	\code{GET}&\ding{52} & \ding{52}\\
+	\hline
+	\code{POST}&\ding{55}&\ding{55}\\
+	\hline
+	\code{PUT}&\ding{55}& \ding{52}\\
+	\hline
+	\code{DELETE}&\ding{55}& \ding{52}\\
+	\hline
+	\code{HEAD}&\ding{52}& \ding{52}\\
+	\hline
+	\code{OPTIONS}&\ding{55}& \ding{52}\\
+	\hline
+	\code{PATCH}&\ding{55}&\ding{55}\\
+	\hline
+\end{tabular}
+\end{minipage}
+
+\vspace{10px}
+
+\noindent Untenstehende Bilder sagen eigentlich alles über HTTP-Statuscodes aus, was man wissen muss:
+
+\vspace{15px}
+
+\begin{minipage}{0.5\textwidth}
+	\includegraphics[keepaspectratio=true, height=10\baselineskip]{http_codes.jpg}
+\end{minipage} \hfil
+\begin{minipage}{0.5\textwidth}
+	\includegraphics[keepaspectratio=true, height=17\baselineskip]{http_codes_2.png}
+\end{minipage}
 
 
 \end{document}
