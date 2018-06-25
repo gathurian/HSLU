@@ -523,11 +523,11 @@ $.ajax({
 \subsection{Callback}
 \begin{lstlisting}
 function doSomething(successCallback, failureCallback){
-if(a===1){
-successCallback(a);
-} else {
-failureCallback(new Error("failed"));
-}
+	if(a===1){
+		successCallback(a);
+	} else {
+		failureCallback(new Error("failed"));
+	}
 }
 
 //Aufruf mittels
@@ -537,11 +537,11 @@ Das obenstehende Codebeispiel demonstriert die Verwendung von Callbacks. Callbac
 
 \begin{lstlisting}
 doSomething(function successCallback(result){
-processResult(result, function successProcessing(newResult){
-finalThing(newResult, function finalSuccess(finalResult){
-console.log("Final Result");
-}, failureCallback);
-}, failureCallback);
+	processResult(result, function successProcessing(newResult){
+		finalThing(newResult, function finalSuccess(finalResult){
+			console.log("Final Result");
+		}, failureCallback);
+	}, failureCallback);
 }, failureCallback);
 \end{lstlisting}
 Wie zu sehen ist, sind solche Konstrukte recht schwer zu lesen. Zudem haben Callback-Methoden keine returns und sie werfen keine Exceptions (aufgrund des fehlenden Callstacks).
@@ -558,29 +558,29 @@ doSomething().then(successCallback, failureCallback)
 
 //oder auch
 doSomething()
-.then(successCallback)
-.catch(failureCallback);
+	.then(successCallback)
+	.catch(failureCallback);
 \end{lstlisting}
 
 Promises sind Platzhalter für das Resultat einer späteren, asynchronen Methode. Je nachdem, was das Resultat von \code{doSomething()} ist, wird entweder der \code{.then}-Teil (bzw. \code{successCallback}) oder der \code{.catch}-Teil (bzw. \code{failureCallback}) ausgeführt. Welcher der beiden Teile ausgeführt wird, kann jedoch erst zur Laufzeit bestimmt werden. Zudem können mehrere \code{.then()} aneinander gekettet werden, ohne dass eine Callback pyramid of hell daraus resultiert:
 
 \begin{lstlisting}
 getSomeData()
-.then(processData)
-.then(storeData)
-.then(finalizeData)
-.catch(error)
+	.then(processData)
+	.then(storeData)
+	.then(finalizeData)
+	.catch(error)
 \end{lstlisting} 
 
 Promises können folgendermassen erstellt werden:
 \begin{lstlisting}
 var promise = new Promise(function(resolve, reject){
-//Methodenausführung, die immer ausgeführt wird
-if(//alles hat gefunzt){
-resolve("Stuff's working");
-} else{
-reject("Stuff didn't work);
-}
+	//Methodenausführung, die immer ausgeführt wird
+	if(//alles hat gefunzt){
+		resolve("Stuff's working");
+	} else{
+		reject("Stuff didn't work);
+	}
 });
 \end{lstlisting}
 
@@ -699,6 +699,8 @@ $result = $mysqli->query("SELECT * from personen");
 
 Nebst plainText und HTML-Seiten kann PHP noch andere Content-Types zurücksenden, es muss jedoch als erstes im Header mittels \code{header("Content-Type: whatever");} spezifiziert werden (z.B. JSON)
 
+\newpage
+
 \subsection{NodeJS}
 Eine weitere Möglichkeit fürs Backend, nebst PHP bietet \textbf{NodeJS}. NodeJS ist Teil des MEAN-Stacks (MongoDB, Express, Angular.js, Node.js) und ist eine JavaScript RunTime. NodeJS hat eine Package-Struktur, mit welcher Libraries mittels dem Package-Manager NPM installiert werden können.
 \vspace{10px}
@@ -787,7 +789,7 @@ app.get('/', function (req, res) {
 app.listen(3000);
 \end{lstlisting}
 
-\subsection{Authentication}
+\section{Authentication}
 Es gibt drei Use-Cases für Authentication:
 
 \begin{enumerate}
@@ -796,7 +798,7 @@ Es gibt drei Use-Cases für Authentication:
 	\item Anbindung an andere Provider wie Facebook oder Google
 \end{enumerate}
 
-\subsubsection{Basic Authentication}
+\subsection{Basic Authentication}
 \begin{enumerate}
 	\item Client will auf URL zugreifen
 	\item Web Server fordert im Header Authentifizierung für einen Bereich an: \\
@@ -812,7 +814,7 @@ Es gibt drei Use-Cases für Authentication:
 
 Jedoch ist die Basic Authentication nicht mehr sicher, da User/Passwort im Klartext übers Netzwerk geschickt werden.
 
-\subsubsection{Digest Authentication}
+\subsection{Digest Authentication}
 Die Userdaten werden nicht im Plain Text verschickt, sondern es wird nur deren Hashwert (MD5) berechnet und verschickt. Der Server schickt einen sog. \textit{nonce} (Eindeutiger, einmaliger String) und \textit{opaque} (String, der vom Server definiert wurde und wieder zurück geschickt wird).
 \begin{enumerate}
 	\item Client will auf URL zugreifen
@@ -825,7 +827,7 @@ Digest Authentication ist zwar sicherer als Basic Authentication, ist aber immer
 
 \newpage
 
-\subsubsection{Public Key Authentication}
+\subsection{Public Key Authentication}
 Die Authentifizierung geschieht über einen MAC (Message Authentication Code). Dieser Code wird über einen Privaten Access-Key und einem String berechnet
 
 \begin{figure}[htb]
@@ -839,13 +841,13 @@ Die Authentifizierung geschieht über einen MAC (Message Authentication Code). D
 
 \newpage
 
-\subsubsection{JWT (JSON Web Token)}
+\subsection{JWT (JSON Web Token)}
 JWTs werden benutzt, um JSON-Objekte sicher über das Netzwerk zu senden. Es besteht aus einem Header, einem Payload und einer Signatur.
 
-\paragraph{Header}\mbox{}\\
+\subsubsection{Header}\mbox{}\\
 Beinhaltet den verwendeten Algorithmus
 
-\paragraph{Payload}\mbox{}\\
+\subsubsection{Payload}\mbox{}\\
 Beinhaltet die gesendeten Attribute (Claims). Diese können Private, Public oder Standard sein.
 
 Standard Claims sind z.B.
@@ -869,7 +871,7 @@ Standard Claims sind z.B.
  "admin": true}
 \end{lstlisting}
 
-\paragraph{Signatur}\mbox{}\\
+\subsubsection{Signatur}\mbox{}\\
 Der Header und das Payload sind Base64 encoded und mit dem im Header angegebenen Protokoll verschlüsselt
 \begin{lstlisting}
 HMACSHA256( base64UrlEncode(header) + "." + base64UrlEncode(payload), secret)
@@ -888,8 +890,45 @@ yIiwibmFtZSI6IlRob21hcyBLb2xsZXIiLCJhZG1pbiI6dHJ1ZX0.gPO7XZYZ7Au83MHRuIMtq41LOl8
 
 \noindent JWT ist kleiner als XML, die Signatur lässt sich sehr einfach berechnen und das es JSON ist, ist das Parsing auch recht einfach. Zudem ist es self-contained, benötigt also keine zusätzlichen Pakete etc.
 
-\subsubsection{OAuth 2.0}
-OAuth 2.0 ist ein Authentifizierungs-Framework, das einer authentifizierenden third party beschränkten Zugriff 
+\subsection{OAuth 2.0}
+OAuth 2.0 ist der Nachfolger des veralteten OAuth 1.0 Protokolls. Es ermöglicht die Authentifizierung über Drittparteien, man kann sich also z.B. bei einem Fotodruckservice mit seinem Google- Facebook- oder GitHub-Account anmelden.
+\vspace{10px}
+
+\noindent Beim Authentifizierungs- und Autorisierungsprozess gibt es grundsätzlich vier verschiedene Rollen:
+
+\begin{description}
+	\item[Client: ] 3rd Party Anwendung, die auf die Ressourcen zugreifen möchte.
+	\item[Resource Server: ] Server, auf welchem die Ressourcen gespeichert sind.
+	\item[Resource Owner: ] Besitzer der Ressource auf dem Resource Server.
+	\item[Authorization Server: ] Authentifiziert Resource Owner und stellt die Tokens für den Client zur Verfügung
+\end{description}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{OAuth_BasicFlow.PNG}
+	\caption{Basic Flow wenn ein Client auf eine Ressource zugreifen will}
+	\label{fig:oauth-basic}
+\end{figure}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{OAuth_Refresh.PNG}
+	\caption{Wenn das Token abgelaufen ist, muss der Resource Owner dem Client wieder Zugriff gewähren über den Authorization Server}
+	\label{fig:oauth-refresh}
+\end{figure}
+
+\newpage
+
+\noindent Es gibt verschieden Möglichkeiten, wie ein Client ein solches Token erhalten kann:
+
+\begin{description}
+	\item[Authorization Code: ] \mbox{}\\
+		\includegraphics[keepaspectratio=true,height=15\baselineskip]{auth_code.PNG}
+	\item[Implicit: ]\mbox{}\\
+		\includegraphics[keepaspectratio=true,height=15\baselineskip]{implicit_grant.PNG}
+	\item[Resource Owner Password :] \mbox{}\\
+			\includegraphics[keepaspectratio=true,height=15\baselineskip]{pw_cred.PNG}
+\end{description}
 
 \section{Single Page Application}
 \subsection{Definition}
