@@ -87,16 +87,14 @@
 
 
 \begin{document}
-\newgeometry{margin=0.5in}
+
 \title{Zusammenfassung WEBAPP FS2018}
 \author{Alex Neher}
 \maketitle
 
 \tableofcontents
-\thispagestyle{empty}
 \newpage
 
-\restoregeometry
 \graphicspath{{./Pictures/}}
 
 \section{JavaScript - Basics}
@@ -953,7 +951,125 @@ Aufgrund des fehlenden Page Reloads funktioniert eine SPA, einmal aufgerufen, au
 \end{itemize}
 
 \subsection{Komponenten}
-%TODO do some shit with the 2Bit dudes presentation(s)
+\begin{description}
+	\item[Routing: ] Das clientseitige Routing ermöglicht eine Navigation auf der Seite ohne Page Reload. Zudem muss der Backbutton und die Browserhistory (inkl. Bookmarks) wie gewohnt funktionieren. Vor HTML 5 wurde das mit einem Anchor (z.B. \code{/\#/home}) gelöst. HTML 5 bietet dafür eine eigene API mit der sich auch die Browserhistory ansteuern lässt.
+	\item[Template-Rendering: ] Beim Template-Rendering wird das Model (TypeScript) über den Controller mit der View (HTML) verknüpft. Durch die Entkoppelung der beiden wird eine bessere Testbarkeit garantiert und durch das Binding reduziert sich der Code für das Updaten der Daten (die vom Model abhängen) in der HTML-View.
+	\item[Daten Zugriff: ] Die Daten werden meist über eine REST-API mittels einem XMLHTTP-Request vom Server bezogen (siehe später) und können bei Bedarf z.B. mittels LocalStorage gecached werden. 
+	\begin{lstlisting}
+	//cachen von Informationen
+	storelocalStorage.setItem("lastname","Smith");
+	
+	//Abrufen der gecachten Information
+	retrievedocument.getElementById("result").innerHTML = localStorage.getItem("lastname");
+	\end{lstlisting}
+	\item[Code-Modularisierung: ] Durch die Modularisierung des Codes ergibt sich eine klare Struktur, die sich viel besser Warten und Testen lässt. $\rightarrow$ Separation of Concern
+\end{description}
+ \begin{figure}[htb]
+ 	\centering
+ 	\includegraphics[keepaspectratio=true,height=14\baselineskip]{spa_comp.PNG}
+ 	\caption{Visualisierung der verschiedenen SPA-Komponenten}
+ 	\label{fig:SPAComp}
+ \end{figure}
+
+\newpage
+
+\section{Angular}
+Angular ist ein Framework, um SPAs für CRUD Anwendungen zu bilden. Es basiert auf Typescript und besticht insbesondere durch die Benutzung von Dependency Injection und einem performanten 2-Way Binding.
+
+\subsection{Komponenten}
+Angular ist komponentenbasiert. Das heisst, die ganze Angular-Applikation ist eine einzige Hauptkomponente. Diese Hauptkomponente wird wiederum in kleinere Komponenten unterteilt, die wiederum Unterkomponenten haben etc. So entsteht schlussendlich ein sog. Komponentenbaum.
+
+Daten werden durch Components (Logik) angezeigt. Jede Komponente enthält entweder direkt ein Template oder einen Verweis auf ein Template (Ansicht, in HTML). Verbunden sind diese zwei Dateien über Event- und Property-Binding. 
+
+Das Event-Binding bedeutet, dass in HTML Events geschehen, die dann Funktionen in den Komponenten aufrufen. Solch ein Event kann zum Beispiel das Drücken eines Knopfes sein:
+
+\begin{lstlisting}[language=html]
+<button (click)="showResults()">Resultate</button>
+\end{lstlisting}
+
+Die Komponenten wiederum können über das Property-Binding Inhalte im Template verändern, womit sich die Ansicht für den Benutzer verändert. So kann zum Beispiel ein Button-Text von der Komponente aus geändert werden:
+
+\begin{lstlisting}[language=html]
+<input type="submit" value="{{buttonText}}">
+\end{lstlisting}
+
+\newpage
+
+\subsection{Module}
+Jede Angular Applikation wird über Module organisiert. Jede Angular-Applikation hat mind. ein sog. "Root Module", das die Hauptkomponente zur Verfügung stellt. Angular selbst bietet verschiedenste Module zur Verwendung an (\code{@angular/core, /forms}, etc). Aufbau eines solchen Moduls:
+
+\begin{lstlisting}
+import {NgModule} from "@angular/core";
+import { CommonModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+
+@NgModule({
+	imports:		[CommonModule, FormsModule],
+	declarations:	[ContactComponent, HighlightDirective, AwesomePipe],
+	exports:		[ContactComponent],
+	providers:		[ContactService]
+})
+
+export class ContactModule{
+	//stuff here
+}
+\end{lstlisting}
+Unter \code{imports:} werden alle importierten Module aufgelistet. \code{declarations:} beinhaltet alle Komponenten, die dieses Modul beinhaltet 
+
+Solche Module werden exportiert und können wiederum von anderen Modulen importiert werden, um auf Funktionen dieser Module zugreifen zu können.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=14\baselineskip]{Angular_comps.jpeg}
+	\caption{Visualisierung der Funktionsweise von Angular 5}
+	\label{fig:angular}
+\end{figure}
+
+\subsection{Services}
+Ein Service ist prinzipiell nichts anderes als eine Klasse, die mittels Dependency Injection in eine andere Klasse injected werden kann. (Siehe Dependency Injection). Services sind normalerweise Container für Werte, Funktionen oder Features. Sie haben kein Interface und holen z.B. Daten vom Server, validieren user Input und loggen Events.
+
+\newpage
+
+\subsection{Directives}
+\begin{description}
+	\item[Komponenten] Direktiven mit einem HTML-Template
+	\item[Strukturelle Direktiven: ] verändern das Layout (DOM), Bsp: \code{*ngFor, *ngIf}
+	\item[Attribut Direktiven:] Verändern Erscheinung oder Verhalten eines existierenden Elements. Bsp: \code{<input [(ngModel)]="hero.name">}
+\end{description}
+
+
+\subsection{Providers}
+Angular ist dumm und kann mit Services und ihren Injectoren nicht einfach so umgehen. Deshalb musst du für jeden Service Provider spezifizieren, die den Services sagen, wie und wo die Werte der Dependencies geholt werden müssen.
+
+\subsection{Dependency Injection}
+Dependency Injection kann mit dem Prinzip des Singletons verglichen werden: Falls noch keine Instanz existiert, wird sie erstellt. Wenn die Instanz irgendwo in der Applikation existiert, wird von überall her auf diese einzelne Instanz zugegriffen, sollte ein Modul eine Methode dieser Instanz benötigen.
+\vspace{10px}
+
+\noindent Nehmen wir das Beispiel eines Autos:
+\begin{lstlisting}
+export class Auto{
+	public motor: Motor;
+	
+	constructor(){
+		this.motor = new Motor();
+	}
+}
+\end{lstlisting}
+Dieses Prinzip ist bereits bekannt aus diversen objektorientierten Programmiersprachen. Was wäre aber, wenn wir nun keinen neuen Motor erstellen müssten, sondern einen bereits existieren Motor einfach importieren könnten?
+\begin{lstlisting}
+import { Motor } from '../Motor/';
+
+export class Auto{
+	public motor: Motor;
+	
+	constructor(public motor: Motor){
+	
+	}
+}
+\end{lstlisting}
+Wir haben nun einfach den Service \code{Motor} importiert, das bereits irgendwo in der Applikation existiert und müssen somit keinen neuen Motor erstellen. Das ist Dependency Injection. Zu beachten ist nur, dass man in der Klasse \code{Motor.ts} noch spezifiziert, dass dieser Motor als Injectable/Service genutzt werden kann. Das macht man, indem man vor dem \code{export class Motor} noch \code{@Injectable()} einfügt.
+
+\newpage
 
 \section{REST}
 REST steht für Representational State Transfer und ist ein zustandloses Client-Server Modell, das auf HTTP basiert. Zustandlos heisst, der Server speichert keine Kontextinformationen, sondern der Kontext muss bei jeder Anfrage mitgeschickt werden. REST eignet sich gut zum cachen von Informationen.
@@ -1018,8 +1134,6 @@ Bei REST-Methoden (was schlussendlich nichts anderes als HTTP-Methoden sind) gib
 \begin{minipage}{0.5\textwidth}
 	\includegraphics[keepaspectratio=true, height=17\baselineskip]{http_codes_2.png}
 \end{minipage}
-
-\newpage
 
 \section{Mobile Web-Apps}
 Es gibt fünf Möglichkeiten, wie eine Web-App aufs Handy kommen kann:
@@ -1120,8 +1234,6 @@ constructor( ... public httpClient: HttpClient ...) {
 		}
 	}
 \end{lstlisting}
-
-\newpage
 
 \subsection{Cordova}
 Cordova ist eigentlich nichts anderes als ein Wrapper, der eine in Ionic geschriebene WebApp in eine Native App verpackt. Mithilfe bestimmter Angular-Pakete kann Cordova auch auf native Ressourcen wie die Kamera, Galerie oder Kontakte des Handys zugreifen.
