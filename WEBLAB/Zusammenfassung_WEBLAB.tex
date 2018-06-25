@@ -87,14 +87,16 @@
 
 
 \begin{document}
-	
+\newgeometry{margin=0.5in}
 \title{Zusammenfassung WEBAPP FS2018}
 \author{Alex Neher}
 \maketitle
 
 \tableofcontents
+\thispagestyle{empty}
 \newpage
 
+\restoregeometry
 \graphicspath{{./Pictures/}}
 
 \section{JavaScript - Basics}
@@ -1017,5 +1019,129 @@ Bei REST-Methoden (was schlussendlich nichts anderes als HTTP-Methoden sind) gib
 	\includegraphics[keepaspectratio=true, height=17\baselineskip]{http_codes_2.png}
 \end{minipage}
 
+\newpage
+
+\section{Mobile Web-Apps}
+Es gibt fünf Möglichkeiten, wie eine Web-App aufs Handy kommen kann:
+
+\begin{enumerate}
+	\item \textbf{Web-App: } Im Browser mittels HTML, CSS, JS
+	\item \textbf{Hybrid:} WebApp in einen native Wrapper 'verpackt'. Kann als native App installiert werden und greift auf native Ressourcen zu (z.b. Cordova)
+	\item \textbf{Cross-Compiled:} In Sprache X geschreibene App, die nach Java/Kotlin/Swift/Binär kompiliert wird und somit native ausführbar ist (z.b. Xamarin mit C\#)
+	\item \textbf{JIT-compiled:} App wird in JS geschrieben und 'Just In Time' (JIT) auf dem JS-Engine des Handys kompiliert wird. Kann wie Hybrid-App auf native Ressourcen zugreifen (z.b. NativeScript)
+	\item \textbf{Native App:} WebApp wird ins Native portiert/neu geschrieben (Java/Kotlin für Android, Swift für iOS).
+\end{enumerate}
+
+\noindent WebApps haben im Gegensatz zu nativen Apps sowohl Vor- wie auch Nachteile
+
+\begin{multicols}{2}
+	\paragraph{Vorteile}\mbox{}\\
+	\begin{itemize}
+		\item Eine Code-Basis für mehrere OS
+		\item Kein App-Store, Download oder Installation notwendig
+		\item App kann jederzeit veröffentlicht, geupdated und verändert werden
+		\item Vorhandene Web-App kann zu Mobile App erweitert werden
+	\end{itemize}
+\columnbreak
+	\paragraph{Nachteile}\mbox{}\\
+	\begin{itemize}
+		\item Läuft ausschliesslich im Browser
+		\item Kein Ressourcen-Zugriff (Kamera, Kontakte etc.)
+		\item App nicht im App-Store $\rightarrow$ Benutzer müssen sie finden
+	\end{itemize}
+\end{multicols}
+
+\subsection{Ionic}
+Ionic ist ein Angular-Framework, das die Mobile WebApp-Entwicklung vereinfacht. Es bietet bereits UI-Komponent-Templates, APIs etc. 
+
+Da es ein Angular-Framework ist, basiert es auf TypeScript und npm.
+\vspace{10px}
+
+\noindent Man kann mit zwei Zeilen Code bereits eine funktionierende (zwar leere, aber egal) WebApp haben: \\
+\begin{minipage}{0.6\textwidth}
+	\begin{lstlisting}
+	//ionic und cordova installieren
+	npm install -g ionic cordova
+	
+	//eine neue WebApp mit sidemenu erstellen
+	ionic start myApp sidemenu
+	
+	//App starten
+	cd ./myApp
+	ionic serve
+	\end{lstlisting}
+\end{minipage} \hfil
+\begin{minipage}{0.35\textwidth}
+	\includegraphics[keepaspectratio=true, height=10\baselineskip]{ionic_sidemenu.PNG}
+\end{minipage}
+
+Die App wird auf \code{localhost:8100} aufgeschalten und kann im Browser angeschaut und getestet werden.
+
+\begin{wrapfigure}[12]{R}{0.5\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=18\baselineskip]{ionic_structure.PNG}
+	\caption{Struktur einer Ionic-WebApp am Bsp. der MovieApp}
+	\label{fig:ionic-struct}
+\end{wrapfigure}
+Die verschiedenen Pages sind Angular-Module, die in TypeScript geschrieben sind und liegen im subdirectory \code{src/app/pages/}. Jede Page besteht (normalerweise) aus einem HTML-File (view), einer TypeScript-File(Logik dahinter) und einem (S)CSS-File für das Layout und Design.
+\vspace{10px}
+
+\noindent Jede Page muss zudem im File \code{src/app/app.module.ts} registriert werden, damit die App fehlerfrei funktioniert.
+
+Die HTML-Seite ist normalerweise dreigeteilt:
+
+\begin{lstlisting}[language=html]
+<ion-header>
+<!-- Hier kommt die Kopfzeile der App -->
+</ion-header>
+<ion-content>
+<!-- Hier kommt der Inhalt der Seite -->
+</ion-content>
+<ion-footer>
+<!-- Hier kommt die Fusszeile der App-->
+</ion-footer>
+\end{lstlisting}
+
+\vspace{10px}
+ 
+\noindent Wie bereits erwähnt ist Ionic ein Angular-Framework auf und unterstützt somit auch Dependency Injections. Nachfolgend ein kleines Beispiel, wie man Daten asynchron über eine HTTP-GET Request mittels einer Callback-Methode (\code{.subscribe}) und einem Observable (\code{movieJson}) abrufen kann, über ein definiertes Interface (\code{Movie}) in ein Objekt parsen und anschliessend weiterverarbeiten kann.
+
+\begin{lstlisting}
+import { HttpClient } from '@angular/common/http'; 
+import { Movie } from '../../interfaces/Movie';
+... 
+constructor( ... public httpClient: HttpClient ...) { 
+	... 
+	let movieJson = this.httpClient.get('http://...');
+	movieJson.subscribe(data => { 
+		let movie: Movie = <Movie>data;
+		if(movie.Response == 'True'){
+			//daten weiterverarbeiten
+		}
+	}
+\end{lstlisting}
+
+\newpage
+
+\subsection{Cordova}
+Cordova ist eigentlich nichts anderes als ein Wrapper, der eine in Ionic geschriebene WebApp in eine Native App verpackt. Mithilfe bestimmter Angular-Pakete kann Cordova auch auf native Ressourcen wie die Kamera, Galerie oder Kontakte des Handys zugreifen.
+\vspace{10px}
+
+\noindent Eine Ionic-App mit Cordova Integration (bei der Erstellung einer Ionic-App wird zu Beginn jeweils gefragt, ob man Cordova bereits integrieren will) kann ganz einfach von der CMD gestartet werden:
+
+\begin{lstlisting}
+//Für Android. Zuerst jedoch einen Android-Emulator starten
+ionic cordova run android --emulator
+
+//für iOS. Zuerst Emulator starten
+ionic cordova platform add ios
+cordova run ios --emulator
+
+//Alternativ kann die App auch direkt auf einem über USB oder WiFi angeschlossenem Gerät gesartet wereden
+ionic cordova run android
+
+//mit dem parameter --live-reload können ausserdem live reloads der App aktiviert werden, so dass die App sofort neu kompiliert wird, sobald Änderungen am Code gespeichert wurden
+ionic cordova run android --live-reload
+\end{lstlisting}
 
 \end{document}
