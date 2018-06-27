@@ -438,6 +438,193 @@ public void showSMSList(final View view){
 
 
 \section{Kommunikation}
+\subsection{HTTP}
+Die Kommunikation über HTTP läuft über \code{java.net.HttpURLConnection}, der aber davon abhängt, dass man bereits eine URL (\code{java.net.URL}) hat, auf die er verbinden kann:
+
+\begin{lstlisting}[caption={}]
+URL url = new URL("www.hslu.ch");
+HttpURLConnection httpConnection = (HttpURLConnecton) url.openConnection();
+httpConnection.setInstanceFollowRedirects(true);
+httpConnection.connect();
+if(httpConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
+	InputStream content = httpConnection.getInputStream();
+	//content verarbeiten
+}
+\end{lstlisting}
+
+\paragraph{Exkurs: Stream zu Text verarbeiten}\mbox{}\\
+Mithilfe eines \code{BufferedReader} kann der \code{InputStream} der HTTP-Connection zeilenweise ausgelesen werden:
+
+\begin{lstlisting}[caption={}]
+private String readText(InputStream in) throws IOException{
+	StringBuilder text = new StringBuilder();
+	String line;
+	BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+	while((line = reader.readLine()) != null){
+		text.append(line);
+		text.append("\n");
+	}
+	reader.close();
+	return text.toString();
+}
+\end{lstlisting}
+
+\subsection{Sockets}
+Im Gegensatz zu HTTP sind Sockets \textbf{zustandsbehaftet}, sie merken sich also den Kontext (z.B. Logins). Die Kommunikation basiert auch auf keinem Protokoll wie HTTP, sondern man sendet einfach Datenströme hin und her. Ebenfalls bleibt die Client-Server Verbindung so lange offen, bis sie einer der beiden abbricht.
+\vspace{10px}
+
+\noindent Der Ablauf ist prinzipiell so, dass der Server einen Socket hat, auf welchen alle Clients verbinden (quasi eine 'Eingangshalle'). Sobald sich ein Client verbunden hat, wird ein Client-Socket erstellt und der Client wird auf diesen Socket weitergeleitet. Somit ist der Hauptsocket wieder frei für weitere ankommende Verbindungen. 
+\vspace{10px}
+
+\noindent Ein Socket wird mittels einer IP-Adresse und einem Port erstellt:
+
+\begin{lstlisting}[caption={Erstellung eines Sockets und dessen Reader/Writer}]
+socket = new socket(IP, Port);
+writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+reader = new BufferedReader(new InputStramReader(socket.getInputStream));
+\end{lstlisting}
+
+\section{Nebenläufigkeit}
+Java ist zwar multithreaded, aber per Default läuft eine App trotzdem nur auf einem Thread: dem \textbf{main-Thread}, der auch für das UI verantwortlich ist. Soll heissen, wenn der main-Thread blockiert ist, tut das UI keinen Mucks mehr $\rightarrow$ UI-Freeze.
+
+Wenn man nun etwas machen will, was evtl. ein bisschen länger dauern könne und man den UI-Freeze verhindern will, gibt es grundsätzlich zwei Methoden:
+
+\begin{description}
+	\item[AsyncTask: ] Die Operation wird gestartet und im Hintergrund ausgeführt. Der main-Thread wird benachrichtigt, sobald ein Resultat vorliegt. Keine eigenen Threads und somit kein nerviges Thread-Handling
+	\item[Eigene Threads: ] Man kreiert eigene Threads, so dass die Applikation multithreaded läuft und der main-Thread so nicht überlastat wird. Manchmal notwendig, da der main-Thread z.B. Network-Connections gar nicht zulässt.
+\end{description}
+
+\subsection{AsyncTask}
+Der AsyncTask ist in drei Methoden aufgeteilt:
+
+\begin{description}
+	\item[\code{doInBackground(Params...)}] Lange andauernder Task im Worker-Thread
+	\item[onProgressUpdate(Progress...)] Verarbeitung des Zwischenresultates im main-Thread
+	\item[onPostExecute(Result)] Verarbeitung des Endresultats im main-Thread
+\end{description}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{asynctask}
+	\caption{Vergleich mit und ohne AsyncTask}
+	\label{fig:asynctask}
+\end{figure}
+
+\begin{lstlisting}[caption={}]
+														Param, Zwischenresultat, Resultat
+public class MultiAsyncTask extends AsyncTask<URL, String, Void>
+	@Override
+	protected Void doInBackground(URL... urls){		//läuft im Worker-Thread
+		try{
+			for(URL url : urls){
+				InputStram in = openHttpConnection(url);
+				String text = readText(in);
+				in.close();
+				Thread.sleep(WAIT_TIME_MILLIS);
+				publishingProgress(text)	//ruft onProgressUpdate auf
+			}
+		} catch (IOException){
+			//do stuff
+		}
+	}
+	
+	@Override
+	protected void onProgressUpdate(String... values){	//läuft auf main-Thread
+		super.onProgressValues(values);
+	}
+	
+	@Override
+	protected void onPostExecution(Void result){		//läuft im main-Thread
+		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mainActivity);
+		dialogBiulder
+			.//create Dialog with data from URL
+	}
+	
+}
+\end{lstlisting}
+
+\subsection{Threads}
+Threads sollten (theoretisch) bereits bekannt sein von PRG2 (glaub...), und APPE:
+\vspace{10px}
+
+\noindent Die Thread Klasse implementiert das Interface \code{Runnable}, muss also im Konstruktor ein Runnable übergeben werden oder die Methoden \code{run(), start(), sleep(long), isAlive()} selbst implementieren
+
+\begin{lstlisting}[caption={}]
+public void startDemoThread(View view){
+	final Button button = (Button) view;
+	if((demoThread == null) || !(demoThread.isAlive())){
+		demoThread = createWaitThread(button);
+		demoThread.start();
+		button.setText("DemoThread läuft..");
+	} else {
+		Toast.makeText(this, "DemoThrad läuft schon", Toast.LENGTH_SHORT).show();
+	}
+}
+
+private Thread createWaitThread(final Button button){
+	return new Thrad("hsluDemoThread"){ //<-- Thread-Name
+		@Override
+		public void run(){
+			final Runnable doneRunnable = new Runnable(){
+				@Override
+				public void run(){
+					button.setText("DemoThread starten");
+				}
+			};
+			try{
+				Thread.sleep(WAITING_TIME_MILLI) //<-- main-Thread blockiert
+				MainActivity.this.runOnUiThread(doneRunnable); // Callback-Benachrichtigung des main-Threads
+			}
+		}	
+	}
+}
+\end{lstlisting}
+
+\section{Services}
+Wie bereits in Kap. 1 erklärt, ist ein Service eigentlich eine Activity, die ohne UI, sprich im Hintergrund durchgeführt wird. Ebenfalls bietet ein Service die Möglichkeit, gewisse Funktionalitäten als API zu exportieren und sie so anderen Apps anzubieten.
+
+Ein Service läuft aber weder auf einem eigenen Thread, noch auf einem eigenen Prozess (ausser man definiert ihn explizit so, z.B. für lange Operationen)
+\vspace{10px}
+
+\noindent Services können entweder über \code{startService()} (asynchron) oder \code{bindService()} (synchron) aufgerufen werden:
+
+\begin{multicols}{2}
+	\paragraph{\code{startService()}}
+	\begin{description}
+		\item[\code{onCreate()}] Bei Erzeugung
+		\item[\code{onStartCommand()}] Auftragsbehandlung
+		\item[\code{onDestroy()}] Bei Beendung (durch System, Service, Applikation oder System)
+	\end{description}
+\columnbreak
+	\paragraph{\code{bindService()}}
+	\begin{description}
+		\item[\code{onCreate()}] Bei Erzeugung
+		\item[\code{onBind()}] Bei Verbindung mit Komponente
+		\item[\code{onUnbind()}] Bei Beednung der Verbindung
+		\item[\code{onDestroy()}] Bei Beendung (durch System, Service, Applikation oder System)
+	\end{description}
+\end{multicols}
+
+\begin{lstlisting}[caption={}]
+//Service starten/Auftrag erteilen
+Intent musicService = new Intent(this, MyMusicService.class);
+musicService.putExtra("audioFileUrl", "http://jurassicpark.org/matingturtles.flac");
+startService(musicService);
+
+//Service stoppen
+stopService(new Intent(this, MyMusicService.class));
+
+//Service implementieren
+public class MyMusicService extends Service{
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId){
+		startMusicStreamingThreadIfNotRunning();
+		String audioFileUrl = intent getStringExtra("audioFileUrl");
+		schedulePlay(audioFileUrl);
+		return START_STICKY;
+	}
+}
+\end{lstlisting}
 
 
 \end{document}
