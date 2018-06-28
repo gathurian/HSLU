@@ -76,12 +76,15 @@
 
 \begin{document}
 
+\newgeometry{top=0in, bottom=0in}
 \title{Zusammenfassung MOBPRO FS2018}
 \author{Alex Neher}
 \maketitle
 
 \tableofcontents
 \newpage
+
+\restoregeometry
 
 \graphicspath{{./Pictures/}}
 
@@ -146,6 +149,42 @@ startActivity(browserCall);
 Intent intent = getIntent();
 String msg = intent.getExtras().getString("msg");
 displayMessage(msg);
+\end{lstlisting}
+
+Implizite Intents benötigen einen \textit{Filter}, in dem potentielle Empfänger deklariert werden. Das System löst implizite Intents anschliessend mit der dafür am besten geeigneten Komponente auf. Welcher Intent am Besten ist, hängt von der Action, der Category und den mitgesendeten Daten ab.
+\vspace{10px}
+
+\noindent Über den \textbf{Package-Manager} können z.B. alle möglichen Activities für einen gegebenen Intent abgefragt werden
+
+\begin{lstlisting}[caption={}]
+final List<ResolveInfo> resolveList = getPackageManager()
+	.queryIntentActivities(getHsluBrowserIntent(), PackageManager.MATCH_DEFAULT_ONLY);
+\end{lstlisting}
+
+Man kann z.B. auch eine eigene Action definieren:
+
+\begin{lstlisting}[caption={Erstellung eines eigenen Custom Action}]
+public void startCustomIntentOnClick(final View view){
+	final Intent customIntent = new Intent(); //<-- Impliziter Intent
+	customIntent.setAction(MY_ACTION_SHOW_TEXT);
+	customIntent.addCategory(Intent.CATEGORY_DEFAULT);
+	customIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+	final String myText = "I did stuff with " + MY_ACTION_SHOW_TEXT;
+	customIntent.putExtra("text", myText);
+	startActivity(customIntent);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=xml, caption={Registrierung des Intent-Filters im Manifest}]
+<activity 
+	android:name?".Receiver"
+	android:label="@string/app_name">
+	<intent-filter>
+		<action android:name="ch.hslu.mollbpro.actions.SHOW_TEXT"/>
+		<category android:name="android.intent.category.LAUNCHER"/>	//Top Level auf Launcher
+		<category android:name="android.intennt.category.DEFAULT"/>	//Default Action
+		<data android:mimetype="text/plain"/>
+	</intent-filter>
 \end{lstlisting}
 
 Es kann auch asynchron eine Activity aufgerufen werden, die anschliessend ein Resultat zurückliefert, welches ausgewertet wird:
@@ -406,6 +445,7 @@ dbAdapter.open();
 Note note = dbAdapter.getNote(17);
 \end{lstlisting}  
 
+
 \section{Content Providers}
 Wie bereits im ersten Kapitel erwähnt, ermöglicht der Content Provider den Austausch von Daten über Applikationsgrenzen hinweg. Dies indem er mittels eindeuten URIs auf Items (\code{content://anwendung/gruppe/item}) oder Verzeichnisse (\code{content://anwendung/gruppe})) zugreift. Das Android-OS liefert bereits einige in-house Content Provider wie z.B. Kontakte, Kalender o.ä. 
 
@@ -605,7 +645,7 @@ Ein Service läuft aber weder auf einem eigenen Thread, noch auf einem eigenen P
 	\end{description}
 \end{multicols}
 
-\begin{lstlisting}[caption={}]
+\begin{lstlisting}[caption={Implementierung und Starten eines Services}]
 //Service starten/Auftrag erteilen
 Intent musicService = new Intent(this, MyMusicService.class);
 musicService.putExtra("audioFileUrl", "http://jurassicpark.org/matingturtles.flac");
@@ -625,6 +665,226 @@ public class MyMusicService extends Service{
 	}
 }
 \end{lstlisting}
+
+\subsection{Service vs. IntentService}
+\begin{multicols}{2}
+	\paragraph{Service}\mbox{}\\
+	Jeder Aufruf von \code{startService()} ruft \code{onStartCommand()} auf. $\rightarrow$ Parallele Abarbeitung
+\columnbreak
+	\paragraph{IntentService}\mbox{}\\
+	Die Aufrufe von \code{startService()} werden gepuffert. $\rightarrow$ Sequenzielle Abarbeitung
+\end{multicols}
+
+\subsection{Gebundene Service}
+Vorhin wurde die Unterscheidung gemacht zwischen \code{startService()} und \code{bindService()}. Die letztere Methode gehört zu sog. \textit{gebundenen Services}. Diese Services können via \code{ServiceConnection} mit dem Client kommunizieren:
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=10\baselineskip]{boundService.PNG}
+	\caption{Kommunikation zwischen Activity und gebundenem Service}
+	\label{fig:BoundService}
+\end{figure}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{ablaufBindService.PNG}
+	\caption{Wie ein gebundener Service aufgerufen wird}
+	\label{fig:ablaufBoundService}
+\end{figure}
+
+\section{Broadcast Receiver}
+Broadcasts sind essenziell Systemnachrichten wie z.B. \code{BATTERY\textunderscore CHANGED}, \code{BOOT\textunderscore COMPLETED} etc. Prinzipiell können alle Apps Broadcasts via Intents verschicken. Diese verschickten Broadcasts werden von den 'Abonnenten' dieses Broadcasts gesendet.
+\vspace{10px}
+
+\noindent Die Bearbeitung eines empfangenen Broadcasts läuft über den \textit{Broadcast Receiver}. Der wird jeweils on-demand erstellt und ist nur so lange aktiv, wie die Bearbeitung des Broadcasts benötigt. Anschliessend wird er wieder gelöscht. 
+\vspace{10px}
+
+\noindent Broadcast Receiver müssen auch im Manifest deklariert werden
+
+\begin{lstlisting}[language=xml, caption={BR-Deklaration im Android Manifest}]
+<receiver android:name=".BootCompletedReceiver">
+	<intent-filer>
+		<action android:name="android.intent.action.BOOT_COMPLETED" />
+	</intent-filter>
+</receiver>
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Implementierung eines BR}]
+public class BootCompletedReceiver extends BroadcastReceiver {
+	@Override
+	public void onReceive(Context context, Intent intent){
+		//Do stuff
+	}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Erstellung, Auslösen, Registrierung und Deregistrierung vonv einem BR}]
+//Erstellung
+BroadcastReceiver timeListener = new BroadCastReceiver(){
+	@Override
+	public void onReceive(Context context, Intent intent){
+		//do Stuff every minute
+	}
+};
+
+//Registrierung
+IntentFilter filter = new IntentFilter("android.intent.action.TIME_TICK");
+content.registerReceiver(timeListener, filter);
+
+//BC auslösen
+Intent broadcastIntent = new Intent("android.intent.action.TIME_TICK");
+sendBroadcast(broadcastIntent);
+
+//Deregistrierung
+context.unregisterReceiver(timeListener);
+\end{lstlisting}
+
+\section{Widgets}
+Widgets zeigen Daten und Funktionalitäten einer App direkt auf dem Home-Bildschirm an. Es gibt unterschiedliche Arten von Widgets:
+
+\begin{figure*}[htb]
+	\centering
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[keepaspectratio=true, height=5\baselineskip]{infoWidget.PNG}
+		\caption{Informations-Widget}
+	\end{subfigure}%
+	~ 
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[keepaspectratio=true, height=5\baselineskip]{hybridWidget.PNG}
+		\caption{Hybrid-Widget}
+	\end{subfigure}
+	\vskip\baselineskip
+		\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[keepaspectratio=true, height=5\baselineskip]{controlWidget.PNG}
+		\caption{Control-Widget}
+	\end{subfigure}%
+	~ 
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[keepaspectratio=true, height=7.5\baselineskip]{collectionWidget.PNG}
+		\caption{Collection-Widget}
+	\end{subfigure}
+\end{figure*}
+
+Widgets sind spezielle BroadcastReceiver und müssen im Android Manifest deklariert werden. Dazu muss entweder das XML oder die Java-Klasse angegeben werden.
+
+\begin{lstlisting}[language=xml, caption={Widget Deklaration im Manifest}]
+<receiver android:name=?".MyAppWidgetProvider"/>
+	<intent-filter>
+		<action android:name="anddroid.appwidget.action.APPWIDGET_UPDATE"/>
+	</intent-filter>
+	<meta-data
+		android:name="android.appwidget.provider"
+		android:resource="@xml/my_app_widget_provider_info />
+</receiver>
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Widget-Klasse}]
+public class MyAppWidgetProvider expends AppWidgetProvider{
+	@Override
+	public void onUpdate(final Context contex final AppWidgetManager appWidgetManager, fial int[] appWidgetIds){
+		for(final int appWidgetId : appWidgetIds){
+			final RemoteViews view = new RemoteViews(context.getPackageName(), R.layout.my_app_widget_provider);
+			views.setTextViewText(R.id.appwidget_text, "My AppWidget");
+			appWidgetManager.updateAppWidget(appWidgetId, views);
+		}
+	}
+}
+\end{lstlisting}
+
+\section{Fragments}
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{fragments.PNG}
+	\caption{Fragments auf einem Handy und auf einem Tablet}
+	\label{fig:fragments}
+\end{figure}
+
+Das Ziel von Fragments ist die verbesserte Unterstützung von Tablet-Layouts. Sie sind ein modularer Teil einer Activity, haben einen eigenen Lebenszyklus, einen eigenen Zustand und können zu einer Activity hinzugefügt und wieder entfernt werder mittels Transactions. $\rightarrow$ Fragments sind quasi Sub-Activities, die in verschiedenen Activities wiederverwendet werden können.
+\vspace{10px}
+
+\noindent Der Lebenszyklus eines Fragments ist vergleichbar mit dem einer Activity, ausser dass er an eine Activity angehängt wird. Das heisst vor dem \code{onCreate()} muss noch \code{onAttach()} aufgerufen werden.
+
+Gleich wie bei z.B. Options-Menus wird ein Fragment auch mithilfe eines Inflaters (LayoutInflator) 'aufgeblasen'
+
+\vspace{10px}
+
+\noindent Fragments können entweder mit Java-Code oder via XML an eine Activity attached.
+
+\paragraph{Java-Code}\mbox{}\\
+\begin{lstlisting}[caption={Attachen eines Fragments im Java-Code}]
+public class SetColorActivity extends Activity {
+	@Override
+	protected void onCreate(Bundle savedINstanceState){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_set_color);
+		
+		getFragmentManager()
+			.beginTransaction()
+			.add(R.id.fragmentContainer, FavoriteColorFragment.newInstance())
+			.commit();
+	}
+}
+\end{lstlisting}
+
+\paragraph{XML}\mbox{}\\
+\begin{lstlisting}[caption={Attachen eines Fragments direkt im XML}]
+<TextView
+	//Some shit
+/>
+<Fragment
+	android:id="@+id/fragmentFavoriteColor"
+	class="ch.hslu.mobpro.intentandwidget.FavoriteColorFragment"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	tools:layout="@layout/fragment_favorit_color" />
+<Button
+	//Some more shit
+/>
+
+\end{lstlisting}
+
+\section{App-Design}
+Brauche die App-Bar von Google und Googles Material Design und you're good to go
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=5\baselineskip]{app_bar.PNG}
+	\caption{AppBar}
+	\label{fig:appbar}
+\end{figure}
+
+\section{Usability und Prototypes}
+Mach Prototypen um das App besser durchdacht zu machen.
+
+\section{Support Library}
+Die Support Library ermöglicht die Verwendung von neuen Android-Features auch in älteren Android-Versionen, in welchen diese theoretisch nicht (mehr) unterstützt werden.
+
+\section{App-Publizierung}
+\begin{multicols}{2}
+	\begin{enumerate}
+		\item Code Cleanup, Release-Vorbereitung
+		\item Release erstellen und signieren
+		\item Werbematerial vorbereiten
+	\columnbreak
+		\item Distributionseinstellungen setzen
+			\subitem Altersfreigabe
+			\subitem Geo-Verfügbarkeit
+			\subitem Kostenpflichtig/In-App Purchases
+		\item Release hochladen und publizieren
+	\end{enumerate}
+\end{multicols}
+
+\begin{description}
+	\item[APK: ] Android Application Package, signiertes ZIP mit App drin
+	\item[ProGuard: ] Code-Obfuscation und -komprimierung
+\end{description}
+
+Apps, die im Google Play Store angeboten werden, müssen mit einem Key signiert sein. Dieser Key muss auch bei der Einspielung von Updates verwendet werden. Wenn der Key verloren geht, hat man keinen Zugriff mehr auf die App und muss sie neu publizieren unter einem anderen Key. Alternativ kann die App auch über andere Websites vertrieben werden, was aber evtl. weniger Kunden bedeutet.
+
 
 
 \end{document}
