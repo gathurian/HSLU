@@ -82,11 +82,11 @@
 \maketitle
 
 \tableofcontents
+
 \newpage
+\graphicspath{{./Pictures/}}
 
 \restoregeometry
-
-\graphicspath{{./Pictures/}}
 
 \section{Grundlagen}
 \subsection{Komponenten}
@@ -130,7 +130,7 @@ package="ch.hslu.mobpro.firstapp" >
 \subsection{Intents}
 Der Wechsel zwischen Komponenten wird mittels \textbf{Intents} realisiert. Intents sind eine \textit{offene Kommunikation}. Das heisst, der Sender weiss nicht, ob der Empfänger der Kommunikation überhaupt existiert. 
 
-Es wird unterschieden zwischen \textit{impliziten} und \textit{expliziten} Intents. Implizite Intents rufen gezielt eine Klasse auf, während implizite Intents einfach sagen, was getan werden muss (z.B. "ruf mir einen Browser auf, aber es wird nicht spezifiziert, welchen Browser genau). \\
+Es wird unterschieden zwischen \textit{impliziten} und \textit{expliziten} Intents. Explizite Intents rufen gezielt eine Klasse auf, während implizite Intents einfach sagen, was getan werden muss (z.B. "ruf mir einen Browser auf", aber es wird nicht spezifiziert, welchen Browser genau). \\
 
 \begin{lstlisting}[captionpos=b, caption={Beispiel eines expliziten Intents}]
 Intent myIntent = new Intent(this, Receiver.class);
@@ -141,7 +141,7 @@ startActivity(myIntent);
 \begin{lstlisting}[captionpos=b, caption={Beispiel eines impliziten Intents}]
 Intent browserCall = new Intent();
 broserCall.setAction(Intent.ACTION_VIEW);
-browserCall.setData(Uri.parse("http://www.hslu.ch));
+browserCall.setData(Uri.parse("http://www.hslu.ch"));
 startActivity(browserCall);
 \end{lstlisting}
 
