@@ -495,6 +495,56 @@ PROGRAM:		SECTION
 				PULA	//Pull accumulator from Stack
 \end{lstlisting}
 
+\section{Subroutines}
+\begin{wrapfigure}[13]{L}{0.55\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{subroutine.jpg}
+	\caption{Process of a subroutine}
+	\label{fig:}
+\end{wrapfigure}
+
+Per definition, a subroutine is \textit{a sequence of computer instructions for performing a specified task that can be used repeatedly}. So in other words, a subroutine is a \textbf{method}. A subroutine has its own scope, so e.g. variables defined in a subroutine won't be accessible from the main-program. 
+
+The process of a subroutine can be divided into five rough steps:
+
+\begin{enumerate}
+	\item Save Program Counter to the Stack
+	\item Load the called subroutine
+	\item Execute the loaded subroutine
+	\item Get the Program Counter from the Stack
+	\item Return to Program Counter + 2 \\
+	(PC + 1 = \code{BSR/JSR})
+\end{enumerate}
+
+\newpage
+
+Of course, subroutines have both pros and cons, however, there are far more pros than cons:
+\begin{multicols}{2}
+	\paragraph{Pros} \mbox{}\\
+	\begin{itemize}
+		\item Repeaded command sequences are stored only once in memory \\
+			$\rightarrow$ Less memory usage
+		\item Repeated command sequences are programmed and tested only once \\
+			$\rightarrow$ Less development effort
+		\item Programs can be built in a modular way \\
+			$\rightarrow$ Lower risk of errors
+		\item Programs can be developed by multiple persons at the same time \\
+			$\rightarrow$ Higher productivity
+		\item Parts of the program can be compiled independent of each other \\
+			$\rightarrow$ Shorter compile time, libraries with standard functions
+	\end{itemize}
+\columnbreak
+	\paragraph{Cons}\mbox{}\\
+	\begin{itemize}
+		\item The call of the subroutine, parameter passing and the return jump need additional time and resources\\
+			$\rightarrow$ Slower program execution
+	\end{itemize}
+		\includegraphics[keepaspectratio=true,height=13\baselineskip]{stack_consumption.jpg}
+		\captionof{figure}{Stack consumption on subroutines}
+		\label{fig:stack_consumption}
+\end{multicols}
+
+
 \chapter{C}
 
 \end{document}
