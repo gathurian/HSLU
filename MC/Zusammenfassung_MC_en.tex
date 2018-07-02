@@ -45,14 +45,15 @@
 
 
 %Wie sollen Code-Snippets mit \lstinline|code| aussehen?
-\lstset{frame=tb,
+\lstset{frame=tblr,
+	captionpos=b,
 	language=c,
 	aboveskip=3mm,
 	belowskip=3mm,
 	showstringspaces=false,
 	columns=flexible,
 	basicstyle={\small\ttfamily},
-	numbers=none,
+	numbers=left,
 	numberstyle=\tiny\color{gray},
 	keywordstyle=\color{blue},
 	commentstyle=\color{darkgreen},
@@ -177,7 +178,7 @@ $1110'0011 + 1 = \underline{\underline{1110'0100}}$
 
 \begin{description}
 	\item[Multiplexer: ] The multiplexer is a combinational logic circuit, which allows us to select one of many input lines and route it to the single, common output line. The demultiplier does the exact opposite: it takes one input and you can select to which output line it is routed
-	\item[FlipFlop: ] Idunno %TODO
+	\item[FlipFlop: ] Idunno %TODO: Get WTF FlipFlops are
 \end{description}
 
 \section{Instruction Set Cycle}
@@ -273,7 +274,179 @@ Data Transport instructions are again divided into four subtypes
 	\item[Move: ] Data is moved within the memory
 \end{description}
 
+\subsubsection{Arithmetic Operations}
+Arithmetic operations cover the four basic mathematical operations:
 
+\begin{description}
+	\item[Addition: ] \code{ADD, ADC} (Addition with Carry Bit $\rightarrow$ supports numbers $>$ 8bit)
+	\item[Subtraction: ] \code{SUB, SBC} (Addition with Carry Bit $\rightarrow$ supports numbers $>$ 8bit)
+	\item[Multiplication: ] \code{MUL} Only works with unsigned numbers. Multiplies the content of the accumulator with the content of the X-register and stores the 16bit result in the X:A-registers (LSB in A, MSB in X)
+	\item[Division: ] \code{DIV} Only works with unsigned numbers. Divides whatever is in the H:A-register through whatever is in the X-register. The 8bit result is stored in the accumulator. In case of an overflow or division by 0, the carry bit will be set.
+\end{description}
+
+\subsubsection{Logic and Bitmasking Operations}
+Bitwise Operations change but a single bit of the operand. This can be especially useful e.g. to turn on or off LEDs, which are controlled by a register of 8 bits
+
+\begin{description}
+	\item[\code{ORA\#(B6|B3)}] \mbox{} \\
+	Logical \code{OR} Operation on Bit 6 and Bit 3 $\rightarrow$ Sets \textbf{only} Bit 6 and Bit 3 in the Accumulator
+	\item[\code{AND\#(B6|B3)}]\mbox{}\\
+	Logical \code{AND} Operation on Bit 6 and Bit 3 $\rightarrow$ Deletes all Bits \textbf{except} Bit 6 and Bit 3
+	\item[\code{BCLR n,Addr}] \mbox{}\\
+	Deletes Bit n on a specific memory address
+	\item[\code{BSET n, Addr}]\mbox{}\\
+	Sets Bit n on a specific memory address
+	\item[\code{BIT Addr}] \mbox{}\\
+	\code{AND} Operation of the accumulator with the content of the address, \textit{without changing the content of either of them}
+	\item[\code{CLC}] \mbox{}\\
+	Clears Carry-Flag
+	\item[\code{SEC}] \mbox{}\\
+	Sets Carry-Flag
+	\item[\code{CLI}] \mbox{}\\
+	Delete Interrupt-Mask Bit ($\rightarrow$ Interrupt \textbf{enable})
+	\item[\code{SEI}] \mbox{}\\
+	Sets Interrupt-Mask Bit ($\rightarrow$ Interrupt \textbf{disable})
+\end{description}
+
+\newpage
+
+\subsubsection{Shift- and Rotation Operations}
+
+\begin{figure*}[htb]
+	\centering
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[keepaspectratio=true, height=5\baselineskip]{LSL.PNG}
+		\caption{Logical Left-Shift}
+	\end{subfigure}%
+	~ 
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[keepaspectratio=true, height=5\baselineskip]{LSR.PNG}
+		\caption{Logical Right-Shift}
+	\end{subfigure}
+	\vskip\baselineskip
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[keepaspectratio=true, height=5\baselineskip]{ASL.PNG}
+		\caption{Arithmetic Left Shift}
+	\end{subfigure}%
+	~ 
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[keepaspectratio=true, height=7.5\baselineskip]{ASR.PNG}
+		\caption{Arithmetic Right-Shift}
+	\end{subfigure}
+		\vskip\baselineskip
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[keepaspectratio=true, height=5\baselineskip]{ROL.PNG}
+		\caption{Rotate Left}
+	\end{subfigure}%
+	~ 
+	\begin{subfigure}[b]{0.5\textwidth}
+		\centering
+		\includegraphics[keepaspectratio=true, height=7.5\baselineskip]{ROR.PNG}
+		\caption{Rotate Right}
+	\end{subfigure}
+\end{figure*}
+
+\noindent The Left-Shifts are an equivalent to a multiplication by two and Right-Shifts are the equivalent of a division by two:
+
+\noindent 
+$
+0011'0110_{2} = 54_{10} \rightarrow LSL \rightarrow 0110'1100_{2} = 108_{10} \\
+0011'0110_{2} = 54_{10} \rightarrow LSR \rightarrow 0001'1011_{2} = 27_{10}
+$
+
+\subsubsection{Branching}
+
+\begin{tabular}{|c|c|l|}
+	\hline
+	\thead{Oper.}& \thead{Test} & \thead{Meaning}\\
+	\hline
+	\code{BEQ} & Z = 1 & Branch if equal\\
+	\code{BNE} & Z = 0& Branch if not equal\\
+	\hline
+	\code{BCS} & C = 1& Branch if Carry\\
+	\code{BCC} & C = 0& Branch if no Carry\\
+	\hline
+	\code{BMI} & N = 1& Branch if Negative\\
+	\code{BPL} & N = 0& Branch if not Negative\\
+	\hline
+	\code{BGT} &$>$ & Branch if bigger (signed)\\
+	\code{GHI} & &  Branch if bigger (unsigned)\\
+	\hline
+	\code{BGE} &$\geq$& Branch if bigger/equal (signed)\\
+	\code{BHS/BCC} & & Branch if bigger/equal (unsigned)\\
+	\hline
+	\code{BLE} &$\leq$& Branch if lesser/equal (signed)\\
+	\code{BLS} & & Branch if lesser/equal (unsigned)\\
+	\hline
+	\code{BLT} &$<$& Branch if lesser (signed)\\
+	\code{BLO/BLS} & & Branch if lesser (unsigned)\\
+	\hline
+	\code{BEQ} &$=$& Branch if equal\\
+	\hline
+	\code{BRA} & & Branch always (Overriding SP and PC) \\
+	\code{BRN} & & Branch never (Mainly used for debugging, just waits) \\
+	\code{BSR} & & Brnch to subroutine (Saves SP and PC to return to main-routine) \\
+	\hline
+\end{tabular}
+\vspace{10px}
+
+\noindent These Branches depend on a single Bit of a memory address in the \textbf{direct pages}(\code{0x00 - 0xFF})
+\begin{tabular}{|c|l|}
+	\hline
+	\thead{Oper.} & \thead{Meaning} \\
+	\hline
+	\code{BRCLR n, Addr, Label} & Branch to Label if Bit n at Address Addr is not set \\
+	\hline
+	\code{BRSET n, Addr, Label} & Branch to Label if Bit n at Address Addr is set \\
+	\hline
+\end{tabular}
+
+\subsubsection{Comparing}
+Comparing operations compare two values (kinda obvious innit?) and set the flags accordingly, but don't change the compared values:
+\vspace{10px}
+
+\noindent
+\begin{tabular}{|c|l|}
+	\hline
+	\thead{Oper.} & \thead{Meaning} \\
+	\hline
+	\code{CMP opr8} & Compares content of accumulator with the 8-bit operand \\
+	\hline
+	\code{CPX opr8} & Compare content of X-register with 8-bit operand \\
+	\hline
+	\code{CPHX opr16} & Compare content of HX-register with 16-bit operand\\
+	\hline
+\end{tabular}
+
+\paragraph{Example}\mbox{}\\
+\begin{lstlisting}[caption={Test if a value is bigger or smaller and branch accordingly}]
+LDA Op1		//Load Op1 into accumulator
+CMP Op2		//Compare it to Op2 and sets Zero/Carry/Negative Flag accordingly
+BMI Label	//Branch to Label if Negative flag is set (--> Op1 < Op2)
+\end{lstlisting}
+
+\subsubsection{Flags}
+\vspace{10px}
+
+\noindent
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[keepaspectratio=true,height=25\baselineskip]{flags.PNG}
+	\caption{Visualization of all supported flags}
+	\label{fig:flags}
+\end{figure}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=40\baselineskip]{flags_2.PNG}
+	\caption{Visualization of carry- and overflow-flags on Additions and Subtractions}
+	\label{fig:flags_2}
+\end{figure}
 
 \chapter{C}
 
