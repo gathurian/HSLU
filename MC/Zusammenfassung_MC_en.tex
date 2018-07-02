@@ -430,23 +430,70 @@ CMP Op2		//Compare it to Op2 and sets Zero/Carry/Negative Flag accordingly
 BMI Label	//Branch to Label if Negative flag is set (--> Op1 < Op2)
 \end{lstlisting}
 
-\subsubsection{Flags}
-\vspace{10px}
+\newpage
 
-\noindent
-\begin{figure}[htb!]
+\newgeometry{margin=0.5in}
+
+\subsubsection{Flags}
+
+\begin{figure}[htb]
 	\centering
-	\includegraphics[keepaspectratio=true,height=25\baselineskip]{flags.PNG}
+	\includegraphics[keepaspectratio=true,height=19\baselineskip]{flags.PNG}
 	\caption{Visualization of all supported flags}
 	\label{fig:flags}
 \end{figure}
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[keepaspectratio=true,height=40\baselineskip]{flags_2.PNG}
-	\caption{Visualization of carry- and overflow-flags on Additions and Subtractions}
-	\label{fig:flags_2}
+	\includegraphics[keepaspectratio=true,height=19\baselineskip]{flags_add.PNG}
+	\caption{Visualization of carry- and overflow-flags on Additions}
+	\label{fig:flags_add}
 \end{figure}
+
+\restoregeometry
+\newpage
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=20\baselineskip]{flags_sub.PNG}
+	\caption{Visualization of carry- and overflow-flags on Subtractions}
+	\label{fig:flags_sub}
+\end{figure}
+
+\section{Stack}
+\begin{wrapfigure}[16]{R}{0.6\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=18\baselineskip]{stack.PNG}
+	\caption{Stack}
+	\label{fig:stack}
+\end{wrapfigure}
+
+The stack is a so-called LIFO-memory (\textbf{L}ast \textbf{I}n \textbf{F}irst \textbf{O}ut), meaning whatever data is chucked on the stack last, has to be removed, before the data underneath it can be accessed.
+\vspace{10px}
+
+\noindent The Stackpointer (SP) is a pointer that always points at the next free memory place on the stack. As soon as something is pushed onto the stack (and the address the SP pointed to is therefore no longer free), it gets updated automatically. Same goes after a pull. The addresses are counted from the top of the stack, therefore the higher the stack gets, the lower the addresses.
+
+\newpage
+
+\begin{lstlisting}[caption={Initialization of a stack}]
+Stacksize:	EQU $40			//Set the stacksize to hex 40 = 64 dec
+
+DATA:			SECTION			//Start of DATA Section	
+TofStack:	DS Stacksize-1	//Reserve memory for the stack
+BofStack:	DS 1
+
+PROGRAM:		SECTION
+				//Initializing SP(+1, bc SP always points to the first free address)
+				LDHX #(BofStack+1)	//LDHX = Load value into H:X-Register
+				TXS		//Transfer SP to H:X Register
+			
+				PSHA	//Push accumulator to Stack
+				PSHX	//Push X-register to Stack
+				
+				//Important! Reverse order bc of LIFO
+				PULX	//Pull X-Register from Stack
+				PULA	//Pull accumulator from Stack
+\end{lstlisting}
 
 \chapter{C}
 
