@@ -544,6 +544,104 @@ Of course, subroutines have both pros and cons, however, there are far more pros
 		\label{fig:stack_consumption}
 \end{multicols}
 
+\section{Timer}
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{timer.jpg}
+	\caption{Overview of the timer-system in the MC}
+	\label{fig:timer}
+\end{figure}
+
+
+In the top-right corner of fig. \ref{fig:timer} a multiplexer can be seen. There, you can select from which clocks the ticks should be counted from:
+\begin{multicols}{2}
+	\begin{description}
+		\item[\code{0:0}] Clock is off
+		\item[\code{0:1}] Bus-Clock (24MHz in our case)
+		\item[\code{1:0}] Fix System Clock (Set to 1MHz)
+		\item[\code{1:1}] External Clock
+	\end{description}
+\end{multicols}
+
+\newgeometry{margin=0.5in}
+
+Afterwards, the clock-signal pass through the \textbf{prescaler}. If you were to set a timer that counts every tick of a 24MHz clock, you would need to set the timer ridiculously high or it would be done within microseconds.
+
+The prescaler can be set to 1, 2, 4, 8, 16, 32, 64 or 128 and filters the ticks. If you were to set the prescaler to e.g. 16, then it would only let every 16-th tick pass. 
+
+Every tick that passes the prescaler increases the 16-bit counter by one. This counter compares its new value with the value of the comparator, which itself gets its value from the 16-bit Modulo, which is set by the user. As soon as the values of the counter and the comparator match, it triggers a reset that resets the counter to 0 and triggers a TOF, a Time Overflow Flag. If the TOIE, the Time Overflow Interrup Enabler is enabled, the TOF triggers an interrupt, that can e.g. start a subroutine.
+
+\vspace{10px}
+
+\noindent The time (in seconds) to trigger the TOF can be calculated with the formula
+
+\[ \scalebox{1.5}{$T_{TOF} = (Modulo + 1) * PrescalerValue * ClockFrequency $} \]
+
+\section{Interrupts}
+Interrupts are a MCs way of handling exceptions. An Interrupt can react automatically to events and interrupt the main-program to execute a subroutine. However, the state of the main-program has to be preserved, so that after the execution of the subroutine, the main-program can continue at the point where it was before the interrupt. 
+
+\vspace{10px}
+
+\noindent Another, less efficient method of exception handling would be \textbf{polling}, where a service keeps asking the main-program if a certain thing has already happened yet. If it did, the subroutine is executed, if it hasn't, the service will keep asking. That way, the time of the interrupt can be easily foreseen, but it takes a lot more resources to make a request every $x$ milliseconds compared to just setting an interrupt.
+
+\begin{wrapfigure}[13]{R}{0.55\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=10\baselineskip]{save_interrupt.jpg}
+	\caption{Automatic save of the CPU-state}
+	\label{fig:saveInterrupt}
+\end{wrapfigure}
+
+\vspace{10px}
+
+\noindent As mentioned before, the state of the main-program needs to be saved before jumping into a subroutine. In contrast to a manual subroutine call with \code{BSR/JSR}, the CPU-state will be saved to the stack \textbf{automatically} (fig. \ref{fig:saveInterrupt}). However, the H-register must be saved manually, if it should be preserved.
+
+\vspace{10px}
+
+\noindent The CPU also needs a so-called \textbf{interrupt-vector}, which sits at a predefined address in the memory. Once an interrupt is triggered, the CPU jumps to the corresponding vector, which points at the start-address of the interrupt-subroutine, so the CPU knows where the subroutine starts.
+\vspace{10px}
+
+\noindent By default, the MC doesn't support nested interrupts. So if the program is already in an interrupt-subroutine, it will not go into a second, 'deeper' subroutine, but will queue the second subroutine. Different interrupts have different priorities. The interrupt with the \textit{lowest interrupt-vector number} has the \textit{highest priority} and will therefore be executed first thing after the current subroutine is done.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=7\baselineskip]{interrupt_priority.jpg}
+	\caption{Queued interrupt subroutines with different priorities}
+	\label{fig:interrupt_prio}
+\end{figure}
+
+\restoregeometry
+
+\paragraph{Programming Interrupts}\mbox{}\\
+While programming interrupts,some things have to be kept in mind:
+
+\begin{itemize}
+	\item Interrupts rely on a \textbf{Stack} to preserve the main-program state
+	\item Interruptvectors have to be defined with the start-address of the ISR
+	\item Once an interrupt is triggered/fired, its interrupt-flag has to be deleted, because else the interrupt would fire right again, causing an infinite interrupt-loop
+	\item Save the H-Register before jumping to an ISR (if needed)
+	\item Delete the interrupt flag in the ISR after execution, because else the interrupt will only fire exactly once
+	\item Use \code{CLI} to release the interrupts globally
+\end{itemize}
+\begin{lstlisting}[caption={Programming of an interrupt}]
+//.prm file for Interrupt Vectors
+VECTOR ADDRESS 0xFFC4 ISR_RTI
+VECTOR ADDRESS 0xFFC6 errISR_IIC
+VECTOR ADDRESS 0xFFC8 errISR_ACMP
+VECTOR ADDRESS 0xFFCA errISR_ADC
+
+//definition of the ISR
+interrupt void ISR_RTI(void){
+	RTCSC_RTIF = 1;		//Clear interrupt flag
+}
+
+void main(void){
+	EnableInterrupts;
+	for(;;){
+		//Do stuff here
+	}
+}
+
+\end{lstlisting}
 
 \chapter{C}
 
