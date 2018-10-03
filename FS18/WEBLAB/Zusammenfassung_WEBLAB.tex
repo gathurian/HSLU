@@ -1,0 +1,1259 @@
+\documentclass[a4paper, 11pt]{article}
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+\usepackage{comment} % enables the use of multi-line comments (\ifx \fi) 
+\usepackage{lipsum} %This package just generates Lorem Ipsum filler text. 
+\usepackage{fullpage} % changes the margin
+\usepackage[utf8]{inputenc}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{booktabs}% http://ctan.org/pkg/booktabs
+\usepackage{makecell}
+\usepackage{tabularx}
+\usepackage[table]{xcolor}
+\usepackage{array}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{csquotes}
+\usepackage{lscape}
+\usepackage{afterpage}
+\usepackage{geometry}
+\usepackage{listingsutf8}
+\usepackage{chngcntr}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{pifont}
+
+
+\counterwithin{figure}{section}
+
+\geometry{a4paper, margin=1in}
+\renewcommand{\figurename}{Abb.}
+\renewcommand{\tablename}{Tabelle}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\renewcommand*{\thead}[1]{\bfseries #1}
+
+\renewcommand{\contentsname}{Inhalt}
+\renewcommand{\listfigurename}{Abbildungsverzeichnis}
+
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\definecolor{darkgreen}{rgb}{0.05,0.56,0.06}
+
+\lstdefinelanguage{JavaScript}{
+	keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+	keywordstyle=\color{blue}\bfseries,
+	ndkeywords={class, export, boolean, throw, implements, import, this},
+	ndkeywordstyle=\color{darkgray}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{purple}\ttfamily,
+	stringstyle=\color{darkgreen}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+
+\lstset{frame=tlrb,
+	language=JavaScript,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{violet},
+	stringstyle=\color{darkgreen},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3,
+	literate=%
+	{Ö}{{\"O}}1
+	{Ä}{{\"A}}1
+	{Ü}{{\"U}}1
+	{ß}{{\ss}}1
+	{ü}{{\"u}}1
+	{ä}{{\"a}}1
+	{ö}{{\"o}}1
+}
+
+
+\begin{document}
+
+\title{Zusammenfassung WEBAPP FS2018}
+\author{Alex Neher}
+\maketitle
+
+\tableofcontents
+\newpage
+
+\graphicspath{{./Pictures/}}
+
+\section{JavaScript - Basics}
+Javascript, auch ECMAScript genannt ist eine clientseitige web-Development Sprache für DOM- und CSS-Manipulation, AJAX oder EventHandling. Javascript kann in HTML-Code eingebunden werden, entweder inline über \code{<script></script>}-Tags, es kann mittels \\
+\code{<script src=path/to/file.js></script>} geholt werden oder direkt über EventHandler \code{<input type="checkbox" name="options" onchange="order.options.giftwrap = this.checked;">}. 
+
+\subsection{Variablen definieren}
+
+Javascript hat keine Typisierung. Das heisst, Variablen können einfach mit dem Keyword \code{var} definiert werden, ohne dass ein Datentyp spezifiziert werden muss.
+
+\begin{lstlisting}
+var a = 2;  // a ist nun eine Nummer
+a = 'Jetzt bin ich ein String';
+a = false;
+\end{lstlisting}
+
+\subsection{Funktionen}
+In Javascript werden Funktionen als Objekte behandelt. Sie können ebenfalls mit dem Keyword \code{var} erstellt werden. Jede Funktion hat ihren eigenen Kontext/Scope. Jede Funktion hat per Default zwei Parameter: \code{this} und \code{arguments}.
+
+Der \code{this} Parameter gibt den Kontext der Funktion zurück. Dieser hängt davon ab, wie und wo die Funktion aufgerufen wird. \code{arguments} ist ein Array, in welchem alle mitgegebenen Argumente speichert.
+
+\begin{lstlisting}
+//1. Über anonymes Function Literal
+var add = function(a,b){
+	console.log(arguments[0]) //gibt den Wert von a zurück
+	return a+b;
+}
+
+//2. Über Function Literal mit Name
+var sub = function sub(a,b){
+	return a-b;
+}
+
+//3. Über Function Declaration
+function mult(a,b){
+	return a*b;
+}
+
+//4. Über Immediate Function Invocation
+var TenDividedByTwo = function(a,b){return a/b;}(10,5);
+console.log(TenDividedByTwo) //Output: 5
+\end{lstlisting}
+
+Funktionen können auch direkt in Objekten definiert werden
+\begin{lstlisting}
+var person = {
+	firstName = "Thomas",
+	lastName = "Koller",
+
+	printFullName: function(){
+		console.log(this.firstName + " " + this.lastName);
+	};
+}
+
+person.printFullName();
+\end{lstlisting}
+
+Mit dem 'apply'-Pattern können auch Funktionen von anderen Objekten aufgerufen werden
+
+\begin{lstlisting}
+var anotherPerson = {
+	firstName = "Donald",
+	lastName = "Trump"
+}
+
+anotherPerson.printFullName() //error: undefined
+
+aPerson.printFullName.apply(anotherPerson); //Output: Donald Trump
+\end{lstlisting}
+
+Wie bereits erwähnt, werden Funktionen als Objekte behandelt und haben ihren eigenen Kontext/Scope. Das heisst, von ausserhalb kann nicht direkt auf Variablen innerhalb einer Funktion zugegriffen werden, sondern nur über verschachtelte Funktionen. Dieses Konstrukt nennt man \textbf{Closure}.
+
+\begin{lstlisting}
+var myCounter = (function(){
+	var value = 0;
+	return {
+		increment: function(inc){
+			value =+ inc;
+		},
+		getValue: function(){
+			return value;
+		}
+	};
+}());
+
+myCounter.increment(10) //value = 10
+console.log(myCounter.value); //error: undefined
+console.log(myCounter.getValue()); //10
+\end{lstlisting}
+
+
+\subsection{Objekte}
+JavaScript kann auch objektbasiert programmiert werden. Es gibt grundsätzlich vier Möglichkeiten, Objekte zu instanziieren:
+
+\begin{lstlisting}
+//1. über "var"
+var bachelorModule = {
+	title: "Webapplication Development",
+	instructor: "Thomas Koller"
+};
+
+//2. über new und dem default-Konstruktor
+var bachelorModule = new Object();
+
+//3. über Object.create()
+var bachelorModule = Object.create(Object.prototype); //ein leeres Objekt
+
+//4. mit einem bereits bestehenden Objekt als Prototyp
+var masterModule = Object.create(bachelorModule) //ist jetzt ein "Klon" von bachelorModule
+\end{lstlisting}
+
+Der Zugriff auf Properties funktioniert wie bei anderen objektorientierten Sprachen
+
+\begin{lstlisting}
+console.log(bachelorModule.title);  //Output: Webapplication Development
+console.log(bachelorModule["instructor"]); //Output: Thomas Koller
+\end{lstlisting}
+
+Objekte sind dynamisch. Das heisst, es können zur Laufzeit noch Properties hinzugefügt oder entfernt werden:
+
+\begin{lstlisting}
+//hinzufügen von Properties
+bachelorModule.credits = 3;
+
+//entfernen von Properties
+delete bachelorModule.credits;
+
+//Ebenfalls kann gecheckt werden, ob ein Property existiert
+bachelorModule.hasOwnProperty("title"); //true
+bachelorModule.hasOwnProperty("credits"); //false
+\end{lstlisting}
+
+JavaScript hat, wie auch andere objektorientierten Sprachen, Konstruktoren (die immer gross geschrieben werden)
+
+\begin{lstlisting}
+function Name(vorname, nachname){
+	this.vorname = vorname;
+	this.nachname = nachname;
+	this.birthDate = {
+		year: 0,
+		month: 0,
+		day: 0
+	}
+}
+\end{lstlisting}
+
+\paragraph{Prototyp}\mbox{}\\
+
+Wie bereits im Kapitel 'Funktionen' beschrieben, können Funktionen direkt in Objekten definiert werden. Dann existieren sie jedoch nur für diese eine Objekt (z.B. dem Objekt aPerson). Wenn ich nun eine Funktion definieren will, die für alle \code{Name}-Objekte existiert, muss ich sie mithilfe dem \code{prototype}-Keyword definieren.
+
+\begin{lstlisting}
+Name.prototype.hello = function(){
+	console.log("Hello " + this.vorname); 
+}
+
+var aPerson = new Name("Thomas", "Koller");
+aPerson.hello();
+\end{lstlisting}
+
+Diese Methode funktioniert, da jedes Objekt ein Prototype hat. Wenn ein gesuchtes Property nicht im Objekt-eigenen Prototype gefunden, so wird rekursiv im Prototype des Prototype-Objekts gesucht, bis man ganz oben bei \code{Object} angekommen ist. Falls dort immer noch nichts gefunden wurde, wird \code{null} zurückgegeben. 
+
+Wenn ein Objekt mithilfe der \code{Object.create()}-Methode instanziiert wird, so hat das neu erstellte Objekt den Prototypen des mitgegebenen Objekts.
+
+\begin{lstlisting}
+var obj1 = {
+	a: 1
+}
+
+var obj2 = Object.create(obj1); //Der Prototyp von obj2 ist jetzt obj1
+
+console.log(obj2.a) //Output: 1
+\end{lstlisting}
+
+\code{obj2} selbst hat kein 'a'-Property, es wird also eine Stufe höher gesucht, im Property von \code{obj2}, also \code{obj1}
+
+\subsection{Arrays}
+
+\begin{lstlisting}
+//Instanziierung von Arrays über var
+var emptyArray = [];
+var numberArray = [1, 3, 6];
+
+//Instanziierung von Arrays über new
+var anotherEmptyArray = new Array();
+var arrayOfFive = new Array(5);
+
+//Da JavaScript keine Typisierung kennt, sind auch gemsiche Arrays möglich
+var mixedArray = ["String", 4, true];
+
+//Es können auch Objekte in Arrays verpackt werden
+var modulesArray = [
+	{title:"WEBAPP", instructor:"Koller"}, 
+	{title:"WEBTEC", instructor:"Infanger"}
+];
+
+//Zugriff und hinzufügen von Array-Elemente erfolgt gleich wie bei bekannten Sprachen
+console.log(numberArray[0]) //1
+numberArray[3] = "new Element"
+
+//Arrays müssen nicht zwingend ganz gefüllt sein
+var sparseArray = new Array(1000);
+console.log(sparseArray[500]); //undefined
+\end{lstlisting}
+
+\subsection{JavaScript und JSON}
+Javascript erlaubt die direkte Konvertierung von Objekten zu JSON. Die Methode \code{JSON.stringify()} ruft die Methode \code{toJSON()} auf (falls diese existiert) und serialisiert das zurückgegebene Objekt.
+
+Um JSON wieder in ein Objekt zurückzuverwandeln, ruft man \code{JSON.parse()} auf.
+
+\begin{lstlisting}
+var json = JSON.stringify(bachelorModule));
+//Output: {"title":"WebApp","instructor":"Thomas Koller"}
+
+var otherBachelorModule = JSON.parse(json);
+\end{lstlisting}
+
+\newpage
+
+\section{Javascript - Advanced}
+\subsection{Verarbeitung von JavaScript}
+\begin{wrapfigure}[18]{R}{0.75\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{js_ausfuehrung.jpg}
+	\caption{Verschiedene Arten, wie JS verarbeitet werden kann}
+	\label{fig:rel}
+\end{wrapfigure}
+JavaScript kann normal, asynchron oder deferred ausgeführt werden. Bei der normalen Verarbeitung wird das HTML-Parsing pausiert, das JS-Skript heruntergeladen, kompiliert und ausgeführt und erst anschliessend mit dem HTML-Parsing weitergemacht. Wenn man die asynchrone Verarbeitung wählt, wird das JS-Skript im Hintergrund heruntergeladen. Erst wenn das Skript heruntergeladen wurde, wird das HTML-Parsing pausiert und das Skript wird ausgeführt. Bei der deferred-Methode wird das Skript ebenfalls im Hintergrund heruntergeladen. Jedoch wird hier gewartet, bis das gesamte HTML-Parsing abgeschlossen ist, bevor das Skript ausgeführt wird.
+
+\subsection{Verzögerte Ausführung}
+
+Mittels den Methoden \code{long setInterval(function f, unsigned long interval, any args)} und \code{long setTimeOut(function f, unsigned long timeout, any args)} kann die Ausführung der übergebenen Methode verzögert (setTimeOut) oder in einem definierten Intervall wiederholt (setInterval) werden. Die Ausführung der Methode \code{f} wird um \code{timeout} Millisekunden verzögert bzw. nach \code{interval} Millisekunden wiederholt.
+
+\subsection{DOM}
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=14\baselineskip]{DOM_structure.jpg}
+	\caption{Beispiel eines DOM-Baumes}
+	\label{fig:DOM}
+\end{figure}
+DOM steht für \textit{Document Object Model} und bezeichnet die Struktur einer HTML-Website. Alle Objekte der Website werden in der Baumstruktur des DOMs als Node abgespeichert. JavaScript kann direkt auf diese Nodes zugreifen z.B. wäre \code{"simple"} in Abb. \ref{fig:DOM} mittels \code{document.childNodes[0].childNodes[1].lastChild.firstChild.nextSibling.childNodes[0]} erreichbar. Da dies jedoch ein bisschen umständlich ist, werden im nächsten Kapitel einige einfachere Selektions-Methoden vorgestellt.
+
+%TODO: Add Document Structure (Lecture Javascript Client Side, P23ff)
+
+\subsection{DOM-Manipulation}
+Wie bereits zu Beginn des Kapitels erwähnt, wird JavaScript unter anderem zur DOM-Manipulation verwendet. Um Elemente des DOM manipulieren zu können, muss dem Skript zuerst mitgeteilt werden, welches Element man manipulieren möchte. Dabei gibt es verschiedene Methoden:
+
+\paragraph{Über ID (empfohlen)}\mbox{}\\
+\begin{lstlisting}
+var button = document.getElementById("button1")
+\end{lstlisting}
+
+\begin{lstlisting}[language=html]
+<button id="button1">Click me!</button>
+\end{lstlisting}
+
+\paragraph{Über Namen}\mbox{}\\
+Diese Methode gibt eine NodeList zurück mit allen gefundenen Elementen
+\begin{lstlisting}
+var buttons = document.getElementsByName("option_buttons")
+console.log(buttons[0].tagName) //Output: button
+\end{lstlisting}
+\begin{lstlisting}[language=html]
+<button name="option_button">Pizza Margharita</button>
+<checkbox name="option_button">Pizza Diavola</checkbox>
+\end{lstlisting}
+
+\paragraph{Über Tags}\mbox{}\\
+Funktioniert gleich wie \code{getElementsByName} aber filtert nach HTML-Tags
+\begin{lstlisting}
+var buttons = document.getElementsByTagName("button")
+console.log(buttons[0].name) //Output: option_button
+\end{lstlisting}
+\begin{lstlisting}[language=html]
+<button name="option_button">Pizza Margharita</button>
+\end{lstlisting}
+
+\paragraph{Über Klasse(n)}\mbox{}\\
+Gibt eine HTML-Collection zurück. Falls mehrere Klassen spezifiziert werden, muss das Element Mitglied \textit{aller} Klassen sein
+\begin{lstlisting}
+var buttons = document.getElementsByClassName("options")
+console.log(buttons[0].name) //Output: option_button
+\end{lstlisting}
+\begin{lstlisting}[language=html]
+<button class="options">Pizza Margharita</button>
+\end{lstlisting}
+
+\paragraph{Über CSS-Selektoren}\mbox{}\\
+Nur kompatibel mit HTML5. Gibt eine NodeList zurück.
+\begin{lstlisting}
+var logs = document.querySelectorAll("#log>span)
+\end{lstlisting}
+\begin{lstlisting}[language=html]
+<div id=span>
+	<span>I'm selected</span>
+</div>
+\end{lstlisting}
+
+\section{JQuery}
+JQuery ist eines der inzwischen hunderten von JavaScript Frameworks. Genau wie JavaScript kann mit JQuery ebenfalls DOM- und CSS-Manipulation durchgeführt, sowie Browser Events und AJAX-Requests behandelt werden.
+
+\vspace{10px}
+
+\noindent JQuery Funktionen werden mittels \code{jQuery()} bzw. \code{\$()} aufgerufen. Da jede jQuery-Methode ein jQuery-Object zurückgibt, können beliebig viele Methoden aneinandergehängt werden (ob das leserlich ist, ist eine andere Frage):
+
+\begin{lstlisting}
+$("p.details").css("background-color","yellow").show("fast");
+\end{lstlisting}
+Die obenstehende jQuery-Methode selektiert alle \code{p}-Elemente der Klasse \code{details} mit der Hintergrundfarbe Gelb und zeigt sie an mit einer schnellen Animation.
+
+\vspace{10px}
+
+\noindent Man kann jQuery Methoden auf vier verschiedene Arten aufrufen:
+\begin{enumerate}
+	\item Selektion \\
+		\code{\$(selector, (optional)context)}
+	\item Wrapper\\
+		\code{\$(document), \$(window) etc.}
+	\item HTML-Elemente\\
+		\code{var img = \$("<img>", {src: url, css:{...}})}
+	\item Events\\
+		\code{\$(function)} $\leftarrow$ ist equivalent zu \code{\$(document).ready(function);}
+\end{enumerate}
+
+\vspace{10px}
+
+\noindent jQuery verfügt nur über eine getter/setter Methode. Je nach dem, ob der Methode ein Parameter übergeben wird, fungiert sie als getter oder setter.
+
+\begin{lstlisting}
+//Der Methode wird kein Parameter übergeben --> sie gibt den gefundenen Wert zurück
+$("#icon").attr("src");
+
+//Der Methode wird zusätzlich noch 'icon.gif' übergeben. --> Sie setzt den Wert
+$("#icon").attr("src", "icon.gif");
+\end{lstlisting}
+
+\noindent Dasselbe gilt nebst DOM-Manipulation auch für CSS-Manipulation
+\begin{lstlisting}
+//Kein Wert übergeben --> gibt die Wert von fontWeight zurück
+$("h1").css("fontWeight");
+
+//Es werden Parameter übergeben --> setzt den CSS-Style dementsprechend
+$("h1").css({
+	backgroundColor: "black",
+	textColor: "green",
+});
+\end{lstlisting}
+
+\noindent jQuery kann auch Text und HTML schreiben und lesen
+\begin{lstlisting}
+//Gibt den Dokument-Titel zurück
+var title = $("head title").text();
+
+//Gibt das HTML des ersten 'h1'-Elementes zurück
+var headline = $("h1").html();
+
+//Setzt jede 'h1'-Heading zu 'TITEL'
+$("h1").text(TITEL);
+\end{lstlisting}
+
+\noindent Mit dem \code{data()}-Attribut kann jQuery von jedem Element beliebig Daten lesen und schreiben. Der Syntax des \code{data()}-Attribut ist \code{jQuery.data(element, key, value)} wobei das \code{element} das DOM-Element ist, mit dem die Daten assoziiert sind, der \code{key} der Name der zu speichernden Daten und der \code{value} recht selbsterklärend der Wert der zu speichernden Daten ist.
+\begin{lstlisting}
+//Daten speichern.
+$.data(div, "test", {
+	first: "firstText",
+	pizza: "secondText"
+});
+
+//Daten abrufen und als Text im ersten bzw. letzten <span>-Element der Seite setzen
+$("span:first").text( jQuery.data(div, "test" ).first);
+$("span:last").text( jQuery.data(div, "test" ).pizza);
+\end{lstlisting}
+
+\noindent Wie bereits erwähnt, können mit jQuery auch EventHandler programmiert werden. Dabei folgen alle Browser derselben API (ausser alte IE-Versionen, aber das überrascht eigentlich niemanden).
+\begin{lstlisting}
+$("#imageShrinker").click(
+	function () {
+		$("img").animate({height: 0})
+	}
+);
+\end{lstlisting}
+\noindent Die obenstehende Funktion setzt die Höhe jedes Bildes auf 0 wenn der Button mit der id \code{imageShrinker} geklickt wird. Es gibt eine vordefinierte Liste von Events, auf welche reagiert werden kann wie z.B. \code{click(), keypress(), load(), focus()} etc.
+
+\vspace{10px}
+
+\noindent Das obere Codebeispiel deckt auch eine weitere Möglichkeit von jQuery ab: Es kann Animationen ausführen wie z.B. Elemente anzeigen und verschwinden lassen.
+
+\vspace{10px}
+
+\noindent jQuery kann auch andere Websites oder remote-Scripts laden und ausführen.
+\begin{lstlisting}
+//Eine externe Seite laden und im übergebenen Element anzeigen
+$("#stats").load("status_report.html");
+
+//Ein remote-Script laden
+$.getScript("https://trustworthySite.ru.cn/js/totallyNotACryptoMiner.js");
+
+//Ein remote-Script laden und anschliessend ausführen
+$.getScript("https://trustworthySite.ru.cn/js/totallyNotACryptoMiner.js", function(){
+	$(document).mineMonero();
+});
+\end{lstlisting}
+
+\vspace{10px}
+
+\noindent jQuery kann ebenfalls JSON laden und parsen
+\begin{lstlisting}
+$.getJSON("https://server.com/data.json", function(data){
+	//geparste Daten aus data.json verarbeiten
+});
+\end{lstlisting}
+
+\vspace{10px}
+
+\noindent Es können auch AJAX Request über jQuery gemacht werden
+\begin{lstlisting}
+$.ajax({
+	type: "GET", //GET-Request
+	url: url, //aufzurufende URL
+	data: null, //es sollen keine Daten mitgegeben werden
+	dataType: "script", //die Antwort ist ein sofort auszuführendes Script
+	success: callback //rufe diese Methode auf, wenn alles erledigt ist
+});
+\end{lstlisting}
+
+\section{Asyncronous Javascript}
+\subsection{Callback}
+\begin{lstlisting}
+function doSomething(successCallback, failureCallback){
+	if(a===1){
+		successCallback(a);
+	} else {
+		failureCallback(new Error("failed"));
+	}
+}
+
+//Aufruf mittels
+doSomething(successCallback, failureCallback);
+\end{lstlisting}
+Das obenstehende Codebeispiel demonstriert die Verwendung von Callbacks. Callbacks an sich sind eine gute Sache, jedoch läuft man in die Gefahr, dass man eine sog. \textit{Callback pyramid of hell} programmiert:
+
+\begin{lstlisting}
+doSomething(function successCallback(result){
+	processResult(result, function successProcessing(newResult){
+		finalThing(newResult, function finalSuccess(finalResult){
+			console.log("Final Result");
+		}, failureCallback);
+	}, failureCallback);
+}, failureCallback);
+\end{lstlisting}
+Wie zu sehen ist, sind solche Konstrukte recht schwer zu lesen. Zudem haben Callback-Methoden keine returns und sie werfen keine Exceptions (aufgrund des fehlenden Callstacks).
+
+\noindent Die Lösung für das Problem sind:
+
+\subsection{Promises}
+\begin{lstlisting}
+var promise = doSomething(); //doSomething() gibt ein Promise zurück
+promise.then(successCallback, failureCallback);
+
+//oder, kompakter:
+doSomething().then(successCallback, failureCallback)
+
+//oder auch
+doSomething()
+	.then(successCallback)
+	.catch(failureCallback);
+\end{lstlisting}
+
+Promises sind Platzhalter für das Resultat einer späteren, asynchronen Methode. Je nachdem, was das Resultat von \code{doSomething()} ist, wird entweder der \code{.then}-Teil (bzw. \code{successCallback}) oder der \code{.catch}-Teil (bzw. \code{failureCallback}) ausgeführt. Welcher der beiden Teile ausgeführt wird, kann jedoch erst zur Laufzeit bestimmt werden. Zudem können mehrere \code{.then()} aneinander gekettet werden, ohne dass eine Callback pyramid of hell daraus resultiert:
+
+\begin{lstlisting}
+getSomeData()
+	.then(processData)
+	.then(storeData)
+	.then(finalizeData)
+	.catch(error)
+\end{lstlisting} 
+
+Promises können folgendermassen erstellt werden:
+\begin{lstlisting}
+var promise = new Promise(function(resolve, reject){
+	//Methodenausführung, die immer ausgeführt wird
+	if(//alles hat gefunzt){
+		resolve("Stuff's working");
+	} else{
+		reject("Stuff didn't work);
+	}
+});
+\end{lstlisting}
+
+\noindent Ein Promise kann vier Zustände haben:
+\begin{description}
+	\item[fulfilled: ] Promise wurde erfolgreich ausgeführt
+	\item[rejected: ] Promise wurde nicht erfolgreich ausgeführt
+	\item[pending: ] Promise wurde instanziiert aber noch nicht ausgeführt
+	\item[settled: ] Promise wurde ausgeführt (gibt jedoch nicht zurück ob erfolgreich oder nicht)
+\end{description}
+
+\newpage
+
+\section{TypeScript}
+TypeScript ist ein sog. \textbf{Superset} von JavaScript. Es ist eine Sprache, mit der objektorientiert in Klassen, Interfaces und Objekten programmiert werden kann. Jedoch kompiliert sie nach (ziemlich unleserlichem) JavaScript. Typescript unterstützt im Gegensatz zu JavaScript auch Types und somit auch Generics.
+
+\begin{lstlisting}
+interface LabelledValue {
+	label: string;
+	value?: string //optionaler Wert
+}
+function printLabel(labelledObj: LabelledValue){
+	console.log(labelledObj.label);
+}
+
+let myObj = {
+	label: "Size 10 Object",
+	value: "10"
+}
+printLabel(myObj);
+\end{lstlisting}
+
+\noindent TypeScript unterstützt auch verschiedene Sichtbarkeiten. So kann mittels \code{private} die Sichtbarkeit auf die eigene Klasse beschränkt werden. Wie in anderen OO-Sprachen kann mittels Setter- und Getter-Methoden immer noch auf das Attribut zugegriffen werden, sollte das denn vonnöten sein.
+\begin{lstlisting}
+class BachelorModule{
+	private _title: string;
+	
+	constructor(title: string){
+		this._title = title;
+	}
+	
+	get title(): string {
+		return this._title;
+	}
+	
+	set title(newTitle: string): void{
+		this._title = newTitle;
+	}
+}
+
+let WEBAPP = new BachelorModule("Web Applications");
+console.log(WEBAPP._title);		//error
+console.log(WEBAPP.title);		//OK
+let newtit: string = "WEBAPP";
+WEBAPP.title = newtit;			//OK
+\end{lstlisting}
+
+
+Mit TypeScript ist auch Vererbung möglich:
+\begin{lstlisting}
+class BDAModule extends BachelorModule{
+	private _expertName: string;
+	
+	constructor(name: string){
+		super(name);
+	}
+}
+\end{lstlisting}
+
+\section{Backend}
+\subsection{PHP}
+PHP ist eine serverseitige Script-Sprache. Also im Gegensatz zu JavaScript, bei welcher alles auf dem Computer des Benutzers berechnet wird, wird bei PHP alles bereits auf dem Webserver berechnet und nur die Resultate an den Browser des Benutzers geschickt. 
+
+Ein PHP-Request läuft folgendermassen ab:
+
+\begin{enumerate}
+	\item Der Client ruft eine PHP-Seite auf
+	\item Der Webserver leitet den Request an den PHP-Interpreter weiter
+	\item Der Interpreter verarbeitet die Seite und  schickt das Resultat zurück an den Server
+	\item Der Server schickt das Resultat zurück an den Client.
+\end{enumerate}
+
+PHP und HTML können in einer Datei gemischt werden.
+
+\begin{lstlisting}[language=php]
+<html>
+	<head>
+		<title>PHP-Stuff</title>
+	</head>
+	<body>
+		<?php echo "Hello World"; ?>
+	</body>
+</html>
+\end{lstlisting}
+
+Variablen in PHP beginnen immer mit einem \code{\$} und müssen nicht zwingend zuerst deklariert werden. Strings werden, wie gewohnt, entwerder mit Doppel- oder Einfachanführungszeichen geschrieben. Ebenfalls bereits bekannt aus anderen Sprachen ist das Abschliessen eines Statements mit dem ';'
+
+\vspace{10px}
+
+\noindent PHP kann ebenfalls objektorientiert programmiert werden und hat Java/.NET ähnliche Kontrollstrukturen wie Schlaufen oder Konditionen. Externe PHP-Dateien können mittels \code{import} oder \code{include} importiert werden.
+
+\vspace{10px}
+
+\noindent Falls eine Webapplikation eine SQL-Datenbank im Backend hat, wird meist über PHP darauf zugegriffen
+
+\begin{lstlisting}[language=php]
+include 'db_credentials.php'
+
+//$host, $user, $pass und $db sind im File 'db_credentials.php' gespeichert
+$mysqli = new mysqli($host, $user, $pass, $db);
+
+//mittels '->' kann auf Methoden zugegriffen werden, hier also die Methode 'query' vom mysqli-Objekt
+$result = $mysqli->query("SELECT * from personen");
+
+\end{lstlisting}
+
+Nebst plainText und HTML-Seiten kann PHP noch andere Content-Types zurücksenden, es muss jedoch als erstes im Header mittels \code{header("Content-Type: whatever");} spezifiziert werden (z.B. JSON)
+
+\newpage
+
+\subsection{NodeJS}
+Eine weitere Möglichkeit fürs Backend, nebst PHP bietet \textbf{NodeJS}. NodeJS ist Teil des MEAN-Stacks (MongoDB, Express, Angular.js, Node.js) und ist eine JavaScript RunTime. NodeJS hat eine Package-Struktur, mit welcher Libraries mittels dem Package-Manager NPM installiert werden können.
+\vspace{10px}
+
+\noindent NodeJS ist asynchron und Event-Basiert. Es unterstützt nur single-threaded Operationen, ist jedoch skalierbar und leicht (ausser man lädt. 2.9 Millionen npm-packages). NodeJS arbeitet, wie Angular auch, mit Modulen, die exportiert und importiert werden können:
+
+\begin{lstlisting}
+//circle.js
+exports.area=function(r){
+	return Math.PI * r * r;
+}
+
+//main.js
+var circle = require('./circle.js');
+console.log("The area of a circle with radius 4 is " + circle.area(4));
+
+//circleModule.js
+function Circle(){
+	this.r = 1;
+}
+//gleich wie bei JavaScript können einem Objekt mit 'prototype' neue Funktionen hinzugefügt werden.
+Circle.prototype.area=function(){
+	return Math.PI * this.r * this.r;
+};
+Circle.prototype.setRadius=function(r){
+	this.r = r;
+}
+module.exports = new Circle();
+//es kann auch nur der Konstruktur exportiert werden
+module.exports = Circle;
+
+//main.js
+var circle2 = require('./circleModule.js');
+	//Falls nur der Konstruktor exportiert worden ist, muss jetzt noch folgendes gemacht werden
+	var c = new circle2();
+circle2.setRadius(4);	//bzw. c.setRadius(4)
+console.log("The area of a circle with radius 4 is " + circle2.area());
+\end{lstlisting}
+
+\newpage
+
+\noindent NodeJS basiert auf dem sog. \textbf{Event-Loop} (siehe Abb. \ref{fig:nodejseventloop})
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=12\baselineskip]{event_loop.PNG}
+	\caption{NodeJS Event Loop}
+	\label{fig:nodejseventloop}
+\end{figure}
+\vspace{10px}
+
+\noindent NodeJS unterscheidet zwischen \textbf{blocking} und \textbf{non-blocking} Operationen.
+
+\begin{description}
+	\item[Blocking: ] Synchroner Aufruf. Warten auf Resultat einer (meist nicht JS-)Funktion.
+	\item[Non-Blocking: ] Asynchroner Aufruf mit Callback-Methode.
+\end{description}
+
+\begin{lstlisting}
+//Synchron/Blocking
+const fs = require('fs');
+const data = fs.readFileSync('/file.md');
+console.log(data);
+doMoreStuff(); //Wird erst nach dem console.log ausgeführt
+
+//Asynchron/Non-Blocking
+const fs = require('fs');
+fs.readFile('/file.md'), (err, data) => {
+	if(err)
+		throw err;
+	console.log(data);
+doMoreStuff(); //Wird vor dem console.log ausgeführt
+\end{lstlisting}
+
+\subsection{Express}
+Express ist eine Middleware und ein NodeJS Framework. Das Ziel davon ist die Verarbeitung von Requests über mehrere Stufen, unter dem Single Responsibility Prinzip. Jede Middleware führt ihre Änderungen an den Request- oder Response-Objekten durch und leitet sie anschliessend weiter an die nächste Middleware.
+
+\begin{lstlisting}
+//Loggen von jedem Request
+var myLogger = function (req, res, next) { 
+	console.log('LOGGED'); next(); 
+};
+app.use(myLogger); 
+app.get('/', function (req, res) { 
+	res.send('Hello World!'); }
+);
+app.listen(3000);
+\end{lstlisting}
+
+\section{Authentication}
+Es gibt drei Use-Cases für Authentication:
+
+\begin{enumerate}
+	\item Authentifizierung für Zugriff auf (WebServer basierte) WebApps
+	\item Authentifzierung für Zugriff au Web Services
+	\item Anbindung an andere Provider wie Facebook oder Google
+\end{enumerate}
+
+\subsection{Basic Authentication}
+\begin{enumerate}
+	\item Client will auf URL zugreifen
+	\item Web Server fordert im Header Authentifizierung für einen Bereich an: \\
+	\begin{lstlisting}
+	HTTP/1.1 401 Unauthorized 
+	WWW-Authenticate: Basic realm="RealmName"
+	\end{lstlisting}
+	\item Client schickt User/Passwort Base64-encoded im Header im Format User:Passwort \\
+	\begin{lstlisting}
+	Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+	\end{lstlisting}
+\end{enumerate}
+
+Jedoch ist die Basic Authentication nicht mehr sicher, da User/Passwort im Klartext übers Netzwerk geschickt werden.
+
+\subsection{Digest Authentication}
+Die Userdaten werden nicht im Plain Text verschickt, sondern es wird nur deren Hashwert (MD5) berechnet und verschickt. Der Server schickt einen sog. \textit{nonce} (Eindeutiger, einmaliger String) und \textit{opaque} (String, der vom Server definiert wurde und wieder zurück geschickt wird).
+\begin{enumerate}
+	\item Client will auf URL zugreifen
+	\item Web Server fordert im Header Authentifizierung für einen Bereich an und shickt \textit{nonce} und \textit{opaque}-Werte mit
+	\item Client berechnet die Digest Werte daraus und fügt sie dem Header hinzu
+	\item Server prüft Digest. Wenn erfolgreich, wird entweder Zugriff gewährt oder nächste Authentifizierungsphase eingeleitet.
+\end{enumerate}
+
+Digest Authentication ist zwar sicherer als Basic Authentication, ist aber immer noch nicht sicher verglichen zu einer Public Key Authentication, da es eigentlich nur das Passwort schützt. Alles andere ist immer noch öffentlich und kann abgehört werden.
+
+\newpage
+
+\subsection{Public Key Authentication}
+Die Authentifizierung geschieht über einen MAC (Message Authentication Code). Dieser Code wird über einen Privaten Access-Key und einem String berechnet
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=19.2\baselineskip]{aws_security_1.PNG}
+\end{figure}
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=19.2\baselineskip]{aws_security_2.PNG}
+\end{figure}
+
+\newpage
+
+\subsection{JWT (JSON Web Token)}
+JWTs werden benutzt, um JSON-Objekte sicher über das Netzwerk zu senden. Es besteht aus einem Header, einem Payload und einer Signatur.
+
+\subsubsection{Header}\mbox{}\\
+Beinhaltet den verwendeten Algorithmus
+
+\subsubsection{Payload}\mbox{}\\
+Beinhaltet die gesendeten Attribute (Claims). Diese können Private, Public oder Standard sein.
+
+Standard Claims sind z.B.
+
+\begin{multicols}{2}
+	\begin{description}
+		\item[iss: ] Issuer
+		\item[sub: ] Subject
+		\item[aud: ] Audience
+		\item[exp: ] Expiration Date
+		\item[nbf: ] Not Before
+		\item[iat: ] Issued At (Time)
+		\item[jti: ] JWT ID
+	\end{description}
+\end{multicols}
+
+\begin{lstlisting}
+{"iss": "www.hslu.ch",
+ "sub": "zakoller",
+ "name": "Thomas Koller",
+ "admin": true}
+\end{lstlisting}
+
+\subsubsection{Signatur}\mbox{}\\
+Der Header und das Payload sind Base64 encoded und mit dem im Header angegebenen Protokoll verschlüsselt
+\begin{lstlisting}
+HMACSHA256( base64UrlEncode(header) + "." + base64UrlEncode(payload), secret)
+\end{lstlisting}
+
+\vspace{10px}
+
+\noindent Das gesamte Token ist nachher einfach ein String mit allen drei Teilen in Base64-encoding, die einzelnen Teile durch '.' getrennt:
+\begin{lstlisting}
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3d3cuaHNsdS5jaCIsInN1YiI6Inpha29sbGV
+yIiwibmFtZSI6IlRob21hcyBLb2xsZXIiLCJhZG1pbiI6dHJ1ZX0.gPO7XZYZ7Au83MHRuIMtq41LOl8fWYBG
+4-ylb4f2c4
+\end{lstlisting}
+
+\vspace{10px}
+
+\noindent JWT ist kleiner als XML, die Signatur lässt sich sehr einfach berechnen und das es JSON ist, ist das Parsing auch recht einfach. Zudem ist es self-contained, benötigt also keine zusätzlichen Pakete etc.
+
+\subsection{OAuth 2.0}
+OAuth 2.0 ist der Nachfolger des veralteten OAuth 1.0 Protokolls. Es ermöglicht die Authentifizierung über Drittparteien, man kann sich also z.B. bei einem Fotodruckservice mit seinem Google- Facebook- oder GitHub-Account anmelden.
+\vspace{10px}
+
+\noindent Beim Authentifizierungs- und Autorisierungsprozess gibt es grundsätzlich vier verschiedene Rollen:
+
+\begin{description}
+	\item[Client: ] 3rd Party Anwendung, die auf die Ressourcen zugreifen möchte.
+	\item[Resource Server: ] Server, auf welchem die Ressourcen gespeichert sind.
+	\item[Resource Owner: ] Besitzer der Ressource auf dem Resource Server.
+	\item[Authorization Server: ] Authentifiziert Resource Owner und stellt die Tokens für den Client zur Verfügung
+\end{description}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{OAuth_BasicFlow.PNG}
+	\caption{Basic Flow wenn ein Client auf eine Ressource zugreifen will}
+	\label{fig:oauth-basic}
+\end{figure}
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=15\baselineskip]{OAuth_Refresh.PNG}
+	\caption{Wenn das Token abgelaufen ist, muss der Resource Owner dem Client wieder Zugriff gewähren über den Authorization Server}
+	\label{fig:oauth-refresh}
+\end{figure}
+
+\newpage
+
+\noindent Es gibt verschieden Möglichkeiten, wie ein Client ein solches Token erhalten kann:
+
+\begin{description}
+	\item[Authorization Code: ] \mbox{}\\
+		\includegraphics[keepaspectratio=true,height=15\baselineskip]{auth_code.PNG}
+	\item[Implicit: ]\mbox{}\\
+		\includegraphics[keepaspectratio=true,height=15\baselineskip]{implicit_grant.PNG}
+	\item[Resource Owner Password :] \mbox{}\\
+			\includegraphics[keepaspectratio=true,height=15\baselineskip]{pw_cred.PNG}
+\end{description}
+
+\section{Single Page Application}
+\subsection{Definition}
+\begin{center}
+	\textit{"A Web app that fits on a single web page providing a fluid UX by loading all necessary code with a single page load"}
+\end{center}
+
+\noindent Eine SPA sit eine Rich Client Application im Browser, die keinen Page Reload benötigt, um eine neue Ressource zu laden ($\rightarrow$ die URL ändert sich nicht oder nur hinter dem \#). Zudem besteht sie aus reinem HTML und JS, benötigt also keine Plugins wie z.B. Flash o.ä.
+
+Man kann trotz fehlendem Page Reload den '$\leftarrow$'-Button benutzen, um zur vorherigen Ressource zurückzukehren. Ebenfalls können einzelne Ressourcen effektiv gebookmarked werden.
+
+Aufgrund des fehlenden Page Reloads funktioniert eine SPA, einmal aufgerufen, auch offline.
+\vspace{10px}
+
+\noindent Die Vorteile der SPA lassen sich mit den \textbf{3R} zusammenfassen:
+\begin{itemize}
+	\item \textbf{R}each
+	\item \textbf{R}ich User Experience
+	\item \textbf{R}educed Round Tripping
+\end{itemize}
+
+\subsection{Komponenten}
+\begin{description}
+	\item[Routing: ] Das clientseitige Routing ermöglicht eine Navigation auf der Seite ohne Page Reload. Zudem muss der Backbutton und die Browserhistory (inkl. Bookmarks) wie gewohnt funktionieren. Vor HTML 5 wurde das mit einem Anchor (z.B. \code{/\#/home}) gelöst. HTML 5 bietet dafür eine eigene API mit der sich auch die Browserhistory ansteuern lässt.
+	\item[Template-Rendering: ] Beim Template-Rendering wird das Model (TypeScript) über den Controller mit der View (HTML) verknüpft. Durch die Entkoppelung der beiden wird eine bessere Testbarkeit garantiert und durch das Binding reduziert sich der Code für das Updaten der Daten (die vom Model abhängen) in der HTML-View.
+	\item[Daten Zugriff: ] Die Daten werden meist über eine REST-API mittels einem XMLHTTP-Request vom Server bezogen (siehe später) und können bei Bedarf z.B. mittels LocalStorage gecached werden. 
+	\begin{lstlisting}
+	//cachen von Informationen
+	storelocalStorage.setItem("lastname","Smith");
+	
+	//Abrufen der gecachten Information
+	retrievedocument.getElementById("result").innerHTML = localStorage.getItem("lastname");
+	\end{lstlisting}
+	\item[Code-Modularisierung: ] Durch die Modularisierung des Codes ergibt sich eine klare Struktur, die sich viel besser Warten und Testen lässt. $\rightarrow$ Separation of Concern
+\end{description}
+ \begin{figure}[htb]
+ 	\centering
+ 	\includegraphics[keepaspectratio=true,height=14\baselineskip]{spa_comp.PNG}
+ 	\caption{Visualisierung der verschiedenen SPA-Komponenten}
+ 	\label{fig:SPAComp}
+ \end{figure}
+
+\newpage
+
+\section{Angular}
+Angular ist ein Framework, um SPAs für CRUD Anwendungen zu bilden. Es basiert auf Typescript und besticht insbesondere durch die Benutzung von Dependency Injection und einem performanten 2-Way Binding.
+
+\subsection{Komponenten}
+Angular ist komponentenbasiert. Das heisst, die ganze Angular-Applikation ist eine einzige Hauptkomponente. Diese Hauptkomponente wird wiederum in kleinere Komponenten unterteilt, die wiederum Unterkomponenten haben etc. So entsteht schlussendlich ein sog. Komponentenbaum.
+
+Daten werden durch Components (Logik) angezeigt. Jede Komponente enthält entweder direkt ein Template oder einen Verweis auf ein Template (Ansicht, in HTML). Verbunden sind diese zwei Dateien über Event- und Property-Binding. 
+
+Das Event-Binding bedeutet, dass in HTML Events geschehen, die dann Funktionen in den Komponenten aufrufen. Solch ein Event kann zum Beispiel das Drücken eines Knopfes sein:
+
+\begin{lstlisting}[language=html]
+<button (click)="showResults()">Resultate</button>
+\end{lstlisting}
+
+Die Komponenten wiederum können über das Property-Binding Inhalte im Template verändern, womit sich die Ansicht für den Benutzer verändert. So kann zum Beispiel ein Button-Text von der Komponente aus geändert werden:
+
+\begin{lstlisting}[language=html]
+<input type="submit" value="{{buttonText}}">
+\end{lstlisting}
+
+\newpage
+
+\subsection{Module}
+Jede Angular Applikation wird über Module organisiert. Jede Angular-Applikation hat mind. ein sog. "Root Module", das die Hauptkomponente zur Verfügung stellt. Angular selbst bietet verschiedenste Module zur Verwendung an (\code{@angular/core, /forms}, etc). Aufbau eines solchen Moduls:
+
+\begin{lstlisting}
+import {NgModule} from "@angular/core";
+import { CommonModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+
+@NgModule({
+	imports:		[CommonModule, FormsModule],
+	declarations:	[ContactComponent, HighlightDirective, AwesomePipe],
+	exports:		[ContactComponent],
+	providers:		[ContactService]
+})
+
+export class ContactModule{
+	//stuff here
+}
+\end{lstlisting}
+Unter \code{imports:} werden alle importierten Module aufgelistet. \code{declarations:} beinhaltet alle Komponenten, die dieses Modul beinhaltet 
+
+Solche Module werden exportiert und können wiederum von anderen Modulen importiert werden, um auf Funktionen dieser Module zugreifen zu können.
+
+\begin{figure}[htb]
+	\centering
+	\includegraphics[keepaspectratio=true,height=14\baselineskip]{Angular_comps.jpeg}
+	\caption{Visualisierung der Funktionsweise von Angular 5}
+	\label{fig:angular}
+\end{figure}
+
+\subsection{Services}
+Ein Service ist prinzipiell nichts anderes als eine Klasse, die mittels Dependency Injection in eine andere Klasse injected werden kann. (Siehe Dependency Injection). Services sind normalerweise Container für Werte, Funktionen oder Features. Sie haben kein Interface und holen z.B. Daten vom Server, validieren user Input und loggen Events.
+
+\newpage
+
+\subsection{Directives}
+\begin{description}
+	\item[Komponenten] Direktiven mit einem HTML-Template
+	\item[Strukturelle Direktiven: ] verändern das Layout (DOM), Bsp: \code{*ngFor, *ngIf}
+	\item[Attribut Direktiven:] Verändern Erscheinung oder Verhalten eines existierenden Elements. Bsp: \code{<input [(ngModel)]="hero.name">}
+\end{description}
+
+
+\subsection{Providers}
+Angular ist dumm und kann mit Services und ihren Injectoren nicht einfach so umgehen. Deshalb musst du für jeden Service Provider spezifizieren, die den Services sagen, wie und wo die Werte der Dependencies geholt werden müssen.
+
+\subsection{Dependency Injection}
+Dependency Injection kann mit dem Prinzip des Singletons verglichen werden: Falls noch keine Instanz existiert, wird sie erstellt. Wenn die Instanz irgendwo in der Applikation existiert, wird von überall her auf diese einzelne Instanz zugegriffen, sollte ein Modul eine Methode dieser Instanz benötigen.
+\vspace{10px}
+
+\noindent Nehmen wir das Beispiel eines Autos:
+\begin{lstlisting}
+export class Auto{
+	public motor: Motor;
+	
+	constructor(){
+		this.motor = new Motor();
+	}
+}
+\end{lstlisting}
+Dieses Prinzip ist bereits bekannt aus diversen objektorientierten Programmiersprachen. Was wäre aber, wenn wir nun keinen neuen Motor erstellen müssten, sondern einen bereits existieren Motor einfach importieren könnten?
+\begin{lstlisting}
+import { Motor } from '../Motor/';
+
+export class Auto{
+	public motor: Motor;
+	
+	constructor(public motor: Motor){
+	
+	}
+}
+\end{lstlisting}
+Wir haben nun einfach den Service \code{Motor} importiert, das bereits irgendwo in der Applikation existiert und müssen somit keinen neuen Motor erstellen. Das ist Dependency Injection. Zu beachten ist nur, dass man in der Klasse \code{Motor.ts} noch spezifiziert, dass dieser Motor als Injectable/Service genutzt werden kann. Das macht man, indem man vor dem \code{export class Motor} noch \code{@Injectable()} einfügt.
+
+\newpage
+
+\section{REST}
+REST steht für Representational State Transfer und ist ein zustandloses Client-Server Modell, das auf HTTP basiert. Zustandlos heisst, der Server speichert keine Kontextinformationen, sondern der Kontext muss bei jeder Anfrage mitgeschickt werden. REST eignet sich gut zum cachen von Informationen.
+\vspace{10px}
+
+\noindent REST besitzt eine einheitliche Schnittstelle, die auf vier Eigenschaften aufbaut:
+
+\begin{description}
+	\item[Identifikation von Ressourcen ] Jede Ressource ist eindeutig identifizierbar mittels ihrer URL. Umgekehrt wird jede Information, die eine URL/URI besitzt als Ressource gekennzeichnet.
+	\item[Manipulation der Ressourcen durch 'Representationen' ] Alle Ressourcen können unterschiedliche Repräsentationen haben. Je nach dem, welche Repräsentation der Client verlangt, kann der Server JSON, XML oder HTML formatierte Ressourcen ausliefern. \\
+	Der Client kann also folgende Anfrage schicken:
+	\begin{lstlisting}[language=html]
+	GET /notes/1234 HTTP/1.1 
+	Host: www.hslu.ch
+	Accept: application/xml, application/json
+	\end{lstlisting}
+	und erhält die Antwort entweder im XML- oder JSON-Format
+	Auch möglich ist ein \code{Content-Type: application/xml, application/json} anstelle von \code{Accept: } 
+	\item[Beschreibende Meldungen ] REST-Nachrichten verwenden die HTTP-Standartmethoden wie PUT, GET etc. 
+	\item[Hypermedia as the Engine of Application State (HATEOS)] Der Client der REST-Schnittstelle navigiert ausschliesslich über URLs, welche vom Server bereitgestellt werden.
+\end{description}
+\vspace{10px}
+
+\noindent Wie bereits bei Punkt eins erwähnt, wird alles, was eine URI besitzt als Ressource bezeichnet. Etwas allgemeiner kann man sagen, alles was für den Client interessant sein könnte ist eine Ressource und erhält somit eine URI.
+\vspace{10px}
+
+\begin{minipage}{0.45\textwidth}
+Bei REST-Methoden (was schlussendlich nichts anderes als HTTP-Methoden sind) gibt es \textbf{safe} und \textbf{idempotente} Methoden. Safe-Methoden sind solche, die Daten \textit{nicht verändern}, also keine Schreiboperationen durchführen. Idempotente Methoden sind Methoden, die die Daten auch bei mehrfacher Durchführung nicht verändern. So ist eine \code{GET}-Methode zum Beispiel sowohl safe wie auch idempotent. Denn mit der \code{GET}-Methode liest man Daten und die Antwort auf den 329839876432-ten \code{GET}-Request auf diese Ressource wird dieselbe sein wie die Antwort auf den ersten Request.
+\end{minipage}\hfil
+\begin{minipage}{0.45\textwidth}
+	\centering
+\begin{tabular}{|l|c|c|}
+	\hline
+	\thead{Methode} & \thead{Safe} & \thead{Idemptotent} \\
+	\hline
+	\code{GET}&\ding{52} & \ding{52}\\
+	\hline
+	\code{POST}&\ding{55}&\ding{55}\\
+	\hline
+	\code{PUT}&\ding{55}& \ding{52}\\
+	\hline
+	\code{DELETE}&\ding{55}& \ding{52}\\
+	\hline
+	\code{HEAD}&\ding{52}& \ding{52}\\
+	\hline
+	\code{OPTIONS}&\ding{55}& \ding{52}\\
+	\hline
+	\code{PATCH}&\ding{55}&\ding{55}\\
+	\hline
+\end{tabular}
+\end{minipage}
+
+\vspace{10px}
+
+\noindent Untenstehende Bilder sagen eigentlich alles über HTTP-Statuscodes aus, was man wissen muss:
+
+\vspace{15px}
+
+\begin{minipage}{0.5\textwidth}
+	\includegraphics[keepaspectratio=true, height=10\baselineskip]{http_codes.jpg}
+\end{minipage} \hfil
+\begin{minipage}{0.5\textwidth}
+	\includegraphics[keepaspectratio=true, height=17\baselineskip]{http_codes_2.png}
+\end{minipage}
+
+\section{Mobile Web-Apps}
+Es gibt fünf Möglichkeiten, wie eine Web-App aufs Handy kommen kann:
+
+\begin{enumerate}
+	\item \textbf{Web-App: } Im Browser mittels HTML, CSS, JS
+	\item \textbf{Hybrid:} WebApp in einen native Wrapper 'verpackt'. Kann als native App installiert werden und greift auf native Ressourcen zu (z.b. Cordova)
+	\item \textbf{Cross-Compiled:} In Sprache X geschreibene App, die nach Java/Kotlin/Swift/Binär kompiliert wird und somit native ausführbar ist (z.b. Xamarin mit C\#)
+	\item \textbf{JIT-compiled:} App wird in JS geschrieben und 'Just In Time' (JIT) auf dem JS-Engine des Handys kompiliert wird. Kann wie Hybrid-App auf native Ressourcen zugreifen (z.b. NativeScript)
+	\item \textbf{Native App:} WebApp wird ins Native portiert/neu geschrieben (Java/Kotlin für Android, Swift für iOS).
+\end{enumerate}
+
+\noindent WebApps haben im Gegensatz zu nativen Apps sowohl Vor- wie auch Nachteile
+
+\begin{multicols}{2}
+	\paragraph{Vorteile}\mbox{}\\
+	\begin{itemize}
+		\item Eine Code-Basis für mehrere OS
+		\item Kein App-Store, Download oder Installation notwendig
+		\item App kann jederzeit veröffentlicht, geupdated und verändert werden
+		\item Vorhandene Web-App kann zu Mobile App erweitert werden
+	\end{itemize}
+\columnbreak
+	\paragraph{Nachteile}\mbox{}\\
+	\begin{itemize}
+		\item Läuft ausschliesslich im Browser
+		\item Kein Ressourcen-Zugriff (Kamera, Kontakte etc.)
+		\item App nicht im App-Store $\rightarrow$ Benutzer müssen sie finden
+	\end{itemize}
+\end{multicols}
+
+\subsection{Ionic}
+Ionic ist ein Angular-Framework, das die Mobile WebApp-Entwicklung vereinfacht. Es bietet bereits UI-Komponent-Templates, APIs etc. 
+
+Da es ein Angular-Framework ist, basiert es auf TypeScript und npm.
+\vspace{10px}
+
+\noindent Man kann mit zwei Zeilen Code bereits eine funktionierende (zwar leere, aber egal) WebApp haben: \\
+\begin{minipage}{0.6\textwidth}
+	\begin{lstlisting}
+	//ionic und cordova installieren
+	npm install -g ionic cordova
+	
+	//eine neue WebApp mit sidemenu erstellen
+	ionic start myApp sidemenu
+	
+	//App starten
+	cd ./myApp
+	ionic serve
+	\end{lstlisting}
+\end{minipage} \hfil
+\begin{minipage}{0.35\textwidth}
+	\includegraphics[keepaspectratio=true, height=10\baselineskip]{ionic_sidemenu.PNG}
+\end{minipage}
+
+Die App wird auf \code{localhost:8100} aufgeschalten und kann im Browser angeschaut und getestet werden.
+
+\begin{wrapfigure}[12]{R}{0.5\textwidth}
+	\centering
+	\includegraphics[keepaspectratio=true,height=18\baselineskip]{ionic_structure.PNG}
+	\caption{Struktur einer Ionic-WebApp am Bsp. der MovieApp}
+	\label{fig:ionic-struct}
+\end{wrapfigure}
+Die verschiedenen Pages sind Angular-Module, die in TypeScript geschrieben sind und liegen im subdirectory \code{src/app/pages/}. Jede Page besteht (normalerweise) aus einem HTML-File (view), einer TypeScript-File(Logik dahinter) und einem (S)CSS-File für das Layout und Design.
+\vspace{10px}
+
+\noindent Jede Page muss zudem im File \code{src/app/app.module.ts} registriert werden, damit die App fehlerfrei funktioniert.
+
+Die HTML-Seite ist normalerweise dreigeteilt:
+
+\begin{lstlisting}[language=html]
+<ion-header>
+<!-- Hier kommt die Kopfzeile der App -->
+</ion-header>
+<ion-content>
+<!-- Hier kommt der Inhalt der Seite -->
+</ion-content>
+<ion-footer>
+<!-- Hier kommt die Fusszeile der App-->
+</ion-footer>
+\end{lstlisting}
+
+\vspace{10px}
+ 
+\noindent Wie bereits erwähnt ist Ionic ein Angular-Framework auf und unterstützt somit auch Dependency Injections. Nachfolgend ein kleines Beispiel, wie man Daten asynchron über eine HTTP-GET Request mittels einer Callback-Methode (\code{.subscribe}) und einem Observable (\code{movieJson}) abrufen kann, über ein definiertes Interface (\code{Movie}) in ein Objekt parsen und anschliessend weiterverarbeiten kann.
+
+\begin{lstlisting}
+import { HttpClient } from '@angular/common/http'; 
+import { Movie } from '../../interfaces/Movie';
+... 
+constructor( ... public httpClient: HttpClient ...) { 
+	... 
+	let movieJson = this.httpClient.get('http://...');
+	movieJson.subscribe(data => { 
+		let movie: Movie = <Movie>data;
+		if(movie.Response == 'True'){
+			//daten weiterverarbeiten
+		}
+	}
+\end{lstlisting}
+
+\subsection{Cordova}
+Cordova ist eigentlich nichts anderes als ein Wrapper, der eine in Ionic geschriebene WebApp in eine Native App verpackt. Mithilfe bestimmter Angular-Pakete kann Cordova auch auf native Ressourcen wie die Kamera, Galerie oder Kontakte des Handys zugreifen.
+\vspace{10px}
+
+\noindent Eine Ionic-App mit Cordova Integration (bei der Erstellung einer Ionic-App wird zu Beginn jeweils gefragt, ob man Cordova bereits integrieren will) kann ganz einfach von der CMD gestartet werden:
+
+\begin{lstlisting}
+//Für Android. Zuerst jedoch einen Android-Emulator starten
+ionic cordova run android --emulator
+
+//für iOS. Zuerst Emulator starten
+ionic cordova platform add ios
+cordova run ios --emulator
+
+//Alternativ kann die App auch direkt auf einem über USB oder WiFi angeschlossenem Gerät gesartet wereden
+ionic cordova run android
+
+//mit dem parameter --live-reload können ausserdem live reloads der App aktiviert werden, so dass die App sofort neu kompiliert wird, sobald Änderungen am Code gespeichert wurden
+ionic cordova run android --live-reload
+\end{lstlisting}
+
+\end{document}
