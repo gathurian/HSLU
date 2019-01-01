@@ -1,0 +1,73 @@
+\documentclass[a4paper, 11pt]{article}
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+\usepackage{comment} % enables the use of multi-line comments (\ifx \fi) 
+\usepackage{lipsum} %This package just generates Lorem Ipsum filler text. 
+\usepackage{fullpage} % changes the margin
+\usepackage[utf8]{inputenc}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{booktabs}% http://ctan.org/pkg/booktabs
+\usepackage{makecell}
+\usepackage{tabularx}
+\usepackage[table]{xcolor}
+\usepackage{array}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{csquotes}
+\usepackage{lscape}
+\usepackage{afterpage}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{chngcntr}
+\usepackage{multicol}
+
+\counterwithin{figure}{section}
+
+\geometry{a4paper, margin=1in}
+\renewcommand{\figurename}{Abb.}
+\renewcommand{\tablename}{Tabelle}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\renewcommand*{\thead}[1]{\bfseries #1}
+
+\renewcommand{\contentsname}{Inhalt}
+\renewcommand{\listfigurename}{Abbildungsverzeichnis}
+
+\begin{document}
+ 
+\title{Zusammenfassung ENAPP - HS2018}
+\author{Alex Neher}
+\maketitle
+
+\tableofcontents
+\newpage
+\listoffigures
+\newpage
+
+\graphicspath{{./Pictures/}}
+
+
+\section{Tooling Script}
+
+\section{High Availability (JGroups)}
+
+\section{Web-Tier}
+
+\section{EJB-Tier}
+
+\section{JEE Security}
+
+\section{Messaging Services}
+
+\section{REST}
+
+\section{JNDI \& LDAP}
+
+\section{CDI}
+
+\section{Architektur \& Agiles Vorgehen}
+
+\end{document}
