@@ -238,11 +238,42 @@ Die wichtigsten Sicherheitsvorkehrungen:
 \end{description}
 
 \subsection{Servlet Programmieren}
-Ein Servlet besteht aus drei Komponenten:
+Ein Servlet ist ein Java Programm, welches in einem Web- oder Applikationsserver läuft und das \texttt{javax.servlet.Servlet} Interface implementiert. Servlets werden für Anfragen undAntworten von Internet clients oder Browsern verwendet. Die Kommunikation läuft normalerweise via HTTP(S)\\
 
-\begin{description}
-	\item[label] description
-\end{description}
+%TODO: Bild von Folie 20 hier
+
+Es gibt verschiedene Gründe, wieso Servlets so omnipräsent sind in JavaEE Applikationen:
+
+\begin{itemize}
+    \item Verwaltet Anfragen und Antworten
+    \item Unterstützt Multithreading
+    \item Wird in Java geschrieben ($\rightarrow$ write once, run anywhere)
+    \item Kann verteilt werden (unterstützt RMI, Corba und INDI (vgl. Abb. \ref{fig:b2b})
+    \item Kann von mehreren Programmierern gleichzeitig entwickelt werden
+    \item Hat bereits viele vorgefertigte Komponenten
+    \item Hat sehr stabile Runtime Environments (Tomcat, Jeronimo, Jetty)
+    \item Ideal für kleine Antwendungen (sog. 'Servlet-only'-Applikationen.
+\end{itemize}
+
+Allerdings hat die Technologie logischerweise einige Schwächen. So muss jeweils die gesamte Applikation kompiliert und deployed werden um etwas zu testen (und wenn es nur ist, um zu checken, ob die Textbox jetzt wirdlich 3px weiter links ist). Ebenfalls setzen JSP HTML-Wissen voraus. \\
+
+Prinzipiell, alles was ein Servlet macht ist:
+
+\begin{enumerate}
+    \item Nimmt Anfrage vom Server entgegen
+    \item Verarbeitet die Anfrage (z.B. ruft EJB-Methode auf)
+    \item Sendet die erhaltene Antwort an den Server zurück
+\end{enumerate}
+
+Allerdings hat die Technologie logischerweise einige Schwächen. So muss jeweils die gesamte Applikation kompiliert und deployed werden um etwas zu testen (und wenn es nur ist, um zu checken, ob die Textbox jetzt wirdlich 3px weiter links ist). Ebenfalls setzen JSP HTML-Wissen voraus. \\
+
+Prinzipiell, alles was ein Servlet macht ist:
+
+\begin{enumerate}
+    \item Nimmt Anfrage vom Server entgegen
+    \item Verarbeitet die Anfrage (z.B. ruft EJB-Methode auf)
+    \item Sendet die erhaltene Antwort an den Server zurück
+\end{enumerate}
 
 \subsection{Server Domain Mappings und Filter}
 
