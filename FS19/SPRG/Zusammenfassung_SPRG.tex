@@ -1,0 +1,94 @@
+\documentclass[a4paper, 11pt]{article}
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+\usepackage{comment} % enables the use of multi-line comments (\ifx \fi) 
+\usepackage{lipsum} %This package just generates Lorem Ipsum filler text. 
+\usepackage{fullpage} % changes the margin
+\usepackage[utf8]{inputenc}
+\usepackage{gensymb}
+\usepackage{graphicx}
+\usepackage{booktabs}% http://ctan.org/pkg/booktabs
+\usepackage{makecell}
+\usepackage{tabularx}
+\usepackage[table]{xcolor}
+\usepackage{array}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{csquotes}
+\usepackage{lscape}
+\usepackage{afterpage}
+\usepackage{geometry}
+\usepackage{listingsutf8}
+\usepackage{chngcntr}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{pifont}
+
+
+\counterwithin{figure}{section}
+
+\AtBeginDocument{\counterwithin{lstlisting}{section}}
+
+\geometry{a4paper, margin=1in}
+\renewcommand{\figurename}{Abb.}
+\renewcommand{\tablename}{Tabelle}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\renewcommand*{\thead}[1]{\bfseries #1}
+
+\renewcommand{\contentsname}{Inhalt}
+\renewcommand{\listfigurename}{Abbildungsverzeichnis}
+
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\definecolor{darkgreen}{rgb}{0.05,0.56,0.06}
+
+
+\lstset{frame=tlrb,
+	language=Java,
+	captionpos=b,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{violet},
+	stringstyle=\color{darkgreen},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3,
+	literate=%
+	{Ö}{{\"O}}1
+	{Ä}{{\"A}}1
+	{Ü}{{\"U}}1
+	{ß}{{\ss}}1
+	{ü}{{\"u}}1
+	{ä}{{\"a}}1
+	{ö}{{\"o}}1
+}
+
+
+\begin{document}
+
+\newgeometry{top=0in, bottom=0in}
+\title{Zusammenfassung Sicheres Programmieren FS2019}
+\author{Alex Neher}
+\maketitle
+
+\tableofcontents
+
+\newpage
+\graphicspath{{./Pictures/}}
+
+\restoregeometry
+
+\section{Requirements Engineering}
+
+
+\end{document}
