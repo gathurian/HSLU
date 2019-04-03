@@ -1,0 +1,16 @@
+{
+  "summary": {
+    "title": "Mobile Pay",
+    "description": "• Der Kunde bezahlt mobile mit seinem Handy (i.e. Apple Payoder TWINT)wie inder Grafik dargestellt\n• Die Kreditkarte kannin der App hinterlegt werden oder das Konto wird prepay (Vorauszahlung) aufgeladen\n• Der Merchant (Verkäufer) besitzt ein Kassensystem, welche das Signal des Handys (i.e. NFC oder Bluetooth) verarbeiten kann"
+  },
+  "detail": {
+    "contributors": [],
+    "diagrams": [
+      {
+        "title": "Model",
+        "thumbnail": "./public/content/images/thumbnail.jpg",
+        "id": 0
+      }
+    ]
+  }
+}
