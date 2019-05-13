@@ -16,32 +16,40 @@
 \headcommand {\sectionentry {2}{Geschichte}{8}{Geschichte}{0}}
 \headcommand {\slideentry {2}{0}{1}{8/8}{}{0}}
 \headcommand {\beamer@framepages {8}{8}}
-\headcommand {\slideentry {2}{0}{2}{9/12}{}{0}}
-\headcommand {\beamer@framepages {9}{12}}
-\headcommand {\slideentry {2}{0}{3}{13/13}{}{0}}
-\headcommand {\beamer@framepages {13}{13}}
-\headcommand {\beamer@sectionpages {8}{13}}
-\headcommand {\beamer@subsectionpages {8}{13}}
-\headcommand {\sectionentry {3}{Open Source}{14}{Open Source}{0}}
-\headcommand {\slideentry {3}{0}{1}{14/14}{}{0}}
+\headcommand {\slideentry {2}{0}{2}{9/13}{}{0}}
+\headcommand {\beamer@framepages {9}{13}}
+\headcommand {\slideentry {2}{0}{3}{14/14}{}{0}}
 \headcommand {\beamer@framepages {14}{14}}
-\headcommand {\slideentry {3}{0}{2}{15/17}{}{0}}
-\headcommand {\beamer@framepages {15}{17}}
-\headcommand {\slideentry {3}{0}{3}{18/20}{}{0}}
-\headcommand {\beamer@framepages {18}{20}}
-\headcommand {\beamer@sectionpages {14}{20}}
-\headcommand {\beamer@subsectionpages {14}{20}}
-\headcommand {\sectionentry {4}{Linux heute}{21}{Linux heute}{0}}
-\headcommand {\slideentry {4}{0}{1}{21/21}{}{0}}
-\headcommand {\beamer@framepages {21}{21}}
-\headcommand {\slideentry {4}{0}{2}{22/22}{}{0}}
+\headcommand {\beamer@sectionpages {8}{14}}
+\headcommand {\beamer@subsectionpages {8}{14}}
+\headcommand {\sectionentry {3}{Open Source}{15}{Open Source}{0}}
+\headcommand {\slideentry {3}{0}{1}{15/15}{}{0}}
+\headcommand {\beamer@framepages {15}{15}}
+\headcommand {\slideentry {3}{0}{2}{16/18}{}{0}}
+\headcommand {\beamer@framepages {16}{18}}
+\headcommand {\slideentry {3}{0}{3}{19/21}{}{0}}
+\headcommand {\beamer@framepages {19}{21}}
+\headcommand {\beamer@sectionpages {15}{21}}
+\headcommand {\beamer@subsectionpages {15}{21}}
+\headcommand {\sectionentry {4}{Linux heute}{22}{Linux heute}{0}}
+\headcommand {\slideentry {4}{0}{1}{22/22}{}{0}}
 \headcommand {\beamer@framepages {22}{22}}
-\headcommand {\slideentry {4}{0}{3}{23/23}{}{0}}
+\headcommand {\slideentry {4}{0}{2}{23/23}{}{0}}
 \headcommand {\beamer@framepages {23}{23}}
-\headcommand {\slideentry {4}{0}{4}{24/24}{}{0}}
+\headcommand {\slideentry {4}{0}{3}{24/24}{}{0}}
 \headcommand {\beamer@framepages {24}{24}}
-\headcommand {\beamer@partpages {1}{24}}
-\headcommand {\beamer@subsectionpages {21}{24}}
-\headcommand {\beamer@sectionpages {21}{24}}
-\headcommand {\beamer@documentpages {24}}
-\headcommand {\gdef \inserttotalframenumber {10}}
+\headcommand {\slideentry {4}{0}{4}{25/25}{}{0}}
+\headcommand {\beamer@framepages {25}{25}}
+\headcommand {\slideentry {4}{0}{5}{26/26}{}{0}}
+\headcommand {\beamer@framepages {26}{26}}
+\headcommand {\slideentry {4}{0}{6}{27/27}{}{0}}
+\headcommand {\beamer@framepages {27}{27}}
+\headcommand {\slideentry {4}{0}{7}{28/28}{}{0}}
+\headcommand {\beamer@framepages {28}{28}}
+\headcommand {\slideentry {4}{0}{8}{29/29}{}{0}}
+\headcommand {\beamer@framepages {29}{29}}
+\headcommand {\beamer@partpages {1}{29}}
+\headcommand {\beamer@subsectionpages {22}{29}}
+\headcommand {\beamer@sectionpages {22}{29}}
+\headcommand {\beamer@documentpages {29}}
+\headcommand {\gdef \inserttotalframenumber {13}}

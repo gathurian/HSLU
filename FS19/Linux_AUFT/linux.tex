@@ -2,6 +2,7 @@
 
 \usetheme{metropolis}
 \usepackage{appendixnumberbeamer}
+\usepackage{caption}
 
 \usepackage{booktabs}
 \usepackage[scale=2]{ccicons}
@@ -14,6 +15,7 @@
 \usepackage{tabls}
 \usepackage{tikz}
 \usepackage{bchart}
+\usepackage{appendixnumberbeamer}
 
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
 
@@ -21,7 +23,7 @@
 
 \title{Linux}
 \subtitle{Eine kurze Einführung}
-\date{20. Apr. 2019}
+\date{20. Mai 2019}
 \author{Alex Neher}
 \titlegraphic{\hfill\includegraphics[height=1.5cm]{img/Tux.png}}
 
@@ -44,7 +46,7 @@
 
 \begin{frame}{Was ist Linux?}
     \begin{itemize}[<+- | alert@+>]
-        \item Betriebssystem/Kernel
+        \item Betriebssystem
         \item Meist verwendet für Server
         \item Android
     \end{itemize}
@@ -59,6 +61,7 @@
 		 		\item Finnischer Informatikstudent
 		 		\item Wollte Dinge mit seinem UNIX-Computer machen, die nicht unterstützt wurden
 		 		\item Entschied sich, diese Dinge selbst zu programmieren
+		 		\item Programmierte schlussendlich sein eigenes Betriebssystem
 		 		\item Vorsitzender der Linux-Foundation
 		 	\end{itemize}
 	 	\column{0.50\textwidth}
@@ -79,9 +82,7 @@
 				1991 & Erste Linux-Version \\
 				1992 & Linux wird Open Source \\
 				1998 & Linux wird offiziell von Tech-Firmen unterstützt \\
-				2004 & $>50\%$ aller Top500 Supercomputer laufen unter Linux \\
 				2008 & Android 1.0 \\
-				2017 & 100\% aller Top500 Supercomputer laufen unter Linux \\
 				\bottomrule
 			\end{tabular}
 		\end{table}
@@ -108,36 +109,61 @@
 
 \section{Linux heute}
 
-\begin{frame}{Marktanteil Desktop/Laptop}
-		\includegraphics[keepaspectratio, width=\textwidth]{img/market_share.png}
-\end{frame}
-
-\begin{frame}{Marktanteil Desktop/Laptop}
-\includegraphics[keepaspectratio, width=\textwidth]{img/market_share.png}
-
-	\centering
-	\begin{table}
-		\begin{tabular}{l|c}
-			\toprule
-			\textbf{Betriebssystem} & \textbf{Marktanteil} \\
-			\hline
-			Windows & 87.4\% \\
-			MacOS & 9.7\% \\
-			Linux & 2.2\% \\
-			ChromeOS & 0.33\% \\
-			BSD & 0.01\% \\
-			\bottomrule
-		\end{tabular}
-	\end{table}	
+\begin{frame}{Distributionen}
+    \centering
+    \includegraphics[keepaspectratio,width=0.9\textwidth]{img/logos_2.png}
 \end{frame}
 
 \begin{frame}{Marktanteil Webserver}
-	\centering
+    \begin{centering}
 	\begin{bchart}[step=10,max=100]
 		\bcbar[text=Linux]{69.9}
 			\smallskip
 		\bcbar[text=Windows]{30.1}
 	\end{bchart}
+\end{centering}
+    
+    Verteilung der Betriebssysteme auf den Webservern der top 10 Millionen Websiten
+\end{frame}
+
+\begin{frame}{Marktanteil IoT}
+\begin{figure}
+	\includegraphics[keepaspectratio,
+	width=0.9\textwidth]{img/iot.jpg}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Marktanteil Desktop/Laptop}
+\includegraphics[keepaspectratio, width=0.9\textwidth]{img/market_share.png}
+\end{frame}
+
+\begin{frame}{Marktanteil Desktop/Laptop}
+\includegraphics[keepaspectratio, width=0.9\textwidth]{img/market_share.png}
+
+\centering
+\begin{table}
+\begin{tabular}{l|c}
+	\toprule
+	\textbf{Betriebssystem} & \textbf{Marktanteil} \\
+	\hline
+	Windows & 87.4\% \\
+	MacOS & 9.7\% \\
+	Linux & 2.2\% \\
+	ChromeOS & 0.33\% \\
+	BSD & 0.01\% \\
+	\bottomrule
+\end{tabular}
+\end{table}	
+\end{frame}
+
+\begin{frame}{Desktopumgebungen}
+\centering
+\includegraphics[keepaspectratio,width=0.9\textwidth]{img/desktops.png}
+\end{frame}
+
+\begin{frame}[standout]
+Fragen?
 \end{frame}
 
 \end{document}
