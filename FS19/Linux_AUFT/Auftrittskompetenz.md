@@ -1,0 +1,15 @@
+- - Wenig, dafür tief
+- - Zerst das Bekannte
+- 	- Z.b. zuerst Fachbegriff, anschliessend Abküruzung
+- - Stimme bewusst einsetzen
+- 	- Erklären?
+- 	- Erzählen?
+- 	- Kommt jetz der Schluss?
+- 	- Lanciere ich eine Pointe?
+- - Abschluss z.B. mit Zukunftsaussicht
+- - Gewisse Redundanz reinbringen
+- 	- Immer wieder gewisse Punkte wiederholen
+- 	- Bei einem Begriff bleiben, keine Synonyme
+- - PPT als Hilfsmittel, nur als Unterstützung, nicht den Inhalt der Präsentation/als Notizzettel
+- - Verminderung der Nominalisierung
+- - Gezielt Pausen setzen.SSSSSsss
