@@ -16,6 +16,7 @@
 \usepackage{tikz}
 \usepackage{bchart}
 \usepackage{appendixnumberbeamer}
+\usepackage{outlines}
 
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
 
@@ -47,7 +48,6 @@
 \begin{frame}{Was ist Linux?}
     \begin{itemize}[<+- | alert@+>]
         \item Betriebssystem/Kernel
-        \item UNIX basiert
         \item Meist verwendet für Server
         \item Android
     \end{itemize}
@@ -59,98 +59,62 @@
     \includegraphics[keepaspectratio,width=0.9\textwidth]{img/kernel_schichten.png}
 \end{frame}
 
-\begin{frame}{Betriebssystem/Kernel}
-\centering
-\includegraphics[keepaspectratio,width=0.9\textwidth]{img/gnupluslinux.png}
+\begin{frame}{GNU/Linux}
+    \centering
+    \includegraphics[keepaspectratio,width=0.9\textwidth]{img/gnupluslinux.png}
 \end{frame}
 
-\section{Geschichte}
-\begin{frame}{Linus Torvalds}
-	\begin{columns}
-		 \column{0.50\textwidth}
-		 	\begin{itemize}[<+- | alert@+>]
-		 		\item Finnischer Informatikstudent
-		 		\item Wollte Dinge mit seinem MINIX-Computer machen, die nicht unterstützt wurden
-		 		\item Entschied sich, diese Dinge selbst zu programmieren
-		 		\item Programmierte schlussendlich sein eigenes Betriebssystem
-		 		\item Vorsitzender der Linux-Foundation
-		 	\end{itemize}
-	 	\column{0.50\textwidth}
-	 		\includegraphics[scale=0.25]{img/torvalds.png}
-	\end{columns}
+\section{Freie Software}
+
+\begin{frame}{Was ist "Free Software"?}
+    \centering
+    \includegraphics[keepaspectratio,width=0.9\textwidth]{img/freesoftware.png}
 \end{frame}
 
-%\section{Open Source}
+\begin{frame}{Was ist "Free Software"?}
+    \begin{columns}[T,onlytextwidth]
+        \column{0.45\textwidth}
+            \textbf{Free as in Beer}
+            \begin{outline}
+                \1 Gratis zum Herunterladen und Benutzen
+                    \2 Adobe Flash Player
+                    \2 Java
+            \end{outline}
+        \column{0.45\textwidth}
+            \textbf{Free as in Speech}
+            \begin{outline}
+                \1 Respektiert die 'vier Freiheiten'
+                    \2 GNU/Linux
+                    \2 GIMP
+            \end{outline}
+    \end{columns}
+\end{frame}
 
-%\begin{frame}{Was ist Open Source?}
-%	\begin{itemize}[<+- | alert@+>]
-%		\item Der Code des Programms ist öffentlich verfügbar
-%		\item Jeder kann den Code lesen, verstehen und auf allfällige Fehler/Schwachstellen überprüfen
-%		\item Jeder kann den Code seinen Bedürfnissen anpassen und Fehler beheben
-%	\end{itemize}
-%\end{frame}
+\begin{frame}{Die 'vier Freiheiten'}
+    \begin{enumerate}
+        \setcounter{enumi}{-1}
+        \item Uneingeschränktes Verwenden zu jedem Zweck
+        \item Das Recht, die Funktionsweise zu untersuchen und zu verstehen
+        \item Das Recht, Kopien der Software zu verbreiten
+        \item Das Recht, die Software zu verbessern und die Verbesserungen zu verbreiten
+    \end{enumerate}
+\end{frame}
 
-%\begin{frame}{Open Source und Sicherheit/Privatsphäre}
-%	\begin{itemize}[<+- | alert@+>]
-%		\item Jeder kann den Code auf allfällige Backdoors überprüfen
-%		\item Falls zu viel 'nach Hause telefoniert' wird, kann man das einfach anpassen
-%		\item Schwachstellen werden schnell gefunden und behoben
-%	\end{itemize}
-%\end{frame}
+\section{Linux im Alltag}
 
-\section{Linux heute}
+\begin{frame}{Software}
+    \centering
+    \includegraphics[keepaspectratio,width=\textwidth]{img/software.png}
+\end{frame}
 
 \begin{frame}{Distributionen}
     \centering
     \includegraphics[keepaspectratio,width=0.9\textwidth]{img/logos_2.png}
 \end{frame}
 
-\begin{frame}{Marktanteil Webserver}
-    \begin{centering}
-	\begin{bchart}[step=10,max=100]
-		\bcbar[text=Linux]{69.9}
-			\smallskip
-		\bcbar[text=Windows]{30.1}
-	\end{bchart}
-\end{centering}
-    
-    Verteilung der Betriebssysteme auf den Webservern der top 10 Millionen Websiten
-\end{frame}
-
-\begin{frame}{Marktanteil IoT}
-\begin{figure}
-	\includegraphics[keepaspectratio,
-	width=0.9\textwidth]{img/iot.jpg}
-\end{figure}
-\end{frame}
-
-
-\begin{frame}{Marktanteil Desktop/Laptop}
-\includegraphics[keepaspectratio, width=0.9\textwidth]{img/market_share.png}
-\end{frame}
-
-\begin{frame}{Marktanteil Desktop/Laptop}
-\includegraphics[keepaspectratio, width=0.9\textwidth]{img/market_share.png}
-
-\centering
-\begin{table}
-\begin{tabular}{l|c}
-	\toprule
-	\textbf{Betriebssystem} & \textbf{Marktanteil} \\
-	\hline
-	Windows & 87.4\% \\
-	MacOS & 9.7\% \\
-	Linux & 2.2\% \\
-	ChromeOS & 0.33\% \\
-	BSD & 0.01\% \\
-	\bottomrule
-\end{tabular}
-\end{table}	
-\end{frame}
-
 \begin{frame}{Desktopumgebungen}
 \centering
-\includegraphics[keepaspectratio,width=0.9\textwidth]{img/desktops.png}
+\includegraphics[keepaspectratio,width=\textwidth]{img/desktops_2.png}
 \end{frame}
 
 \begin{frame}[standout]
