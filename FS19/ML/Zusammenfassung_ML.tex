@@ -38,8 +38,8 @@
 \geometry{a4paper, margin=1in}
 
 \renewcommand*{\thead}[1]{\bfseries #1}
-
 \newcommand{\code}[1]{\texttt{#1}}
+
 \newcommand \tabitem{\makebox[1em][r]{\textbullet~}}
 
 \DeclareMathSizes{12}{30}{16}{12}
@@ -277,7 +277,7 @@ To calculate $Q1$, take the median of your data and then again the madian of the
 \end{figure}
 
 \newpage
- 
+
 \subsubsection{Five Number Summary}
 
 With this method, you can get a pretty good overview of your data. The \textbf{Five Number Summary} of a dataset consists of:
@@ -467,19 +467,19 @@ The cosine similarity is essentially just the scalar product of the two points.
 \vspace{10px}
 
 \[\scalebox{1.5}{
-    $sim(X,Y) = \dfrac{\sum^{n}_{i=i}{x_{i} y_{i}}}{\sqrt{\sum^{n}_{i=i}{x_{i}}^2\sqrt{\sum^{n}_{i=i}{y_{i}}^2}}}$
+        $sim(X,Y) = \dfrac{\sum^{n}_{i=i}{x_{i} y_{i}}}{\sqrt{\sum^{n}_{i=i}{x_{i}}^2\sqrt{\sum^{n}_{i=i}{y_{i}}^2}}}$
 }\]
 \[\scalebox{1.5}{
-    $dist(X,Y) = 1 - sim(X,Y)$
+        $dist(X,Y) = 1 - sim(X,Y)$
 }\]
 
 \subsubsection{Levenshtein / Edit Distance for Strings}
 
 Count the minimal number of changes necessary to turn one string into another:
 \begin{itemize}
-\item count +1 when deleting a character [d]
-\item count +1 when adding a character [a]
-\item count +2 when changing a character [c]
+    \item count +1 when deleting a character [d]
+    \item count +1 when adding a character [a]
+    \item count +2 when changing a character [c]
 \end{itemize}
 
 \begin{figure}[htb!]
@@ -487,6 +487,107 @@ Count the minimal number of changes necessary to turn one string into another:
     \includegraphics[keepaspectratio=true, width=\linewidth]{levenshtein.png}
     \caption{Examples for Levenshtein Distance}
     \label{fig:levenshtein}
+\end{figure}
+
+\newpage
+
+\section{Supervised Machine Learning}
+
+\subsection{Regression and classification algorithms}
+
+\begin{multicols}{2}
+    \textbf{Regression}
+    \begin{itemize}
+        \item Linear Regression
+        \item Polynomial Regression
+        \item k-NN Regression
+        \item Support Vector Regression
+        \item Neural Networks
+        \item Regression Trees
+    \end{itemize}
+    \columnbreak
+    \textbf{Classification}
+    \begin{itemize}
+        \item Logistic Regression
+        \item Naïve Bayes
+        \item k-NN
+        \item Support Vector Machines
+        \item Neural Networks
+        \item Decision Trees
+    \end{itemize}
+\end{multicols}
+
+\subsection{Decision Boundaries}
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[keepaspectratio=true, width=\linewidth]{decision_boundaries.png}
+    \caption{Decision Boundaries for different classification approaches}
+    \label{fig:decision_boundaries}
+\end{figure}
+
+Classifications usually end in somithing like Figure \ref{fig:decision_boundaries}. The example shows a classification whether a tumor is benign or cancerous. Brown means cancerous and blue means benign. Even though the data points are the same in all pictures, different approaches yield different results.
+
+The goal of a 'good' classification-algorithm is to produce as few false-positive (algorithm says is cancer, but is actually not) and false-negatives (algorithm says its benign but is actually cancerous) as possible. 
+
+\subsubsection{Kernel-Trick}
+The data in Fig. \ref{fig:decision_boundaries} is still theoretically linearly separable. But in case it is not, you could use the so-called 'kernel-trick', where you simply add a dimension and change your point of view (see Fig. \ref{fig:kernel_trick})
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[keepaspectratio=true,height=11\baselineskip]{kernel_trick.png}
+    \caption{Kernel Trick to linearly separate data that is not linearly separable}
+    \label{fig:kernel_trick}
+\end{figure}
+
+\subsection{k-Nearest-Neighbor}
+
+\begin{minipage}{0.55\textwidth}
+    \begin{lstlisting}
+    from sklearn.neighbors import KNeighborsClassifier
+
+    knn = KNeighborsClassifier(n_neighbors=3)
+    knn.fit(X_train, y_train)
+    y_pred = knn.predict(X_test)
+    acc = accuracy_score(y_test, y_pred)
+
+    print("Test Set Accuracy for k=3" + ": (:.2f)".format(acc))
+    \end{lstlisting}
+\end{minipage}\hfill
+\begin{minipage}{0.40\textwidth}
+    \centering
+    \includegraphics[keepaspectratio=true, width=\textwidth]{knn.png}
+\end{minipage}    
+
+\vspace{10px}
+
+\begin{wrapfigure}[15]{L}{0.5\textwidth}
+    \centering
+    \includegraphics[keepaspectratio=true,height=12\baselineskip]{k-nn-regression.jpg}
+    \caption{Regression with k-NN}
+    \label{fig:knn-regression}
+\end{wrapfigure}
+
+The k-neeares-Neighbor algorithm assigns the label of its nearest datapoint to the sample datapoint. If \code{n\_neighbors} is $>1$, it assigns the label of the most neighbours (via majority voting).
+
+\vspace{10px}
+
+Even though the K-NN algorithm is pretty slow compared to other algorithms, it is often a good choice if you only have a limited amount of data, because other, more performant algorithms usually require a lot more data to get decent predictions.
+
+Usually, k-NN treats all neighbors as equals. However, you could assign a weight to each datapoint. This weight depends on the distance $d$ from the sample point. This is especially useful if you want to use k-NN to e.g. form a regression line.
+
+You can use k-NN for regression by simply assigning the mean of all $k$ neighbors as label to the sample data.
+
+\subsection{Training- and Testdata}
+If you use the same data to train and test your algorithm, it might occur that the algorithm is 'memorizing' the data and gives you brilliant results. However, if you release it into the wild, where it encounters different data, it will perform really poorly. This is called \textbf{overfitting}
+
+To counter overfitting, you usually split your data into \textbf{trainingdata} and \textbf{testdata}. You train the algorithm with the training data and test it with the testdata (who would've thought...). 
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[keepaspectratio=true,height=11\baselineskip]{training_testdata.png}
+    \caption{Split your data into training- and testdata}
+    \label{fig:training_testdata}
 \end{figure}
 
 \end{document}
