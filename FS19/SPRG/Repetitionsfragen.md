@@ -100,13 +100,13 @@ Eine Bedingung oder Fähigkeit des Produktes, die ein user benötigt, zu, ein ge
 
 ### Definieren Sie den Requirement Engineer (RE) / Business Analyst(BA)
 
-1.  Was ist die Rolle eines RE in einem Projekt?
+**Was ist die Rolle eines RE in einem Projekt?**
 
 Der RE ist die Schnittstelle zwischen der technischen Seite des Projektes (den Programmierern) und dem Management. Er kann zwischen diesen beiden Seiten 'übersetzen'
 
-2.  In welchen Phasen ist der RE involviert?
+**In welchen Phasen ist der RE involviert?**
 
-**In allen Phasen**
+*In allen Phasen*
     
 1.  Requirement Analyse
     
@@ -222,7 +222,7 @@ Requirements werden 'on the go' erhoben. Erst bevor sie implementiert werden, we
 
 Eine Person, die am Produkt interessiert ist (Entweder Endnutzer oder Distributor oder Hersteller&#x2026;)
 
-1.  Zeichnen Sie eine Stakeholderliste anhanden des Kaffeemaschine Cases
+*Stakeholderliste eines Kaffeeautomaten*
 
 -   Kaffee-Hersteller
 -   Betreiber von Kaffeemaschinen
@@ -466,16 +466,16 @@ In gewissen Branchen muss man compliant zu gewissen Regulationen sein (HIPAA, PC
 
 ### Was ist der Vorteil und Nachteil von einem Wasserfall Model?
 
-1.  Vorteile
+**Vorteile**
 
-    -   Einfaches Projektmanagement
-    -   Lineare Vorgehensweise
-    -   Einfache Definition von Meilensteinen
+-   Einfaches Projektmanagement
+-   Lineare Vorgehensweise
+-   Einfache Definition von Meilensteinen
 
-2.  Nachteile
+**Nachteile**
 
-    -   Programmierer sind recht eingeschränkt
-    -   Ist sehr starr und reagiert nicht auf allfällige Änderungen während des Projekts
+-   Programmierer sind recht eingeschränkt
+-   Ist sehr starr und reagiert nicht auf allfällige Änderungen während des Projekts
 
 
 <a id="org7f890da"></a>
