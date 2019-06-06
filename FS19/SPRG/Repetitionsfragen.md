@@ -294,6 +294,7 @@ Beschreibt das System in natürlicher Sprache, evtl. mit Templates.
 > Das System **WIRD/MUSS/KANN/SOLLTE** **TASK** tun können
     
 > Das System **<WIRD/MUSS/KANN/SOLLTE>** **<USER/ROLLE>** **<TASK>** ermöglichen 
+
 ![img](./imgs/natural_language.png)
 
 #### Modelle
@@ -303,6 +304,7 @@ Alternativ können Modelle und Diagramme verwendet werden. Das hat den Vorteil, 
 **Usecase Diagramm**
     
 Welche Funktionen werden welchem Benutzer/welcher Rolle des Systems zur Verfügung gestellt
+
 ![img](./imgs/uc_diagram.PNG)
     
 **Klassendiagramm**
@@ -314,11 +316,13 @@ Gut geeignet, um Datenstrukturen zu dokumentieren. Welche Klassen/Interfaces ver
 **Aktivitätsdiagramm**
     
 Gut geeignet, um Prozessabläufe zu dokumentieren. Welche Tasks werden nacheinander durchgeführt? Welche Bedingungen müssen erfüllt sein?
+
 ![img](./imgs/activity_diagram.jpg)
     
 **Statusdiagramm**
     
 Gut geeignet, um die Verhaltensperspektive zu dokumentieren. Statusdiagramme zeigen die verschiedenen Stati des Systems auf, welche Events einen Statuswechsel auslösen und wie sich diese Stati auf den Systemkontext auswirken
+
 ![img](./imgs/state_diagram.png)
 
 
