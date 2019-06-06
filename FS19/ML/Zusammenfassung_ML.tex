@@ -585,10 +585,166 @@ To counter overfitting, you usually split your data into \textbf{trainingdata} a
 
 \begin{figure}[htb!]
     \centering
-    \includegraphics[keepaspectratio=true,height=11\baselineskip]{training_testdata.png}
+    \includegraphics[keepaspectratio=true,width=0.9\textwidth]{training_testdata.png}
     \caption{Split your data into training- and testdata}
     \label{fig:training_testdata}
 \end{figure}
 
-\end{document}
+\textbf{training} means that you tweak the parameters of the algorithm to minimize the cost function.
 
+\textbf{testing} means that you test the performance of the algorithm with those tweaked parameters on \textit{yet unseen data}. If the algorithm has already seen the data, you might run into overfitting problems.
+
+\vspace{10px}
+
+If you need to tweak your hyperparameters a lot (e.g. the 'k' in k-NN), you should probably use a more complex evaluation workflow. Because if you keep tweaking the hyperparameters and then testing them with the same data, you'll end up with the very same overfitting problem that I explained earlier (and will therefore probably get fired and have to live on the street).
+
+\vspace{10px}
+
+Therefore, it is recommended that you add \textbf{validation data} to your workflow. You train your model with the training data, validate the results with the validatin data, and if the result is satisfactory, you can test it on entirely different test data.
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[keepaspectratio=true,width=0.9\textwidth]{validation_data.png}
+    \caption{Add validation data to the mix}
+    \label{fig:validation_data}
+\end{figure}
+
+This method requires quite a lot of data. If you do not have the required amount of data, you could for example use \textbf{cross validation}. You still split your data into training- and testdata and then use a different 'slice' of your training data to validate the hyperparameter.
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[keepaspectratio=true,width=0.9\textwidth]{cross_validation.png}
+    \caption{10-fold cross validation}
+    \label{fig:cross_validation}
+\end{figure}
+
+\subsection{Measuring the performance of classification}
+
+To verify that your tweaked parameters are indeed within the margin that is acceptable, you need to do some quality assuranc first.
+
+\subsubsection{Confusion Matrix}
+
+\begin{minipage}{0.45\textwidth}
+    \begin{tabular}{|p{1.5cm}|p{1.5cm}|p{1.5cm}|}
+        \hline
+        \thead{n=165} & Predicted YES & Predicted NO \\
+        \hline
+        Actual No & 50 & 10 \\
+        \hline
+        Actual YES & 5 & 100  \\
+         \hline
+    \end{tabular}
+\end{minipage}\hfill
+\begin{minipage}{0.55\textwidth}
+    \begin{description}
+        \item[True Positive: ] Predicted Yes, Actual Yes
+        \item[True Negative: ] Predicted No, Actual No
+        \item[False Positive: ] Predicted Yes, Actual No
+        \item[False Negative: ] Predicted No, Actual Yes
+    \end{description}
+\end{minipage}
+
+\vspace{10px}
+
+The confusion matrix shows, how many true/false positives and true/false negatives the algorithm produced. 
+
+With these values, one can calculate the algorithms \textbf{Accuracy} and \textbf{Error Rate}
+
+\subsubsection{Accuracy and Error Rate}
+
+\[\scalebox{1.5}{
+        $Accuracy = \dfrac{True\ Positive + True\ Negative}{Total}$ 
+}\]
+\vspace{10px}
+\[\scalebox{1.5}{
+        $Error\ Rate = \dfrac{False\ Positive + False\ Negative}{Total} = 1 - Accuracy$
+}\]
+
+\vspace{10px}
+
+In our case the Accuracy would be $\dfrac{50+100}{50+100+5+10} = \dfrac{150}{165} = 0.91 = 91\%$ and the error rate therefore 9\%
+
+\newpage
+
+\subsubsection{Sensitivity}
+
+Accuracy works great on balanced data, but it's not reliable on inbalanced data because Accuracy only checks how many times the classifier was right. 
+
+If there were 5000 NO instances and 20 YES instances, a classifier that only returns NO would have an accuracy of over 99\%.
+
+\vspace{10px}
+
+\noindent The \textbf{Sensitivity} (also called 'Recall') counts how many true positives there are.
+
+\[\scalebox{1.5}{
+        $Sensitivity = \dfrac{True\ Positive}{Actual\ YES} = \dfrac{True\ Positive}{True\ Positive + False\ Negative} $
+}\]
+
+\vspace{10px}
+
+In our confusion matrix from earlier, the Sensitivity would be $\dfrac{100}{100 + 5} = \dfrac{100}{105} = 0.95 = 95\%$
+
+\subsubsection{Sepcificity}
+This is the inverse of the Sensitivity. It counts how many NO the algorithm correctly predicted.o
+
+\[\scalebox{1.5}{
+        $Specificity= \dfrac{True\ Negative}{Actual\ NO} = \dfrac{True\ Negative}{True\ Negative + False\ Positive} $
+}\]
+
+\vspace{10px}
+
+In our confusion matrix from earlier, the Specificity would be $\dfrac{50}{50+ 10} = \dfrac{50}{60} = 0.83 = 83\%$
+
+\subsubsection{Precision}
+Both of the preceding measures relied on the true negative. However, what would you do if you could not count the True Negatives? You use \textbf{Precision}. Precision shows how many times the algorithm is correct if it predicts YES.
+
+\[\scalebox{1.5}{
+        $Precision = \dfrac{True\ Positive}{Predicted\ YES} = \dfrac{True\ Positive}{True\ Positive + False\ Positive}$
+}\]
+
+\vspace{10px}
+
+In our confusion matrix from earlier, the Precision would be $\dfrac{100}{100+ 10} = \dfrac{100}{110} = 0.91 = 91\%$
+
+\subsubsection{F1 Score}
+
+The F1 score is the harmonic mean between precision and recall/sensitivity
+
+\[\scalebox{1.5}{
+        $F1 = \dfrac{2 \cdot Precision \cdot Sensitivity}{Precision + Sensitivity} $
+}\]
+
+In our confusion matrix from earlier, the Precision would be $\dfrac{2 \cdot 0.91 \cdot 0.95}{0.91 + 0.95} = \dfrac{1.73}{1.86} = 0.93 = 93\%$
+
+\vspace{10px}
+
+Due to the fact that the F1 score does not take True Negatives into account, it tends to be strongly biased towards the worse score. 
+
+However, it is still one of the best methods to solve a classification problem with skewed data.
+
+
+\subsection{Measuring the performance of regression}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[keepaspectratio=true, width=\linewidth]{regression_error.png}
+    \label{fig:regression_error}
+\end{figure}
+
+\subsubsection{Coefficient of Determination}
+
+\[\scalebox{1.5}{
+        $R^2 = 1- \dfrac{\dfrac{1}{m} \sum^{m}_{i=1}(y_{i} - f_{i})^2}{\dfrac{1}{m} \sum^{m}_{i=1}(y_{i} - \bar{y})^2} =1 - \dfrac{\sum^{m}_{i=1}(y_{i} - f_{i})^2}{\sum^{m}_{i=1}(y_{i} - \bar{y})^2} $
+}\]
+
+$R^2$ is a staticstical measure of how well the predictions approximate the real data points. 
+The top is the sum of squared errors (how much does the prediction deviate from the actual value) and the botom is the deviation of the mean.
+
+$R^3 = 1$ is a perfect prediction-line
+
+$R^3 = 0.53$ means that 53\% of the of the predictions are correct and can be explained by the model.
+
+
+
+
+\end{document}
