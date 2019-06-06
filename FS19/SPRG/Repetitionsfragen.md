@@ -1,80 +1,79 @@
 
 # Table of Contents
 
-1.  [Repetitionsfragen](#org00ccb24)
-    1.  [Woche 1](#org02989e2)
-        1.  [Was ist der Unterschied zwischen funktionalen-und nichtfunktionalen Anforderungen?](#orgd23502b)
-        2.  [Was ist ein Requirement genau?](#org0b6bd7f)
-        3.  [Definieren Sie den Requirement Engineer (RE) / Business Analyst(BA)](#org2c30992)
-        4.  [Was sind die 4 Kernpunkte/Aktivitäten im RE?](#org57f80d3)
-        5.  [Nennen Sie mindestens 4 Methoden um Requirements zu finden](#org7b6c655)
-        6.  [Wie können Requirements definiert und beschreiben werden?](#orgf581b6b)
-        7.  [Formulieren Sie 3 offene und 3 geschlossene Fragen](#org4dc1291)
-        8.  [Was ist ein Stakeholder (Definitionund mögliche Beispiele)](#orge8bd856)
-        9.  [Warum ist ein Programmierer ggf. nicht geeignet für Security RE?](#org7853476)
-        10. [Was sind die Gefahren, wenn man RE nicht korrekt einplant und durchführt?](#org5c07d74)
-        11. [Was kann man tun / vorgehen, wenn man unter Zeitdruck steht beim RE?](#orgab98674)
-        12. [Zeigen Sie ein System mit Systemgrenzen und Kontext auf](#orgb096e2c)
-    2.  [Woche 2](#org69bd180)
-        1.  [Nennen Sie die 3 Perspektiven in/von welchen man Requirements betrachten kann](#orga27c5bf)
-        2.  [Wie kann man Requirements Beschreiben bzw. Dokumentieren?](#org7389e07)
-        3.  [Nennen Sie die Elemente eines Datenflow Diagramms (DFD)](#orgda67b3c)
-        4.  [Nennen Sie einige Qualitätskriterien von Requirements](#org13cbe78)
-        5.  [Warum ist ein Glossar wichtig?](#org19c3328)
-        6.  [Was gibt es für Standards zur Dokumentation von Requirements, nennen Sie 3](#org616bfda)
-        7.  [Was ist der Unterschied zwischen Security & Safety?](#org8ffeff5)
-        8.  [Was versteht man unter «Defense in depth» Ansatz?](#orga8a0df5)
-        9.  [Was versteht man unter Perimeter Sicherheit?](#org410f9d8)
-        10. [Warum ist Perimeter Sicherheit nicht mehr unbedingt das Grundkonzept für die Sicherheit von Modernen Systemen/IT-Landschaften und was sind die aktuellen Challenges?](#org5abd4c2)
-        11. [Was ist eine Vulnerability?](#org2c0c74d)
-        12. [Was ist ein Exploit?](#org528deb2)
-        13. [Wie wird eine Vulnerability ausgenützt, beschreiben Sie das Vorgehen](#org63dde14)
-        14. [Was ist Malware und wie läuft eine Infektion ab?](#org1e8cc7e)
-    3.  [Woche 3](#org246ab26)
-        1.  [Wie ist das Verhältnis von Kosten und Bugs bzw. Zeitpunkt deren Erkennung im Projekt. Wie können Sie dies nutzen für die Argumentation von Security Requirement Engineering im Projekt?](#orgcd5b741)
-        2.  [Was ist ein SW Bug?](#orga471cbe)
-        3.  [Warum macht man Threat modeling?](#org3d17077)
-        4.  [Was gibt es für rechtliche Anforderungen, die man ggf. beachten sollte?](#org06129e3)
-        5.  [Was ist der Vorteil und Nachteil von einem Wasserfall Model?](#org171e9b0)
-        6.  [Machen Sie ein Beispiel in einer Tabelle für eine Vulnerability und deren Auswirkung analog unserem Bsp. im Unterricht (Vulnerability, Threat, Threat Action, Risk)](#org36b1c91)
-        7.  [Was sind mögliche Quellen von Bugs?](#orga31791f)
-        8.  [Was sind die verschiedenen Activities in einem SW Prozess, nennen Sie diese](#orga487111)
-        9.  [Was ist ein Prozess Model? Nennen Sie 4 Beispiele](#orga0f5abf)
-        10. [Nenne Sie Qualität Attribute in der Software quality assurance](#org7ebb293)
-        11. [Was ist das agile Manifest, was wird darin festgehalten?](#org1655888)
-        12. [Was ist DevOps und was für einen Impact hat dies auf das Security Requirement Engineering?](#org5c24d1e)
-        13. [Was sind die Grundschritte beim SDLC, in welche Schritte beim SDLC kann man Security integrieren?](#org72b762b)
-        14. [Was gibt es für Standard Kataloge bzgl. Security Requirements](#org57b5659)
-        15. [Was ist OWASP, wie kann man OWASP für Security Requirement engineering nutzen?](#org701fb02)
-        16. [Was ist ein Threat? Was ist eine Vulnerability? Was ist der Unterschied?](#orgbd01a30)
-        17. [Was sind die Schritte beim Threat Modeling?](#orge0abda5)
-        18. [Nennen Sie Beispiele für SW Qualität](#org4f56a81)
-        19. [Machen Sie ein korrektes Beispiel eines DFDs inklusive Legende](#org8c80e60)
-        20. [Was ist der Vorteil und Nachteil von einem Agilen Model? Was ist das Kernkonzept der agilen Vorgehensweise?](#org05b1998)
-    4.  [Woche 4](#org0057b86)
-        1.  [Nennen Sie für jeden Threat im STRIDE Model eine Mitigation Massnahme](#orgc3d4bbb)
-        2.  [Wie können AI und ML Threats und das Verhalten von Angreiffern beeinflussen?](#org67e0e06)
-        3.  [Was bedeutet STRIDE?](#orgc271368)
-        4.  [Was bedeutet DREAD](#org5bd5c1d)
-        5.  [Was gibt es für Modelle, um das Riskrating vorzunehmen mit DREAD?](#org7ef5d25)
-        6.  [Was für mögliche Rahmenwerke können Ihnen helfen, um Threats zu identifizieren?](#org3badd8c)
-        7.  [Was ist unter Mitigation zu verstehen?](#org0cafdd5)
-        8.  [Was ist in der heutigen Zeit (Entwicklung der aktuellen IT-Landschaft) die Herausforderung mit STRIDE?](#org006195c)
-        9.  [Beschreiben Sie die 4 Schritte des Threat Modeling Prozesses](#orgde71ff6)
-    5.  [Woche 5](#org37e5f81)
+1.  [Repetitionsfragen](#orgad0df06)
+    1.  [Woche 1](#org1ede011)
+        1.  [Was ist der Unterschied zwischen funktionalen-und nichtfunktionalen Anforderungen?](#orgfdd04c0)
+        2.  [Was ist ein Requirement genau?](#org60c6310)
+        3.  [Definieren Sie den Requirement Engineer (RE) / Business Analyst(BA)](#org7121ffe)
+        4.  [Was sind die 4 Kernpunkte/Aktivitäten im RE?](#org0be7efc)
+        5.  [Nennen Sie mindestens 4 Methoden um Requirements zu finden](#org12caee4)
+        6.  [Wie können Requirements definiert und beschreiben werden?](#orgb882e67)
+        7.  [Formulieren Sie 3 offene und 3 geschlossene Fragen](#orgc2c7bef)
+        8.  [Was ist ein Stakeholder (Definitionund mögliche Beispiele)](#orgac4d7a6)
+        9.  [Warum ist ein Programmierer ggf. nicht geeignet für Security RE?](#orgec76c5c)
+        10. [Was sind die Gefahren, wenn man RE nicht korrekt einplant und durchführt?](#orgb6f403a)
+        11. [Was kann man tun / vorgehen, wenn man unter Zeitdruck steht beim RE?](#org9850fc5)
+        12. [Zeigen Sie ein System mit Systemgrenzen und Kontext auf](#orgbb69523)
+    2.  [Woche 2](#org50997ca)
+        1.  [Nennen Sie die 3 Perspektiven in/von welchen man Requirements betrachten kann](#org05b5710)
+        2.  [Wie kann man Requirements Beschreiben bzw. Dokumentieren?](#org2a08a5a)
+        3.  [Nennen Sie die Elemente eines Datenflow Diagramms (DFD)](#orgc0a886a)
+        4.  [Nennen Sie einige Qualitätskriterien von Requirements](#org0b3e33d)
+        5.  [Warum ist ein Glossar wichtig?](#org91335f1)
+        6.  [Was gibt es für Standards zur Dokumentation von Requirements, nennen Sie 3](#orgf2f99cc)
+        7.  [Was ist der Unterschied zwischen Security & Safety?](#org4ddbafa)
+        8.  [Was versteht man unter «Defense in depth» Ansatz?](#orgadcdeae)
+        9.  [Was versteht man unter Perimeter Sicherheit?](#org90b9597)
+        10. [Warum ist Perimeter Sicherheit nicht mehr unbedingt das Grundkonzept für die Sicherheit von Modernen Systemen/IT-Landschaften und was sind die aktuellen Challenges?](#org4104598)
+        11. [Was ist eine Vulnerability?](#orgfda7fce)
+        12. [Was ist ein Exploit?](#orge44c5e9)
+        13. [Wie wird eine Vulnerability ausgenützt, beschreiben Sie das Vorgehen](#org39148b9)
+        14. [Was ist Malware und wie läuft eine Infektion ab?](#org1be268e)
+    3.  [Woche 3](#orgac7343c)
+        1.  [Wie ist das Verhältnis von Kosten und Bugs bzw. Zeitpunkt deren Erkennung im Projekt. Wie können Sie dies nutzen für die Argumentation von Security Requirement Engineering im Projekt?](#org46a38d9)
+        2.  [Was ist ein SW Bug?](#org1fcb041)
+        3.  [Warum macht man Threat modeling?](#org8ced81d)
+        4.  [Was gibt es für rechtliche Anforderungen, die man ggf. beachten sollte?](#org5dc2bad)
+        5.  [Was ist der Vorteil und Nachteil von einem Wasserfall Model?](#org3850faf)
+        6.  [Machen Sie ein Beispiel in einer Tabelle für eine Vulnerability und deren Auswirkung analog unserem Bsp. im Unterricht (Vulnerability, Threat, Threat Action, Risk)](#org7f890da)
+        7.  [Was sind mögliche Quellen von Bugs?](#orgb18113f)
+        8.  [Was sind die verschiedenen Activities in einem SW Prozess, nennen Sie diese](#orga9692ee)
+        9.  [Was ist ein Prozess Model? Nennen Sie 4 Beispiele](#org149be42)
+        10. [Nenne Sie Qualität Attribute in der Software quality assurance](#orgddd2d4e)
+        11. [Was ist das agile Manifest, was wird darin festgehalten?](#org6b4a719)
+        12. [Was ist DevOps und was für einen Impact hat dies auf das Security Requirement Engineering?](#orgda47ca3)
+        13. [Was sind die Grundschritte beim SDLC, in welche Schritte beim SDLC kann man Security integrieren?](#org6249186)
+        14. [Was gibt es für Standard Kataloge bzgl. Security Requirements](#org8c9248c)
+        15. [Was ist OWASP, wie kann man OWASP für Security Requirement engineering nutzen?](#org1d523f2)
+        16. [Was ist ein Threat? Was ist eine Vulnerability? Was ist der Unterschied?](#org48c0987)
+        17. [Was sind die Schritte beim Threat Modeling?](#org5310d07)
+        18. [Nennen Sie Beispiele für SW Qualitlt](#org60a281d)
+        19. [Machen Sie ein korrektes Beispiel eines DFDs inklusive Legende](#org2cce260)
+        20. [Was ist der Vorteil und Nachteil von einem Agilen Model? Was ist das Kernkonzept der agilen Vorgehensweise?](#org7b53e2f)
+    4.  [Woche 4](#org21cfe7c)
+        1.  [Nennen Sie für jeden Threat im STRIDE Model eine Mitigation Massnahme](#orgaec6e90)
+        2.  [Wie können AI und ML Threats und das Verhalten von Angreiffern beeinflussen?](#org2ef304a)
+        3.  [Was bedeutet STRIDE?](#orge47f80f)
+        4.  [Was bedeutet DREAD](#orgb8f94e0)
+        5.  [Was gibt es für Modelle, um das Riskrating vorzunehmen mit DREAD?](#orgbb859ee)
+        6.  [Was für mögliche Rahmenwerke können Ihnen helfen, um Threats zu identifizieren?](#orgb5d28dc)
+        7.  [Was ist unter Mitigation zu verstehen?](#org1e708ab)
+        8.  [Was ist in der heutigen Zeit (Entwicklung der aktuellen IT-Landschaft) die Herausforderung mit STRIDE?](#org3f0dbff)
+        9.  [Beschreiben Sie die 4 Schritte des Threat Modeling Prozesses](#orgde4275e)
 
 
-<a id="org00ccb24"></a>
+<a id="orgad0df06"></a>
 
 # Repetitionsfragen
 
 
-<a id="org02989e2"></a>
+<a id="org1ede011"></a>
 
 ## Woche 1
 
 
-<a id="orgd23502b"></a>
+<a id="orgfdd04c0"></a>
 
 ### Was ist der Unterschied zwischen funktionalen-und nichtfunktionalen Anforderungen?
 
@@ -91,14 +90,14 @@
     -   Es müssen 10'000 Kaffees rausgelassen werden können bevor die Maschine nachgefüllt werden muss
 
 
-<a id="org0b6bd7f"></a>
+<a id="org60c6310"></a>
 
 ### Was ist ein Requirement genau?
 
 Eine Bedingung oder Fähigkeit des Produktes, die ein user benötigt, zu, ein gestelltes Problem zu lösen
 
 
-<a id="org2c30992"></a>
+<a id="org7121ffe"></a>
 
 ### Definieren Sie den Requirement Engineer (RE) / Business Analyst(BA)
 
@@ -146,7 +145,7 @@ Eine Bedingung oder Fähigkeit des Produktes, die ein user benötigt, zu, ein ge
         -   "Aufräumen" der Dokumentation
 
 
-<a id="org57f80d3"></a>
+<a id="org0be7efc"></a>
 
 ### Was sind die 4 Kernpunkte/Aktivitäten im RE?
 
@@ -168,22 +167,22 @@ Eine Bedingung oder Fähigkeit des Produktes, die ein user benötigt, zu, ein ge
     dass die Devs ein Produkt/eine Software danach entwickeln können, das Management sie aber trotzdem noch versteht. Ebenfalls muss eine Konsistenz geschaffen werden.
 
 
-<a id="org7b6c655"></a>
+<a id="org12caee4"></a>
 
 ### Nennen Sie mindestens 4 Methoden um Requirements zu finden
 
-1.  Dokumentations-Analyse
-2.  Interviews mit Stakeholdern
-3.  Workshops
-4.  Questionnaires
-5.  Brainstorming
+-   Dokumentations-Analyse
+-   Interviews mit Stakeholdern
+-   Workshops
+-   Questionnaires
+-   Brainstorming
 
 1.  Welche davon sind Kreativ Methoden?
 
     Kreativ-Methoden dienen dazu, ****innovative**** Requirements zu finden.
 
 
-<a id="orgf581b6b"></a>
+<a id="orgb882e67"></a>
 
 ### Wie können Requirements definiert und beschreiben werden?
 
@@ -204,7 +203,7 @@ Eine Bedingung oder Fähigkeit des Produktes, die ein user benötigt, zu, ein ge
         Begiunn eines Projektes zu definieren, weil sich während der Laufzeit des Projektes noch viel verändernk kann.
 
 
-<a id="org4dc1291"></a>
+<a id="orgc2c7bef"></a>
 
 ### Formulieren Sie 3 offene und 3 geschlossene Fragen
 
@@ -221,7 +220,7 @@ Eine Bedingung oder Fähigkeit des Produktes, die ein user benötigt, zu, ein ge
 -   Habt ihr schon mit den Stakeholder gesprochen?
 
 
-<a id="orge8bd856"></a>
+<a id="orgac4d7a6"></a>
 
 ### Was ist ein Stakeholder (Definitionund mögliche Beispiele)
 
@@ -237,42 +236,42 @@ Eine Person, die am Produkt interessiert ist (Entweder Endnutzer oder Distributo
     &#x2026;.
 
 
-<a id="org7853476"></a>
+<a id="orgec76c5c"></a>
 
 ### Warum ist ein Programmierer ggf. nicht geeignet für Security RE?
 
 Er hat nicht das nötige Know-How und ggf. auch nicht die Zeit. Zduem ist er 'zu nah' am Produkt (Creator-Blindness)
 
 
-<a id="org5c07d74"></a>
+<a id="orgb6f403a"></a>
 
 ### Was sind die Gefahren, wenn man RE nicht korrekt einplant und durchführt?
 
 Es kommt wesentlich teurer, die Fehler bei/nach der Implementierung zu flicken, da viele Dinge voneinander abhängen
 
 
-<a id="orgab98674"></a>
+<a id="org9850fc5"></a>
 
 ### Was kann man tun / vorgehen, wenn man unter Zeitdruck steht beim RE?
 
 Risikobasiertes Priorisieren und von oben anfangen (Requirement mit dem höchsten Risiko) und so weit arbeiten wie man kommt
 
 
-<a id="orgb096e2c"></a>
+<a id="orgbb69523"></a>
 
 ### Zeigen Sie ein System mit Systemgrenzen und Kontext auf
 
 1.  Machen Sie ein simples Beispiel dazu um dies zu erklären(Bsp. Kaffeemaschine)
 
-    ![img](./imgs/order-processing-system-contsxt.png)
+    ![img](/home/alex/Dropbox/Apps/MobileOrg/imgs/order-processing-system-contsxt.png)
 
 
-<a id="org69bd180"></a>
+<a id="org50997ca"></a>
 
 ## Woche 2
 
 
-<a id="orga27c5bf"></a>
+<a id="org05b5710"></a>
 
 ### Nennen Sie die 3 Perspektiven in/von welchen man Requirements betrachten kann
 
@@ -291,7 +290,7 @@ Risikobasiertes Priorisieren und von oben anfangen (Requirement mit dem höchste
     Dies wird meist mittels State-Diagrammen dargestellt.
 
 
-<a id="org7389e07"></a>
+<a id="org2a08a5a"></a>
 
 ### Wie kann man Requirements Beschreiben bzw. Dokumentieren?
 
@@ -329,14 +328,14 @@ Risikobasiertes Priorisieren und von oben anfangen (Requirement mit dem höchste
         ![img](./imgs/state_diagram.png)
 
 
-<a id="orgda67b3c"></a>
+<a id="orgc0a886a"></a>
 
 ### Nennen Sie die Elemente eines Datenflow Diagramms (DFD)
 
-![img](./img/dfd.png)
+![img](./imgs/dfd_elements.png)
 
 
-<a id="org13cbe78"></a>
+<a id="org0b3e33d"></a>
 
 ### Nennen Sie einige Qualitätskriterien von Requirements
 
@@ -347,14 +346,14 @@ Risikobasiertes Priorisieren und von oben anfangen (Requirement mit dem höchste
 -   Nachverfolgbar
 
 
-<a id="org19c3328"></a>
+<a id="org91335f1"></a>
 
 ### Warum ist ein Glossar wichtig?
 
 So dass alle Beteiligten vom Gleichen sprechen, wennsie dasselbe Wort benutzen. 
 
 
-<a id="org616bfda"></a>
+<a id="orgf2f99cc"></a>
 
 ### Was gibt es für Standards zur Dokumentation von Requirements, nennen Sie 3
 
@@ -363,7 +362,7 @@ So dass alle Beteiligten vom Gleichen sprechen, wennsie dasselbe Wort benutzen.
 -   ISO/IEC/IEEE standard 29148:2011
 
 
-<a id="org8ffeff5"></a>
+<a id="org4ddbafa"></a>
 
 ### Was ist der Unterschied zwischen Security & Safety?
 
@@ -371,55 +370,56 @@ Security schützt Systeme gegen Angriffe
 Safety schützt Mensch und Umwelt gegen Systeme
 
 
-<a id="orga8a0df5"></a>
+<a id="orgadcdeae"></a>
 
 ### Was versteht man unter «Defense in depth» Ansatz?
 
 Es soll nicht mehr nur der Perimeter geschützt werden, sondern auch im Netzwerk müssen Security-measures deployed werden (z.B. Endpoint Detection and Response)
 
 
-<a id="org410f9d8"></a>
+<a id="org90b9597"></a>
 
 ### Was versteht man unter Perimeter Sicherheit?
 
 Es muss sichergestellt werden, dass kein Angreifer von aussen ins Netzwerk kommt. "Grenzwache"
 
 
-<a id="org5abd4c2"></a>
+<a id="org4104598"></a>
 
 ### Warum ist Perimeter Sicherheit nicht mehr unbedingt das Grundkonzept für die Sicherheit von Modernen Systemen/IT-Landschaften und was sind die aktuellen Challenges?
 
-Die heutige Netzwerkstruktur ist zu komplex, um rein durch Perimeter-Sicherung geschützt werden zu können. Wenn nur Perimeter-Security angewendet wird, und der Angreifer kommt trotzdem irgendwie ins Netzwert, ist man am Arsch. Mit in-depth Sicherheit ist er zwar im Netzwerk, aber dank z.B. Netzwerk-Segmentation ist 'nur' ein einzelner Netzwerksektor betroffen, der in Lockdown versetzt werden kann.
+Die heutige Netzwerkstruktur ist zu komplex, um rein durch Perimeter-Sicherung geschützt werden zu können. Man kann die 'Aussengrenze' eines Netzwerks nicht mehr genau definieren. Wenn nur Perimeter-Security angewendet wird, und der Angreifer kommt trotzdem irgendwie ins Netzwert, ist man am Arsch. Mit in-depth Sicherheit ist er zwar im Netzwerk, aber dank z.B. Netzwerk-Segmentation ist 'nur' ein einzelner Netzwerksektor betroffen, der in Lockdown versetzt werden kann.
+Zusem können Attacken heute auch von innen heraus kommen.
 
 
-<a id="org2c0c74d"></a>
+<a id="orgfda7fce"></a>
 
 ### Was ist eine Vulnerability?
 
 Ein Programmier- und/oder Designfehler, der zu Security-Bedrohungen/Schaden führen kann.
 
 
-<a id="org528deb2"></a>
+<a id="orge44c5e9"></a>
 
 ### Was ist ein Exploit?
 
 Technik zur Ausnutzung einer Vulnerability
 
 
-<a id="org63dde14"></a>
+<a id="org39148b9"></a>
 
 ### Wie wird eine Vulnerability ausgenützt, beschreiben Sie das Vorgehen
 
 Es wird Programmcode geschrieben, der den Programm- oder Designfehler ausnützt, meist um Schadcode in ein System zu injizieren.
 
 
-<a id="org1e8cc7e"></a>
+<a id="org1be268e"></a>
 
 ### Was ist Malware und wie läuft eine Infektion ab?
 
 Malware = **Mal** icious **Soft** ware.
 
-![img](./img/vulnerability_ausnutzen.png)
+![img](./imgs/vulnerability_ausnutzen.png)
 
 1.  Infect
 
@@ -434,40 +434,41 @@ Malware = **Mal** icious **Soft** ware.
     Die Malware führt nun Schadcode aus, die z.B. Daten exfiltrieren oder verschlüsseln kann.
 
 
-<a id="org246ab26"></a>
+<a id="orgac7343c"></a>
 
 ## Woche 3
 
 
-<a id="orgcd5b741"></a>
+<a id="org46a38d9"></a>
 
 ### Wie ist das Verhältnis von Kosten und Bugs bzw. Zeitpunkt deren Erkennung im Projekt. Wie können Sie dies nutzen für die Argumentation von Security Requirement Engineering im Projekt?
 
 Je später der Bug gefunden wird, desto teurer wird es, ihn zu fixen. Denn im Verlauf des Projektes wird die Software immer komplexer mit mehr Abhängigkeiten. 
 
 
-<a id="orga471cbe"></a>
+<a id="org1fcb041"></a>
 
 ### Was ist ein SW Bug?
 
 Ein Fehler in einem Programm, das dazu führt, dass es sich nicht so verhält wie erwartet und/oder falsche Resultate liefert.
 
 
-<a id="org3d17077"></a>
+<a id="org8ced81d"></a>
 
 ### Warum macht man Threat modeling?
 
-TODO
+Um die Netzwerk- und Applikationssicherheit zu verbessern. 
+Dies, indem man kritische Assets identifiziert, mögliche Attacken auf diese Assets analysiert und basierend darauf Gegenmassnahmen plant und einleitet, die diese Attacken verunmöglichen oder zumindest das Rikio abschwächen.
 
 
-<a id="org06129e3"></a>
+<a id="org5dc2bad"></a>
 
 ### Was gibt es für rechtliche Anforderungen, die man ggf. beachten sollte?
 
-TODO
+In gewissen Branchen muss man compliant zu gewissen Regulationen sein (HIPAA, PCI-DSS etc.)
 
 
-<a id="org171e9b0"></a>
+<a id="org3850faf"></a>
 
 ### Was ist der Vorteil und Nachteil von einem Wasserfall Model?
 
@@ -483,14 +484,14 @@ TODO
     -   Ist sehr starr und reagiert nicht auf allfällige Änderungen während des Projekts
 
 
-<a id="org36b1c91"></a>
+<a id="org7f890da"></a>
 
 ### Machen Sie ein Beispiel in einer Tabelle für eine Vulnerability und deren Auswirkung analog unserem Bsp. im Unterricht (Vulnerability, Threat, Threat Action, Risk)
 
-TODO
+![img](./imgs/vuln_threat_action.png)
 
 
-<a id="orga31791f"></a>
+<a id="orgb18113f"></a>
 
 ### Was sind mögliche Quellen von Bugs?
 
@@ -504,7 +505,7 @@ TODO
 -   Keine Tester
 
 
-<a id="orga487111"></a>
+<a id="orga9692ee"></a>
 
 ### Was sind die verschiedenen Activities in einem SW Prozess, nennen Sie diese
 
@@ -514,11 +515,11 @@ TODO
 -   **Software Evolution/Maintenance:** Die Software muss gewartet und je nach den Kundenwünschen angepasst werden.
 
 
-<a id="orga0f5abf"></a>
+<a id="org149be42"></a>
 
 ### Was ist ein Prozess Model? Nennen Sie 4 Beispiele
 
-Das Prozess Modell ist ein Startpunk für die Projektplanung und -management. 
+Das Prozess Modell ist ein Startpunkt für die Projektplanung und -management. 
 
 -   Wasserfall
 
@@ -537,7 +538,7 @@ Das Prozess Modell ist ein Startpunk für die Projektplanung und -management.
 &#x2013; Ähnlich wie RUP. Jedoch meist zeitbasiert anstelle von funktionsbasiert. Es wird eine Zeitspanne für einen 'Sprint' festgelegt und was in diesem Sprint implementiert werden soll. Nach diese Zeitraum wird dem Kunden die implementierte (Teil-)Software übergeben und es beginnt ein enuer Sprint.
 
 
-<a id="org7ebb293"></a>
+<a id="orgddd2d4e"></a>
 
 ### Nenne Sie Qualität Attribute in der Software quality assurance
 
@@ -580,7 +581,7 @@ Das Prozess Modell ist ein Startpunk für die Projektplanung und -management.
 &#x2013; Ersetzbarkeit
 
 
-<a id="org1655888"></a>
+<a id="org6b4a719"></a>
 
 ### Was ist das agile Manifest, was wird darin festgehalten?
 
@@ -592,7 +593,7 @@ Prinzipien, wie man agile Software entwickeln sollte. Prinzipiell basiert es auf
 -   Reagieren auf Veränderung mehr als das Befolgen eines Plans
 
 
-<a id="org5c24d1e"></a>
+<a id="orgda47ca3"></a>
 
 ### Was ist DevOps und was für einen Impact hat dies auf das Security Requirement Engineering?
 
@@ -602,7 +603,7 @@ Durch gemeinsame Prozesse, Anreize und Tools soll die Zusammenarbeit dieser zwei
 Wenn Development und Operations beide dieselben Security Prinzipien haben, wird es mehr und konsequenter durchgesetzt und verbessert so die allgemeine Sicherheit der Software
 
 
-<a id="org72b762b"></a>
+<a id="org6249186"></a>
 
 ### Was sind die Grundschritte beim SDLC, in welche Schritte beim SDLC kann man Security integrieren?
 
@@ -638,49 +639,108 @@ Wenn Development und Operations beide dieselben Security Prinzipien haben, wird 
 &#x2013; Bei Bedarf den definierten Security-Response Plan durcharbeiten
 
 
-<a id="org57b5659"></a>
+<a id="org8c9248c"></a>
 
 ### Was gibt es für Standard Kataloge bzgl. Security Requirements
 
+-   Rational Unified Process (RUP)
+-   ISO/IEC/IEEE standard 29148:211
+-   V-Model
 
-<a id="org701fb02"></a>
 
-### Was ist OWASP, wie kann man OWASP für Security Requirement engineering nutzen?
+<a id="org1d523f2"></a>
+
+### Was ist OWASP, wie kann man OWASP für Security Requirement engineering nutzen?
+
+[OWASP](https://owasp.org) = Open Web Application Security Project. 
+
+OWASP ist eine non-profit Organisation, die sich das sichere Entwickeln von (Web)Applikationen zum Ziel gesetzt hat. Sie veröffentlicht regelmässig Guides und defacto Standards zur freien Verfügung.
 
 
-<a id="orgbd01a30"></a>
+<a id="org48c0987"></a>
 
 ### Was ist ein Threat? Was ist eine Vulnerability? Was ist der Unterschied?
 
+1.  Vulnerability
 
-<a id="orge0abda5"></a>
+    Eine Schwachstelle in einem Programm/Protokoll, die ausgenutzt werden kann z.b. um unauthorisierten Zugriff auf ein Asset zu erhalten
+
+2.  Threat
+
+    Eine ausgenutzte Vulnerability
+    
+    ![img](./imgs/vuln_threat.png)
+    
+    ![img](./imgs/threat_terms.png)
+
+
+<a id="org5310d07"></a>
 
 ### Was sind die Schritte beim Threat Modeling?
 
+![img](./imgs/threat_modeling.png)
 
-<a id="org4f56a81"></a>
-
-### Nennen Sie Beispiele für SW Qualität
+![img](./imgs/threat_modeling_process.png)
 
 
-<a id="org8c80e60"></a>
+<a id="org60a281d"></a>
+
+### Nennen Sie Beispiele für SW Qualitlt
+
+-   Software hat alle Features, die für das Erfüllen der Requirements benötigt werden
+-   Software hat Security- und Safety-Requirments erfüllt
+
+
+<a id="org2cce260"></a>
 
 ### Machen Sie ein korrektes Beispiel eines DFDs inklusive Legende
 
+![img](./imgs/dfd.png)
 
-<a id="org05b1998"></a>
+
+<a id="org7b53e2f"></a>
 
 ### Was ist der Vorteil und Nachteil von einem Agilen Model? Was ist das Kernkonzept der agilen Vorgehensweise?
 
+1.  Kernkonzept
 
-<a id="org0057b86"></a>
+    -   Wiederverwendung von Ressourcen
+    -   KISS (Keep It Small and Simple / Keep It Simple Stupid)
+    -   Der Code 'gehört' dem ganzen Team
+    -   Funktionelles und Kundenorientiertes Programmieren
+
+2.  Vorteile
+
+    -   Wenige Regeln, leicht verständlich und schnell einführbar
+    -   Kurze Kommunikationswege
+    -   Hohe Flexibilität/Agilität durch adaptives Planen
+    -   Hohe Effektivität durch Selbstorganisation
+    -   Hohe Transparenz durch regelmäßige Meetings und Backlogs
+    -   Zeitnahe Realisation neuer Produkteigenschaften bzw. Inkremente
+    -   Kontinuierlicher Verbesserungsprozess
+    -   Kurzfristige Problem-Identifikation
+    -   Geringer Administrations- und Dokumentationsaufwand
+
+3.  Nachteile
+
+    -   Kein Gesamtüberblick über die komplette Projektstrecke
+    -   Hoher Kommunikations- und Abstimmungsaufwand
+    -   Wenige konkrete Handlungsempfehlungen
+    -   Zeitverluste bei zu „defensiven" Sprintplanungen
+    -   „Tunnelblick-Gefahr" bei ausschließlicher Fokussierung auf Tasks
+    -   Erschwerte Koordination mehrerer Entwicklungsteams bei Großprojekten
+    -   Potenzielle Verunsicherung aufgrund fehlender Zuständigkeiten und Hierarchien
+    -   Potenzielle Unvereinbarkeit mit bestehenden Unternehmensstrukturen
+
+
+<a id="org21cfe7c"></a>
 
 ## Woche 4
 
 
-<a id="orgc3d4bbb"></a>
+<a id="orgaec6e90"></a>
 
-### Nennen Sie für jeden Threat im STRIDE Model eine Mitigation Massnahme
+### Nennen Sie für jeden Threat im STRIDE Model eine Mitigation Massnahme
 
 -   **Spoofing**: 2FA
 -   **Tampering**: Checksum
@@ -690,29 +750,28 @@ Wenn Development und Operations beide dieselben Security Prinzipien haben, wird 
 -   **Elevation of Privilege**: Strong authorization
 
 
-<a id="org67e0e06"></a>
+<a id="org2ef304a"></a>
 
-### Wie können AI und ML Threats und das Verhalten von Angreiffern beeinflussen?
+### Wie können AI und ML Threats und das Verhalten von Angreiffern beeinflussen?
 
--   AI: Behaviour erkennen und Gegenmassnahmen einleiten
--   
+Behaviour erkennen und Gegenmassnahmen einleiten
 
 
-<a id="orgc271368"></a>
+<a id="orge47f80f"></a>
 
 ### Was bedeutet STRIDE?
 
--   Spoofing
--   Tampering
--   Repudiation
--   Information Disclosure
--   Denial of Service
--   Elevation of Privilege
+-   Spoofing (Ich gebe mich für den CEO aus, obwohl ich ihn nicht bin)
+-   Tampering (Ein DLL für einen Service modifizieren. so dass es Schadcode nachladen kann)
+-   Repudiation ("Ich habe den Spam-Link **nie** geklickt")
+-   Information Disclosure (Kundenliste auf der Website veröffentlichen)
+-   Denial of Service (Mailserver so zuspammen, dass niemand mehr Mails senden/empfangen kann)
+-   Elevation of Privilege (Ich kann problemlos 'sudo' Kommandos auf dem Produktionsserver laufen lassen)
 
-1.  Geben Sie zu jedem Threat das dazugehörige Property an
+1.  Geben Sie zu jedem Threat das dazugehörige Property an
 
     -   Authentication
-    -   Iintegrity
+    -   Integrity
     -   Nonrepudiation
     -   Confidentiality
     -   Availability
@@ -721,7 +780,7 @@ Wenn Development und Operations beide dieselben Security Prinzipien haben, wird 
     TODO: Beispiele machen
 
 
-<a id="org5bd5c1d"></a>
+<a id="orgb8f94e0"></a>
 
 ### Was bedeutet DREAD
 
@@ -739,34 +798,47 @@ Wenn Development und Operations beide dieselben Security Prinzipien haben, wird 
     -   Affected Users: Wie viele User sind betroffen, sollte die Vulnerability exploitet wrden
 
 
-<a id="org7ef5d25"></a>
+<a id="orgbb859ee"></a>
 
-### Was gibt es für Modelle, um das Riskrating vorzunehmen mit DREAD?
+### Was gibt es für Modelle, um das Riskrating vorzunehmen mit DREAD?
 
 
-<a id="org3badd8c"></a>
+<a id="orgb5d28dc"></a>
 
-### Was für mögliche Rahmenwerke können Ihnen helfen, um Threats zu identifizieren?
+### Was für mögliche Rahmenwerke können Ihnen helfen, um Threats zu identifizieren?
 
 1.  Nennen Sie 3
 
 
-<a id="org0cafdd5"></a>
+<a id="org1e708ab"></a>
 
 ### Was ist unter Mitigation zu verstehen?
 
+Ein Problem addressieren und abschwächen oder lösen
 
-<a id="org006195c"></a>
+
+<a id="org3f0dbff"></a>
 
 ### Was ist in der heutigen Zeit (Entwicklung der aktuellen IT-Landschaft) die Herausforderung mit STRIDE?
 
 
-<a id="orgde71ff6"></a>
+<a id="orgde4275e"></a>
 
 ### Beschreiben Sie die 4 Schritte des Threat Modeling Prozesses
 
+1.  Diagramm
 
-<a id="org37e5f81"></a>
+    Applikationsdiagramm (z.B. DFD) zeichnen mit Trust- und System-Boundaries
 
-## Woche 5
+2.  Threats identifizieren
+
+    Mittels STRIDE / DREAD mögliche Threats identifizeiren
+
+3.  Threts mitigieren
+
+    Allfällige gefundene Threats mitigieren
+
+4.  Validierung
+
+    Alle Risiken, die nicht mitigiert werden können, müssen eine Ebene höher gegeben werden, so dass das Management darüber befinden kann, ob das Risiko zumutbar ist.
 
