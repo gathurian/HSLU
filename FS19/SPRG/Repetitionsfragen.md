@@ -76,18 +76,17 @@
 <a id="orgfdd04c0"></a>
 
 ### Was ist der Unterschied zwischen funktionalen-und nichtfunktionalen Anforderungen?
+**Funktionale Anforderungen:** *Was* muss das System können?
 
-1.  3 Beispiele für funktionale Anforderungen
+-   Die Maschine muss Kaffee rauslassen können
+-   Der Kaffee muss mit Bargeld oder Karte bezahlt werden können
+-   Es muss ein Nachfüllmechanismus vorhanden sein
 
-    -   Die Maschine muss Kaffee rauslassen können
-    -   Der Kaffee muss mit Bargeld oder Karte bezahlt werden können
-    -   Es muss ein Nachfüllmechanismus vorhanden sein
+**Nicht-funktionale Anforderungen** *Qualität* der zu erfüllenden Dienstleistungen
 
-2.  3 Beispiele für nichtfunktionale Anforderungen
-
-    -   Es müssen mehrere Arten von Kaffee zur Verfügung stehen
-    -   Das UI muss ein touchscreen sein
-    -   Es müssen 10'000 Kaffees rausgelassen werden können bevor die Maschine nachgefüllt werden muss
+-   Es müssen mehrere Arten von Kaffee zur Verfügung stehen
+-   Das UI muss ein touchscreen sein
+-   Es müssen 10'000 Kaffees rausgelassen werden können bevor die Maschine nachgefüllt werden muss
 
 
 <a id="org60c6310"></a>
@@ -103,46 +102,46 @@ Eine Bedingung oder Fähigkeit des Produktes, die ein user benötigt, zu, ein ge
 
 1.  Was ist die Rolle eines RE in einem Projekt?
 
-    Der RE ist die Schnittstelle zwischen der technischen Seite des Projektes (den Programmierern) und dem Management. Er kann zwischen diesen beiden Seiten 'übersetzen'
+Der RE ist die Schnittstelle zwischen der technischen Seite des Projektes (den Programmierern) und dem Management. Er kann zwischen diesen beiden Seiten 'übersetzen'
 
 2.  In welchen Phasen ist der RE involviert?
 
-    In allen Phasen
+**In allen Phasen**
     
-    1.  Requirement Analyse
+1.  Requirement Analyse
     
-        -   Stakeholder-Analyse
-        -   DokumentenAnalyse
-        -   Erhebung der Anforderungen
-        -   Workshops / Interviews mit Stakeholder
-        -   Business und User-Requirement Analyse
-        -   Auflistung und Priorisierung der Use-Cases
+-   Stakeholder-Analyse
+-   DokumentenAnalyse
+-   Erhebung der Anforderungen
+-   Workshops / Interviews mit Stakeholder
+-   Business und User-Requirement Analyse
+-   Auflistung und Priorisierung der Use-Cases
     
-    2.  Design
+2.  Design
     
-        -   Detaillierte Spezifikationen von Business-Problemen, Aktoren, Use-Cases und Interfaces
-        -   GUI Design
-        -   Review der Spezifikationen
-        -   Abnahme der Spezifikationen
+-   Detaillierte Spezifikationen von Business-Problemen, Aktoren, Use-Cases und Interfaces
+-   GUI Design
+-   Review der Spezifikationen
+-   Abnahme der Spezifikationen
     
-    3.  Implementation
+3.  Implementation
+
+-   Walkthrough der Spezifikationen mit Technical Project Lead (TPL) und Devs
+-   Support der Devs
+-   Klärung von allfälligen neuen Punkten mit den Business Stakeholdern
+-   Change Management
+
+4.  Testing
+
+-   Test Support
+-   Klärung von allfälligen Defekten
+-   Klärungen von allfälligen neuen Issues
+-   Change Management
     
-        -   Walkthrough der Spezifikationen mit Technical Project Lead (TPL) und Devs
-        -   Support der Devs
-        -   Klärung von allfälligen neuen Punkten mit den Business Stakeholdern
-        -   Change Management
+5.  Evolution
     
-    4.  Testing
-    
-        -   Test Support
-        -   Klärung von allfälligen Defekten
-        -   Klärungen von allfälligen neuen Issues
-        -   Change Management
-    
-    5.  Evolution
-    
-        -   Analyse der Change Requests
-        -   "Aufräumen" der Dokumentation
+-   Analyse der Change Requests
+-   "Aufräumen" der Dokumentation
 
 
 <a id="org0be7efc"></a>
@@ -151,20 +150,19 @@ Eine Bedingung oder Fähigkeit des Produktes, die ein user benötigt, zu, ein ge
 
 1.  Elicitation
 
-    Während der Erhebung der Requirements werden verschiedene Techniken verwenden, um Requirements von Stakeholdern (und allfälligen anderen Quellen) zu erhalten und zu verbessern
+Während der Erhebung der Requirements werden verschiedene Techniken verwenden, um Requirements von Stakeholdern (und allfälligen anderen Quellen) zu erhalten und zu verbessern
 
 2.  Documentation
 
-    In der Dokumentationsphase werden die erhobenen Requirements genauer beschrieben. Auch hier werden verschiedene Technologien verwendet.
+In der Dokumentationsphase werden die erhobenen Requirements genauer beschrieben. Auch hier werden verschiedene Technologien verwendet.
 
 3.  Validation and Negotiation
 
-    Um sicherzustellen, dass die erhobenen Requirements den Ansprüchen der Stakeholder genügen, müssen sie schon früh validiert und allenfalls tiefer verhandelt werden
+Um sicherzustellen, dass die erhobenen Requirements den Ansprüchen der Stakeholder genügen, müssen sie schon früh validiert und allenfalls tiefer verhandelt werden
 
 4.  Management
 
-    Requirement Management wird in allen bisher genannten Aktivitäten benötigt und beinhaltet alle benötigten Massnahmen um die erhobenen Requirements zu strukturieren. Das heisst, sie so zu verarbeiten,
-    dass die Devs ein Produkt/eine Software danach entwickeln können, das Management sie aber trotzdem noch versteht. Ebenfalls muss eine Konsistenz geschaffen werden.
+Requirement Management wird in allen bisher genannten Aktivitäten benötigt und beinhaltet alle benötigten Massnahmen um die erhobenen Requirements zu strukturieren. Das heisst, sie so zu verarbeiten, dass die Devs ein Produkt/eine Software danach entwickeln können, das Management sie aber trotzdem noch versteht. Ebenfalls muss eine Konsistenz geschaffen werden.
 
 
 <a id="org12caee4"></a>
@@ -177,30 +175,28 @@ Eine Bedingung oder Fähigkeit des Produktes, die ein user benötigt, zu, ein ge
 -   Questionnaires
 -   Brainstorming
 
-1.  Welche davon sind Kreativ Methoden?
+#### Welche davon sind Kreativ Methoden?
 
-    Kreativ-Methoden dienen dazu, ****innovative**** Requirements zu finden.
+Kreativ-Methoden dienen dazu, *innovative* Requirements zu finden.
 
 
 <a id="orgb882e67"></a>
 
 ### Wie können Requirements definiert und beschreiben werden?
 
-1.  Beispiele für ein statisches und agiles Vorgehen?
+####  Beispiele für ein statisches und agiles Vorgehen?
 
-    1.  Statisch
+**Statisch**
     
-        Wasserfall-Modell
+*Wasserfall-Modell*
         
-        -   Alle Requirements werden bereits zu Beginn erhoben, verfeinert und dokumentiert und sollten sich im Verlauf des Projektes möglichst nicht ändern.
+Alle Requirements werden bereits zu Beginn erhoben, verfeinert und dokumentiert und sollten sich im Verlauf des Projektes möglichst nicht ändern.
     
-    2.  Agil
+**Agil**
     
-        SCRUM/Sprint-Basiert:
+*SCRUM/Sprint-Basiert:*
         
-        -   Requirements werden 'on the go' erhoben. Erst bevor sie implementiert werden, werden die Requirements als 'Features' definiert. Dies, da es schwer ist, alle benötigten Funktionalitäten bereits zu
-        
-        Begiunn eines Projektes zu definieren, weil sich während der Laufzeit des Projektes noch viel verändernk kann.
+Requirements werden 'on the go' erhoben. Erst bevor sie implementiert werden, werden die Requirements als 'Features' definiert. Dies, da es schwer ist, alle benötigten Funktionalitäten bereits zu Beginn eines Projektes zu definieren, weil sich während der Laufzeit des Projektes noch viel verändernk kann.
 
 
 <a id="orgc2c7bef"></a>
@@ -228,10 +224,10 @@ Eine Person, die am Produkt interessiert ist (Entweder Endnutzer oder Distributo
 
 1.  Zeichnen Sie eine Stakeholderliste anhanden des Kaffeemaschine Cases
 
-    -   Kaffee-Hersteller
-    -   Betreiber von Kaffeemaschinen
-    -   Universitäts/Hochschulsbetreiber
-    -   Kaffeetrinker
+-   Kaffee-Hersteller
+-   Betreiber von Kaffeemaschinen
+-   Universitäts/Hochschulsbetreiber
+-   Kaffeetrinker
     
     &#x2026;.
 
@@ -261,9 +257,7 @@ Risikobasiertes Priorisieren und von oben anfangen (Requirement mit dem höchste
 
 ### Zeigen Sie ein System mit Systemgrenzen und Kontext auf
 
-1.  Machen Sie ein simples Beispiel dazu um dies zu erklären(Bsp. Kaffeemaschine)
-
-    ![img](/home/alex/Dropbox/Apps/MobileOrg/imgs/order-processing-system-contsxt.png)
+![img](./imgs/order-processing-system-contsxt.png)
 
 
 <a id="org50997ca"></a>
@@ -275,57 +269,57 @@ Risikobasiertes Priorisieren und von oben anfangen (Requirement mit dem höchste
 
 ### Nennen Sie die 3 Perspektiven in/von welchen man Requirements betrachten kann
 
-1.  Datenperspektive
+**Datenperspektive**
 
-    Welches **Format** bzw. welche **Struktur** haben die **Daten**, die in das **System hereingegeben** werden und welches Format bzw. Struktur haben die **retournierten Daten**?
+Welches *Format* bzw. welche *Struktur* haben die *Daten*, die in das *System hereingegeben* werden und welches Format bzw. Struktur haben die *retournierten Daten*?
 
-2.  Funktionale Perspektive
+**Funktionale Perspektive**
 
-    Welche Informationen (Daten) werden vom System empfangen und von dessen Methoden/Funktionen verarbeitet. Diese Dokumentationsmethode beschreibt ebenfalls, welche Daten wieder zurückgegeben werden. Ebenfalls wichtigt ist es zu dokumentieren, **in welcher Reihenfolge** die Funktionen/Methoden die empfangenen Daten verarbeiten.
+Welche *Informationen* (Daten) werden *vom System empfangen* und von dessen Methoden/Funktionen *verarbeitet*. Diese Dokumentationsmethode beschreibt ebenfalls, welche Daten wieder zurückgegeben werden. Ebenfalls wichtigt ist es zu dokumentieren, *in welcher Reihenfolge* die Funktionen/Methoden die empfangenen Daten verarbeiten.
 
-3.  Verhaltensperspektive
+**Verhaltensperspektive**
 
-    Diese Methode beschreibt wie das System mit dem umliegenden **Kontext interagiert**. Das heisst, wie **reagiert** das System auf bestimmte **Events vom umliegenden Kontext** und welche **Konditionen** müssen gegeben sein, dass es so reagiert. Ebenfalls wird dokumentiert, wie das System den umliegenden Kontext beeinflusst (z.B. einen Trigger auslöst, der ein weiteren Prozess in einem anderen System ankickt)
+Diese Methode beschreibt wie das System mit dem umliegenden *Kontext interagiert*. Das heisst, wie *reagiert* das System auf bestimmte *Events vom umliegenden Kontext* und welche *Konditionen* müssen gegeben sein, dass es so reagiert. Ebenfalls wird dokumentiert, wie das System den umliegenden Kontext beeinflusst (z.B. einen Trigger auslöst, der ein weiteren Prozess in einem anderen System ankickt)
     
-    Dies wird meist mittels State-Diagrammen dargestellt.
+Dies wird meist mittels State-Diagrammen dargestellt.
 
 
 <a id="org2a08a5a"></a>
 
 ### Wie kann man Requirements Beschreiben bzw. Dokumentieren?
 
-1.  Natural Language
+#### Natural Language
 
-    Beschreibt das System in natürlicher Sprache, evtl. mit Templates.
-    > Das System **WIRD/MUSS/KANN/SOLLTE** **TASK** tun können
+Beschreibt das System in natürlicher Sprache, evtl. mit Templates.
+> Das System **WIRD/MUSS/KANN/SOLLTE** **TASK** tun können
     
-    > Das System **<WIRD/MUSS/KANN/SOLLTE>** **<USER/ROLLE>** **<TASK>** ermöglichen 
-    ![img](./imgs/natural_language.png)
+> Das System **<WIRD/MUSS/KANN/SOLLTE>** **<USER/ROLLE>** **<TASK>** ermöglichen 
+![img](./imgs/natural_language.png)
 
-2.  Modelle
+#### Modelle
 
-    Alternativ können Modelle und Diagramme verwendet werden. Das hat den Vorteil, dass die Requirements klarer dargestellt sind und weniger Raum für Spekulationen bietet. Jedoch muss der Betrachter ein grundsätzliches Verständnis des Modells/Diagramms haben
+Alternativ können Modelle und Diagramme verwendet werden. Das hat den Vorteil, dass die Requirements klarer dargestellt sind und weniger Raum für Spekulationen bietet. Jedoch muss der Betrachter ein grundsätzliches Verständnis des Modells/Diagramms haben
     
-    1.  Usecase Diagramm
+**Usecase Diagramm**
     
-        Welche Funktionen werden welchem Benutzer/welcher Rolle des Systems zur Verfügung gestellt
-        ![img](./imgs/uc_diagram.PNG)
+Welche Funktionen werden welchem Benutzer/welcher Rolle des Systems zur Verfügung gestellt
+![img](./imgs/uc_diagram.PNG)
     
-    2.  Klassendiagramm
+**Klassendiagramm**
     
-        Gut geeignet, um Datenstrukturen zu dokumentieren. Welche Klassen/Interfaces verlangen welche Datentypen als Input and retournieren welche Datentypen? Ebenfalls zeigt ein solches Diagramm die Zusammenhänge und Abhängigkeiten von Komponenten.
+Gut geeignet, um Datenstrukturen zu dokumentieren. Welche Klassen/Interfaces verlangen welche Datentypen als Input and retournieren welche Datentypen? Ebenfalls zeigt ein solches Diagramm die Zusammenhänge und Abhängigkeiten von Komponenten.
         
-        ![img](./imgs/class_diagram.png)
+![img](./imgs/class_diagram.png)
     
-    3.  Aktivitätsdiagramm
+**Aktivitätsdiagramm**
     
-        Gut geeignet, um Prozessabläufe zu dokumentieren. Welche Tasks werden nacheinander durchgeführt? Welche Bedingungen müssen erfüllt sein?
-        ![img](./imgs/activity_diagram.jpg)
+Gut geeignet, um Prozessabläufe zu dokumentieren. Welche Tasks werden nacheinander durchgeführt? Welche Bedingungen müssen erfüllt sein?
+![img](./imgs/activity_diagram.jpg)
     
-    4.  Statusdiagramm
+**Statusdiagramm**
     
-        Gut geeignet, um die Verhaltensperspektive zu dokumentieren. Statusdiagramme zeigen die verschiedenen Stati des Systems auf, welche Events einen Statuswechsel auslösen und wie sich diese Stati auf den Systemkontext auswirken
-        ![img](./imgs/state_diagram.png)
+Gut geeignet, um die Verhaltensperspektive zu dokumentieren. Statusdiagramme zeigen die verschiedenen Stati des Systems auf, welche Events einen Statuswechsel auslösen und wie sich diese Stati auf den Systemkontext auswirken
+![img](./imgs/state_diagram.png)
 
 
 <a id="orgc0a886a"></a>
@@ -366,8 +360,8 @@ So dass alle Beteiligten vom Gleichen sprechen, wennsie dasselbe Wort benutzen.
 
 ### Was ist der Unterschied zwischen Security & Safety?
 
-Security schützt Systeme gegen Angriffe
-Safety schützt Mensch und Umwelt gegen Systeme
+- Security schützt Systeme gegen Angriffe
+- Safety schützt Mensch und Umwelt gegen Systeme
 
 
 <a id="orgadcdeae"></a>
@@ -423,15 +417,15 @@ Malware = **Mal** icious **Soft** ware.
 
 1.  Infect
 
-    Der Attaker versucht irgendwie ins System zu kommen. Dies geschieht z.B. via phishng-mail. Dies installiert meist ein erster Teil der Malware, ein sogenannter "Dropper".
+Der Attaker versucht irgendwie ins System zu kommen. Dies geschieht z.B. via phishng-mail. Dies installiert meist ein erster Teil der Malware, ein sogenannter "Dropper".
 
 2.  Exploit
 
-    Der Dropper kommuniziert zu einem externen C2 Server (Command and Control), der unter bestimmten Bedingungen weitere Anweisungen gibt und/oder ein weiterer Teil der Malware auf das infizierte System herunterlädt.
+Der Dropper kommuniziert zu einem externen C2 Server (Command and Control), der unter bestimmten Bedingungen weitere Anweisungen gibt und/oder ein weiterer Teil der Malware auf das infizierte System herunterlädt.
 
 3.  Payload
 
-    Die Malware führt nun Schadcode aus, die z.B. Daten exfiltrieren oder verschlüsseln kann.
+Die Malware führt nun Schadcode aus, die z.B. Daten exfiltrieren oder verschlüsseln kann.
 
 
 <a id="orgac7343c"></a>
@@ -521,64 +515,64 @@ In gewissen Branchen muss man compliant zu gewissen Regulationen sein (HIPAA, PC
 
 Das Prozess Modell ist ein Startpunkt für die Projektplanung und -management. 
 
--   Wasserfall
+**Wasserfall**
 
-&#x2013; Das Projekt wird phasenweise abgearbeitet, mit Meilenstein-Releases
+Das Projekt wird phasenweise abgearbeitet, mit Meilenstein-Releases
 
--   Prototyping
+**Prototyping**
 
-&#x2013; Ein iterativer Prozess. In jeder Iteration wird dem Kunden ein Prototyp vorgestellt. Falls der dem Kunden gefällt, wird er weiterentwickelt.
+Ein iterativer Prozess. In jeder Iteration wird dem Kunden ein Prototyp vorgestellt. Falls der dem Kunden gefällt, wird er weiterentwickelt.
 
--   RUP (Rational Unified Process)
+**RUP (Rational Unified Process)**
 
-&#x2013; Zuerst wird eine Vision/ein Anwendungsfall ausformuliert (Inceptin). Dieser wird anschliessend weiter ausgearbeitet (Elaboration) und schlussendlich Implementiert (Construction). Das Resultat wird dem Kunden als "Release Milestone" übergeben (Transition(. Der Prozess beginnt anschliessend wieder von vorn 
+Zuerst wird eine Vision/ein Anwendungsfall ausformuliert (Inceptin). Dieser wird anschliessend weiter ausgearbeitet (Elaboration) und schlussendlich Implementiert (Construction). Das Resultat wird dem Kunden als "Release Milestone" übergeben (Transition(. Der Prozess beginnt anschliessend wieder von vorn 
 
--   Agil
+**Agil**
 
-&#x2013; Ähnlich wie RUP. Jedoch meist zeitbasiert anstelle von funktionsbasiert. Es wird eine Zeitspanne für einen 'Sprint' festgelegt und was in diesem Sprint implementiert werden soll. Nach diese Zeitraum wird dem Kunden die implementierte (Teil-)Software übergeben und es beginnt ein enuer Sprint.
+Ähnlich wie RUP. Jedoch meist zeitbasiert anstelle von funktionsbasiert. Es wird eine Zeitspanne für einen 'Sprint' festgelegt und was in diesem Sprint implementiert werden soll. Nach diese Zeitraum wird dem Kunden die implementierte (Teil-)Software übergeben und es beginnt ein enuer Sprint.
 
 
 <a id="orgddd2d4e"></a>
 
 ### Nenne Sie Qualität Attribute in der Software quality assurance
 
--   Funktionalität
+**Funktionalität**
 
-&#x2013; Tauglichkeit
-&#x2013; Akkuratheit
-&#x2013; Interoperabilität
-&#x2013; Compliance
-&#x2013; Sicherheit
+- Tauglichkeit
+- Akkuratheit
+- Interoperabilität
+- Compliance
+- Sicherheit
 
--   Zuverlässigkeit
+**Zuverlässigkeit**
 
-&#x2013; Maturität
-&#x2013; Wiederherstellbarkeit
+- Maturität
+- Wiederherstellbarkeit
 
--   Usability
+**Usability**
 
-&#x2013; Verständlichkeit
-&#x2013; Lernbarkeit
+- Verständlichkeit
+- Lernbarkeit
 
--   Effizienz
+**Effizienz**
 
-&#x2013; Zeitaufwand
-&#x2013; Verhalten
-&#x2013; Ressourcennutzung
+- Zeitaufwand
+- Verhalten
+- Ressourcennutzung
 
--   Wartbarkeit
+**Wartbarkeit**
 
-&#x2013; Analysierbarkeit
-&#x2013; Veränderbarkeit
-&#x2013; Stabilität
-&#x2013; Testbarkeit
+- Analysierbarkeit
+- Veränderbarkeit
+- Stabilität
+- Testbarkeit
 
--   Portabilität
+**Portabilität**
 
-&#x2013; Adaptierbarkeit
-&#x2013; Installierbarkeit
-&#x2013; Konformität
-&#x2013; Ersetzbarkeit
+- Adaptierbarkeit
+- Installierbarkeit
+- Konformität
+- Ersetzbarkeit
 
 
 <a id="org6b4a719"></a>
@@ -607,36 +601,36 @@ Wenn Development und Operations beide dieselben Security Prinzipien haben, wird 
 
 ### Was sind die Grundschritte beim SDLC, in welche Schritte beim SDLC kann man Security integrieren?
 
--   Training
+**Training**
 
-&#x2013; Sicherheits-Know-How im Unternehmen bestimmen. Je nach dem Training anbieten
+Sicherheits-Know-How im Unternehmen bestimmen. Je nach dem Training anbieten
 
--   Requirements
+**Requirements**
 
-&#x2013; Security-Requirements identifizieren und gewichten
+Security-Requirements identifizieren und gewichten
 
--   Design
+**Design**
 
-&#x2013; Security by Design
-&#x2013; Security Architektur definieren und dokumentieren
-&#x2013; Security Critical Komponenten identifizieren
+- Security by Design
+- Security Architektur definieren und dokumentieren
+- Security Critical Komponenten identifizieren
 
--   Implementation
+**Implementation**
 
-&#x2013; Review, um Prozesse, Dokumentationen und Tools zu identifizieren, die für eine sichere Entwicklung benötigt werden
+- Review, um Prozesse, Dokumentationen und Tools zu identifizieren, die für eine sichere Entwicklung benötigt werden
 
--   Verifikation
+**Verifikation**
 
-&#x2013; Security-Response planning - Was tun wenn ein Vulnerability Report kommt?
+- Security-Response planning - Was tun wenn ein Vulnerability Report kommt?
 
--   Release
+**Release**
 
-&#x2013; Suppoirt-policy klar definieren
-&#x2013; Letzte Überprüfung auf allfällige Security Vulnerabilities
+- Suppoirt-policy klar definieren
+- Letzte Überprüfung auf allfällige Security Vulnerabilities
 
--   Response
+**Response**
 
-&#x2013; Bei Bedarf den definierten Security-Response Plan durcharbeiten
+- Bei Bedarf den definierten Security-Response Plan durcharbeiten
 
 
 <a id="org8c9248c"></a>
@@ -661,17 +655,17 @@ OWASP ist eine non-profit Organisation, die sich das sichere Entwickeln von (Web
 
 ### Was ist ein Threat? Was ist eine Vulnerability? Was ist der Unterschied?
 
-1.  Vulnerability
+**Vulnerability**
 
-    Eine Schwachstelle in einem Programm/Protokoll, die ausgenutzt werden kann z.b. um unauthorisierten Zugriff auf ein Asset zu erhalten
+Eine Schwachstelle in einem Programm/Protokoll, die ausgenutzt werden kann z.b. um unauthorisierten Zugriff auf ein Asset zu erhalten
 
-2.  Threat
+**Threat**
 
-    Eine ausgenutzte Vulnerability
+Eine ausgenutzte Vulnerability
     
-    ![img](./imgs/vuln_threat.png)
+![img](./imgs/vuln_threat.png)
     
-    ![img](./imgs/threat_terms.png)
+![img](./imgs/threat_terms.png)
 
 
 <a id="org5310d07"></a>
@@ -702,35 +696,35 @@ OWASP ist eine non-profit Organisation, die sich das sichere Entwickeln von (Web
 
 ### Was ist der Vorteil und Nachteil von einem Agilen Model? Was ist das Kernkonzept der agilen Vorgehensweise?
 
-1.  Kernkonzept
+**Kernkonzept**
 
-    -   Wiederverwendung von Ressourcen
-    -   KISS (Keep It Small and Simple / Keep It Simple Stupid)
-    -   Der Code 'gehört' dem ganzen Team
-    -   Funktionelles und Kundenorientiertes Programmieren
+-   Wiederverwendung von Ressourcen
+-   KISS (Keep It Small and Simple / Keep It Simple Stupid)
+-   Der Code 'gehört' dem ganzen Team
+-   Funktionelles und Kundenorientiertes Programmieren
 
-2.  Vorteile
+**Vorteile**
 
-    -   Wenige Regeln, leicht verständlich und schnell einführbar
-    -   Kurze Kommunikationswege
-    -   Hohe Flexibilität/Agilität durch adaptives Planen
-    -   Hohe Effektivität durch Selbstorganisation
-    -   Hohe Transparenz durch regelmäßige Meetings und Backlogs
-    -   Zeitnahe Realisation neuer Produkteigenschaften bzw. Inkremente
-    -   Kontinuierlicher Verbesserungsprozess
-    -   Kurzfristige Problem-Identifikation
-    -   Geringer Administrations- und Dokumentationsaufwand
+-   Wenige Regeln, leicht verständlich und schnell einführbar
+-   Kurze Kommunikationswege
+-   Hohe Flexibilität/Agilität durch adaptives Planen
+-   Hohe Effektivität durch Selbstorganisation
+-   Hohe Transparenz durch regelmäßige Meetings und Backlogs
+-   Zeitnahe Realisation neuer Produkteigenschaften bzw. Inkremente
+-   Kontinuierlicher Verbesserungsprozess
+-   Kurzfristige Problem-Identifikation
+-   Geringer Administrations- und Dokumentationsaufwand
 
-3.  Nachteile
+**Nachteile**
 
-    -   Kein Gesamtüberblick über die komplette Projektstrecke
-    -   Hoher Kommunikations- und Abstimmungsaufwand
-    -   Wenige konkrete Handlungsempfehlungen
-    -   Zeitverluste bei zu „defensiven" Sprintplanungen
-    -   „Tunnelblick-Gefahr" bei ausschließlicher Fokussierung auf Tasks
-    -   Erschwerte Koordination mehrerer Entwicklungsteams bei Großprojekten
-    -   Potenzielle Verunsicherung aufgrund fehlender Zuständigkeiten und Hierarchien
-    -   Potenzielle Unvereinbarkeit mit bestehenden Unternehmensstrukturen
+-   Kein Gesamtüberblick über die komplette Projektstrecke
+-   Hoher Kommunikations- und Abstimmungsaufwand
+-   Wenige konkrete Handlungsempfehlungen
+-   Zeitverluste bei zu „defensiven" Sprintplanungen
+-   „Tunnelblick-Gefahr" bei ausschließlicher Fokussierung auf Tasks
+-   Erschwerte Koordination mehrerer Entwicklungsteams bei Großprojekten
+-   Potenzielle Verunsicherung aufgrund fehlender Zuständigkeiten und Hierarchien
+-   Potenzielle Unvereinbarkeit mit bestehenden Unternehmensstrukturen
 
 
 <a id="org21cfe7c"></a>
@@ -761,42 +755,32 @@ Behaviour erkennen und Gegenmassnahmen einleiten
 
 ### Was bedeutet STRIDE?
 
--   Spoofing (Ich gebe mich für den CEO aus, obwohl ich ihn nicht bin)
--   Tampering (Ein DLL für einen Service modifizieren. so dass es Schadcode nachladen kann)
--   Repudiation ("Ich habe den Spam-Link **nie** geklickt")
--   Information Disclosure (Kundenliste auf der Website veröffentlichen)
--   Denial of Service (Mailserver so zuspammen, dass niemand mehr Mails senden/empfangen kann)
--   Elevation of Privilege (Ich kann problemlos 'sudo' Kommandos auf dem Produktionsserver laufen lassen)
+-   *Spoofing* Ich gebe mich für den CEO aus, obwohl ich ihn nicht bin
+-   *Tampering* Ein DLL für einen Service modifizieren. so dass es Schadcode nachladen kann
+-   *Repudiation* "Ich habe den Spam-Link *nie* geklickt"
+-   *Information Disclosure* Kundenliste auf der Website veröffentlichen
+-   *Denial of Service* Mailserver so zuspammen, dass niemand mehr Mails senden/empfangen kann
+-   *Elevation of Privilege* Ich kann problemlos 'sudo' Kommandos auf dem Produktionsserver laufen lassen
 
-1.  Geben Sie zu jedem Threat das dazugehörige Property an
+**Geben Sie zu jedem Threat das dazugehörige Property an**
 
-    -   Authentication
-    -   Integrity
-    -   Nonrepudiation
-    -   Confidentiality
-    -   Availability
-    -   Authorization
+-   *Spoofing* Authentication
+-   *Tampering* Integrity
+-   *Repudiation* Nonrepudiation
+-   *Information Disclosure* Confidentiality
+-   *Denial of Service* Availability
+-   *Elevation of Privilege* Authorization
     
-    TODO: Beispiele machen
-
 
 <a id="orgb8f94e0"></a>
 
 ### Was bedeutet DREAD
 
--   Damage
--   Reproducability
--   Exploitability
--   Affected Users
--   Discoverability
-
-1.  Beschreiben Sie jede Kategorie kurz
-
-    -   Damage: Wie viel Schaden richtet die Vulnerability an falls sie exploitet wird
-    -   Reproducability: Wie einfach ist es, die Vulnerabillity zu reproduziere
-    -   Exploitbility: Wie einfach ist es, diese Vulnerability zu exploiten
-    -   Affected Users: Wie viele User sind betroffen, sollte die Vulnerability exploitet wrden
-
+-   *Damage* Wie viel Schaden richtet die Vulnerability an falls sie exploitet wird
+-   *Reproducability* Wie einfach ist es, die Vulnerabillity zu reproduziere
+-   *Exploitability* Wie einfach ist es, diese Vulnerability zu exploiten
+-   *Affected Users* Wie viele User sind betroffen, sollte die Vulnerability exploitet wrden
+-   *Discoverability* Wie einfach ist es, diese Schwachstelle zu entdecken? Gibt es bereits Whitepapers darüber oder ist es ein zero-day?
 
 <a id="orgbb859ee"></a>
 
@@ -806,8 +790,6 @@ Behaviour erkennen und Gegenmassnahmen einleiten
 <a id="orgb5d28dc"></a>
 
 ### Was für mögliche Rahmenwerke können Ihnen helfen, um Threats zu identifizieren?
-
-1.  Nennen Sie 3
 
 
 <a id="org1e708ab"></a>
@@ -828,17 +810,17 @@ Ein Problem addressieren und abschwächen oder lösen
 
 1.  Diagramm
 
-    Applikationsdiagramm (z.B. DFD) zeichnen mit Trust- und System-Boundaries
+Applikationsdiagramm (z.B. DFD) zeichnen mit Trust- und System-Boundaries
 
 2.  Threats identifizieren
 
-    Mittels STRIDE / DREAD mögliche Threats identifizeiren
+Mittels STRIDE / DREAD mögliche Threats identifizeiren
 
 3.  Threts mitigieren
 
-    Allfällige gefundene Threats mitigieren
+Allfällige gefundene Threats mitigieren
 
 4.  Validierung
 
-    Alle Risiken, die nicht mitigiert werden können, müssen eine Ebene höher gegeben werden, so dass das Management darüber befinden kann, ob das Risiko zumutbar ist.
+Alle Risiken, die nicht mitigiert werden können, müssen eine Ebene höher gegeben werden, so dass das Management darüber befinden kann, ob das Risiko zumutbar ist.
 
