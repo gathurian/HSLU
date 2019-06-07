@@ -28,6 +28,7 @@
 \usepackage{outlines}
 \usepackage{booktabs}% http://ctan.org/pkg/booktabs
 \usepackage{amsmath}
+\usepackage{breqn}
 
 
 
@@ -39,6 +40,7 @@
 
 \renewcommand*{\thead}[1]{\bfseries #1}
 \newcommand{\code}[1]{\texttt{#1}}
+\def\doubleunderline#1{\underline{\underline{#1}}}
 
 \newcommand \tabitem{\makebox[1em][r]{\textbullet~}}
 
@@ -331,7 +333,7 @@ The variance shows \textbf{how much the values are spread on average}. This is m
         $\dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)^2$
 }\]
 
-The standard deviation is calculated as $\sqrt{variance}$
+The standard deviation $\sigma$ is calculated as $\sqrt{variance}$
 
 \newpage
 
@@ -345,19 +347,22 @@ If one is above and one is below the mean, the variance is \textbf{negative}, th
 If the variables are \textbf{independent} from each other, the covariance is zero, as they both cancel each other out.
 
 \[\scalebox{1.5}{
-        $Cov(x,y)\dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)(y_{i} - \mu y)$
+        $Cov(x,y) = \dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)(y_{i} - \mu y)$
 }\]
 
 The \textbf{covariance matrix} shows the covariance from all $X$ with all $Y$. As $Cov(x,x) = Var(x)$, the covariance matrix has the variance of $X$ in its diagonal
 
 
-\subsubsection{Pearson Correlation}
+\subsubsection{Pearson Correlation} \label{sec:pearson}
 Both the covariance and the variance are connected to the scale of the dataset, so the covariance of $X=[1,2,3,4,5] / Y=[6,7,8,9,10]$ is 2.5, whereas the covariance of $X=[1000,2000,3000,4000,5000] / Y=[6000,7000,8000,9000,10000]$ is 2'500'000'000. However, the Perason Correlation is 1 in both examples.
 
 \[\scalebox{1.5}{
-        $\rho(X,Y)=\dfrac{Cov(X,Y)}{\sigma_{x} \sigma_{y}}$
-}\]
+        $\rho(X,Y)=\dfrac{Cov(X,Y)}{\sigma_{x} \sigma_{y}} = $
 
+}\] 
+\[\scalebox{1.5}{
+        $        \dfrac{\dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)(y_{i} - \mu y)}{\sqrt{\dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)^2} \cdot \sqrt{\dfrac{1}{1-n} \sum^{n}_{i=1}(y_{i} - \mu y)^2}}$
+}\]
 The Pearson Correlation is always between 1 and -1. 
 
 \noindent 1 means the data is perfectly correlated, whereas -1 means that the data is perfectly incorrelated
@@ -371,7 +376,7 @@ Such differently scaled data can (and will) falsify the result of every machine 
 
 \noindent There are two popular normalization approaches: The Min-Max and the Z-Score normalization. 
 
-\vspace{10px}
+\newpage
 
 \noindent \textbf{Min-Max normalization}
 
@@ -380,8 +385,6 @@ Such differently scaled data can (and will) falsify the result of every machine 
 \[\scalebox{1.5}{
         $x \rightarrow \dfrac{x - min_{x}}{max_{x}-min_{x}}$
 }\]
-
-\newpage
 
 \noindent \textbf{Z-Score Normalization}
 
@@ -423,6 +426,8 @@ This transformed data can also be visualized in a coordinate system and we can d
     \caption{Transformed into vector space, data points can be interpreted as geometric points}
     \label{fig:geometric_intepretation}
 \end{figure}
+
+\newpage
 
 \subsection{Similarity of Data}
 
@@ -632,7 +637,7 @@ To verify that your tweaked parameters are indeed within the margin that is acce
         Actual No & 50 & 10 \\
         \hline
         Actual YES & 5 & 100  \\
-         \hline
+        \hline
     \end{tabular}
 \end{minipage}\hfill
 \begin{minipage}{0.55\textwidth}
@@ -731,7 +736,7 @@ However, it is still one of the best methods to solve a classification problem w
     \label{fig:regression_error}
 \end{figure}
 
-\subsubsection{Coefficient of Determination}
+\subsubsection{Coefficient of Determination} \label{sec:r_squared}
 
 \[\scalebox{1.5}{
         $R^2 = 1- \dfrac{\dfrac{1}{m} \sum^{m}_{i=1}(y_{i} - f_{i})^2}{\dfrac{1}{m} \sum^{m}_{i=1}(y_{i} - \bar{y})^2} =1 - \dfrac{\sum^{m}_{i=1}(y_{i} - f_{i})^2}{\sum^{m}_{i=1}(y_{i} - \bar{y})^2} $
@@ -744,7 +749,304 @@ $R^3 = 1$ is a perfect prediction-line
 
 $R^3 = 0.53$ means that 53\% of the of the predictions are correct and can be explained by the model.
 
+\newpage
 
+\section{Linear Regressin}
+
+\begin{wrapfigure}[16]{R}{0.5\textwidth}
+    \centering
+    \includegraphics[keepaspectratio=true,height=14\baselineskip]{linear_regression.png}
+    \caption{Linear Regression}
+    \label{fig:linear_regression}
+\end{wrapfigure}
+
+Linear regression is a \textbf{supervised machine learning algorithm} to predict values based on previous variables.
+
+It can also be used to verify whether two variablex X and Y are \textbf{dependant} on each other.
+
+\vspace{10px}
+
+Linear Regression produces a \textbf{straight line} (who would have thought) and each data point has a certain distance from that line. That distance is called \textbf{error} or \textbf{residual}. 
+
+These errors should cancel each other out, as the regression-line should be placed in the middle of all the points.
+
+\vspace{10px}
+
+The equation for a 'normal' line is $g(x) = m \cdot x + q$, where $m$ symbolizes the slope of the line and $q$ tells you where the line crosses the $y$-axis.
+
+The equation for the regression line is very much like the 'normal' line-equation, but we use greek symbols, because why not...
+
+\[\scalebox{1.5}{
+        $h_{\theta}(x) = \theta^{}_{0} + \theta^{}_{1} \cdot x$
+}\]
+
+\vspace{10px}
+
+As mentioned before, deviation from that line are called errors. Therefore, the error of a given point $i$ can be calculated from the difference of the actual $y_{i}$ from the $h_{\theta}(x)$ (the $y$ on the line)
+
+\[\scalebox{1.5}{
+        $e_{i} = y_{i} - (\theta^{}_{0} + \theta^{}_{1} \cdot x_{i})$
+}\]
+
+\vspace{10px}
+
+The goal of linear regression is to find the \textbf{optimal line}, ergo the line that \textbf{produces the smallest errors}.
+
+However, as mentioned earlier, the errors usually cancel each other out, as sometimes the line lies above the data point (negative error) and sometimes it lies below it (positive error). To solve that problem, the parameter we will use to determine the quality of the produced line will be \textbf{the sum of squared error}. By squaring the errors, we can't have negative errors (because squared numbers cannot be negative). Therefore, the smaller the sum of squared errors, the better the line.
+
+The sum of squared errors can be calculated as follows:
+
+\[\scalebox{1.5}{
+        $ J(\theta^{}_{0}, \theta^{}_{1}) = \dfrac{1}{2n} \sum^{n}_{i=1}(e_{i})^2 = \dfrac{1}{2n} \sum^{n}_{i=1}[y_{i} - (\theta^{}_{0} + \theta^{}_{1} \cdot x_{i})]^2$
+}\]
+
+\vspace{10px}
+
+To minimize $J(\theta^{}_{0}, \theta^{}_{1})$, the \textbf{gradient} of $J$ must be \textbf{minimized} or, ideally, zeroed. 
+
+This leads to the following formulas for $\theta^{}_{0}$ and $\theta^{}_{1}$
+
+\begin{minipage}{0.45\textwidth}
+    \[\scalebox{1.5}{
+            $\theta^{}_{1} = \dfrac{S_{xy}}{S_{xx}}$
+    }\]
+\end{minipage} \hfill
+\begin{minipage}{0.45\textwidth}
+    \[\scalebox{1.5}{
+            $\theta^{}_{0} = \bar y - \theta^{}_{1} \cdot \bar x$
+    }\]
+\end{minipage}
+
+Where $\bar x$ and $\bar y$ are the \textbf{mean} of the $x$ and $y$ values respectively
+
+\vspace{10px}
+
+$S_{xx}$ and $S_{xy}$ are called \textbf{regression coefficients} and are calculated as follows:
+
+\begin{minipage}{0.45\textwidth}
+    \[\scalebox{1.5}{
+            $S_{xy} = \sum^{n}_{i=1}(x_{i}-\bar x)(y_{i}-\bar y)$
+
+    }\]
+\end{minipage} \hfill
+\begin{minipage}{0.45\textwidth}
+    \[\scalebox{1.5}{
+            $S_{xx} = \sum^{n}_{i=1}(x_{i}-\bar x)^2$
+
+    }\]
+\end{minipage}
+
+\paragraph{Example} \mbox{}\\
+
+\[
+    X = [4, 6, 8, 10] \hfill \\
+    Y = [2.3, 4.1, 5.7, 6.9] \\
+    \bar X = \dfrac{1}{4} (4 \cdot 6 \cdot 8 \cdot 10) = 7 \\
+    \bar Y = \dfrac{1}{4} (2.3 \cdot 4.1 \cdot 5.7 \cdot 6.9) = 7.25 \\
+    S_{xx} = (4-7)^2+(6-7)^2+(8-7)^2+(10-7)^2 = 20 \\
+    S_{xy} = (4-7)(2.3-7.25)+(6-7)(4.1-7.25)+(8-7)(5.7-7.25)+(10-7)(6.9-7.25)=15.4 \\
+    \theta^{}_{1} = \dfrac{20}{15.4} = 0.77 \\
+    \theta^{}_{0} = 4.75-(0.77-7) = -0.64
+\]
+
+From this follows that the regression line is:
+
+\[\scalebox{1.5}{
+        $h_{\theta}(x) = -0.64 \cdot 0.77 \cdot x$
+}\]
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[keepaspectratio=true, width=\linewidth]{regression_line.png}
+    \caption{Regression line of the example}
+    \label{fig:regression_line}
+\end{figure}
+
+From figure \ref{fig:regression_line} we can now see that for $x_{i}=12$, $y$ would most likely be at $8.6$.
+
+\subsection{Coefficient of Determination}
+
+This coefficients was already mentioned in section \ref{sec:r_squared} as 'way to measure how good a regression is'. But how does it even do that?
+
+As mentioned earlier, the goal of a good regression is to \textbf{minimize the sum of squared errors}. However, there are three kinds of sum of squared Errors:
+
+\vspace{10px}
+
+\begin{minipage}{0.4\textwidth}
+    \begin{description}
+        \item[$\bar y$:] Mean of all $Y$ 
+        \item[$\bar x$:] Mean of all $X$ 
+        \item[$\hat y_{i}$:] Expected value of $y$ based on the regression line 
+        \item[$y_{i}$:] Actual value of $y$
+        \item[$SST:$] \textit{Total sum of squares} \\
+            Sum of SSE and SSR
+        \item[$SSE:$ ] \textit{Sum of squared Errors} \\
+            The sum of the deviations from the predicted points to the regression line
+        \item[$SSR:$ ] \textit{Sum of squares explained by regression} \\
+            The sum of all deviations from the mean ($\bar y)$ to the regression line
+    \end{description}
+\end{minipage} \hfill
+\begin{minipage}{0.6\textwidth}
+    \includegraphics[keepaspectratio=true,width=\textwidth]{SST.JPG}
+\end{minipage}
+
+\vspace{10px}
+
+As illustrated in the figure above, $SST = SSR + SSE$.
+
+\begin{align*}
+    SST = \sum^{n}_{i=1}(y_{i}-\bar y)^2 && SSE=\sum^{n}_{i=1}(y_{i}-\hat y)^2 && SSR=\sum^{n}_{i=1}(\hat y_{i}-\bar y)^2
+\end{align*}
+
+
+But how does the aforementioned Coefficient of Determination relate to all of this? 
+
+$R^2$ is the \textbf{fraction of the total error that can be explained by the regression}. If all errors can be explained by the regression ($R^2 = 1$), then the regression is perfect
+
+\[\scalebox{1.5}{
+        $ R^2 = \dfrac{SSR}{SST} = \dfrac{SST-SSE}{SST} = 1 - \dfrac{SSE}{SST}$
+}\]
+
+\vspace{10px}
+
+There's yet another error, the \textit{Mean Squared Error} (MSE). MSE is basically the mean of $SSE$. It is calculated as
+
+\[\scalebox{1.5}{
+
+        $MSE = \frac{SSE}{n-2} = \frac{1}{n-2}\sum_{i=1}^{n}(y_{i}-\hat{y}^{}_{i})^2$
+}\]
+
+\newpage
+
+\subsection{Correlation Analysis}
+
+So now thath you have the regression parameters $\theta^{}_{0}$ and $\theta^{}_{1}$. which make out the regression line. However, that regression line is only as good as your parameters. So how do you test how well you calculated the parameters?
+
+Easy, you calculate the \textbf{standard deviation of these parameters}.
+
+\[\scalebox{1.5}{
+        $s_{\theta_{0}} = \sqrt{MSE} \cdot \sqrt{\frac{1}{n} + \frac{\bar{x}^2}{\sum_{i=1}^{n}{(x_i-\bar{x})^2}}}$
+}\]
+
+\[\scalebox{1.5}{
+        $s_{\theta_{1}} = \sqrt{MSE}\cdot \sqrt{\frac{1}{\sum_{i=1}^{n}{(x_i-\bar{x})^2}}}$
+}\]
+
+\vspace{10px}
+
+Based on these standard deviations, you can calculate a \textbf{confidence interval}. This interval is a \textbf{degree of uncertainty}. Say we conducted a study and we publish our results with a \textbf{confidence level} of 95\%.
+
+This means that if we used the same sampling method to select different samples and computed an interval estimate for each sample, we would expect the true population parameter to fall within the interval estimates 95\% of the time.
+
+\vspace{10px}
+
+These intervals can be calculated with the aforementioned standard deviation of $\theta^{}_{0}$ and $\theta^{}_{1}$ and some \textit{critical values}. These critical values depend on how high your confidence level and degrees of freedom are. 
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[keepaspectratio=true, width=\linewidth]{CriticalBordersTInterval.png}
+    \caption{Critical Values for Confidence Intervals}
+    \label{fig:critical_values}
+\end{figure}
+
+
+Degrees of freedom tell you how many regression parameters you already had to calculate. Take for example $SSE$,where both $\theta^{}_{0}$ and $\theta^{}_{1}$ are needed. Therefore, $SSE$ has a degree of freedom of $n-2$, given that you had to calculate 2 parameters.
+
+\vspace{10px}
+
+\noindent Confidence Intervals can be calculated with $[\theta_0 - (critical\ value \cdot \theta_0);\theta_0 + (critical\ value \cdot \theta_0)]$
+
+
+\newpage
+
+\subsection{Linear Regression Example}
+
+\begin{wrapfigure}[14]{R}{0.4\textwidth}
+    \centering
+    \includegraphics[keepaspectratio=true,height=10\baselineskip]{linear_regression_example.png}
+\end{wrapfigure}
+\begin{flalign*}
+    &X = [14, 16, 27, 42, 83, 50, 39]& \\
+    &Y = [2, 5, 7, 9, 20, 13, 10]& \\
+\end{flalign*}
+\vspace{-40px}
+\begin{flalign*}
+    &\bar X = \dfrac{1}{7} \sum^{7}_{i=1}(x_{i}) =
+    \dfrac{14+16+27+42+83+50+39}{7} \\
+    &= \dfrac{271}{7} = \doubleunderline{38.7}& \\
+    &\bar Y = \dfrac{1}{7} \sum^{7}_{i=1}(y_{i}) = 
+    \dfrac{2+5+7+9+28+13+10}{7} = \dfrac{66}{7} = \doubleunderline{9.4}& \\
+\end{flalign*}
+\vspace{-40px}
+\begin{flalign*}
+    &S_{xy} = \sum^{7}_{i=1}(x_{i}-\bar x)(y_{i}-\bar y) = (14-38.7)(2-9.4) 
+    +(16-38.7)(5-9.4) 
+    +(27-38.7)(7-9.4) \\
+    &+(42-38.7)(9-9.4) 
+    +(83-38.7)(20-9.4)
+    +(50-38.7)(13-9.4) \\
+    &+(39-38.7)(10-9.4)=\doubleunderline{819} \\ 
+\end{flalign*}
+\vspace{-40px}
+\begin{flalign*}
+    &S_{xx} = \sum^{7}_{i=1}(x_{i}-\bar x)^2 = (14-38.7)^2
+    +(16-38.7)^2
+    +(27-38.7)^2
+    +(42-38.7)^2
+    +(83-38.7)^2 \\
+    &+(50-38.7)^2
+    +(39-38.7)^2 = \doubleunderline{3363.4}
+\end{flalign*}
+\vspace{-20px}
+\begin{flalign*}
+    &\theta_1 = \dfrac{S_{xy}}{S_{xx}} = \dfrac{819}{3363.4} = \doubleunderline{0.24}&
+\end{flalign*} 
+\vspace{-20px}
+\begin{flalign*}
+    &\theta_0 = \bar y - \theta_1 \cdot \bar x = 9.4 - 0.24 \cdot 38.7 = \doubleunderline{-0.008}&
+\end{flalign*}
+\vspace{-20px}
+\begin{flalign*}
+    &SSE = \sum_{i=1}^{7}(y_{i}-\hat{y}_{i})^2 = \sum_{i=1}^{7}(y_i - (\theta_0 + \theta_1 \cdot x))^2 = \sum_{i=1}^{7}(y_i - (-0.008 + 0.24 \cdot x))^2 \\ 
+    &= \sum_{i=1}^{7}(y_i - (-0.232 \cdot x))^2 = \doubleunderline{5.87}&
+\end{flalign*}
+\vspace{-20px}
+\begin{flalign*}
+    &SSR = \sum_{i}^{7}(\hat{y}_{i}-\bar{y})^2 = \sum_{i}^{7}((\theta_0 + \theta_1 \cdot x)-38.7)^2 = \sum_{i}^{7}((-0.008 + 0.24 \cdot x)-38.7)^2 \\ 
+    &= \sum_{i}^{7}((-0.232 \cdot x)-38.7)^2=\doubleunderline{199.84}&
+\end{flalign*}
+\vspace{-20px}
+\begin{flalign*}
+    &SST = SSE+SSR = 5.87 + 199.84 = \doubleunderline{205.71}&
+\end{flalign*}
+\vspace{-20px}
+\begin{flalign*}
+    &R^2 = \frac{SSR}{SST} = \dfrac{199.84}{205.71} = \doubleunderline{0.97}&
+\end{flalign*}
+\vspace{-20px}
+\begin{flalign*}
+    &MSE = \frac{SSE}{n-2} = \frac{5.87}{7-2}=\doubleunderline{1.17}&
+\end{flalign*}
+\vspace{-20px}
+\begin{flalign*}
+    &s_{\theta_{0}} = \sqrt{MSE} \cdot \sqrt{\frac{1}{n} + \frac{\bar{x}^2}{\sum_{i=1}^{n}{(x_i-\bar{x})^2}}} = \sqrt{1.17} \cdot \sqrt{\frac{1}{7} + \frac{38.7^2}{\sum_{i=1}^{n}{(x_i-38.7)^2}}} = \doubleunderline{-0.008}& 
+\end{flalign*}
+\vspace{-20px}
+\begin{flalign*}
+    &s_{\theta_{1}} = \sqrt{MSE}\cdot \sqrt{\frac{1}{\sum_{i=1}^{n}{(x_i-\bar{x})^2}}} = \sqrt{1.17} \cdot \sqrt{\frac{1}{\sum_{i=1}^{n}{(x_i-38.7)^2}}} = \doubleunderline{0.019}& &
+\end{flalign*}
+\vspace{-20px}
+\begin{flalign*}
+&Interval\ \theta_0 = [\theta_0 - 2.57 \cdot \theta_0; \theta_0 + 2.57 \cdot \theta_0] = \doubleunderline{[-2.14;2.12]} &
+\end{flalign*}
+\vspace{-20px}
+\begin{flalign*}
+    &Interval\ \theta_1 [\theta_1 - 2.57 \cdot \theta_1; \theta_1 + 2.57 \cdot \theta_1] = \doubleunderline{[0.20;0.29]}&
+\end{flalign*}
+
+\newpage
+
+\section{Multple Linear Regression}
 
 
 \end{document}
