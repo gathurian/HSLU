@@ -31,7 +31,7 @@
 \usepackage{breqn}
 \usepackage{textcomp}
 \usepackage{amssymb}
-
+\usepackage{bm}
 
 \counterwithin{figure}{section}
 
@@ -1226,5 +1226,46 @@ The gradient $\nabla f$ of the scalar function $f: \mathbb{R}^2 \rightarrow \mat
 	f_y (x,y)
 	\end{bmatrix}
 \end{equation}
+
+\subsubsection{Example of a gradient}
+
+Calculate the gradient of the function $f(x,y) = (3x+2y)^2$ in general and in the point $(1,2)$.
+
+\begin{align*}
+	\nabla f(x,y) &= \begin{bmatrix}
+	6(3x + 2y)\\
+	4(3x + 2y)
+	\end{bmatrix}\\
+	\nabla f(1,2) &= \begin{bmatrix}
+	42\\
+	28
+	\end{bmatrix}
+\end{align*}
+
+\subsection{Properties of the gradient}
+\begin{itemize}
+	\item The Gradient of a function f is a vector consisting of the partial derivatives of f with respect to all of its variables
+	\item It points to the direction of maximal increase
+	\item The negative Gradient points to the direction of maximal decrease
+	\item The Gradient being a null-vector indicates a local extrema
+	\item The Gradient is perpendicular to the contour lines of that function
+\end{itemize}
+
+\subsection{Gradient descent}
+To find a local minima of a function $f$ we follow the direction of the steepest descent, and thus the negative Gradient. As the Gradient is constantly changing, we have to take small steps.
+
+\subsubsection{Batch Gradient Descent}
+Elevating the strengths of vectors we can Gradient Descent along all columns of our data. For this we want to minimize the cost function
+\begin{equation}
+	J(\theta) = \frac{1}{2n}\sum_{i=1}^{n}(h(bm{\theta},\textbf{x}^{(i)})-y^{(i)})^2
+\end{equation}
+
+where $h(\bm{\theta},\textbf{x}^{(i)})$ is
+
+\begin{equation}
+h(\bm{\theta},\bm{x}^{(i)}) = \bm{x}^{(i)}\bm{\theta}\theta_0 + \theta_1 x^{(i)}_1 
+\end{equation}
+
+
 
 \end{document}
