@@ -331,7 +331,7 @@ Values $1.5 \cdot IQR$ above the 3rd or below the 1st Quartile can be considered
 The variance shows \textbf{how much the values are spread on average}. This is measured by squaring the sum of all deviations from the mean
 
 \begin{equation}
-	\dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)^2
+	\frac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)^2
 \end{equation}
 
 The standard deviation $\sigma$ is calculated as $\sqrt{variance}$
@@ -348,7 +348,7 @@ If one is above and one is below the mean, the variance is \textbf{negative}, th
 If the variables are \textbf{independent} from each other, the covariance is zero, as they both cancel each other out.
 
 \begin{equation}
-	Cov(x,y) = \dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)(y_{i} - \mu y)
+	Cov(x,y) = \frac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)(y_{i} - \mu y)
 \end{equation}
 
 The \textbf{covariance matrix} shows the covariance from all $X$ with all $Y$. As $Cov(x,x) = Var(x)$, the covariance matrix has the variance of $X$ in its diagonal
@@ -358,8 +358,8 @@ The \textbf{covariance matrix} shows the covariance from all $X$ with all $Y$. A
 Both the covariance and the variance are connected to the scale of the dataset, so the covariance of $X=[1,2,3,4,5] / Y=[6,7,8,9,10]$ is 2.5, whereas the covariance of $X=[1000,2000,3000,4000,5000] / Y=[6000,7000,8000,9000,10000]$ is 2'500'000'000. However, the Perason Correlation is 1 in both examples.
 
 \begin{equation}
-	\rho(X,Y)=\dfrac{Cov(X,Y)}{\sigma_{x} \sigma_{y}} = 
-	        \dfrac{\dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)(y_{i} - \mu y)}{\sqrt{\dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)^2} \cdot \sqrt{\dfrac{1}{1-n} \sum^{n}_{i=1}(y_{i} - \mu y)^2}}
+	\rho(X,Y)=\frac{Cov(X,Y)}{\sigma_{x} \sigma_{y}} = 
+	        \frac{\frac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)(y_{i} - \mu y)}{\sqrt{\frac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)^2} \cdot \sqrt{\frac{1}{1-n} \sum^{n}_{i=1}(y_{i} - \mu y)^2}}
 \end{equation}
 The Pearson Correlation is always between 1 and -1. 
 
@@ -381,7 +381,7 @@ Such differently scaled data can (and will) falsify the result of every machine 
 \noindent All data is condensed to a value between 0 and 1. The smallest value becomes 0 and the largest one becomes 1.
 
 \begin{equation}
-	x \rightarrow \dfrac{x - min_{x}}{max_{x}-min_{x}}
+	x \rightarrow \frac{x - min_{x}}{max_{x}-min_{x}}
 \end{equation}
 
 \noindent \textbf{Z-Score Normalization}
@@ -389,7 +389,7 @@ Such differently scaled data can (and will) falsify the result of every machine 
 \noindent The dataset is transformed in such a way, that the mean becomes 0 (so-called \textit{mean-centering}) and the standard deviation is 1
 
 \begin{equation}
-	x \rightarrow \dfrac{x - \mu_{x}}{\sigma_{x}}
+	x \rightarrow \frac{x - \mu_{x}}{\sigma_{x}}
 \end{equation}
 
 \section{Geometry of Data}
@@ -470,7 +470,7 @@ The cosine similarity is essentially just the scalar product of the two points.
 \vspace{10px}
 
 \begin{equation}
-	sim(X,Y) = \dfrac{\sum^{n}_{i=i}{x_{i} y_{i}}}{\sqrt{\sum^{n}_{i=i}{x_{i}}^2\sqrt{\sum^{n}_{i=i}{y_{i}}^2}}}
+	sim(X,Y) = \frac{\sum^{n}_{i=i}{x_{i} y_{i}}}{\sqrt{\sum^{n}_{i=i}{x_{i}}^2\sqrt{\sum^{n}_{i=i}{y_{i}}^2}}}
 \end{equation}
 \begin{equation}
 	dist(X,Y) = 1 - sim(X,Y)
@@ -656,16 +656,16 @@ With these values, one can calculate the algorithms \textbf{Accuracy} and \textb
 \subsubsection{Accuracy and Error Rate}
 
 \begin{equation}
-	Accuracy = \dfrac{True\ Positive + True\ Negative}{Total}
+	Accuracy = \frac{True\ Positive + True\ Negative}{Total}
 \end{equation}
 \vspace{10px}
 \begin{equation}
-	Error\ Rate = \dfrac{False\ Positive + False\ Negative}{Total} = 1 - Accuracy
+	Error\ Rate = \frac{False\ Positive + False\ Negative}{Total} = 1 - Accuracy
 \end{equation}
 
 \vspace{10px}
 
-In our case the Accuracy would be $\dfrac{50+100}{50+100+5+10} = \dfrac{150}{165} = 0.91 = 91\%$ and the error rate therefore 9\%
+In our case the Accuracy would be $\frac{50+100}{50+100+5+10} = \frac{150}{165} = 0.91 = 91\%$ and the error rate therefore 9\%
 
 \newpage
 
@@ -680,44 +680,44 @@ If there were 5000 NO instances and 20 YES instances, a classifier that only ret
 \noindent The \textbf{Sensitivity} (also called 'Recall') counts how many true positives there are.
 
 \begin{equation}
-	Sensitivity = \dfrac{True\ Positive}{Actual\ YES} = \dfrac{True\ Positive}{True\ Positive + False\ Negative} 
+	Sensitivity = \frac{True\ Positive}{Actual\ YES} = \frac{True\ Positive}{True\ Positive + False\ Negative} 
 \end{equation}
 
 \vspace{10px}
 
-In our confusion matrix from earlier, the Sensitivity would be $\dfrac{100}{100 + 5} = \dfrac{100}{105} = 0.95 = 95\%$
+In our confusion matrix from earlier, the Sensitivity would be $\frac{100}{100 + 5} = \frac{100}{105} = 0.95 = 95\%$
 
 \subsubsection{Sepcificity}
 This is the inverse of the Sensitivity. It counts how many NO the algorithm correctly predicted.o
 
 \begin{equation}
-	Specificity= \dfrac{True\ Negative}{Actual\ NO} = \dfrac{True\ Negative}{True\ Negative + False\ Positive} 
+	Specificity= \frac{True\ Negative}{Actual\ NO} = \frac{True\ Negative}{True\ Negative + False\ Positive} 
 \end{equation}
 
 \vspace{10px}
 
-In our confusion matrix from earlier, the Specificity would be $\dfrac{50}{50+ 10} = \dfrac{50}{60} = 0.83 = 83\%$
+In our confusion matrix from earlier, the Specificity would be $\frac{50}{50+ 10} = \frac{50}{60} = 0.83 = 83\%$
 
 \subsubsection{Precision}
 Both of the preceding measures relied on the true negative. However, what would you do if you could not count the True Negatives? You use \textbf{Precision}. Precision shows how many times the algorithm is correct if it predicts YES.
 
 \begin{equation}
-	Precision = \dfrac{True\ Positive}{Predicted\ YES} = \dfrac{True\ Positive}{True\ Positive + False\ Positive}
+	Precision = \frac{True\ Positive}{Predicted\ YES} = \frac{True\ Positive}{True\ Positive + False\ Positive}
 \end{equation}
 
 \vspace{10px}
 
-In our confusion matrix from earlier, the Precision would be $\dfrac{100}{100+ 10} = \dfrac{100}{110} = 0.91 = 91\%$
+In our confusion matrix from earlier, the Precision would be $\frac{100}{100+ 10} = \frac{100}{110} = 0.91 = 91\%$
 
 \subsubsection{F1 Score}
 
 The F1 score is the harmonic mean between precision and recall/sensitivity
 
 \begin{equation}
-	F1 = \dfrac{2 \cdot Precision \cdot Sensitivity}{Precision + Sensitivity} 
+	F1 = \frac{2 \cdot Precision \cdot Sensitivity}{Precision + Sensitivity} 
 \end{equation}
 
-In our confusion matrix from earlier, the Precision would be $\dfrac{2 \cdot 0.91 \cdot 0.95}{0.91 + 0.95} = \dfrac{1.73}{1.86} = 0.93 = 93\%$
+In our confusion matrix from earlier, the Precision would be $\frac{2 \cdot 0.91 \cdot 0.95}{0.91 + 0.95} = \frac{1.73}{1.86} = 0.93 = 93\%$
 
 \vspace{10px}
 
@@ -737,7 +737,7 @@ However, it is still one of the best methods to solve a classification problem w
 \subsubsection{Coefficient of Determination} \label{sec:r_squared}
 
 \begin{equation}
-	R^2 = 1- \dfrac{\dfrac{1}{m} \sum^{m}_{i=1}(y_{i} - f_{i})^2}{\dfrac{1}{m} \sum^{m}_{i=1}(y_{i} - \bar{y})^2} =1 - \dfrac{\sum^{m}_{i=1}(y_{i} - f_{i})^2}{\sum^{m}_{i=1}(y_{i} - \bar{y})^2} 
+	R^2 = 1- \frac{\frac{1}{m} \sum^{m}_{i=1}(y_{i} - f_{i})^2}{\frac{1}{m} \sum^{m}_{i=1}(y_{i} - \bar{y})^2} =1 - \frac{\sum^{m}_{i=1}(y_{i} - f_{i})^2}{\sum^{m}_{i=1}(y_{i} - \bar{y})^2} 
 \end{equation}
 
 $R^2$ is a staticstical measure of how well the predictions approximate the real data points. 
@@ -795,7 +795,7 @@ However, as mentioned earlier, the errors usually cancel each other out, as some
 The sum of squared errors can be calculated as follows:
 
 \begin{equation}
-	 J(\theta^{}_{0}, \theta^{}_{1}) = \dfrac{1}{2n} \sum^{n}_{i=1}(e_{i})^2 = \dfrac{1}{2n} \sum^{n}_{i=1}[y_{i} - (\theta^{}_{0} + \theta^{}_{1} \cdot x_{i})]^2
+	 J(\theta^{}_{0}, \theta^{}_{1}) = \frac{1}{2n} \sum^{n}_{i=1}(e_{i})^2 = \frac{1}{2n} \sum^{n}_{i=1}[y_{i} - (\theta^{}_{0} + \theta^{}_{1} \cdot x_{i})]^2
 \end{equation}
 
 \vspace{10px}
@@ -806,7 +806,7 @@ This leads to the following formulas for $\theta^{}_{0}$ and $\theta^{}_{1}$
 
 \begin{minipage}{0.45\textwidth}
     \begin{equation}
-    	\theta^{}_{1} = \dfrac{S_{xy}}{S_{xx}}
+    	\theta^{}_{1} = \frac{S_{xy}}{S_{xx}}
 \end{equation}
 \end{minipage} \hfill
 \begin{minipage}{0.45\textwidth}
@@ -837,11 +837,11 @@ $S_{xx}$ and $S_{xy}$ are called \textbf{regression coefficients} and are calcul
 \begin{flalign*}
     &X = [4, 6, 8, 10]& \\
     &Y = [2.3, 4.1, 5.7, 6.9]& \\
-    &\bar X = \dfrac{1}{4} (4 \cdot 6 \cdot 8 \cdot 10) = 7& \\
-    &\bar Y = \dfrac{1}{4} (2.3 \cdot 4.1 \cdot 5.7 \cdot 6.9) = 7.25& \\
+    &\bar X = \frac{1}{4} (4 \cdot 6 \cdot 8 \cdot 10) = 7& \\
+    &\bar Y = \frac{1}{4} (2.3 \cdot 4.1 \cdot 5.7 \cdot 6.9) = 7.25& \\
     &S_{xx} = (4-7)^2+(6-7)^2+(8-7)^2+(10-7)^2 = 20& \\
     &S_{xy} = (4-7)(2.3-7.25)+(6-7)(4.1-7.25)+(8-7)(5.7-7.25)+(10-7)(6.9-7.25)=15.4& \\
-    &\theta^{}_{1} = \dfrac{20}{15.4} = 0.77& \\
+    &\theta^{}_{1} = \frac{20}{15.4} = 0.77& \\
     &\theta^{}_{0} = 4.75-(0.77-7) = -0.64&
 \end{flalign*}
 
@@ -900,7 +900,7 @@ But how does the aforementioned Coefficient of Determination relate to all of th
 $R^2$ is the \textbf{fraction of the total error that can be explained by the regression}. If all errors can be explained by the regression ($R^2 = 1$), then the regression is perfect
 
 \begin{equation}
-	 R^2 = \dfrac{SSR}{SST} = \dfrac{SST-SSE}{SST} = 1 - \dfrac{SSE}{SST}
+	 R^2 = \frac{SSR}{SST} = \frac{SST-SSE}{SST} = 1 - \frac{SSE}{SST}
 \end{equation}
 
 \vspace{10px}
@@ -966,11 +966,11 @@ Degrees of freedom tell you how many regression parameters you already had to ca
 \end{flalign*}
 \vspace{-40px}
 \begin{flalign*}
-    &\bar X = \dfrac{1}{7} \sum^{7}_{i=1}(x_{i}) =
-    \dfrac{14+16+27+42+83+50+39}{7} \\
-    &= \dfrac{271}{7} = \doubleunderline{38.7}& \\
-    &\bar Y = \dfrac{1}{7} \sum^{7}_{i=1}(y_{i}) = 
-    \dfrac{2+5+7+9+28+13+10}{7} = \dfrac{66}{7} = \doubleunderline{9.4}& \\
+    &\bar X = \frac{1}{7} \sum^{7}_{i=1}(x_{i}) =
+    \frac{14+16+27+42+83+50+39}{7} \\
+    &= \frac{271}{7} = \doubleunderline{38.7}& \\
+    &\bar Y = \frac{1}{7} \sum^{7}_{i=1}(y_{i}) = 
+    \frac{2+5+7+9+28+13+10}{7} = \frac{66}{7} = \doubleunderline{9.4}& \\
 \end{flalign*}
 \vspace{-40px}
 \begin{flalign*}
@@ -994,7 +994,7 @@ Degrees of freedom tell you how many regression parameters you already had to ca
 \end{flalign*}
 \vspace{-20px}
 \begin{flalign*}
-    &\theta_1 = \dfrac{S_{xy}}{S_{xx}} = \dfrac{819}{3363.4} = \doubleunderline{0.24}&
+    &\theta_1 = \frac{S_{xy}}{S_{xx}} = \frac{819}{3363.4} = \doubleunderline{0.24}&
 \end{flalign*} 
 \vspace{-20px}
 \begin{flalign*}
@@ -1016,7 +1016,7 @@ Degrees of freedom tell you how many regression parameters you already had to ca
 \end{flalign*}
 \vspace{-20px}
 \begin{flalign*}
-    &R^2 = \frac{SSR}{SST} = \dfrac{199.84}{205.71} = \doubleunderline{0.97}&
+    &R^2 = \frac{SSR}{SST} = \frac{199.84}{205.71} = \doubleunderline{0.97}&
 \end{flalign*}
 \vspace{-10px}
 \begin{flalign*}
