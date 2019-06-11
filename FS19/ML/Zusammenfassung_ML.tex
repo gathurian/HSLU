@@ -30,6 +30,7 @@
 \usepackage{amsmath}
 \usepackage{breqn}
 \usepackage{textcomp}
+\usepackage{amssymb}
 
 
 \counterwithin{figure}{section}
@@ -1201,5 +1202,29 @@ theta = np.linalg.inv(X_ext.T.dot(X_est)).dot(X_ext.T).dot(y)
 print(theta)
 \end{lstlisting}
 
+\section{Gradient Descent}
+The problem with Linear Regression is, that it does not scale well. For problems like these we can use Gradient Descent. The gradient (denoted with the Nabla Operator $\nabla$) uses the properties of partial derivatives, which compute the slope in regards to an axis in a point $a,b$.
+
+\begin{figure}[tbh!]
+	\centering
+	\includegraphics[keepaspectratio=true, width=\linewidth]{Pictures/PartialDerivative}
+	\caption{Partial derivative in regards to the x-axis in the point a,b (\textcopyright J. Bürgler, 2019)}
+	\label{fig:partialderivative}
+\end{figure}
+
+The gradient $\nabla f$ of the scalar function $f: \mathbb{R}^2 \rightarrow \mathbb{R}, (x,y) \mapsto f(x,y) = z$ is a vector, whose components are partial derivatives of $f$.
+
+\begin{equation}
+	\nabla f(x,y) = 
+	\begin{bmatrix}
+		\frac{\delta f}{\delta x}(x,y)\\
+		\frac{\delta f}{\delta z}(x,y)
+	\end{bmatrix}
+	=
+		\begin{bmatrix}
+	f_x (x,y)\\
+	f_y (x,y)
+	\end{bmatrix}
+\end{equation}
 
 \end{document}
