@@ -32,7 +32,6 @@
 \usepackage{textcomp}
 
 
-
 \counterwithin{figure}{section}
 
 \AtBeginDocument{\counterwithin{lstlisting}{section}}
@@ -228,9 +227,9 @@ These figures can give you a rough overview about the whereabouts of your data-m
 
 This is the averge in a set of numeric data. You add all data and divide it by the number of data points
 
-\[ \scalebox{1.5}{
-        $\mu_{x}=\frac{1}{n} \sum^{n}_{i=1} x_{i}$
-}\]
+\begin{equation}
+	\mu_{x}=\frac{1}{n} \sum^{n}_{i=1} x_{i}
+\end{equation}
 
 \vspace{10px}
 
@@ -330,9 +329,9 @@ Values $1.5 \cdot IQR$ above the 3rd or below the 1st Quartile can be considered
 \subsubsection{Variance}
 The variance shows \textbf{how much the values are spread on average}. This is measured by squaring the sum of all deviations from the mean
 
-\[ \scalebox{1.5}{
-        $\dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)^2$
-}\]
+\begin{equation}
+	\dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)^2
+\end{equation}
 
 The standard deviation $\sigma$ is calculated as $\sqrt{variance}$
 
@@ -347,9 +346,9 @@ If one is above and one is below the mean, the variance is \textbf{negative}, th
 
 If the variables are \textbf{independent} from each other, the covariance is zero, as they both cancel each other out.
 
-\[\scalebox{1.5}{
-        $Cov(x,y) = \dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)(y_{i} - \mu y)$
-}\]
+\begin{equation}
+	Cov(x,y) = \dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)(y_{i} - \mu y)
+\end{equation}
 
 The \textbf{covariance matrix} shows the covariance from all $X$ with all $Y$. As $Cov(x,x) = Var(x)$, the covariance matrix has the variance of $X$ in its diagonal
 
@@ -357,13 +356,10 @@ The \textbf{covariance matrix} shows the covariance from all $X$ with all $Y$. A
 \subsubsection{Pearson Correlation} \label{sec:pearson}
 Both the covariance and the variance are connected to the scale of the dataset, so the covariance of $X=[1,2,3,4,5] / Y=[6,7,8,9,10]$ is 2.5, whereas the covariance of $X=[1000,2000,3000,4000,5000] / Y=[6000,7000,8000,9000,10000]$ is 2'500'000'000. However, the Perason Correlation is 1 in both examples.
 
-\[\scalebox{1.5}{
-        $\rho(X,Y)=\dfrac{Cov(X,Y)}{\sigma_{x} \sigma_{y}} = $
-
-}\] 
-\[\scalebox{1.5}{
-        $        \dfrac{\dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)(y_{i} - \mu y)}{\sqrt{\dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)^2} \cdot \sqrt{\dfrac{1}{1-n} \sum^{n}_{i=1}(y_{i} - \mu y)^2}}$
-}\]
+\begin{equation}
+	\rho(X,Y)=\dfrac{Cov(X,Y)}{\sigma_{x} \sigma_{y}} = 
+	        \dfrac{\dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)(y_{i} - \mu y)}{\sqrt{\dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)^2} \cdot \sqrt{\dfrac{1}{1-n} \sum^{n}_{i=1}(y_{i} - \mu y)^2}}
+\end{equation}
 The Pearson Correlation is always between 1 and -1. 
 
 \noindent 1 means the data is perfectly correlated, whereas -1 means that the data is perfectly incorrelated
@@ -383,17 +379,17 @@ Such differently scaled data can (and will) falsify the result of every machine 
 
 \noindent All data is condensed to a value between 0 and 1. The smallest value becomes 0 and the largest one becomes 1.
 
-\[\scalebox{1.5}{
-        $x \rightarrow \dfrac{x - min_{x}}{max_{x}-min_{x}}$
-}\]
+\begin{equation}
+	x \rightarrow \dfrac{x - min_{x}}{max_{x}-min_{x}}
+\end{equation}
 
 \noindent \textbf{Z-Score Normalization}
 
 \noindent The dataset is transformed in such a way, that the mean becomes 0 (so-called \textit{mean-centering}) and the standard deviation is 1
 
-\[\scalebox{1.5}{
-        $x \rightarrow \dfrac{x - \mu_{x}}{\sigma_{x}}$
-}\]
+\begin{equation}
+	x \rightarrow \dfrac{x - \mu_{x}}{\sigma_{x}}
+\end{equation}
 
 \section{Geometry of Data}
 
@@ -438,9 +434,9 @@ The math we want to do is not even overly complicated: We just want to measure t
 
 The distance between two points is most easily calculated using the \textbf{euclidean distance}:
 
-\[\scalebox{1.5}{
-        $dist(X,Y)= \sqrt{\sum^{n}_{i=1}(x_{i}-y{i})^2} $
-}\]
+\begin{equation}
+	dist(X,Y)= \sqrt{\sum^{n}_{i=1}(x_{i}-y{i})^2} 
+\end{equation}
 
 So the distance between the points $(5/10)$ and $(8/6)$ can be calculated as
 
@@ -472,12 +468,12 @@ The cosine similarity is essentially just the scalar product of the two points.
 
 \vspace{10px}
 
-\[\scalebox{1.5}{
-        $sim(X,Y) = \dfrac{\sum^{n}_{i=i}{x_{i} y_{i}}}{\sqrt{\sum^{n}_{i=i}{x_{i}}^2\sqrt{\sum^{n}_{i=i}{y_{i}}^2}}}$
-}\]
-\[\scalebox{1.5}{
-        $dist(X,Y) = 1 - sim(X,Y)$
-}\]
+\begin{equation}
+	sim(X,Y) = \dfrac{\sum^{n}_{i=i}{x_{i} y_{i}}}{\sqrt{\sum^{n}_{i=i}{x_{i}}^2\sqrt{\sum^{n}_{i=i}{y_{i}}^2}}}
+\end{equation}
+\begin{equation}
+	dist(X,Y) = 1 - sim(X,Y)
+\end{equation}
 
 \subsubsection{Levenshtein / Edit Distance for Strings}
 
@@ -658,13 +654,13 @@ With these values, one can calculate the algorithms \textbf{Accuracy} and \textb
 
 \subsubsection{Accuracy and Error Rate}
 
-\[\scalebox{1.5}{
-        $Accuracy = \dfrac{True\ Positive + True\ Negative}{Total}$ 
-}\]
+\begin{equation}
+	Accuracy = \dfrac{True\ Positive + True\ Negative}{Total}
+\end{equation}
 \vspace{10px}
-\[\scalebox{1.5}{
-        $Error\ Rate = \dfrac{False\ Positive + False\ Negative}{Total} = 1 - Accuracy$
-}\]
+\begin{equation}
+	Error\ Rate = \dfrac{False\ Positive + False\ Negative}{Total} = 1 - Accuracy
+\end{equation}
 
 \vspace{10px}
 
@@ -682,9 +678,9 @@ If there were 5000 NO instances and 20 YES instances, a classifier that only ret
 
 \noindent The \textbf{Sensitivity} (also called 'Recall') counts how many true positives there are.
 
-\[\scalebox{1.5}{
-        $Sensitivity = \dfrac{True\ Positive}{Actual\ YES} = \dfrac{True\ Positive}{True\ Positive + False\ Negative} $
-}\]
+\begin{equation}
+	Sensitivity = \dfrac{True\ Positive}{Actual\ YES} = \dfrac{True\ Positive}{True\ Positive + False\ Negative} 
+\end{equation}
 
 \vspace{10px}
 
@@ -693,9 +689,9 @@ In our confusion matrix from earlier, the Sensitivity would be $\dfrac{100}{100 
 \subsubsection{Sepcificity}
 This is the inverse of the Sensitivity. It counts how many NO the algorithm correctly predicted.o
 
-\[\scalebox{1.5}{
-        $Specificity= \dfrac{True\ Negative}{Actual\ NO} = \dfrac{True\ Negative}{True\ Negative + False\ Positive} $
-}\]
+\begin{equation}
+	Specificity= \dfrac{True\ Negative}{Actual\ NO} = \dfrac{True\ Negative}{True\ Negative + False\ Positive} 
+\end{equation}
 
 \vspace{10px}
 
@@ -704,9 +700,9 @@ In our confusion matrix from earlier, the Specificity would be $\dfrac{50}{50+ 1
 \subsubsection{Precision}
 Both of the preceding measures relied on the true negative. However, what would you do if you could not count the True Negatives? You use \textbf{Precision}. Precision shows how many times the algorithm is correct if it predicts YES.
 
-\[\scalebox{1.5}{
-        $Precision = \dfrac{True\ Positive}{Predicted\ YES} = \dfrac{True\ Positive}{True\ Positive + False\ Positive}$
-}\]
+\begin{equation}
+	Precision = \dfrac{True\ Positive}{Predicted\ YES} = \dfrac{True\ Positive}{True\ Positive + False\ Positive}
+\end{equation}
 
 \vspace{10px}
 
@@ -716,9 +712,9 @@ In our confusion matrix from earlier, the Precision would be $\dfrac{100}{100+ 1
 
 The F1 score is the harmonic mean between precision and recall/sensitivity
 
-\[\scalebox{1.5}{
-        $F1 = \dfrac{2 \cdot Precision \cdot Sensitivity}{Precision + Sensitivity} $
-}\]
+\begin{equation}
+	F1 = \dfrac{2 \cdot Precision \cdot Sensitivity}{Precision + Sensitivity} 
+\end{equation}
 
 In our confusion matrix from earlier, the Precision would be $\dfrac{2 \cdot 0.91 \cdot 0.95}{0.91 + 0.95} = \dfrac{1.73}{1.86} = 0.93 = 93\%$
 
@@ -739,9 +735,9 @@ However, it is still one of the best methods to solve a classification problem w
 
 \subsubsection{Coefficient of Determination} \label{sec:r_squared}
 
-\[\scalebox{1.5}{
-        $R^2 = 1- \dfrac{\dfrac{1}{m} \sum^{m}_{i=1}(y_{i} - f_{i})^2}{\dfrac{1}{m} \sum^{m}_{i=1}(y_{i} - \bar{y})^2} =1 - \dfrac{\sum^{m}_{i=1}(y_{i} - f_{i})^2}{\sum^{m}_{i=1}(y_{i} - \bar{y})^2} $
-}\]
+\begin{equation}
+	R^2 = 1- \dfrac{\dfrac{1}{m} \sum^{m}_{i=1}(y_{i} - f_{i})^2}{\dfrac{1}{m} \sum^{m}_{i=1}(y_{i} - \bar{y})^2} =1 - \dfrac{\sum^{m}_{i=1}(y_{i} - f_{i})^2}{\sum^{m}_{i=1}(y_{i} - \bar{y})^2} 
+\end{equation}
 
 $R^2$ is a staticstical measure of how well the predictions approximate the real data points. 
 The top is the sum of squared errors (how much does the prediction deviate from the actual value) and the botom is the deviation of the mean.
@@ -777,17 +773,17 @@ The equation for a 'normal' line is $g(x) = m \cdot x + q$, where $m$ symbolizes
 
 The equation for the regression line is very much like the 'normal' line-equation, but we use greek symbols, because why not...
 
-\[\scalebox{1.5}{
-        $h_{\theta}(x) = \theta^{}_{0} + \theta^{}_{1} \cdot x$
-}\]
+\begin{equation}
+	h_{\theta}(x) = \theta^{}_{0} + \theta^{}_{1} \cdot x
+\end{equation}
 
 \vspace{10px}
 
 As mentioned before, deviation from that line are called errors. Therefore, the error of a given point $i$ can be calculated from the difference of the actual $y_{i}$ from the $h_{\theta}(x)$ (the $y$ on the line)
 
-\[\scalebox{1.5}{
-        $e_{i} = y_{i} - (\theta^{}_{0} + \theta^{}_{1} \cdot x_{i})$
-}\]
+\begin{equation}
+	e_{i} = y_{i} - (\theta^{}_{0} + \theta^{}_{1} \cdot x_{i})
+\end{equation}
 
 \vspace{10px}
 
@@ -797,9 +793,9 @@ However, as mentioned earlier, the errors usually cancel each other out, as some
 
 The sum of squared errors can be calculated as follows:
 
-\[\scalebox{1.5}{
-        $ J(\theta^{}_{0}, \theta^{}_{1}) = \dfrac{1}{2n} \sum^{n}_{i=1}(e_{i})^2 = \dfrac{1}{2n} \sum^{n}_{i=1}[y_{i} - (\theta^{}_{0} + \theta^{}_{1} \cdot x_{i})]^2$
-}\]
+\begin{equation}
+	 J(\theta^{}_{0}, \theta^{}_{1}) = \dfrac{1}{2n} \sum^{n}_{i=1}(e_{i})^2 = \dfrac{1}{2n} \sum^{n}_{i=1}[y_{i} - (\theta^{}_{0} + \theta^{}_{1} \cdot x_{i})]^2
+\end{equation}
 
 \vspace{10px}
 
@@ -808,14 +804,14 @@ To minimize $J(\theta^{}_{0}, \theta^{}_{1})$, the \textbf{gradient} of $J$ must
 This leads to the following formulas for $\theta^{}_{0}$ and $\theta^{}_{1}$
 
 \begin{minipage}{0.45\textwidth}
-    \[\scalebox{1.5}{
-            $\theta^{}_{1} = \dfrac{S_{xy}}{S_{xx}}$
-    }\]
+    \begin{equation}
+    	\theta^{}_{1} = \dfrac{S_{xy}}{S_{xx}}
+\end{equation}
 \end{minipage} \hfill
 \begin{minipage}{0.45\textwidth}
-    \[\scalebox{1.5}{
-            $\theta^{}_{0} = \bar y - \theta^{}_{1} \cdot \bar x$
-    }\]
+    \begin{equation}
+    	\theta^{}_{0} = \bar y - \theta^{}_{1} \cdot \bar x
+\end{equation}
 \end{minipage}
 
 Where $\bar x$ and $\bar y$ are the \textbf{mean} of the $x$ and $y$ values respectively
@@ -825,16 +821,14 @@ Where $\bar x$ and $\bar y$ are the \textbf{mean} of the $x$ and $y$ values resp
 $S_{xx}$ and $S_{xy}$ are called \textbf{regression coefficients} and are calculated as follows:
 
 \begin{minipage}{0.45\textwidth}
-    \[\scalebox{1.5}{
-            $S_{xy} = \sum^{n}_{i=1}(x_{i}-\bar x)(y_{i}-\bar y)$
-
-    }\]
+    \begin{equation}
+    	S_{xy} = \sum^{n}_{i=1}(x_{i}-\bar x)(y_{i}-\bar y)
+\end{equation}
 \end{minipage} \hfill
 \begin{minipage}{0.45\textwidth}
-    \[\scalebox{1.5}{
-            $S_{xx} = \sum^{n}_{i=1}(x_{i}-\bar x)^2$
-
-    }\]
+    \begin{equation}
+    	S_{xx} = \sum^{n}_{i=1}(x_{i}-\bar x)^2
+\end{equation}
 \end{minipage}
 
 \paragraph{Example} \mbox{}\\
@@ -852,9 +846,9 @@ $S_{xx}$ and $S_{xy}$ are called \textbf{regression coefficients} and are calcul
 
 From this follows that the regression line is:
 
-\[\scalebox{1.5}{
-        $h_{\theta}(x) = -0.64 \cdot 0.77 \cdot x$
-}\]
+\begin{equation*}
+	h_{\theta}(x) = -0.64 \cdot 0.77 \cdot x
+\end{equation*}
 
 \begin{figure}[htb!]
     \centering
@@ -904,18 +898,17 @@ But how does the aforementioned Coefficient of Determination relate to all of th
 
 $R^2$ is the \textbf{fraction of the total error that can be explained by the regression}. If all errors can be explained by the regression ($R^2 = 1$), then the regression is perfect
 
-\[\scalebox{1.5}{
-        $ R^2 = \dfrac{SSR}{SST} = \dfrac{SST-SSE}{SST} = 1 - \dfrac{SSE}{SST}$
-}\]
+\begin{equation}
+	 R^2 = \dfrac{SSR}{SST} = \dfrac{SST-SSE}{SST} = 1 - \dfrac{SSE}{SST}
+\end{equation}
 
 \vspace{10px}
 
 There's yet another error, the \textit{Mean Squared Error} (MSE). MSE is basically the mean of $SSE$. It is calculated as
 
-\[\scalebox{1.5}{
-
-        $MSE = \frac{SSE}{n-2} = \frac{1}{n-2}\sum_{i=1}^{n}(y_{i}-\hat{y}^{}_{i})^2$
-}\]
+\begin{equation}
+	MSE = \frac{SSE}{n-2} = \frac{1}{n-2}\sum_{i=1}^{n}(y_{i}-\hat{y}^{}_{i})^2
+\end{equation}
 
 \newpage
 
@@ -925,13 +918,13 @@ So now thath you have the regression parameters $\theta^{}_{0}$ and $\theta^{}_{
 
 Easy, you calculate the \textbf{standard deviation of these parameters}.
 
-\[\scalebox{1.5}{
-        $s_{\theta_{0}} = \sqrt{MSE} \cdot \sqrt{\frac{1}{n} + \frac{\bar{x}^2}{\sum_{i=1}^{n}{(x_i-\bar{x})^2}}}$
-}\]
+\begin{equation}
+	s_{\theta_{0}} = \sqrt{MSE} \cdot \sqrt{\frac{1}{n} + \frac{\bar{x}^2}{\sum_{i=1}^{n}{(x_i-\bar{x})^2}}}
+\end{equation}
 
-\[\scalebox{1.5}{
-        $s_{\theta_{1}} = \sqrt{MSE}\cdot \sqrt{\frac{1}{\sum_{i=1}^{n}{(x_i-\bar{x})^2}}}$
-}\]
+\begin{equation}
+	s_{\theta_{1}} = \sqrt{MSE}\cdot \sqrt{\frac{1}{\sum_{i=1}^{n}{(x_i-\bar{x})^2}}}
+\end{equation}
 
 \vspace{10px}
 
@@ -1153,9 +1146,9 @@ Suppose we want to predict the weight of a weightlifeter based on the training h
 
 \vspace{10px}
 
-\[ \scalebox{1.5}{
-    $y = h_\theta (x_1, x_2) = \theta_0 + \theta_1 \cdot x_1 + \theta_2 \cdot x_2$
-}\]
+\begin{equation*}
+	y = h_\theta (x_1, x_2) = \theta_0 + \theta_1 \cdot x_1 + \theta_2 \cdot x_2
+\end{equation*}
     
 \begin{figure}[htb!]
     \centering
@@ -1166,8 +1159,8 @@ Suppose we want to predict the weight of a weightlifeter based on the training h
 
 The following solution  minimizes the sum of squared errors in this model (and therefore get a hella good regression).
 
-\[ \scalebox{1.5}{
-        $\theta = (X^T X)^{-1} X^T y = 
+\begin{equation*}
+	\theta = (X^T X)^{-1} X^T y = 
         \begin{bmatrix}
             \theta_0 \\
             \theta_1 \\
@@ -1178,15 +1171,13 @@ The following solution  minimizes the sum of squared errors in this model (and t
             55.7 \\
             11.1 \\
             17.5 
-        \end{bmatrix}  $
-}\]
+        \end{bmatrix}  
+\end{equation*}
 
 According to this, the regression plane would be:
-
-
-\[ \scalebox{1.5}{
-        $y = h_\theta (x_1, x_2) = 55.7 + 11.1 \cdot x_1 + 17.5 \cdot x_2$
-}\]
+\begin{equation*}
+	y = h_\theta (x_1, x_2) = 55.7 + 11.1 \cdot x_1 + 17.5 \cdot x_2
+\end{equation*}
 
 \newpage
 
