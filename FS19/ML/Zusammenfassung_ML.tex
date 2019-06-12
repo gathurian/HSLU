@@ -31,6 +31,7 @@
 \usepackage{breqn}
 \usepackage{textcomp}
 \usepackage{amssymb}
+\usepackage{amsmath}
 \usepackage{bm}
 \usepackage{caption}
 
@@ -1380,7 +1381,7 @@ The difference to Batch Gradient Descent is that only one piece of data from the
 \hfill
 \begin{minipage}{0.4\textwidth}
 		\centering
-		\includegraphics[keepaspectratio, height=\textwidth]{Pictures/stochastic_gradient_descent}
+		\includegraphics[keepaspectratio, height=\linewidth]{Pictures/stochastic_gradient_descent}
 		\captionof{figure}{Stochastic Gradient Descent}
 		\label{fig:stochasticgradientdescent}
 \end{minipage}
@@ -1406,5 +1407,48 @@ We could then use the features $x_1 = x$, $x_2 = x^2$ and $x_3 = x^3$, but if th
 \end{enumerate}
 
 For sufficiently small $\alpha$, $J(\bm{\theta})$ should decrease in every iteration, but a too small $\alpha$ leads to a slow convergence. Start with $\alpha = 0.001$, proceed with $0.003, 0.01, 0.03, 0.1, ...$ .
+
+\section{Regularisation}
+Under- and overfitting are common problems in machine learning. Underfitting occurs when the model is to general and can't aptly represent the data. Overfitting occurs, when the model is too precisely fitted to the training data.
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{0.6\linewidth}
+		\centering
+		\includegraphics[keepaspectratio,width=\linewidth]{Pictures/under_and_overfitting}
+		\caption{Example of different fittings}
+	\end{subfigure}
+	\begin{subfigure}{0.6\linewidth}
+		\centering
+		\includegraphics[keepaspectratio,width=\linewidth]{Pictures/biases_and_variances}
+		\caption{Examples of different biases and variances}
+	\end{subfigure}
+	\caption{Under- and Overfitting, Biases and Variances}
+\end{figure}
+
+To address overfitting we can try these approaches
+\begin{enumerate}
+	\item Reduce the number of features
+	\begin{itemize}
+		\item Manually select which features to keep
+		\item Model selection algorithm
+	\end{itemize}
+	\item Regularisation
+	\begin{itemize}
+		\item Keep all features, but reduce magnitude of parameters $\theta_i$
+		\item Works well with lots of features which each contribute just a bit to predict y
+	\end{itemize}
+\end{enumerate}
+
+\subsection{Ridge Regularisation}
+\begin{equation}
+	J(\theta) = \frac{1}{2n}\left[\sum_{i=1}^{n}(h(\theta,x_i)-y_i)^2 + \lambda \sum_{j=1}^{m}\theta_j^2\right]
+\end{equation}
+
+The second sum goes from $1$ to the number of features $m$ and it does not contain $\theta_0$. The regularisation hyperparameter $\lambda$ controls the amount of regularisation. If $\lambda = 0$ there will be no regularization, and if $\lambda = \infty$ there will be underfitting because only $\theta_0$ will be different from zero.
+In Ridge regularised regression, we choose $\theta$ to minimize $J(\theta)$:
+\begin{equation}
+	\hat{\theta} = \underset{\theta}{\text{argmin}} J(\theta)
+\end{equation}
 
 \end{document}
