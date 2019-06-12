@@ -1102,13 +1102,62 @@ print("Interval theta1: [" + str(thet1 - (2.57*Sthet1)) + " ; " + str(thet1 + (2
 
 \subsection{Multple Linear Regression}
 
-Linear Regeression is great and all, but what if you wanted to predict an independent value based on \textbf{multiple} other values? 
+Linear Regeression is great and all, but what if you wanted to predict an independent value based on \textbf{multiple} other values? In that case we would need \textbf{multilinear regression}. 
+\noindent
+In Muliple Linear Regression we try to fit a plane instead of a line. This plane is defined by 
+\begin{equation}
+	y = h_\theta(x_1,x_2) = \theta_0 + \theta_1 x_1 + \theta_2 x_2
+\end{equation}
+And mapped to the sample with index $i$
+\begin{equation*}
+	y_i = \theta_0 + \theta_1 x_{1,i} + \theta_2 x_{2,i} + e_i
+\end{equation*}
 
-In that case we would need \textbf{multilinear regression}. 
+This can be transformed to matrices
+
+\begin{equation*}
+	\begin{bmatrix}
+		y_1\\
+		y_2\\
+		\vdots\\
+		y_n
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		1 & x_{1,1} & x_{2,1}\\
+		1 & x_{1,2} & x_{2,2}\\
+		 & \vdots & \\
+		1 & x_{1,n} & x_{2,n}\\
+	\end{bmatrix}
+ 	\begin{bmatrix}
+		\theta_0\\
+		\theta_1\\
+		\theta_2
+	\end{bmatrix}
+	+
+	\begin{bmatrix}
+		e_1\\
+		e_2\\
+		\vdots\\
+		e_n
+	\end{bmatrix}
+\end{equation*}
+
+This can be solved as follows
+
+\begin{equation*}
+	\bm{\theta} = (\bm{X}^T\bm{X})^-1\bm{X}^T\bm{y}
+\end{equation*}
+
+In more than three dimensions our plane becomes a hyperplane, and the model is
+
+\begin{equation*}
+	y_i = \theta_0 + \theta_1 x_{1,i} + \theta_2 x_{2,i} + \cdots + \theta_m x_{m,i}  + e_i=\sum_{k=0}^{n}\theta_k x_{k,i} + e_i
+\end{equation*}
 
 \subsubsection{Example multilinear regression}
 
-Suppose we want to predict the weight of a weightlifeter based on the training hours per week and the delivery of protein.
+Suppose we want to predict the weight of a weightlifter based on the training hours per week and the delivery of protein.
 
 \vspace{10px}
 
