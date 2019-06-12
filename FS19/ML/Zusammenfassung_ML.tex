@@ -32,6 +32,7 @@
 \usepackage{textcomp}
 \usepackage{amssymb}
 \usepackage{bm}
+\usepackage{caption}
 
 \counterwithin{figure}{section}
 
@@ -1207,7 +1208,7 @@ The problem with Linear Regression is, that it does not scale well. For problems
 
 \begin{figure}[tbh!]
 	\centering
-	\includegraphics[keepaspectratio=true, width=\linewidth]{Pictures/PartialDerivative}
+	\includegraphics[keepaspectratio=true, width=0.8\linewidth]{Pictures/PartialDerivative}
 	\caption{Partial derivative in regards to the x-axis in the point a,b (\textcopyright J. Bürgler, 2019)}
 	\label{fig:partialderivative}
 \end{figure}
@@ -1263,9 +1264,98 @@ Elevating the strengths of vectors we can Gradient Descent along all columns of 
 where $h(\bm{\theta},\textbf{x}^{(i)})$ is
 
 \begin{equation}
-h(\bm{\theta},\bm{x}^{(i)}) = \bm{x}^{(i)}\bm{\theta}\theta_0 + \theta_1 x^{(i)}_1 
+h(\bm{\theta},\bm{x}^{(i)}) = \bm{x}^{(i)}\bm{\theta} = \theta_0 + \theta_1 x^{(i)}_1 + \theta_2 x^{(i)}_2 + \cdots + \theta_m x^{(i)}_m
 \end{equation}
 
+And calculate the next iteration with the learning rate $\alpha$ (usually $0\leq\alpha\leq0.1$)
 
+\begin{equation}
+	\bm{\theta}_{k+1} = \bm{\theta}_{k} -\alpha\nabla J(\bm{\theta}_k)
+\end{equation}
+
+It can be shown that this yields
+
+\begin{equation}
+    \bm{\theta}_{k+1} = \bm{\theta}_{k} -\alpha\frac{1}{n}(h(\bm{\theta},\bm{x}^{(i)})-y^{(i)})\cdot\bm{x}^{(i)}
+\end{equation}
+
+\subsection{Stochastic Gradient Descent}
+In Batch Gradient Descent the update to the parameter vector $\bm{\theta}$ is done all at once using the whole set of $n$ training samples. If $n$ is in the order of several $10^6$, this update process can become slow. One possible alternative is to update $\bm{\theta}$ for each training sample separately. This is done by randomly shuffling the training examples first and then updating $\bm{\theta}$ for each training sample.
+
+\subsubsection{Instructions}
+\begin{itemize}
+    \item Choose an initial parameter vector $\bm{\theta}$ and a learning rate $\alpha$
+    \item Repeat until an approximate miminum is obtained
+        \begin{itemize}
+            \item Randomly shuffle the samples in the training set
+            \item For each sample $i \in {1,2,...,n}$ do
+                \begin{equation*}
+                    \bm{\theta}_{k+1} = \bm{\theta}_{k} -\alpha\nabla J_i(\bm{\theta}_k) = \bm{\theta}_{k} -\alpha\frac{1}{n}(h(\bm{\theta}_k,\bm{x}^{(i)})-y^{(i)})\cdot\bm{x}^{(i)}
+                \end{equation*}
+                where $h(\bm{\theta}_k,\bm{x}^{(i)})=\bm{\theta}_k^T \bm{x}^{(i)}$ and
+                \begin{equation*}
+                    J_i(\bm{\theta}) = \frac{1}{2n}(h(\bm{\theta}_k,\bm{x}^{(i)})-y^{(i)})^2
+                \end{equation*}
+                is the cost for one data point $(x^{(i)},y^{(i)})$
+        \end{itemize}
+\end{itemize}
+
+The difference to Batch Gradient Descent is that only one piece of data from the dataset is used to calculate the updated parameter and this piece of data is choosen randomly.
+
+\subsubsection{Stochastic Gradient Descent - Example}
+
+\begin{minipage}{0.55\textwidth}
+	\begin{lstlisting}
+	def parallel_cost(X,Y,x_data,y_data):
+	    m = X.shape[0]; n = X.shape[1]
+	    tot = np.zeros((m,n))
+	    for i in range(1,len(x_data)):
+	        tot += (X + Y * x_data[i] - y_data[i]) ** 2
+	    return tot/(2 * len(x_data))
+	
+	alpha = 0.03; epochs = 2000
+	
+	for epoch in np.arange(0,epochs):
+	    arr = np.arange(X.shape[0])
+	    np.random.shuffle(arr)
+	    for sample in np.arange(0,X.shape[0]):
+	        i = arr[sample]
+	        preds_i = X[i].dot(theta)
+	        error_i = preds_i - y[i]
+	        grad_i = X[i].dot(error_i)/X.shape[0]
+	        theta = theta - alpha * grad_i
+	        theta0_path.append(theta[0])
+	        theta1_path.append(theta[1])
+	\end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.4\textwidth}
+		\centering
+		\includegraphics[keepaspectratio, height=\textwidth]{Pictures/stochastic_gradient_descent}
+		\captionof{figure}{Stochastic Gradient Descent}
+		\label{fig:stochasticgradientdescent}
+\end{minipage}
+
+\subsection{Polynomial Regression, Feature Scaling and Checking Convergence}
+
+If we do not have a linear relationship, but a polynomial one between the features and estimated outcome, our equation is in the general form of
+
+\begin{equation}
+	h(\bm{\theta},\bm{x}) = \theta_0 + \theta_1 x^1 + \theta_2 x^2 + \cdots + \theta_n x^n
+\end{equation}
+
+We could then use the features $x_1 = x$, $x_2 = x^2$ and $x_3 = x^3$, but if the features are not in the same range, we have a problem. To solve this we must use feature scaling:
+
+\begin{enumerate}
+	\item Make sure the features are on a similar scale and get every feature into the range of $-1\leq x_i \leq 1$
+	\begin{enumerate}
+		\item Replace $x_i$ with $x_i - \bar{x}_i$ to have features with an approximately zero mean. Does not apply to $x_0 = 1$
+		\item Divide $x_i - \bar{x}_i$ by the range of $x_i = max(x_i) - min(x_i)$ or the standard deviation of $x_i$ 
+	\end{enumerate}
+	\item Test if Gradient Descent is working correctly by plotting the cost function $J(\bm{\theta})$ versus the number of iterations
+	\item Declare convergence if $J(\bm{\theta})$ decreases by less than a given threshold (for example $10^-3$) in one iteration
+\end{enumerate}
+
+For sufficiently small $\alpha$, $J(\bm{\theta})$ should decrease in every iteration, but a too small $\alpha$ leads to a slow convergence. Start with $\alpha = 0.001$, proceed with $0.003, 0.01, 0.03, 0.1, ...$ .
 
 \end{document}
