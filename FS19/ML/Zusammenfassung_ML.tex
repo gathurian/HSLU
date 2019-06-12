@@ -30,8 +30,9 @@
 \usepackage{amsmath}
 \usepackage{breqn}
 \usepackage{textcomp}
-
-
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{caption}
 
 \counterwithin{figure}{section}
 
@@ -228,9 +229,9 @@ These figures can give you a rough overview about the whereabouts of your data-m
 
 This is the averge in a set of numeric data. You add all data and divide it by the number of data points
 
-\[ \scalebox{1.5}{
-        $\mu_{x}=\frac{1}{n} \sum^{n}_{i=1} x_{i}$
-}\]
+\begin{equation}
+	\mu_{x}=\frac{1}{n} \sum^{n}_{i=1} x_{i}
+\end{equation}
 
 \vspace{10px}
 
@@ -330,9 +331,9 @@ Values $1.5 \cdot IQR$ above the 3rd or below the 1st Quartile can be considered
 \subsubsection{Variance}
 The variance shows \textbf{how much the values are spread on average}. This is measured by squaring the sum of all deviations from the mean
 
-\[ \scalebox{1.5}{
-        $\dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)^2$
-}\]
+\begin{equation}
+	\frac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)^2
+\end{equation}
 
 The standard deviation $\sigma$ is calculated as $\sqrt{variance}$
 
@@ -347,9 +348,9 @@ If one is above and one is below the mean, the variance is \textbf{negative}, th
 
 If the variables are \textbf{independent} from each other, the covariance is zero, as they both cancel each other out.
 
-\[\scalebox{1.5}{
-        $Cov(x,y) = \dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)(y_{i} - \mu y)$
-}\]
+\begin{equation}
+	Cov(x,y) = \frac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)(y_{i} - \mu y)
+\end{equation}
 
 The \textbf{covariance matrix} shows the covariance from all $X$ with all $Y$. As $Cov(x,x) = Var(x)$, the covariance matrix has the variance of $X$ in its diagonal
 
@@ -357,13 +358,10 @@ The \textbf{covariance matrix} shows the covariance from all $X$ with all $Y$. A
 \subsubsection{Pearson Correlation} \label{sec:pearson}
 Both the covariance and the variance are connected to the scale of the dataset, so the covariance of $X=[1,2,3,4,5] / Y=[6,7,8,9,10]$ is 2.5, whereas the covariance of $X=[1000,2000,3000,4000,5000] / Y=[6000,7000,8000,9000,10000]$ is 2'500'000'000. However, the Perason Correlation is 1 in both examples.
 
-\[\scalebox{1.5}{
-        $\rho(X,Y)=\dfrac{Cov(X,Y)}{\sigma_{x} \sigma_{y}} = $
-
-}\] 
-\[\scalebox{1.5}{
-        $        \dfrac{\dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)(y_{i} - \mu y)}{\sqrt{\dfrac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)^2} \cdot \sqrt{\dfrac{1}{1-n} \sum^{n}_{i=1}(y_{i} - \mu y)^2}}$
-}\]
+\begin{equation}
+	\rho(X,Y)=\frac{Cov(X,Y)}{\sigma_{x} \sigma_{y}} = 
+	        \frac{\frac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)(y_{i} - \mu y)}{\sqrt{\frac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)^2} \cdot \sqrt{\frac{1}{1-n} \sum^{n}_{i=1}(y_{i} - \mu y)^2}}
+\end{equation}
 The Pearson Correlation is always between 1 and -1. 
 
 \noindent 1 means the data is perfectly correlated, whereas -1 means that the data is perfectly incorrelated
@@ -383,17 +381,17 @@ Such differently scaled data can (and will) falsify the result of every machine 
 
 \noindent All data is condensed to a value between 0 and 1. The smallest value becomes 0 and the largest one becomes 1.
 
-\[\scalebox{1.5}{
-        $x \rightarrow \dfrac{x - min_{x}}{max_{x}-min_{x}}$
-}\]
+\begin{equation}
+	x \rightarrow \frac{x - min_{x}}{max_{x}-min_{x}}
+\end{equation}
 
 \noindent \textbf{Z-Score Normalization}
 
 \noindent The dataset is transformed in such a way, that the mean becomes 0 (so-called \textit{mean-centering}) and the standard deviation is 1
 
-\[\scalebox{1.5}{
-        $x \rightarrow \dfrac{x - \mu_{x}}{\sigma_{x}}$
-}\]
+\begin{equation}
+	x \rightarrow \frac{x - \mu_{x}}{\sigma_{x}}
+\end{equation}
 
 \section{Geometry of Data}
 
@@ -438,9 +436,9 @@ The math we want to do is not even overly complicated: We just want to measure t
 
 The distance between two points is most easily calculated using the \textbf{euclidean distance}:
 
-\[\scalebox{1.5}{
-        $dist(X,Y)= \sqrt{\sum^{n}_{i=1}(x_{i}-y{i})^2} $
-}\]
+\begin{equation}
+	dist(X,Y)= \sqrt{\sum^{n}_{i=1}(x_{i}-y{i})^2} 
+\end{equation}
 
 So the distance between the points $(5/10)$ and $(8/6)$ can be calculated as
 
@@ -472,12 +470,12 @@ The cosine similarity is essentially just the scalar product of the two points.
 
 \vspace{10px}
 
-\[\scalebox{1.5}{
-        $sim(X,Y) = \dfrac{\sum^{n}_{i=i}{x_{i} y_{i}}}{\sqrt{\sum^{n}_{i=i}{x_{i}}^2\sqrt{\sum^{n}_{i=i}{y_{i}}^2}}}$
-}\]
-\[\scalebox{1.5}{
-        $dist(X,Y) = 1 - sim(X,Y)$
-}\]
+\begin{equation}
+	sim(X,Y) = \frac{\sum^{n}_{i=i}{x_{i} y_{i}}}{\sqrt{\sum^{n}_{i=i}{x_{i}}^2\sqrt{\sum^{n}_{i=i}{y_{i}}^2}}}
+\end{equation}
+\begin{equation}
+	dist(X,Y) = 1 - sim(X,Y)
+\end{equation}
 
 \subsubsection{Levenshtein / Edit Distance for Strings}
 
@@ -658,17 +656,17 @@ With these values, one can calculate the algorithms \textbf{Accuracy} and \textb
 
 \subsubsection{Accuracy and Error Rate}
 
-\[\scalebox{1.5}{
-        $Accuracy = \dfrac{True\ Positive + True\ Negative}{Total}$ 
-}\]
+\begin{equation}
+	Accuracy = \frac{True\ Positive + True\ Negative}{Total}
+\end{equation}
 \vspace{10px}
-\[\scalebox{1.5}{
-        $Error\ Rate = \dfrac{False\ Positive + False\ Negative}{Total} = 1 - Accuracy$
-}\]
+\begin{equation}
+	Error\ Rate = \frac{False\ Positive + False\ Negative}{Total} = 1 - Accuracy
+\end{equation}
 
 \vspace{10px}
 
-In our case the Accuracy would be $\dfrac{50+100}{50+100+5+10} = \dfrac{150}{165} = 0.91 = 91\%$ and the error rate therefore 9\%
+In our case the Accuracy would be $\frac{50+100}{50+100+5+10} = \frac{150}{165} = 0.91 = 91\%$ and the error rate therefore 9\%
 
 \newpage
 
@@ -682,45 +680,45 @@ If there were 5000 NO instances and 20 YES instances, a classifier that only ret
 
 \noindent The \textbf{Sensitivity} (also called 'Recall') counts how many true positives there are.
 
-\[\scalebox{1.5}{
-        $Sensitivity = \dfrac{True\ Positive}{Actual\ YES} = \dfrac{True\ Positive}{True\ Positive + False\ Negative} $
-}\]
+\begin{equation}
+	Sensitivity = \frac{True\ Positive}{Actual\ YES} = \frac{True\ Positive}{True\ Positive + False\ Negative} 
+\end{equation}
 
 \vspace{10px}
 
-In our confusion matrix from earlier, the Sensitivity would be $\dfrac{100}{100 + 5} = \dfrac{100}{105} = 0.95 = 95\%$
+In our confusion matrix from earlier, the Sensitivity would be $\frac{100}{100 + 5} = \frac{100}{105} = 0.95 = 95\%$
 
 \subsubsection{Sepcificity}
 This is the inverse of the Sensitivity. It counts how many NO the algorithm correctly predicted.o
 
-\[\scalebox{1.5}{
-        $Specificity= \dfrac{True\ Negative}{Actual\ NO} = \dfrac{True\ Negative}{True\ Negative + False\ Positive} $
-}\]
+\begin{equation}
+	Specificity= \frac{True\ Negative}{Actual\ NO} = \frac{True\ Negative}{True\ Negative + False\ Positive} 
+\end{equation}
 
 \vspace{10px}
 
-In our confusion matrix from earlier, the Specificity would be $\dfrac{50}{50+ 10} = \dfrac{50}{60} = 0.83 = 83\%$
+In our confusion matrix from earlier, the Specificity would be $\frac{50}{50+ 10} = \frac{50}{60} = 0.83 = 83\%$
 
 \subsubsection{Precision}
 Both of the preceding measures relied on the true negative. However, what would you do if you could not count the True Negatives? You use \textbf{Precision}. Precision shows how many times the algorithm is correct if it predicts YES.
 
-\[\scalebox{1.5}{
-        $Precision = \dfrac{True\ Positive}{Predicted\ YES} = \dfrac{True\ Positive}{True\ Positive + False\ Positive}$
-}\]
+\begin{equation}
+	Precision = \frac{True\ Positive}{Predicted\ YES} = \frac{True\ Positive}{True\ Positive + False\ Positive}
+\end{equation}
 
 \vspace{10px}
 
-In our confusion matrix from earlier, the Precision would be $\dfrac{100}{100+ 10} = \dfrac{100}{110} = 0.91 = 91\%$
+In our confusion matrix from earlier, the Precision would be $\frac{100}{100+ 10} = \frac{100}{110} = 0.91 = 91\%$
 
 \subsubsection{F1 Score}
 
 The F1 score is the harmonic mean between precision and recall/sensitivity
 
-\[\scalebox{1.5}{
-        $F1 = \dfrac{2 \cdot Precision \cdot Sensitivity}{Precision + Sensitivity} $
-}\]
+\begin{equation}
+	F1 = \frac{2 \cdot Precision \cdot Sensitivity}{Precision + Sensitivity} 
+\end{equation}
 
-In our confusion matrix from earlier, the Precision would be $\dfrac{2 \cdot 0.91 \cdot 0.95}{0.91 + 0.95} = \dfrac{1.73}{1.86} = 0.93 = 93\%$
+In our confusion matrix from earlier, the Precision would be $\frac{2 \cdot 0.91 \cdot 0.95}{0.91 + 0.95} = \frac{1.73}{1.86} = 0.93 = 93\%$
 
 \vspace{10px}
 
@@ -739,9 +737,9 @@ However, it is still one of the best methods to solve a classification problem w
 
 \subsubsection{Coefficient of Determination} \label{sec:r_squared}
 
-\[\scalebox{1.5}{
-        $R^2 = 1- \dfrac{\dfrac{1}{m} \sum^{m}_{i=1}(y_{i} - f_{i})^2}{\dfrac{1}{m} \sum^{m}_{i=1}(y_{i} - \bar{y})^2} =1 - \dfrac{\sum^{m}_{i=1}(y_{i} - f_{i})^2}{\sum^{m}_{i=1}(y_{i} - \bar{y})^2} $
-}\]
+\begin{equation}
+	R^2 = 1- \frac{\frac{1}{m} \sum^{m}_{i=1}(y_{i} - f_{i})^2}{\frac{1}{m} \sum^{m}_{i=1}(y_{i} - \bar{y})^2} =1 - \frac{\sum^{m}_{i=1}(y_{i} - f_{i})^2}{\sum^{m}_{i=1}(y_{i} - \bar{y})^2} 
+\end{equation}
 
 $R^2$ is a staticstical measure of how well the predictions approximate the real data points. 
 The top is the sum of squared errors (how much does the prediction deviate from the actual value) and the botom is the deviation of the mean.
@@ -752,7 +750,7 @@ $R^3 = 0.53$ means that 53\% of the of the predictions are correct and can be ex
 
 \newpage
 
-\section{Linear Regressin}
+\section{Linear Regression}
 
 \begin{wrapfigure}[16]{R}{0.5\textwidth}
     \centering
@@ -777,17 +775,17 @@ The equation for a 'normal' line is $g(x) = m \cdot x + q$, where $m$ symbolizes
 
 The equation for the regression line is very much like the 'normal' line-equation, but we use greek symbols, because why not...
 
-\[\scalebox{1.5}{
-        $h_{\theta}(x) = \theta^{}_{0} + \theta^{}_{1} \cdot x$
-}\]
+\begin{equation}
+	h_{\theta}(x) = \theta^{}_{0} + \theta^{}_{1} \cdot x
+\end{equation}
 
 \vspace{10px}
 
 As mentioned before, deviation from that line are called errors. Therefore, the error of a given point $i$ can be calculated from the difference of the actual $y_{i}$ from the $h_{\theta}(x)$ (the $y$ on the line)
 
-\[\scalebox{1.5}{
-        $e_{i} = y_{i} - (\theta^{}_{0} + \theta^{}_{1} \cdot x_{i})$
-}\]
+\begin{equation}
+	e_{i} = y_{i} - (\theta^{}_{0} + \theta^{}_{1} \cdot x_{i})
+\end{equation}
 
 \vspace{10px}
 
@@ -797,9 +795,9 @@ However, as mentioned earlier, the errors usually cancel each other out, as some
 
 The sum of squared errors can be calculated as follows:
 
-\[\scalebox{1.5}{
-        $ J(\theta^{}_{0}, \theta^{}_{1}) = \dfrac{1}{2n} \sum^{n}_{i=1}(e_{i})^2 = \dfrac{1}{2n} \sum^{n}_{i=1}[y_{i} - (\theta^{}_{0} + \theta^{}_{1} \cdot x_{i})]^2$
-}\]
+\begin{equation}
+	 J(\theta^{}_{0}, \theta^{}_{1}) = \frac{1}{2n} \sum^{n}_{i=1}(e_{i})^2 = \frac{1}{2n} \sum^{n}_{i=1}[y_{i} - (\theta^{}_{0} + \theta^{}_{1} \cdot x_{i})]^2
+\end{equation}
 
 \vspace{10px}
 
@@ -808,14 +806,14 @@ To minimize $J(\theta^{}_{0}, \theta^{}_{1})$, the \textbf{gradient} of $J$ must
 This leads to the following formulas for $\theta^{}_{0}$ and $\theta^{}_{1}$
 
 \begin{minipage}{0.45\textwidth}
-    \[\scalebox{1.5}{
-            $\theta^{}_{1} = \dfrac{S_{xy}}{S_{xx}}$
-    }\]
+    \begin{equation}
+    	\theta^{}_{1} = \frac{S_{xy}}{S_{xx}}
+\end{equation}
 \end{minipage} \hfill
 \begin{minipage}{0.45\textwidth}
-    \[\scalebox{1.5}{
-            $\theta^{}_{0} = \bar y - \theta^{}_{1} \cdot \bar x$
-    }\]
+    \begin{equation}
+    	\theta^{}_{0} = \bar y - \theta^{}_{1} \cdot \bar x
+\end{equation}
 \end{minipage}
 
 Where $\bar x$ and $\bar y$ are the \textbf{mean} of the $x$ and $y$ values respectively
@@ -825,16 +823,14 @@ Where $\bar x$ and $\bar y$ are the \textbf{mean} of the $x$ and $y$ values resp
 $S_{xx}$ and $S_{xy}$ are called \textbf{regression coefficients} and are calculated as follows:
 
 \begin{minipage}{0.45\textwidth}
-    \[\scalebox{1.5}{
-            $S_{xy} = \sum^{n}_{i=1}(x_{i}-\bar x)(y_{i}-\bar y)$
-
-    }\]
+    \begin{equation}
+    	S_{xy} = \sum^{n}_{i=1}(x_{i}-\bar x)(y_{i}-\bar y)
+\end{equation}
 \end{minipage} \hfill
 \begin{minipage}{0.45\textwidth}
-    \[\scalebox{1.5}{
-            $S_{xx} = \sum^{n}_{i=1}(x_{i}-\bar x)^2$
-
-    }\]
+    \begin{equation}
+    	S_{xx} = \sum^{n}_{i=1}(x_{i}-\bar x)^2
+\end{equation}
 \end{minipage}
 
 \paragraph{Example} \mbox{}\\
@@ -842,19 +838,19 @@ $S_{xx}$ and $S_{xy}$ are called \textbf{regression coefficients} and are calcul
 \begin{flalign*}
     &X = [4, 6, 8, 10]& \\
     &Y = [2.3, 4.1, 5.7, 6.9]& \\
-    &\bar X = \dfrac{1}{4} (4 \cdot 6 \cdot 8 \cdot 10) = 7& \\
-    &\bar Y = \dfrac{1}{4} (2.3 \cdot 4.1 \cdot 5.7 \cdot 6.9) = 7.25& \\
+    &\bar X = \frac{1}{4} (4 \cdot 6 \cdot 8 \cdot 10) = 7& \\
+    &\bar Y = \frac{1}{4} (2.3 \cdot 4.1 \cdot 5.7 \cdot 6.9) = 7.25& \\
     &S_{xx} = (4-7)^2+(6-7)^2+(8-7)^2+(10-7)^2 = 20& \\
     &S_{xy} = (4-7)(2.3-7.25)+(6-7)(4.1-7.25)+(8-7)(5.7-7.25)+(10-7)(6.9-7.25)=15.4& \\
-    &\theta^{}_{1} = \dfrac{20}{15.4} = 0.77& \\
+    &\theta^{}_{1} = \frac{20}{15.4} = 0.77& \\
     &\theta^{}_{0} = 4.75-(0.77-7) = -0.64&
 \end{flalign*}
 
 From this follows that the regression line is:
 
-\[\scalebox{1.5}{
-        $h_{\theta}(x) = -0.64 \cdot 0.77 \cdot x$
-}\]
+\begin{equation*}
+	h_{\theta}(x) = -0.64 \cdot 0.77 \cdot x
+\end{equation*}
 
 \begin{figure}[htb!]
     \centering
@@ -904,18 +900,17 @@ But how does the aforementioned Coefficient of Determination relate to all of th
 
 $R^2$ is the \textbf{fraction of the total error that can be explained by the regression}. If all errors can be explained by the regression ($R^2 = 1$), then the regression is perfect
 
-\[\scalebox{1.5}{
-        $ R^2 = \dfrac{SSR}{SST} = \dfrac{SST-SSE}{SST} = 1 - \dfrac{SSE}{SST}$
-}\]
+\begin{equation}
+	 R^2 = \frac{SSR}{SST} = \frac{SST-SSE}{SST} = 1 - \frac{SSE}{SST}
+\end{equation}
 
 \vspace{10px}
 
 There's yet another error, the \textit{Mean Squared Error} (MSE). MSE is basically the mean of $SSE$. It is calculated as
 
-\[\scalebox{1.5}{
-
-        $MSE = \frac{SSE}{n-2} = \frac{1}{n-2}\sum_{i=1}^{n}(y_{i}-\hat{y}^{}_{i})^2$
-}\]
+\begin{equation}
+	MSE = \frac{SSE}{n-2} = \frac{1}{n-2}\sum_{i=1}^{n}(y_{i}-\hat{y}^{}_{i})^2
+\end{equation}
 
 \newpage
 
@@ -925,13 +920,13 @@ So now thath you have the regression parameters $\theta^{}_{0}$ and $\theta^{}_{
 
 Easy, you calculate the \textbf{standard deviation of these parameters}.
 
-\[\scalebox{1.5}{
-        $s_{\theta_{0}} = \sqrt{MSE} \cdot \sqrt{\frac{1}{n} + \frac{\bar{x}^2}{\sum_{i=1}^{n}{(x_i-\bar{x})^2}}}$
-}\]
+\begin{equation}
+	s_{\theta_{0}} = \sqrt{MSE} \cdot \sqrt{\frac{1}{n} + \frac{\bar{x}^2}{\sum_{i=1}^{n}{(x_i-\bar{x})^2}}}
+\end{equation}
 
-\[\scalebox{1.5}{
-        $s_{\theta_{1}} = \sqrt{MSE}\cdot \sqrt{\frac{1}{\sum_{i=1}^{n}{(x_i-\bar{x})^2}}}$
-}\]
+\begin{equation}
+	s_{\theta_{1}} = \sqrt{MSE}\cdot \sqrt{\frac{1}{\sum_{i=1}^{n}{(x_i-\bar{x})^2}}}
+\end{equation}
 
 \vspace{10px}
 
@@ -972,11 +967,11 @@ Degrees of freedom tell you how many regression parameters you already had to ca
 \end{flalign*}
 \vspace{-40px}
 \begin{flalign*}
-    &\bar X = \dfrac{1}{7} \sum^{7}_{i=1}(x_{i}) =
-    \dfrac{14+16+27+42+83+50+39}{7} \\
-    &= \dfrac{271}{7} = \doubleunderline{38.7}& \\
-    &\bar Y = \dfrac{1}{7} \sum^{7}_{i=1}(y_{i}) = 
-    \dfrac{2+5+7+9+28+13+10}{7} = \dfrac{66}{7} = \doubleunderline{9.4}& \\
+    &\bar X = \frac{1}{7} \sum^{7}_{i=1}(x_{i}) =
+    \frac{14+16+27+42+83+50+39}{7} \\
+    &= \frac{271}{7} = \doubleunderline{38.7}& \\
+    &\bar Y = \frac{1}{7} \sum^{7}_{i=1}(y_{i}) = 
+    \frac{2+5+7+9+28+13+10}{7} = \frac{66}{7} = \doubleunderline{9.4}& \\
 \end{flalign*}
 \vspace{-40px}
 \begin{flalign*}
@@ -1000,7 +995,7 @@ Degrees of freedom tell you how many regression parameters you already had to ca
 \end{flalign*}
 \vspace{-20px}
 \begin{flalign*}
-    &\theta_1 = \dfrac{S_{xy}}{S_{xx}} = \dfrac{819}{3363.4} = \doubleunderline{0.24}&
+    &\theta_1 = \frac{S_{xy}}{S_{xx}} = \frac{819}{3363.4} = \doubleunderline{0.24}&
 \end{flalign*} 
 \vspace{-20px}
 \begin{flalign*}
@@ -1022,7 +1017,7 @@ Degrees of freedom tell you how many regression parameters you already had to ca
 \end{flalign*}
 \vspace{-20px}
 \begin{flalign*}
-    &R^2 = \frac{SSR}{SST} = \dfrac{199.84}{205.71} = \doubleunderline{0.97}&
+    &R^2 = \frac{SSR}{SST} = \frac{199.84}{205.71} = \doubleunderline{0.97}&
 \end{flalign*}
 \vspace{-10px}
 \begin{flalign*}
@@ -1107,13 +1102,62 @@ print("Interval theta1: [" + str(thet1 - (2.57*Sthet1)) + " ; " + str(thet1 + (2
 
 \subsection{Multple Linear Regression}
 
-Linear Regeression is great and all, but what if you wanted to predict an independent value based on \textbf{multiple} other values? 
+Linear Regeression is great and all, but what if you wanted to predict an independent value based on \textbf{multiple} other values? In that case we would need \textbf{multilinear regression}. 
+\noindent
+In Muliple Linear Regression we try to fit a plane instead of a line. This plane is defined by 
+\begin{equation}
+	y = h_\theta(x_1,x_2) = \theta_0 + \theta_1 x_1 + \theta_2 x_2
+\end{equation}
+And mapped to the sample with index $i$
+\begin{equation*}
+	y_i = \theta_0 + \theta_1 x_{1,i} + \theta_2 x_{2,i} + e_i
+\end{equation*}
 
-In that case we would need \textbf{multilinear regression}. 
+This can be transformed to matrices
+
+\begin{equation*}
+	\begin{bmatrix}
+		y_1\\
+		y_2\\
+		\vdots\\
+		y_n
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		1 & x_{1,1} & x_{2,1}\\
+		1 & x_{1,2} & x_{2,2}\\
+		 & \vdots & \\
+		1 & x_{1,n} & x_{2,n}\\
+	\end{bmatrix}
+ 	\begin{bmatrix}
+		\theta_0\\
+		\theta_1\\
+		\theta_2
+	\end{bmatrix}
+	+
+	\begin{bmatrix}
+		e_1\\
+		e_2\\
+		\vdots\\
+		e_n
+	\end{bmatrix}
+\end{equation*}
+
+This can be solved as follows
+
+\begin{equation*}
+	\bm{\theta} = (\bm{X}^T\bm{X})^-1\bm{X}^T\bm{y}
+\end{equation*}
+
+In more than three dimensions our plane becomes a hyperplane, and the model is
+
+\begin{equation*}
+	y_i = \theta_0 + \theta_1 x_{1,i} + \theta_2 x_{2,i} + \cdots + \theta_m x_{m,i}  + e_i=\sum_{k=0}^{n}\theta_k x_{k,i} + e_i
+\end{equation*}
 
 \subsubsection{Example multilinear regression}
 
-Suppose we want to predict the weight of a weightlifeter based on the training hours per week and the delivery of protein.
+Suppose we want to predict the weight of a weightlifter based on the training hours per week and the delivery of protein.
 
 \vspace{10px}
 
@@ -1153,9 +1197,9 @@ Suppose we want to predict the weight of a weightlifeter based on the training h
 
 \vspace{10px}
 
-\[ \scalebox{1.5}{
-    $y = h_\theta (x_1, x_2) = \theta_0 + \theta_1 \cdot x_1 + \theta_2 \cdot x_2$
-}\]
+\begin{equation*}
+	y = h_\theta (x_1, x_2) = \theta_0 + \theta_1 \cdot x_1 + \theta_2 \cdot x_2
+\end{equation*}
     
 \begin{figure}[htb!]
     \centering
@@ -1166,8 +1210,8 @@ Suppose we want to predict the weight of a weightlifeter based on the training h
 
 The following solution  minimizes the sum of squared errors in this model (and therefore get a hella good regression).
 
-\[ \scalebox{1.5}{
-        $\theta = (X^T X)^{-1} X^T y = 
+\begin{equation*}
+	\theta = (X^T X)^{-1} X^T y = 
         \begin{bmatrix}
             \theta_0 \\
             \theta_1 \\
@@ -1178,15 +1222,13 @@ The following solution  minimizes the sum of squared errors in this model (and t
             55.7 \\
             11.1 \\
             17.5 
-        \end{bmatrix}  $
-}\]
+        \end{bmatrix}  
+\end{equation*}
 
 According to this, the regression plane would be:
-
-
-\[ \scalebox{1.5}{
-        $y = h_\theta (x_1, x_2) = 55.7 + 11.1 \cdot x_1 + 17.5 \cdot x_2$
-}\]
+\begin{equation*}
+	y = h_\theta (x_1, x_2) = 55.7 + 11.1 \cdot x_1 + 17.5 \cdot x_2
+\end{equation*}
 
 \newpage
 
@@ -1210,5 +1252,159 @@ theta = np.linalg.inv(X_ext.T.dot(X_est)).dot(X_ext.T).dot(y)
 print(theta)
 \end{lstlisting}
 
+\section{Gradient Descent}
+The problem with Linear Regression is, that it does not scale well. For problems like these we can use Gradient Descent. The gradient (denoted with the Nabla Operator $\nabla$) uses the properties of partial derivatives, which compute the slope in regards to an axis in a point $a,b$.
+
+\begin{figure}[tbh!]
+	\centering
+	\includegraphics[keepaspectratio=true, width=0.8\linewidth]{Pictures/PartialDerivative}
+	\caption{Partial derivative in regards to the x-axis in the point a,b (\textcopyright J. Bürgler, 2019)}
+	\label{fig:partialderivative}
+\end{figure}
+
+The gradient $\nabla f$ of the scalar function $f: \mathbb{R}^2 \rightarrow \mathbb{R}, (x,y) \mapsto f(x,y) = z$ is a vector, whose components are partial derivatives of $f$.
+
+\begin{equation}
+	\nabla f(x,y) = 
+	\begin{bmatrix}
+		\frac{\delta f}{\delta x}(x,y)\\
+		\frac{\delta f}{\delta z}(x,y)
+	\end{bmatrix}
+	=
+		\begin{bmatrix}
+	f_x (x,y)\\
+	f_y (x,y)
+	\end{bmatrix}
+\end{equation}
+
+\subsubsection{Example of a gradient}
+
+Calculate the gradient of the function $f(x,y) = (3x+2y)^2$ in general and in the point $(1,2)$.
+
+\begin{align*}
+	\nabla f(x,y) &= \begin{bmatrix}
+	6(3x + 2y)\\
+	4(3x + 2y)
+	\end{bmatrix}\\
+	\nabla f(1,2) &= \begin{bmatrix}
+	42\\
+	28
+	\end{bmatrix}
+\end{align*}
+
+\subsection{Properties of the gradient}
+\begin{itemize}
+	\item The Gradient of a function f is a vector consisting of the partial derivatives of f with respect to all of its variables
+	\item It points to the direction of maximal increase
+	\item The negative Gradient points to the direction of maximal decrease
+	\item The Gradient being a null-vector indicates a local extrema
+	\item The Gradient is perpendicular to the contour lines of that function
+\end{itemize}
+
+\subsection{Gradient descent}
+To find a local minima of a function $f$ we follow the direction of the steepest descent, and thus the negative Gradient. As the Gradient is constantly changing, we have to take small steps.
+
+\subsubsection{Batch Gradient Descent}
+Elevating the strengths of vectors we can Gradient Descent along all columns of our data. For this we want to minimize the cost function
+\begin{equation}
+	J(\theta) = \frac{1}{2n}\sum_{i=1}^{n}(h(bm{\theta},\textbf{x}^{(i)})-y^{(i)})^2
+\end{equation}
+
+where $h(\bm{\theta},\textbf{x}^{(i)})$ is
+
+\begin{equation}
+h(\bm{\theta},\bm{x}^{(i)}) = \bm{x}^{(i)}\bm{\theta} = \theta_0 + \theta_1 x^{(i)}_1 + \theta_2 x^{(i)}_2 + \cdots + \theta_m x^{(i)}_m
+\end{equation}
+
+And calculate the next iteration with the learning rate $\alpha$ (usually $0\leq\alpha\leq0.1$)
+
+\begin{equation}
+	\bm{\theta}_{k+1} = \bm{\theta}_{k} -\alpha\nabla J(\bm{\theta}_k)
+\end{equation}
+
+It can be shown that this yields
+
+\begin{equation}
+    \bm{\theta}_{k+1} = \bm{\theta}_{k} -\alpha\frac{1}{n}(h(\bm{\theta},\bm{x}^{(i)})-y^{(i)})\cdot\bm{x}^{(i)}
+\end{equation}
+
+\subsection{Stochastic Gradient Descent}
+In Batch Gradient Descent the update to the parameter vector $\bm{\theta}$ is done all at once using the whole set of $n$ training samples. If $n$ is in the order of several $10^6$, this update process can become slow. One possible alternative is to update $\bm{\theta}$ for each training sample separately. This is done by randomly shuffling the training examples first and then updating $\bm{\theta}$ for each training sample.
+
+\subsubsection{Instructions}
+\begin{itemize}
+    \item Choose an initial parameter vector $\bm{\theta}$ and a learning rate $\alpha$
+    \item Repeat until an approximate miminum is obtained
+        \begin{itemize}
+            \item Randomly shuffle the samples in the training set
+            \item For each sample $i \in {1,2,...,n}$ do
+                \begin{equation*}
+                    \bm{\theta}_{k+1} = \bm{\theta}_{k} -\alpha\nabla J_i(\bm{\theta}_k) = \bm{\theta}_{k} -\alpha\frac{1}{n}(h(\bm{\theta}_k,\bm{x}^{(i)})-y^{(i)})\cdot\bm{x}^{(i)}
+                \end{equation*}
+                where $h(\bm{\theta}_k,\bm{x}^{(i)})=\bm{\theta}_k^T \bm{x}^{(i)}$ and
+                \begin{equation*}
+                    J_i(\bm{\theta}) = \frac{1}{2n}(h(\bm{\theta}_k,\bm{x}^{(i)})-y^{(i)})^2
+                \end{equation*}
+                is the cost for one data point $(x^{(i)},y^{(i)})$
+        \end{itemize}
+\end{itemize}
+
+The difference to Batch Gradient Descent is that only one piece of data from the dataset is used to calculate the updated parameter and this piece of data is choosen randomly.
+
+\subsubsection{Stochastic Gradient Descent - Example}
+
+\begin{minipage}{0.55\textwidth}
+	\begin{lstlisting}
+	def parallel_cost(X,Y,x_data,y_data):
+	    m = X.shape[0]; n = X.shape[1]
+	    tot = np.zeros((m,n))
+	    for i in range(1,len(x_data)):
+	        tot += (X + Y * x_data[i] - y_data[i]) ** 2
+	    return tot/(2 * len(x_data))
+	
+	alpha = 0.03; epochs = 2000
+	
+	for epoch in np.arange(0,epochs):
+	    arr = np.arange(X.shape[0])
+	    np.random.shuffle(arr)
+	    for sample in np.arange(0,X.shape[0]):
+	        i = arr[sample]
+	        preds_i = X[i].dot(theta)
+	        error_i = preds_i - y[i]
+	        grad_i = X[i].dot(error_i)/X.shape[0]
+	        theta = theta - alpha * grad_i
+	        theta0_path.append(theta[0])
+	        theta1_path.append(theta[1])
+	\end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{0.4\textwidth}
+		\centering
+		\includegraphics[keepaspectratio, height=\textwidth]{Pictures/stochastic_gradient_descent}
+		\captionof{figure}{Stochastic Gradient Descent}
+		\label{fig:stochasticgradientdescent}
+\end{minipage}
+
+\subsection{Polynomial Regression, Feature Scaling and Checking Convergence}
+
+If we do not have a linear relationship, but a polynomial one between the features and estimated outcome, our equation is in the general form of
+
+\begin{equation}
+	h(\bm{\theta},\bm{x}) = \theta_0 + \theta_1 x^1 + \theta_2 x^2 + \cdots + \theta_n x^n
+\end{equation}
+
+We could then use the features $x_1 = x$, $x_2 = x^2$ and $x_3 = x^3$, but if the features are not in the same range, we have a problem. To solve this we must use feature scaling:
+
+\begin{enumerate}
+	\item Make sure the features are on a similar scale and get every feature into the range of $-1\leq x_i \leq 1$
+	\begin{enumerate}
+		\item Replace $x_i$ with $x_i - \bar{x}_i$ to have features with an approximately zero mean. Does not apply to $x_0 = 1$
+		\item Divide $x_i - \bar{x}_i$ by the range of $x_i = max(x_i) - min(x_i)$ or the standard deviation of $x_i$ 
+	\end{enumerate}
+	\item Test if Gradient Descent is working correctly by plotting the cost function $J(\bm{\theta})$ versus the number of iterations
+	\item Declare convergence if $J(\bm{\theta})$ decreases by less than a given threshold (for example $10^-3$) in one iteration
+\end{enumerate}
+
+For sufficiently small $\alpha$, $J(\bm{\theta})$ should decrease in every iteration, but a too small $\alpha$ leads to a slow convergence. Start with $\alpha = 0.001$, proceed with $0.003, 0.01, 0.03, 0.1, ...$ .
 
 \end{document}
