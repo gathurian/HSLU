@@ -1538,4 +1538,98 @@ And find
 \noindent
 With $d=-(n_x x_0 +n_y y_0)$ the signed distance $-\vec{n}\cdot\vec{x_0}$ from the origin
 
+The generalisation of the Hessian normal form to a plane in 3D-space is straight forward:
+\begin{equation}
+	\vec{n}\cdot(\vec{x} - \vec{x_0}) = 0 \text{ \textbf{or} } \vec{n}\cdot\vec{x} + d = 0\text{ with } d = -\vec{n}\cdot\vec{x_0}
+\end{equation}
+
+\subsubsection{Motivation for Support Vector Machines}
+
+\begin{itemize}
+	\item Classifying data means splitting it up
+	\item There are many ways to split the data, even using only a linear function
+	\item We want the best possible split
+\end{itemize}
+
+\begin{figure}
+	\centering
+	\includegraphics[keepaspectratio,width=0.4\linewidth]{Pictures/support_vector_machine_ex1}
+	\caption{Support Vector Machine}
+	\label{fig:supportvectormachineex1}
+\end{figure}
+
+The line in the middle of figure \ref{fig:supportvectormachineex1} is called the hyperplane (a line in two dimensions, a plane in three). We know that this is the best possible split, because it is the furthest from both clusters. The data points (samples) closest to the hyperplane are called support vectors.
+
+\subsection{Basic ideas and features}
+
+\begin{itemize}
+	\item Finds optimal hyperplane for linearly separable patterns
+	\item Extended patterns which are not linearly separable are transformed into another (possibly higher dimensional) feature space
+	\item Not affected by the local minima problem
+	\item No dimensionality problem
+	\item Modular design allows separate implementation of various components
+	\item Support vectors are the data points or samples closest to the decision hyperplane
+	\item Support vectors are the most difficult to classify
+	\item Support vectors directly influence the position of the decision hyperplane and are the critical elements in the training set
+	\item Problem of finding an optimal separating hyperplane can be solved using standard optimisation techniques
+\end{itemize}
+
+\subsubsection{Linear Classifier}
+A linear classifier has the form
+\begin{equation}
+	f(\vec{x}) = \theta_0 + \theta_1 x_1 + \cdots + \theta_m x_m = b + w_1 x_1 + w_2 x_2 + \cdots + w_m x_m = b + \vec{w}^T \vec{x}_b
+\end{equation}
+\noindent
+where $\vec{w} = \begin{bmatrix}
+	\theta_0\\\theta_1\\\vdots\\\theta_m
+\end{bmatrix}$ is the normal vector on the hyperplane and $b = \theta_0$ is the bias.
+
+\subsubsection{How to determine optimality}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[keepaspectratio, width=0.4\linewidth]{Pictures/support_vector_machine_hyperplane}
+	\caption{Hyperplane with support vectors in red}
+	\label{fig:supportvectormachinehyperplane}
+\end{figure}
+
+In figure \ref{fig:supportvectormachinehyperplane} $\vec{w}$ is the normal vector on the decision hyperplane, its length depends on the margin which is
+maximised through the Support Vector Machine. Maximising the margin $\frac{2}{\| \vec{w} \|}$ is equivalent to minimising $\frac{\vec{w}^T \vec{w}}{2}$, therefore we
+\begin{equation}\label{eq:hard_margin_problem}
+	\underset{\vec{w}, b}{\text{minimise}}\ \frac{1}{2}\vec{w}^T \vec{w}
+\end{equation}
+\noindent
+subject to $y^{(i)}(\vec{w}^T \vec{x}^{(i)}+b)\geq 1$ for $i = 1,2,...,n$
+
+% TODO Dual SVM derivation?
+
+\subsection{From the hard margin to the soft margin problem}
+
+So far we have discussed the hard margin problem (see equation \ref{eq:hard_margin_problem}), which fails if the problem is not separable. To address this we could introduce a \textbf{slack variable} $\zeta_i$ for each data point $x^{(i)}$ and solve the \textbf{soft margin problem}
+
+\begin{equation}\label{eq:soft_margin_problem}
+	\underset{\vec{w}, b}{\text{minimise}}\ \frac{1}{2}\vec{w}^T \vec{w} + C\sum_{i=1}^{n}\zeta_i \text{ subject to } y^{(i)}(\vec{w}^T \vec{x}^{(i)} + b) \geq 1 - \zeta_i
+\end{equation}
+\noindent
+with $\zeta_i \geq 0$ for $i=1,2,...,n$. The slack variable $\zeta_i$ measures how much the $i$-th instance $\vec{x}^{(i)}$ is allowed to violate the margin.
+
+\begin{figure}
+	\centering
+	\includegraphics[keepaspectratio,width=0.4\linewidth]{Pictures/soft_margin_svm}
+	\caption{Support Vector Machine with soft margins}
+	\label{fig:svm_softmargins}
+\end{figure}
+
+\subsubsection{The slack variable explained}
+
+The margin can be less than 1, by setting $\zeta_i > 0$, but then this gets factored in as a penalty $C\zeta_i$ in the minimisation. Thus the sum $\sum_{i=1}^{n}\zeta_i$ gives an upper bound on the number of training errors. With this soft margin Support Vector Machines minimise training error traded off against better margins. The parameter $C$ is the \textit{regularisation parameter}, which provides a way to control overfitting:
+
+\begin{itemize}[leftmargin=*, labelindent=5cm, labelsep=0.5cm]
+	\item[small $C$ ($C \rightarrow 0$)] Constraints are easily ignored, we obtain a large margin
+	\item[large $C$ ($C \rightarrow \infty$)] Constraints are hard to ignore, we obtain a narrow margin
+	\item[$C = \infty$)] All constraints enforced, we have a hard margin
+\end{itemize}
+
+Therefore we still have a quadratic optimisation problem with a unique minimum and we only have to deal with the parameter $C$.
+
 \end{document}
