@@ -1488,4 +1488,54 @@ To reduce the waste of data, we could hold out less data used per run: we use k-
 	\item Pick the model $M-K$ with the lowest estimated generalisation error and retrain that model on the entirety of the training set $S$.
 \end{enumerate}
 
+\section{Support Vector Machines}
+
+\subsection{Scalar Product}
+The scalar product between two vectors $\vec{a}, \vec{b}$ is defined as
+\begin{equation}
+	\vec{a}\cdot\vec{b}=\sum_{i=1}^{n}a_i b_i = a_1 b_1 + a_2 b_2 + \cdots + a_n b_n
+\end{equation}
+\noindent
+The following rules hold true for the scalar product
+
+\begin{itemize}[leftmargin=*, labelindent=5cm, labelsep=0.5cm]
+	\item[\textbf{symmetry}] $\vec{a}\cdot\vec{b} = \vec{b}\cdot\vec{a}$
+	\item[\textbf{distributivity}] $\vec{a}\cdot(\vec{b}+\vec{c}) = \vec{a}\cdot\vec{b} + \vec{a}\cdot\vec{c} $
+	\item[\textbf{multiplication by scalars}] $\lambda(\vec{a}\cdot\vec{b}) = (\lambda\vec{a})\cdot\vec{b} = \vec{a}\cdot(\lambda\vec{b})$
+\end{itemize}
+\noindent
+Using the scalar product we can define the length of a vector, also called the $\text{L}^2$-Norm
+
+\begin{equation}
+	\| \vec{a} \| = \sqrt{a_1^2 + a_2^2 + \cdots + a_n^2} = \sqrt{\vec{a}\cdot\vec{a}}
+\end{equation}
+\noindent
+Two vectors are orthogonal if and only if their scalar product is zero:
+\begin{equation}
+	\vec{a}\cdot\vec{b} = 0 \Leftrightarrow \vec{a} \perp \vec{b}
+\end{equation}
+
+\subsubsection{The Hessian normal form of a straight line}
+
+The straight line $g$ is defined by some point $x_0$ and the normal vector $\vec{n}$ with length 1 (refer to figure \ref{fig:hessiannormalform}).
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[keepaspectratio, width=0.4\linewidth]{Pictures/Hessian_normal_form}
+	\caption{Plot of $g$ and the relevant vectors $\vec{x_0}$ and $\vec{n}$}
+	\label{fig:hessiannormalform}
+\end{figure}
+\noindent
+For any point $x$ on the line we have
+\begin{equation*}
+	\vec{n}\cdot(\vec{x}-\vec{x_0})=0
+\end{equation*}
+\noindent
+And find
+\begin{equation*}
+	\Rightarrow n_x x + n_y y -(n_x x_0  n_y y_0) = n_x x +n_y y + d = 0
+\end{equation*}
+\noindent
+With $d=-(n_x x_0 +n_y y_0)$ the signed distance $-\vec{n}\cdot\vec{x_0}$ from the origin
+
 \end{document}
