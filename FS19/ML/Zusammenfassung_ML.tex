@@ -26,13 +26,13 @@
 \usepackage{xcolor}
 \usepackage{pifont}
 \usepackage{outlines}
-\usepackage{booktabs}% http://ctan.org/pkg/booktabs
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{breqn}
 \usepackage{textcomp}
-\usepackage{amssymb}
 \usepackage{bm}
 \usepackage{caption}
+\usepackage{enumitem}
 
 \counterwithin{figure}{section}
 
@@ -1380,7 +1380,7 @@ The difference to Batch Gradient Descent is that only one piece of data from the
 \hfill
 \begin{minipage}{0.4\textwidth}
 		\centering
-		\includegraphics[keepaspectratio, height=\textwidth]{Pictures/stochastic_gradient_descent}
+		\includegraphics[keepaspectratio, height=\linewidth]{Pictures/stochastic_gradient_descent}
 		\captionof{figure}{Stochastic Gradient Descent}
 		\label{fig:stochasticgradientdescent}
 \end{minipage}
@@ -1406,5 +1406,86 @@ We could then use the features $x_1 = x$, $x_2 = x^2$ and $x_3 = x^3$, but if th
 \end{enumerate}
 
 For sufficiently small $\alpha$, $J(\bm{\theta})$ should decrease in every iteration, but a too small $\alpha$ leads to a slow convergence. Start with $\alpha = 0.001$, proceed with $0.003, 0.01, 0.03, 0.1, ...$ .
+
+\section{Regularisation}
+Under- and overfitting are common problems in machine learning. Underfitting occurs when the model is to general and can't aptly represent the data. Overfitting occurs, when the model is too precisely fitted to the training data.
+
+\begin{figure}[htb!]
+	\centering
+	\begin{subfigure}{0.6\linewidth}
+		\centering
+		\includegraphics[keepaspectratio,width=\linewidth]{Pictures/under_and_overfitting}
+		\caption{Example of different fittings}
+	\end{subfigure}
+	\begin{subfigure}{0.6\linewidth}
+		\centering
+		\includegraphics[keepaspectratio,width=\linewidth]{Pictures/biases_and_variances}
+		\caption{Examples of different biases and variances}
+	\end{subfigure}
+	\caption{Under- and Overfitting, Biases and Variances}
+\end{figure}
+
+To address overfitting we can try these approaches
+\begin{enumerate}
+	\item Reduce the number of features
+	\begin{itemize}
+		\item Manually select which features to keep
+		\item Model selection algorithm
+	\end{itemize}
+	\item Regularisation
+	\begin{itemize}
+		\item Keep all features, but reduce magnitude of parameters $\theta_i$
+		\item Works well with lots of features which each contribute just a bit to predict y
+	\end{itemize}
+\end{enumerate}
+
+\subsection{Ridge Regularisation}
+\begin{equation}
+	J(\theta) = \frac{1}{2n}\left[\sum_{i=1}^{n}(h(\theta,x_i)-y_i)^2 + \lambda \sum_{j=1}^{m}\theta_j^2\right]
+\end{equation}
+
+The second sum goes from $1$ to the number of features $m$ and it does not contain $\theta_0$. The regularisation hyperparameter $\lambda$ controls the amount of regularisation. If $\lambda = 0$ there will be no regularization, and if $\lambda = \infty$ there will be underfitting because only $\theta_0$ will be different from zero.
+In Ridge regularised regression, we choose $\theta$ to minimize $J(\theta)$:
+\begin{equation}
+	\hat{\theta} = \underset{\theta}{\text{argmin}} J(\theta)
+\end{equation}
+
+\begin{itemize}[leftmargin=*, labelindent=3cm, labelsep=1cm]
+	\item[large $\lambda$] High Bias / Underfit
+	\item[intermediate $\lambda$] Correct
+	\item[small $\lambda$] High Variance / Overfit
+\end{itemize}
+
+\subsection{How to choose the right model}
+
+\subsubsection{Hold-out / Simple Cross Validation}
+\begin{enumerate}
+	\item Randomly split the Sample $S$ into $S_{train}$ and $S_{cv}$ called the \textbf{hold-out cross validation set}. A standard split is 70\% $S_{train}$ and 30\% $S_{cv}$.
+	\item For each degree of the polynomial $k$, train the model $M_k$ on $S_{train}$ to get the parameter vector $\bm{\theta}_k$
+	\item Select $\bm{\theta}_k$ with the smallest error $\hat{\varepsilon}_{S_{cv}}(\bm{\theta}_k)$
+		\begin{equation*}
+			k = \underset{k\in{1,2,...,10}}{\text{argmin}}\hat{\varepsilon}_{S_{cv}}(\bm{\theta}_k)
+		\end{equation*}
+		where $\hat{\varepsilon}_{S_{cv}}(\bm{\theta}_k)$ is the empirical error, if we use $\bm{\theta}_k$ as the parameter vector on the cross validation set $S_{cv}$.
+\end{enumerate}
+
+The issue with \textbf{hold-out cross validation} is, that it wastes the amount of data used for the cross validation.
+
+\subsubsection{k-fold Cross Validation}
+
+To reduce the waste of data, we could hold out less data used per run: we use k-fold cross validation \textbf{k-fold cross validation}.
+
+\begin{enumerate}
+	\item Randomly split $S$ into $l$ disjoint subsets $S_1, S_2, ... , S_l$ of $\frac{n}{l}$ training examples each
+	\item Evaluate each model $M_k, k\in{1,2, ... , 10}$ as follows
+		\begin{itemize}
+			\item For $j=1,2,...,l$ train $M_k$ on all data, except the subset $S_j$ to get $\bm{\theta}_{kj}$ and test $\bm{\theta}_{kj}$ on $S_j$ to get the empirical error $\hat{\varepsilon}_{S_j}(\bm{\theta}_{kj})$
+			\item The estimated generalisation of the model $M_k$ is then calculated as the average of the $\hat{\varepsilon}_{S_j}(\bm{\theta}_{kj})$
+			\begin{equation*}
+				\frac{1}{l}\sum_{j=1}^{l}\hat{\varepsilon}_{S_j}(\bm{\theta}_{kj}) \text{ where } \hat{\varepsilon}_{S_j}(\bm{\theta}_{kj})=\frac{1}{2n}\sum_{i=1}^{n}(h(\bm{\theta}_k,\bm{x}^{(i)})-y^{(i)})^2
+			\end{equation*}
+		\end{itemize}
+	\item Pick the model $M-K$ with the lowest estimated generalisation error and retrain that model on the entirety of the training set $S$.
+\end{enumerate}
 
 \end{document}
