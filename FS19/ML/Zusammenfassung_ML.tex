@@ -1562,7 +1562,7 @@ An \textbf{association rule} is an implication $X\rightarrow Y$, where $X$ and $
 	\label{fig:associationrule}
 \end{figure}
 
-\subsubsection{Support of a Set of Items}
+\subsection{Support of a Set of Items}
 
 Support is the proportion of transactions which contains a specific item set, and thus measures how frequently items ar bought together.
 \begin{equation*}
@@ -1576,7 +1576,7 @@ Support is the proportion of transactions which contains a specific item set, an
 	\label{fig:supportexample}
 \end{figure}
 
-\subsubsection{Support of an Association Rule}
+\subsection{Support of an Association Rule}
 
 The support of an association rule is defined as
 \begin{equation*}
@@ -1601,7 +1601,7 @@ The support measures how frequently an item set occurs in the data. Rules with l
 	Support = Interestingness
 \end{theorem}
 
-\subsubsection{Confidence of an Association Rule}
+\subsection{Confidence of an Association Rule}
 
 The \textbf{confidence} of an association rule is defined as
 
@@ -1624,7 +1624,7 @@ For a given rule $X \rightarrow Y$, the higher the confidence, the more likely i
 
 \subsection{Apriori Algorithm}
 
-Given a set of transaction we want to find all rules having a minimum support $\geq \text{min}_s$ and a minimum confidence $\geq \text{min}_c$. The Apriori Algorithm finds such association rules in two steps:
+Given a set of transactions we want to find all rules having a minimum support $\geq \text{min}_s$ and a minimum confidence $\geq \text{min}_c$. The Apriori Algorithm finds such association rules in two steps:
 \begin{enumerate}
 	\item Generate frequent item sets satisfying the support threshold
 	\item Extract rules from frequent item sets satisfying the confidence threshold
@@ -1644,7 +1644,7 @@ The Apriori Algorithm has the following two properties, the second one allows fo
 	\label{fig:supersetpruning}
 \end{figure}
 
-After the pruning we generate Rules from the Frequent Item Sets and prune this tree as well. The pruning method for pruning is based on the rule that if a rule $[X \rightarrow Y - X]$ violates the confidence threshold, then any rule $[X’ \rightarrow Y - X’]$ with $X’$ being a subset of $X$ violates the confidence threshold as well (refer to figure \ref{fig:subsetpruning})
+After the pruning we generate Rules from the Frequent Item Sets and prune this tree as well. The method for pruning is based on the fact that if a rule $[X \rightarrow Y - X]$ violates the confidence threshold, then any rule $[X’ \rightarrow Y - X’]$ with $X’$ being a subset of $X$ violates the confidence threshold as well (refer to figure \ref{fig:subsetpruning})
 
 \begin{figure}[tbh!]
 	\centering
