@@ -1632,4 +1632,43 @@ The margin can be less than 1, by setting $\zeta_i > 0$, but then this gets fact
 
 Therefore we still have a quadratic optimisation problem with a unique minimum and we only have to deal with the parameter $C$.
 
+\subsection{The Kernel Trick}
+
+The kernel transforms a problem to another coordinate system, where the problem may be linearly separable.
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[keepaspectratio, width=0.5\linewidth]{Pictures/KernelTrick.pdf}
+	\caption{Course of action for the kernel method}
+	\label{fig:kerneltrick}
+\end{figure}
+
+\subsubsection{Kernel Functions Examples}
+
+\begin{itemize}[leftmargin=*, labelindent=3.5cm, labelsep=0.5cm]
+	\item[polar coordinates] $\Phi: \mathbb{R}^2 \rightarrow \mathbb{R}^2, \begin{bmatrix}x_1\\x_2\end{bmatrix}\mapsto\begin{bmatrix}r\\\theta\end{bmatrix}=\begin{bmatrix}\sqrt{x_1^2 + x_2^2}\\\arctan(\frac{x_2}{x_2})\pm\pi\end{bmatrix}$ (refer to figure \ref{fig:kernelfunctionspolarcoordinates})
+	\item[polynomial mapping] $\Phi: \mathbb{R}^2 \rightarrow \mathbb{R}^3, (x_1,x_2) \mapsto (z_1,z_2,z_3) = (x_1^2,\sqrt{2}\cdot x_1\cdot x_2, x_2^2) = \Phi(x_1,x_2)$ (refer to figure \ref{fig:kernelfunctionspolynomialmapping})
+	\item[radial] $\Phi(x_1,x_2) = e^{-\frac{\| x_1 - x_2 \|^2}{2\sigma^2}}$
+\end{itemize}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[keepaspectratio,width=0.7\linewidth]{Pictures/kernel_functions_polar_coordinates}
+	\caption{Transformation from cartesian to polar coordinate system}
+	\label{fig:kernelfunctionspolarcoordinates}
+\end{figure}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[keepaspectratio,width=0.7\linewidth]{Pictures/kernel_functions_polynomial_mapping}
+	\caption{Transformation to higher dimension}
+	\label{fig:kernelfunctionspolynomialmapping}
+\end{figure}
+
+Kernel function $\Phi$ satisfy:
+\begin{enumerate}[leftmargin=*, labelindent=5cm, labelsep=0.5cm]
+	\item[positive semidefinite]$\forall x_1,x_2(\Phi(x_1,x_2)\geq 0)$
+	\item[symmetric] $\Phi(x_1,x_2) = \Phi(x_2,x_1)$
+\end{enumerate}
+
 \end{document}
