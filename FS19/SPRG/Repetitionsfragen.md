@@ -789,7 +789,7 @@ Behaviour erkennen und Gegenmassnahmen einleiten
 <a id="orgbb859ee"></a>
 
 ### Was gibt es für Modelle, um das Riskrating vorzunehmen mit DREAD?
-
+DREAD Rating & Calculation
 
 <a id="orgb5d28dc"></a>
 
@@ -806,7 +806,7 @@ Ein Problem addressieren und abschwächen oder lösen
 <a id="org3f0dbff"></a>
 
 ### Was ist in der heutigen Zeit (Entwicklung der aktuellen IT-Landschaft) die Herausforderung mit STRIDE?
-
+Durch schnelle Entwicklung und immer komplexere IT-Landschaften ist es beinahe unmöglich, sämltiche Lücken zu erkennen und rechtzeitig zu schliessen.
 
 <a id="orgde4275e"></a>
 
