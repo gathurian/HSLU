@@ -33,6 +33,9 @@
 \usepackage{bm}
 \usepackage{caption}
 \usepackage{enumitem}
+\usepackage{mdframed}
+
+\newmdtheoremenv{theorem}{Theorem}
 
 \counterwithin{figure}{section}
 
@@ -1487,5 +1490,194 @@ To reduce the waste of data, we could hold out less data used per run: we use k-
 		\end{itemize}
 	\item Pick the model $M-K$ with the lowest estimated generalisation error and retrain that model on the entirety of the training set $S$.
 \end{enumerate}
+
+\section{Clustering and Association Rules}
+
+\subsection{k-Means Algorithm}
+
+The k-Means algorithm is an algorithm that automatically identifies cluster centers. One has to specify the amount of clusters one wants before it can start though. The algorithm functions as follows:
+
+\begin{enumerate}
+	\item Input: Number of clusters $k>0$ and data points $x_1,...,x_n \in \mathbb{R}^m$
+	\item Randomly choose $k$ cluster centers $\mu_1,...,\mu_k \in \mathbb{R}^m$
+	\item Repeat until convergence
+	\begin{enumerate}
+		\item Assign each data point $x_i$ to its neares cluster center $\mu_j$
+		\begin{equation*}
+			c_i = \underset{j\in\{1,...,k\}}{\text{argmin}}\ \| x_i - \mu_j \|^2
+		\end{equation*}
+		\item  Update each cluster center to the mean of all assigned data points
+		\begin{equation*}
+			\mu_j := \frac{\sum_{i:c_i=j} x_i}{|\{i:c_i = j\}|}
+		\end{equation*}
+	\end{enumerate}
+\end{enumerate}
+
+\subsubsection{Addendum}
+\begin{align*}
+	x &= (x_1,x_2)
+	\| x \| &= \sqrt{x_1^2 + x_2^2}
+	\| x \|^2 &= x_1^2 + x_2^2
+	y = (y_1, y_2)
+	\| x - y \| &= \sqrt{(x_1 - y_1)^2 + (x_2 - y_2)^2}
+\end{align*}
+
+\subsubsection{Clustering Distortion}
+
+The total distortion can be measured by summing up the squared distance between each point and it's cluster center
+\begin{equation}
+	\sum_{i=1}^{n}\| x_i -\mu_{c_i} \|^2
+\end{equation}
+
+The average distortion per data point is
+\begin{equation}
+	\frac{1}{n}\sum_{i=1}^{n}\| x_i -\mu_{c_i} \|^2
+\end{equation}
+
+Average distortion allows to compare clusterings over different data sets
+
+\subsubsection{Convergence and Optimality}
+
+Optimal clustering minimises the total distortion, which is a NP-hard problem for $x>1$. Therefore k-Means only approximates the optimal solution, but always converges, albeit not necessarily to a global minimum. In practice k-Means is executed several time and the clustering with minimum distortion is chosen.
+
+\subsubsection{Choose the Number of Clusters}
+
+The choice of clusters balances between low distortion and fewest number of clusters. The elbow method finds a good compromise in general (see figure \ref{fig:elbowmethod}).
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[keepaspectratio, width=0.4\linewidth]{Pictures/elbow_method}
+	\caption{The elbow method to find the best number of clusters}
+	\label{fig:elbowmethod}
+\end{figure}
+
+\section{Association}
+
+An \textbf{association rule} is an implication $X\rightarrow Y$, where $X$ and $Y$ are disjoint item sets (refer to \ref{fig:associationrule}).
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[keepaspectratio, width=0.7\linewidth]{Pictures/association_rule}
+	\caption{A graphical representation of an Association Rule Learner}
+	\label{fig:associationrule}
+\end{figure}
+
+\subsubsection{Support of a Set of Items}
+
+Support is the proportion of transactions which contains a specific item set, and thus measures how frequently items ar bought together.
+\begin{equation*}
+	\text{support}(\{i_1,...,i_n\}) = \frac{\#\text{purchases of \{i_1,...,i_n\}}}{\# \text{transactions}}
+\end{equation*}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/support_example}
+	\caption{Examples of support}
+	\label{fig:supportexample}
+\end{figure}
+
+\subsubsection{Support of an Association Rule}
+
+The support of an association rule is defined as
+\begin{equation*}
+	\text{support}(X\rightarrow Y) = \text{support}(X\cup Y)
+\end{equation*}
+
+The support is \emph{direction invariant} and therefore cannot measure the quality of a directed rule
+\begin{equation*}
+	\text{support}(X\rightarrow Y) = \text{support}(Y\rightarrow X)
+\end{equation*}
+
+\begin{figure}[tbh!]
+	\centering
+	\includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/support_association_rule}
+	\caption{Support of association rules}
+	\label{fig:supportassociationrule}
+\end{figure}
+
+The support measures how frequently an item set occurs in the data. Rules with low support may occur simply by chance, while \textbf{good association rules have a high support}.
+
+\begin{theorem}
+	Support = Interestingness
+\end{theorem}
+
+\subsubsection{Confidence of an Association Rule}
+
+The \textbf{confidence} of an association rule is defined as
+
+\begin{equation*}
+	\text{confidence}(X\rightarrow Y) = \frac{\text{support}(X\cup Y)}{\text{support}(X)}
+\end{equation*}
+
+\begin{figure}[tbh!]
+	\centering
+	\includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/confidence_association_rule}
+	\caption{Examples of confidence}
+	\label{fig:confidenceassociationrule}
+\end{figure}
+
+For a given rule $X \rightarrow Y$, the higher the confidence, the more likely it is for $Y$ to be present in transactions that contain $X$. Confidence therefore measures reliability or trustworthiness of a rule, and a \textbf{good association rule has high confidence}.
+
+\begin{theorem}
+	Confidence = Trustworthiness
+\end{theorem}
+
+\subsection{Apriori Algorithm}
+
+Given a set of transaction we want to find all rules having a minimum support $\geq \text{min}_s$ and a minimum confidence $\geq \text{min}_c$. The Apriori Algorithm finds such association rules in two steps:
+\begin{enumerate}
+	\item Generate frequent item sets satisfying the support threshold
+	\item Extract rules from frequent item sets satisfying the confidence threshold
+\end{enumerate}
+
+The Apriori Algorithm has the following two properties, the second one allows for efficient pruning (refer to figure \ref{fig:supersetpruning}):
+
+\begin{enumerate}
+	\item If an item set is \textbf{frequent} (has high support), all of its subsets must be frequent too
+	\item If an item set is \textbf{infrequent} (has low support), all of its super-sets must be infrequent too
+\end{enumerate}
+
+\begin{figure}[tbh!]
+	\centering
+	\includegraphics[width=0.5\linewidth, keepaspectratio]{Pictures/superset_pruning}
+	\caption{Pruning of supersets of sets with low support}
+	\label{fig:supersetpruning}
+\end{figure}
+
+After the pruning we generate Rules from the Frequent Item Sets and prune this tree as well. The pruning method for pruning is based on the rule that if a rule $[X \rightarrow Y - X]$ violates the confidence threshold, then any rule $[X’ \rightarrow Y - X’]$ with $X’$ being a subset of $X$ violates the confidence threshold as well (refer to figure \ref{fig:subsetpruning})
+
+\begin{figure}[tbh!]
+	\centering
+	\includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/subset_pruning}
+	\caption{Pruning of subset of a low confidence set}
+	\label{fig:subsetpruning}
+\end{figure}
+
+\subsection{Lift of an Association Rule}
+
+The \textbf{lift} of an association rule is defined as and measures how many times more often $X$ and $Y$ show up together than expected if they were statistically independent.
+
+\begin{equation*}
+	\text{lift}(X\rightarrow Y) = \frac{\text{support}(X\cup Y)}{\text{support}(X)\cdot\text{support}(Y)}
+\end{equation*}
+
+\begin{figure}[tbh!]
+	\centering
+	\includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/lift_association_rule}
+	\caption{Example of lift}
+	\label{fig:liftassociationrule}
+\end{figure}
+
+\begin{itemize}[leftmargin=*, labelindent=3cm, labelsep=1cm]
+	\item[lift = 1] $X$ and $Y$ are statistically independent
+	\item[lift < 1] indicates that $X$ and $Y$ appear less often together than expected, the occurrence of $X$ has a negative effect on the occurrence of $Y$ and vice-versa, $X$ and $Y$ are \textbf{anti-correlated}
+	\item[lift > 1] indicates that $X$ and $Y$ appear more often together than expected, the occurrence of $X$ has a positive effect on the occurrence of $Y$ and vice-versa, $X$ and $Y$ are \textbf{correlated}
+\end{itemize}
+
+In general, the larger the lift value, the stronger the association between $X$ and $Y$. A good rule has high lift.
+
+\begin{theorem}
+	Lift = Association Strength
+\end{theorem}
 
 \end{document}
