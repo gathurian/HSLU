@@ -605,37 +605,23 @@ Wenn Development und Operations beide dieselben Security Prinzipien haben, wird 
 
 ### Was sind die Grundschritte beim SDLC, in welche Schritte beim SDLC kann man Security integrieren?
 
-**Training**
+![img](./imgs/SDLC.png)
 
-Sicherheits-Know-How im Unternehmen bestimmen. Je nach dem Training anbieten
+**Planning**
 
-**Requirements**
+- Zeit für Security-Check einplanen. 
 
-Security-Requirements identifizieren und gewichten
+**Designing**
 
-**Design**
+- Absprache mit Security-Experten. 
 
-- Security by Design
-- Security Architektur definieren und dokumentieren
-- Security Critical Komponenten identifizieren
+**Testing**
 
-**Implementation**
+- Testen durch Security Experten
 
-- Review, um Prozesse, Dokumentationen und Tools zu identifizieren, die für eine sichere Entwicklung benötigt werden
+**Deployment**
 
-**Verifikation**
-
-- Security-Response planning - Was tun wenn ein Vulnerability Report kommt?
-
-**Release**
-
-- Suppoirt-policy klar definieren
-- Letzte Überprüfung auf allfällige Security Vulnerabilities
-
-**Response**
-
-- Bei Bedarf den definierten Security-Response Plan durcharbeiten
-
+- Kritische Stellen mittels Code-Review durch Security Experten prüfen
 
 <a id="org8c9248c"></a>
 
@@ -789,7 +775,12 @@ Behaviour erkennen und Gegenmassnahmen einleiten
 <a id="orgbb859ee"></a>
 
 ### Was gibt es für Modelle, um das Riskrating vorzunehmen mit DREAD?
-DREAD Rating & Calculation
+
+DREAD Rating & Calculation:
+![img](./imgs/DREAD_Rating1.png)
+![img](./imgs/DREAD_Rating2.png)
+![img](./imgs/DREAD_Rating3.png)
+![img](./imgs/DREAD_Calculation.png)
 
 <a id="orgb5d28dc"></a>
 
@@ -806,6 +797,7 @@ Ein Problem addressieren und abschwächen oder lösen
 <a id="org3f0dbff"></a>
 
 ### Was ist in der heutigen Zeit (Entwicklung der aktuellen IT-Landschaft) die Herausforderung mit STRIDE?
+
 Durch schnelle Entwicklung und immer komplexere IT-Landschaften ist es beinahe unmöglich, sämltiche Lücken zu erkennen und rechtzeitig zu schliessen.
 
 <a id="orgde4275e"></a>
