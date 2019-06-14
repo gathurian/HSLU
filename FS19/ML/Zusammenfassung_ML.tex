@@ -442,12 +442,12 @@ The distance between two points is most easily calculated using the \textbf{eucl
 
 So the distance between the points $(5/10)$ and $(8/6)$ can be calculated as
 
-\begin{align*}
+\begin{align}
     \sqrt{(5-8)^2 + (10-6)^2} \\
     \sqrt{-3^2 + 4^2} \\
     \sqrt{9+16} \\ 
     \sqrt{25} = 5
-\end{align*}
+\end{align}
 
 \newpage
 
@@ -891,9 +891,11 @@ As mentioned earlier, the goal of a good regression is to \textbf{minimize the s
 
 As illustrated in the figure above, $SST = SSR + SSE$.
 
-\begin{align*}
-    SST = \sum^{n}_{i=1}(y_{i}-\bar y)^2 && SSE=\sum^{n}_{i=1}(y_{i}-\hat y)^2 && SSR=\sum^{n}_{i=1}(\hat y_{i}-\bar y)^2
-\end{align*}
+\begin{align}
+    SST &= \sum^{n}_{i=1}(y_{i}-\bar y)^2\\
+    SSE &= \sum^{n}_{i=1}(y_{i}-\hat y)^2 &\\
+    SSR &= \sum^{n}_{i=1}(\hat y_{i}-\bar y)^2
+\end{align}
 
 
 But how does the aforementioned Coefficient of Determination relate to all of this? 
@@ -1515,6 +1517,11 @@ Two vectors are orthogonal if and only if their scalar product is zero:
 	\vec{a}\cdot\vec{b} = 0 \Leftrightarrow \vec{a} \perp \vec{b}
 \end{equation}
 
+\paragraph{Example of scalar product}
+\begin{equation*}
+	\begin{bmatrix}1\\2\end{bmatrix}\cdot\begin{bmatrix}3\\4\end{bmatrix} = 1\cdot 3 + 2\cdot 4 = 11
+\end{equation*}
+
 \subsubsection{The Hessian normal form of a straight line}
 
 The straight line $g$ is defined by some point $x_0$ and the normal vector $\vec{n}$ with length 1 (refer to figure \ref{fig:hessiannormalform}).
@@ -1542,6 +1549,23 @@ The generalisation of the Hessian normal form to a plane in 3D-space is straight
 \begin{equation}
 	\vec{n}\cdot(\vec{x} - \vec{x_0}) = 0 \text{ \textbf{or} } \vec{n}\cdot\vec{x} + d = 0\text{ with } d = -\vec{n}\cdot\vec{x_0}
 \end{equation}
+
+\paragraph{Example of the Hessian Normal Form}
+The line $g$ is taken from figure \ref{fig:hessiannormalformexample}
+
+\begin{figure}[tbh!]
+	\centering
+	\includegraphics[width=0.5\linewidth, keepaspectratio]{Pictures/hessian_normal_form_example}
+	\caption{Annotated figure \ref{fig:hessiannormalform}}
+	\label{fig:hessiannormalformexample}
+\end{figure}
+
+\begin{align*}
+	\vec{n} &= \frac{1}{\sqrt{13}} \begin{bmatrix}2\\3\end{bmatrix}\\
+	0 &= \vec{n}\cdot(\vec{x}-\vec{x_0})\\
+	&= \frac{1}{\sqrt{13}} \begin{bmatrix}2\\3\end{bmatrix} \cdot(\begin{bmatrix}x\\y\end{bmatrix} - \begin{bmatrix}0.5\\2\end{bmatrix})\\
+	&= \frac{1}{\sqrt{13}} \begin{bmatrix}2\\3\end{bmatrix} \cdot \begin{bmatrix}x - 0.5\\ y - 2\end{bmatrix}
+\end{align*}
 
 \subsubsection{Motivation for Support Vector Machines}
 
