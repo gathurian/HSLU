@@ -33,6 +33,7 @@
 \usepackage{bm}
 \usepackage{caption}
 \usepackage{enumitem}
+\usepackage{hyperref}
 \usepackage{mdframed}
 
 \newmdtheoremenv{theorem}{Theorem}
@@ -87,8 +88,8 @@
 \begin{document}
 
 \newgeometry{top=0in, bottom=0in}
-\title{Machine Learning FS2019}
-\author{Alex Neher}
+\title{Machine Learning FS2019\\[0.2em]\normalsize{\url{https://github.com/taneher/HSLU/tree/master/FS19/ML}}}
+\author{Alex Neher, Pascal Baumann}
 \maketitle
 
 \tableofcontents
@@ -445,12 +446,12 @@ The distance between two points is most easily calculated using the \textbf{eucl
 
 So the distance between the points $(5/10)$ and $(8/6)$ can be calculated as
 
-\begin{align*}
+\begin{align}
     \sqrt{(5-8)^2 + (10-6)^2} \\
     \sqrt{-3^2 + 4^2} \\
     \sqrt{9+16} \\ 
     \sqrt{25} = 5
-\end{align*}
+\end{align}
 
 \newpage
 
@@ -894,9 +895,11 @@ As mentioned earlier, the goal of a good regression is to \textbf{minimize the s
 
 As illustrated in the figure above, $SST = SSR + SSE$.
 
-\begin{align*}
-    SST = \sum^{n}_{i=1}(y_{i}-\bar y)^2 && SSE=\sum^{n}_{i=1}(y_{i}-\hat y)^2 && SSR=\sum^{n}_{i=1}(\hat y_{i}-\bar y)^2
-\end{align*}
+\begin{align}
+    SST &= \sum^{n}_{i=1}(y_{i}-\bar y)^2\\
+    SSE &= \sum^{n}_{i=1}(y_{i}-\hat y)^2 &\\
+    SSR &= \sum^{n}_{i=1}(\hat y_{i}-\bar y)^2
+\end{align}
 
 
 But how does the aforementioned Coefficient of Determination relate to all of this? 
@@ -1679,5 +1682,210 @@ In general, the larger the lift value, the stronger the association between $X$ 
 \begin{theorem}
 	Lift = Association Strength
 \end{theorem}
+
+\section{Support Vector Machines}
+
+\subsection{Scalar Product}
+The scalar product between two vectors $\vec{a}, \vec{b}$ is defined as
+\begin{equation}
+	\vec{a}\cdot\vec{b}=\sum_{i=1}^{n}a_i b_i = a_1 b_1 + a_2 b_2 + \cdots + a_n b_n
+\end{equation}
+\noindent
+The following rules hold true for the scalar product
+
+\begin{itemize}[leftmargin=*, labelindent=5cm, labelsep=0.5cm]
+	\item[\textbf{symmetry}] $\vec{a}\cdot\vec{b} = \vec{b}\cdot\vec{a}$
+	\item[\textbf{distributivity}] $\vec{a}\cdot(\vec{b}+\vec{c}) = \vec{a}\cdot\vec{b} + \vec{a}\cdot\vec{c} $
+	\item[\textbf{multiplication by scalars}] $\lambda(\vec{a}\cdot\vec{b}) = (\lambda\vec{a})\cdot\vec{b} = \vec{a}\cdot(\lambda\vec{b})$
+\end{itemize}
+\noindent
+Using the scalar product we can define the length of a vector, also called the $\text{L}^2$-Norm
+
+\begin{equation}
+	\| \vec{a} \| = \sqrt{a_1^2 + a_2^2 + \cdots + a_n^2} = \sqrt{\vec{a}\cdot\vec{a}}
+\end{equation}
+\noindent
+Two vectors are orthogonal if and only if their scalar product is zero:
+\begin{equation}
+	\vec{a}\cdot\vec{b} = 0 \Leftrightarrow \vec{a} \perp \vec{b}
+\end{equation}
+
+\paragraph{Example of scalar product}
+\begin{equation*}
+	\begin{bmatrix}1\\2\end{bmatrix}\cdot\begin{bmatrix}3\\4\end{bmatrix} = 1\cdot 3 + 2\cdot 4 = 11
+\end{equation*}
+
+\subsubsection{The Hessian normal form of a straight line}
+
+The straight line $g$ is defined by some point $x_0$ and the normal vector $\vec{n}$ with length 1 (refer to figure \ref{fig:hessiannormalform}).
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[keepaspectratio, width=0.4\linewidth]{Pictures/Hessian_normal_form}
+	\caption{Plot of $g$ and the relevant vectors $\vec{x_0}$ and $\vec{n}$}
+	\label{fig:hessiannormalform}
+\end{figure}
+\noindent
+For any point $x$ on the line we have
+\begin{equation*}
+	\vec{n}\cdot(\vec{x}-\vec{x_0})=0
+\end{equation*}
+\noindent
+And find
+\begin{equation*}
+	\Rightarrow n_x x + n_y y -(n_x x_0  n_y y_0) = n_x x +n_y y + d = 0
+\end{equation*}
+\noindent
+With $d=-(n_x x_0 +n_y y_0)$ the signed distance $-\vec{n}\cdot\vec{x_0}$ from the origin
+
+The generalisation of the Hessian normal form to a plane in 3D-space is straight forward:
+\begin{equation}
+	\vec{n}\cdot(\vec{x} - \vec{x_0}) = 0 \text{ \textbf{or} } \vec{n}\cdot\vec{x} + d = 0\text{ with } d = -\vec{n}\cdot\vec{x_0}
+\end{equation}
+
+\paragraph{Example of the Hessian Normal Form}
+The line $g$ is taken from figure \ref{fig:hessiannormalformexample}
+
+\begin{figure}[tbh!]
+	\centering
+	\includegraphics[width=0.5\linewidth, keepaspectratio]{Pictures/hessian_normal_form_example}
+	\caption{Annotated figure \ref{fig:hessiannormalform}}
+	\label{fig:hessiannormalformexample}
+\end{figure}
+
+\begin{align*}
+	\vec{n} &= \frac{1}{\sqrt{13}} \begin{bmatrix}2\\3\end{bmatrix}\\
+	0 &= \vec{n}\cdot(\vec{x}-\vec{x_0})\\
+	&= \frac{1}{\sqrt{13}} \begin{bmatrix}2\\3\end{bmatrix} \cdot(\begin{bmatrix}x\\y\end{bmatrix} - \begin{bmatrix}0.5\\2\end{bmatrix})\\
+	&= \frac{1}{\sqrt{13}} \begin{bmatrix}2\\3\end{bmatrix} \cdot \begin{bmatrix}x - 0.5\\ y - 2\end{bmatrix}
+\end{align*}
+
+\subsubsection{Motivation for Support Vector Machines}
+
+\begin{itemize}
+	\item Classifying data means splitting it up
+	\item There are many ways to split the data, even using only a linear function
+	\item We want the best possible split
+\end{itemize}
+
+\begin{figure}
+	\centering
+	\includegraphics[keepaspectratio,width=0.4\linewidth]{Pictures/support_vector_machine_ex1}
+	\caption{Support Vector Machine}
+	\label{fig:supportvectormachineex1}
+\end{figure}
+
+The line in the middle of figure \ref{fig:supportvectormachineex1} is called the hyperplane (a line in two dimensions, a plane in three). We know that this is the best possible split, because it is the furthest from both clusters. The data points (samples) closest to the hyperplane are called support vectors.
+
+\subsection{Basic ideas and features}
+
+\begin{itemize}
+	\item Finds optimal hyperplane for linearly separable patterns
+	\item Extended patterns which are not linearly separable are transformed into another (possibly higher dimensional) feature space
+	\item Not affected by the local minima problem
+	\item No dimensionality problem
+	\item Modular design allows separate implementation of various components
+	\item Support vectors are the data points or samples closest to the decision hyperplane
+	\item Support vectors are the most difficult to classify
+	\item Support vectors directly influence the position of the decision hyperplane and are the critical elements in the training set
+	\item Problem of finding an optimal separating hyperplane can be solved using standard optimisation techniques
+\end{itemize}
+
+\subsubsection{Linear Classifier}
+A linear classifier has the form
+\begin{equation}
+	f(\vec{x}) = \theta_0 + \theta_1 x_1 + \cdots + \theta_m x_m = b + w_1 x_1 + w_2 x_2 + \cdots + w_m x_m = b + \vec{w}^T \vec{x}_b
+\end{equation}
+\noindent
+where $\vec{w} = \begin{bmatrix}
+	\theta_0\\\theta_1\\\vdots\\\theta_m
+\end{bmatrix}$ is the normal vector on the hyperplane and $b = \theta_0$ is the bias.
+
+\subsubsection{How to determine optimality}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[keepaspectratio, width=0.4\linewidth]{Pictures/support_vector_machine_hyperplane}
+	\caption{Hyperplane with support vectors in red}
+	\label{fig:supportvectormachinehyperplane}
+\end{figure}
+
+In figure \ref{fig:supportvectormachinehyperplane} $\vec{w}$ is the normal vector on the decision hyperplane, its length depends on the margin which is
+maximised through the Support Vector Machine. Maximising the margin $\frac{2}{\| \vec{w} \|}$ is equivalent to minimising $\frac{\vec{w}^T \vec{w}}{2}$, therefore we
+\begin{equation}\label{eq:hard_margin_problem}
+	\underset{\vec{w}, b}{\text{minimise}}\ \frac{1}{2}\vec{w}^T \vec{w}
+\end{equation}
+\noindent
+subject to $y^{(i)}(\vec{w}^T \vec{x}^{(i)}+b)\geq 1$ for $i = 1,2,...,n$
+
+% TODO Dual SVM derivation?
+
+\subsection{From the hard margin to the soft margin problem}
+
+So far we have discussed the hard margin problem (see equation \ref{eq:hard_margin_problem}), which fails if the problem is not separable. To address this we could introduce a \textbf{slack variable} $\zeta_i$ for each data point $x^{(i)}$ and solve the \textbf{soft margin problem}
+
+\begin{equation}\label{eq:soft_margin_problem}
+	\underset{\vec{w}, b}{\text{minimise}}\ \frac{1}{2}\vec{w}^T \vec{w} + C\sum_{i=1}^{n}\zeta_i \text{ subject to } y^{(i)}(\vec{w}^T \vec{x}^{(i)} + b) \geq 1 - \zeta_i
+\end{equation}
+\noindent
+with $\zeta_i \geq 0$ for $i=1,2,...,n$. The slack variable $\zeta_i$ measures how much the $i$-th instance $\vec{x}^{(i)}$ is allowed to violate the margin.
+
+\begin{figure}
+	\centering
+	\includegraphics[keepaspectratio,width=0.4\linewidth]{Pictures/soft_margin_svm}
+	\caption{Support Vector Machine with soft margins}
+	\label{fig:svm_softmargins}
+\end{figure}
+
+\subsubsection{The slack variable explained}
+
+The margin can be less than 1, by setting $\zeta_i > 0$, but then this gets factored in as a penalty $C\zeta_i$ in the minimisation. Thus the sum $\sum_{i=1}^{n}\zeta_i$ gives an upper bound on the number of training errors. With this soft margin Support Vector Machines minimise training error traded off against better margins. The parameter $C$ is the \textit{regularisation parameter}, which provides a way to control overfitting:
+
+\begin{itemize}[leftmargin=*, labelindent=5cm, labelsep=0.5cm]
+	\item[small $C$ ($C \rightarrow 0$)] Constraints are easily ignored, we obtain a large margin
+	\item[large $C$ ($C \rightarrow \infty$)] Constraints are hard to ignore, we obtain a narrow margin
+	\item[$C = \infty$)] All constraints enforced, we have a hard margin
+\end{itemize}
+
+Therefore we still have a quadratic optimisation problem with a unique minimum and we only have to deal with the parameter $C$.
+
+\subsection{The Kernel Trick}
+
+The kernel transforms a problem to another coordinate system, where the problem may be linearly separable.
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[keepaspectratio, width=0.5\linewidth]{Pictures/KernelTrick.pdf}
+	\caption{Course of action for the kernel method}
+	\label{fig:kerneltrick}
+\end{figure}
+
+\subsubsection{Kernel Functions Examples}
+
+\begin{itemize}[leftmargin=*, labelindent=3.5cm, labelsep=0.5cm]
+	\item[polar coordinates] $\Phi: \mathbb{R}^2 \rightarrow \mathbb{R}^2, \begin{bmatrix}x_1\\x_2\end{bmatrix}\mapsto\begin{bmatrix}r\\\theta\end{bmatrix}=\begin{bmatrix}\sqrt{x_1^2 + x_2^2}\\\arctan(\frac{x_2}{x_2})\pm\pi\end{bmatrix}$ (refer to figure \ref{fig:kernelfunctionspolarcoordinates})
+	\item[polynomial mapping] $\Phi: \mathbb{R}^2 \rightarrow \mathbb{R}^3, (x_1,x_2) \mapsto (z_1,z_2,z_3) = (x_1^2,\sqrt{2}\cdot x_1\cdot x_2, x_2^2) = \Phi(x_1,x_2)$ (refer to figure \ref{fig:kernelfunctionspolynomialmapping})
+	\item[radial] $\Phi(x_1,x_2) = e^{-\frac{\| x_1 - x_2 \|^2}{2\sigma^2}}$
+\end{itemize}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[keepaspectratio,width=0.7\linewidth]{Pictures/kernel_functions_polar_coordinates}
+	\caption{Transformation from cartesian to polar coordinate system}
+	\label{fig:kernelfunctionspolarcoordinates}
+\end{figure}
+
+\begin{figure}[htb!]
+	\centering
+	\includegraphics[keepaspectratio,width=0.7\linewidth]{Pictures/kernel_functions_polynomial_mapping}
+	\caption{Transformation to higher dimension}
+	\label{fig:kernelfunctionspolynomialmapping}
+\end{figure}
+
+Kernel function $\Phi$ satisfy:
+\begin{enumerate}[leftmargin=*, labelindent=5cm, labelsep=0.5cm]
+	\item[positive semidefinite]$\forall x_1,x_2(\Phi(x_1,x_2)\geq 0)$
+	\item[symmetric] $\Phi(x_1,x_2) = \Phi(x_2,x_1)$
+\end{enumerate}
 
 \end{document}
