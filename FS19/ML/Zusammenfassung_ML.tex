@@ -1488,4 +1488,59 @@ To reduce the waste of data, we could hold out less data used per run: we use k-
 	\item Pick the model $M-K$ with the lowest estimated generalisation error and retrain that model on the entirety of the training set $S$.
 \end{enumerate}
 
+\section{Recommender Systems}
+
+\subsection{Definition}
+
+\begin{quote}
+    \blockquote[Burke, 2002]{A recommender system is any system that produces indiviudalized recommendations as output or has the effect of guiding the user in a personalized way to interesting or useful objects in a large space of possible options}
+\end{quote}
+
+Or easier said:
+
+\begin{quote}
+    \blockquote[Jennach et. al., 2010]{A recommender system is a software application capable of suggesting interesing things to its users after learning their preferences over time}
+\end{quote}
+
+So basically recommender systems are the algorithms that show up under your amazon searches as 'customers who bought [xxx] also bought [yyy]'. 
+
+As opposed to Support or Lift, recommender systems are \textbf{indiviudalized}.
+
+\vspace{10px}
+
+The goal of recommender systems is to give customers a better overview, to help them cope with the information overload problem (Amazon currently has over 20'000 results listed of 'Laptop Stand', but I only need one). 
+
+As a nice side effect, companies make more sales, because their customers can actually find what they're looking for.
+
+\subsection{History}
+
+The history of recommender systems can be split into three waves:
+
+\begin{description}
+    \item[1st wave (1991 - 2000)] \mbox{}\\
+    5-star ratings
+\item[2nd wave (2001 - 2010)] \mbox{}\\
+    Integration of personal web pages/facebook/myspace etc.
+\item[3rd wave (2011 - )] \mbox{} \\
+    Smart technologies, big data, voice activated assistants
+    \end{description}
+
+    \begin{figure}[htb!]
+        \centering
+        \includegraphics[keepaspectratio=true,height=15\baselineskip]{recommender_system.png}
+        \caption{Generic Picture of a Commercial Recommender System}
+        \label{fig:recommender_systems}
+    \end{figure}
+
+
+    \subsection{Business Model}
+
+    \begin{itemize}
+        \item Recommender Systems are only proviced as SaaS (Software as a Service), you only rent the system
+        \item All data is managed by the vendors. The clients only get the recommendations produced by this data and can display them at their will
+        \item Subscription prices for these systems are related to their success, usually clients pay a percentage of their revenue
+        \item Due to the recent privacy-boom, some customers and clients do not want to provide all shopping data to these system-vendors. They'd rather have an in-house system.
+        \item Having loads of data is hardly bad, the \textit{real} success in these systems lies in the configuration of the system and the evaluation of the data. This requires a deep understanding of the recommender algorithm
+    \end{itemize}
+
 \end{document}
