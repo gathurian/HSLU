@@ -1630,7 +1630,7 @@ Calculate the gradient of the function $f(x,y) = (3x+2y)^2$ in general and in th
             \centering
             \includegraphics[keepaspectratio=true, width=0.9\textwidth]{context_based_recommendations_v3.png}
             \caption{Similarity between books}
-                \label{fig:book_similarity}
+            \label{fig:book_similarity}
         \end{figure}
 
         \begin{figure}[htb!]
@@ -1640,12 +1640,174 @@ Calculate the gradient of the function $f(x,y) = (3x+2y)^2$ in general and in th
             \label{fig:context_based_example}
         \end{figure}
 
-    \subsection{User-to-User Collaborative Filtering}
+        \restoregeometry
 
-    This approach is similar to the similar products context based recommendations, but instead of similar products, it compares the customer to \textit{other similar customers}. 
+        Advantages of Contex-Based Recommendations
 
-    A set of users who liket the same items in the past, probably share the same preferences. Therefore, the user gets recommendations of products that many 'Neighbours' (similar users) liked, but the user has not purchased (yet). 
+        \begin{itemize}
+            \item A users profile is built only from their own ratings and recommendations can therefore be better explained
+            \item New items can be recommended without having to be rated first
+        \end{itemize}
+
+        Disadvantages
+
+        \begin{itemize}
+            \item The user will never find something unexpected they might like in their recommendations
+            \item Do product attributes really reflect how users decide?
+            \item What do you recommend new users?
+        \end{itemize}
 
 
+        \subsection{User-to-User Collaborative Filtering}
 
-        \end{document}
+        \begin{wrapfigure}[14]{R}{0.5\textwidth}
+            \centering
+            \includegraphics[keepaspectratio=true,height=10\baselineskip]{user_similarity.png}
+            \caption{Context Based Recommendations with Neighbours}
+            \label{fig:neighbours}
+        \end{wrapfigure}
+        This approach is similar to the similar products context based recommendations, but instead of similar products, it compares the customer to \textit{other similar customers}. 
+
+        A set of users who liked the same items in the past, probably share the same preferences. Therefore, the user gets recommendations of products that many 'Neighbours' (similar users) liked, but the user has not purchased (yet). 
+
+
+        There's a similar approach as to the Context-Based Recommendations, but there's no need for product attributes anymore. The formula to calculate how much user $u$ will wile product $j$ is also fairly similar.
+
+        \begin{figure}[htb!]
+            \centering
+            \includegraphics[keepaspectratio=true, width=\linewidth]{user_to_user_collaborative_filtering.png}
+            \caption{User to User Collaborative Filtering}
+            \label{fig:user_to_user_collaborative_filtering}
+        \end{figure}
+
+        \begin{figure}[htb!]
+            \centering
+            \includegraphics[keepaspectratio=true, width=0.9\textwidth]{user_to_user_collaborative_filtering_v2.png}
+            \caption{Similarity between users}
+            \label{fig:user_similarity}
+        \end{figure}
+
+        \newpage
+
+        \begin{figure}[htb!]
+            \centering
+            \includegraphics[keepaspectratio=true, width=0.9\textwidth]{user_to_user_collaborative_filtering_v3.png}
+            \caption{Example of N-Based User to User Filtering Recommendations}
+            \label{fig:context_based_example}
+        \end{figure}
+
+
+        \subsection{Item-to-Item Collaborative Filtering}
+
+        Beause user proviles constantly change, pre-computation does not necessarily work. In contrast, for pairs fo items, similarity is stable and can be pre-computed.
+
+        The main difference is that we compare row vectors for neighbour search instead of column vectors.
+
+        \begin{figure}[htb!]
+            \centering
+            \includegraphics[keepaspectratio=true, width=\linewidth]{item_to_item_collaborative_filtering.png}
+            \caption{Item to Item Collaborative Filtering}
+            \label{fig:item_to_item_collaborative_filtering}
+        \end{figure}
+
+
+        Advantages of Collaborative Fiiltering Recommendations
+
+        \begin{itemize}
+            \item Products from different categories can be recommended
+        \end{itemize}
+
+        Disadvantages
+
+        \begin{itemize}
+            \item If the matrix is too sparsely filled, no neighbours will be found
+            \item It needs loads of people to participate to make decent recommendations
+            \item The system must first learn new users preferences
+            \item Users with non-mainstream taste will not get decent recommendations
+        \end{itemize}
+
+        \vspace{10px}
+
+        To improve the recommendations for sparsely filled matrices, there's something called \textbf{Low Rank Matrix Factorization}. The matrix we saw before (Fig. \ref{fig:item_to_item_collaborative_filtering}, 
+        \ref{fig:user_similarity}, \ref{fig:book_similarity}) can be split up in two matrices, which are more densely filled. 
+
+        One matrix holds all users and their ratings for the products they rated and the second matrix holds all products.
+
+
+        The first matrix (U) holds all users and their ratings. Each row is a user and all the ratings on all products they have made.
+
+        The second matrix (V) holds all the products and the rating they've gotten. This matrix is \textbf{transposed}. o
+
+        \begin{figure}[htb!]
+            \centering
+            \includegraphics[keepaspectratio=true, width=\linewidth]{matrix_factorization.png}
+            \caption{Low Rank Matrix Factorization}
+            \label{fig:matrix_factorization}
+        \end{figure}
+
+        From this, we can see that the original matrix can be written as $U \times V^T$
+
+    \begin{minipage}{0.45\textwidth}
+        \begin{align*}
+            U =
+            \begin{bmatrix}
+                U_{1,1} & U_{1,2} &  \hdots & U_{1,k} \\
+                U_{2,1} & U_{2,2} &  \hdots & U_{2,k} \\
+                U_{3,1} & U_{1,2} &  \hdots & U_{3,k} \\
+                U_{4,1} & U_{4,2} &  \hdots & U_{4,k} \\
+                \hdots \\
+                U_{n,1} & U_{n,2} &  \hdots & U_{n,k} \\
+            \end{bmatrix} 
+        \end{align*}
+    \end{minipage} \hfill
+        \begin{minipage}{0.45\textwidth}
+        \begin{align*}
+            V = 
+            \begin{bmatrix}
+                V_{1,1} & V_{1,2} & V_{1,3} & V_{1,4} \hdots & V_{1,m} \\
+                V_{2,1} & V_{2,2} & V_{2,3} & V_{2,4} \hdots & V_{2,m} \\
+                \vdots \\
+                V_{k,1} & V_{k,2} & V_{k,3} & V_{k,4} \hdots & V_{k,m} \\
+            \end{bmatrix}
+        \end{align*}
+    \end{minipage} 
+
+    \vspace{10px}
+
+    $U_{1,1}$ is the rating User 1 gave the book 1,  $U_{2,1}$ is the rating User 2 gave the book 1 etc. 
+
+    $v$ is the product matrix. The $V_1$ column stores all ratings book 1 has gotten, $V_2$ all ratings of book 2 etc.
+
+    \vspace{10px}
+    
+    So if we want to check what rating user 3 has given book 4, we just need to calculate $U \times V^T$ and get the entry $(3,5)$. 
+
+    That way, we can also 'guess' what rating a user would give a book they have not rated or bought yet. The rating of book 2 by user 2 is soterd in $U \times V, (2,2)$.
+
+
+    \subsection{Hybrid Recommender Systems}
+
+    The best result can usually be achieved if you mash multiple recommender-algorithms together. That way, their different advantages and disadvantages might cancel each other out. If you mix a content-based and a collaborative algorithm, you could for example eliminate the cold start problem.
+
+    But how could you interpret the different results from the different algorithms?
+
+    \begin{description}
+        \item[Weighted: ] Score an item as a weighted sum of scores from different algorithms
+        \item[Mixed: ] Results of different algorithms presented to the user
+        \item[Cascade: ] One algorithm refines the result of another one
+        \item[Switching: ] Different methods/algorithms can be used for different usecases
+    \end{description}
+
+    \subsection{Evaluation}
+
+   How would you evaluate recommender systems? Typical train/test/validate splits of your data will not work. 
+   
+   Instead the data must be split over several users, because to assess how good the recommendations are, we need the users whole shopping history.
+
+   \vspace{10px}
+
+   An often used performance measurement is $P@k$ (Precision @ k). How many of the $k$ recommended items were actually relevant. In case many users have less than $k$ recommended products, you could also go with $minP@k$.
+
+                
+
+            \end{document}
