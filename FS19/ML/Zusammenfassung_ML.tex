@@ -120,7 +120,7 @@ There are different disciplines in machine learning:
     \item[Supervised Learning: ] The algorithm is given \textbf{labeled training data} and learns to \textbf{predict} the \textbf{labels} of yet unseen examples.
     \item[Unsupervised Learning: ] The algorithm is given \textbf{unlabeled data} and \textbf{creates labels by itself} based on the structure of the given data
     \item[Semi-Supervised Learning: ] A \textbf{mixture} of supervised and unsupervised learning. This approach is usually chosen if there is only \textbf{very little labeled test data}
-    \item[Reinforcement Learning: ] No data is availabe, but the algorithm is \textbf{being rewarded}. The algorithm searches the ideal behaviour that maximizes its reward (Not subject of this lecture)
+    \item[Reinforcement Learning: ] No data is availabe, but the algorithm is \textbf{being rewarded}. The algorithm searches the ideal behaviour that maximises its reward (Not subject of this lecture)
 \end{description}
 
 These classifications can be subdivided even more:
@@ -595,7 +595,7 @@ To counter overfitting, you usually split your data into \textbf{trainingdata} a
     \label{fig:training_testdata}
 \end{figure}
 
-\textbf{training} means that you tweak the parameters of the algorithm to minimize the cost function.
+\textbf{training} means that you tweak the parameters of the algorithm to minimise the cost function.
 
 \textbf{testing} means that you test the performance of the algorithm with those tweaked parameters on \textit{yet unseen data}. If the algorithm has already seen the data, you might run into overfitting problems.
 
@@ -804,7 +804,7 @@ Calculate the gradient of the function $f(x,y) = (3x+2y)^2$ in general and in th
 To find a local minima of a function $f$ we follow the direction of the steepest descent, and thus the negative Gradient. As the Gradient is constantly changing, we have to take small steps.
 
 \subsubsection{Batch Gradient Descent}
-Elevating the strengths of vectors we can Gradient Descent along all columns of our data. For this we want to minimize the cost function
+Elevating the strengths of vectors we can Gradient Descent along all columns of our data. For this we want to minimise the cost function
 \begin{equation}
     J(\theta) = \frac{1}{2n}\sum_{i=1}^{n}(h(bm{\theta},\textbf{x}^{(i)})-y^{(i)})^2
 \end{equation}
@@ -957,7 +957,7 @@ The sum of squared errors can be calculated as follows:
 
 \vspace{10px}
 
-To minimize $J(\theta^{}_{0}, \theta^{}_{1})$, the \textbf{gradient} of $J$ must be \textbf{minimized} or, ideally, zeroed.
+To minimise $J(\theta^{}_{0}, \theta^{}_{1})$, the \textbf{gradient} of $J$ must be \textbf{minimised} or, ideally, zeroed.
 
 This leads to the following formulas for $\theta^{}_{0}$ and $\theta^{}_{1}$
 
@@ -1021,7 +1021,7 @@ From figure \ref{fig:regression_line} we can now see that for $x_{i}=12$, $y$ wo
 
 This coefficients was already mentioned in section \ref{sec:r_squared} as 'way to measure how good a regression is'. But how does it even do that?
 
-As mentioned earlier, the goal of a good regression is to \textbf{minimize the sum of squared errors}. However, there are three kinds of sum of squared Errors:
+As mentioned earlier, the goal of a good regression is to \textbf{minimise the sum of squared errors}. However, there are three kinds of sum of squared Errors:
 
 \vspace{10px}
 
@@ -1366,7 +1366,7 @@ Suppose we want to predict the weight of a weightlifter based on the training ho
     \label{multilinear_regression}
 \end{figure}
 
-The following solution  minimizes the sum of squared errors in this model (and therefore get a hella good regression).
+The following solution minimises the sum of squared errors in this model (and therefore get a hella good regression).
 
 \begin{equation*}
     \theta = (X^T X)^{-1} X^T y =
@@ -1449,7 +1449,7 @@ To address overfitting we can try these approaches
 \end{equation}
 
 The second sum goes from $1$ to the number of features $m$ and it does not contain $\theta_0$. The regularisation hyperparameter $\lambda$ controls the amount of regularisation. If $\lambda = 0$ there will be no regularization, and if $\lambda = \infty$ there will be underfitting because only $\theta_0$ will be different from zero.
-In Ridge regularised regression, we choose $\theta$ to minimize $J(\theta)$:
+In Ridge regularised regression, we choose $\theta$ to minimise $J(\theta)$:
 \begin{equation}
     \hat{\theta} = \underset{\theta}{\text{argmin}} J(\theta)
 \end{equation}
@@ -2446,7 +2446,7 @@ or more precisely:
 
     As can be seen in fig. \ref{fig:retained_information}, the further away the vector strays from the variance term, the larger the projection error grows. This in turn falsifies the information.
 
-    Therefore: The best projection is the one that minimizes information loss or equivalently that maximizes the variance.
+    Therefore: The best projection is the one that minimises information loss or equivalently that maximises the variance.
 \end{minipage}
 
 \subsection{Data Redundancy}
