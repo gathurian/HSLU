@@ -2374,6 +2374,8 @@ An often used performance measurement is $P@k$ (Precision @ k). How many of the 
 
 \section{Decision Trees and Random Forests}
 
+A decision tree is a decision support tool that uses a tree-like model of decisions and their possible consequences, including chance event outcomes, resource costs, and utility. It is one way to display an algorithm that only contains conditional control statements. 
+
 \subsection{Historical Survey of Decision Tree Algorithms}
 
 \begin{itemize}
@@ -2398,7 +2400,7 @@ An often used performance measurement is $P@k$ (Precision @ k). How many of the 
     \item If only positive or negative instances are left, stop branching and assign the corresponding decision as leaf node\\Example: On Offer = 0\% or 50\%
     \item If some positive and some negative examples remain, choose another feature and refine the tree one step further\\Example: On Offer = 20\% $\rightarrow$ next feature: Saturday
     \item If no instances are left, such a combination of feature values does not occur in the training set. In this case, look at the parent node and decide according to the more frequent label
-    \item If there are still instances but no features any more, the training data s contradictory, noisy, non-deterministic or contains hidden features. In his case, decide according to the more frequent label.
+    \item If there are still instances but no features any more, the training data is contradictory, noisy, non-deterministic or contains hidden features. In this case, decide according to the more frequent label.
 \end{enumerate}
 
 \subsubsection{Splitting Criterion}
@@ -2424,7 +2426,7 @@ Gini impurity is a measure of how often a randomly chosen element from the set w
 
 \subsection{Regression Trees in CART}
 
-The regression tress predict the average value of all instances in a leaf node and are grown like classification trees but with a different splitting criteria. As splitting criteria, they minimise the variance of the values in the same subset.
+The regression trees predict the average value of all instances in a leaf node and are grown like classification trees but with a different splitting criteria. As splitting criteria, they minimise the variance of the values in the same subset.
 
 \begin{figure}[tbh!]
     \centering
@@ -2437,10 +2439,10 @@ The regression tress predict the average value of all instances in a leaf node a
 
 \textbf{Advantages}
 \begin{itemize}
-    \item Decision trees are simple to understand and interpret for humans
-    \item Decision trees can handle both numeric and categorical data
-    \item Decision trees require almost no data preparation
-    \item Decision trees perform well even on larger datasets
+    \item Simple to understand and interpret for humans
+    \item Can handle both numeric and categorical data
+    \item Require almost no data preparation
+    \item Perform well even on larger datasets
 \end{itemize}
 
 \noindent
@@ -2453,11 +2455,11 @@ The regression tress predict the average value of all instances in a leaf node a
 
 \subsection{Association Rules versus Decision Trees}
 
-Mining association rules is unsupervised learning, whereas building decision trees is supervised learning. Where association rules process pure transactions, decision trees incorporate other information, therefore both techniques can be used in a personalized and impersonalized manner.
+Mining association rules is unsupervised learning, whereas building decision trees is supervised learning. Whereas association rules process pure transactions, decision trees incorporate other information. Therefore both techniques can be used in a personalized and impersonalised manner.
 
 \subsection{Random Forest}
 
-Random forests try to address the problems of decision trees. They are simply a collection of decision trees built from the same training set using \textbf{random sampling with replacement} and a \textbf{ random attribute selection}, the prediction from a forest is a combination of the individual tree's results.
+Random forests try to address the problems of decision trees. They are simply a collection of decision trees built from the same training set using \textbf{random sampling with replacement} and a \textbf{random attribute selection}, the prediction from a forest is a combination of the individual tree's results.
 
 \begin{figure}[tbh!]
     \centering
@@ -2488,7 +2490,7 @@ Random forests try to address the problems of decision trees. They are simply a 
 \begin{enumerate}
     \item You carefully split your data into training, validation and test set
     \item You put aside your test set
-    \item You train your favorite learning algorithm on the training set
+    \item You train your favourite learning algorithm on the training set
     \item You get 20\% error on the validation set which is unacceptably high
 \end{enumerate}
 
@@ -2556,9 +2558,9 @@ Also refer to the figure \ref{fig:underoverfittingbiasvariance} in section \ref{
 \subsubsection{Counteracting Underfitting}
 Underfitting is often easier to repair, as it means that your model is misses relevant structures, so you can try to make it more complex through:
 \begin{itemize}
-    \item Try a larger set of features
-    \item Try a different set of features
-    \item Try more complex machine learning algorithms
+    \item A larger set of features
+    \item A different set of features
+    \item More complex machine learning algorithms
 \end{itemize}
 
 \subsubsection{Learning Curve for Overfitting}
@@ -2571,14 +2573,14 @@ Underfitting is often easier to repair, as it means that your model is misses re
 \end{figure}
 
 \subsubsection{Counteracting Overfitting}
-Overfitting happens more frequently and is much harder to repair. It occurs cause your model is to sensitive to the training data, you could try to:
+Overfitting happens more frequently and is much harder to repair. It occurs because your model is to sensitive to the training data, you could try to:
 \begin{itemize}
-    \item Try getting more training data
-    \item Try better data cleaning and eliminate outliers
-    \item Try a smaller set of features through feature selection
-    \item Try early stopping during iterative training
-    \item Try tuning the regularization parameter
-    \item Try ensemble methods
+    \item Getting more training data
+    \item Better data cleaning and eliminate outliers
+    \item A smaller set of features through feature selection
+    \item Early stopping during iterative training
+    \item Tuning the regularization parameter
+    \item Ensemble methods
 \end{itemize}
 
 \subsubsection{Early Stopping}
