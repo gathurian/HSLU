@@ -1412,6 +1412,7 @@ print(theta)
 
 
 \section{Regularisation}
+\label{sec:Regularisation}
 Under- and overfitting are common problems in machine learning. Underfitting occurs when the model is to general and can't aptly represent the data. Overfitting occurs, when the model is too precisely fitted to the training data.
 
 \begin{figure}[htb!]
@@ -1427,6 +1428,7 @@ Under- and overfitting are common problems in machine learning. Underfitting occ
         \caption{Examples of different biases and variances}
     \end{subfigure}
     \caption{Under- and Overfitting, Biases and Variances}
+    \label{fig:underoverfittingbiasvariance}
 \end{figure}
 
 To address overfitting we can try these approaches
@@ -2468,9 +2470,9 @@ Random forests try to address the problems of decision trees. They are simply a 
 
 \textbf{Training Phase}
 \begin{enumerate}
-    \item Choose a random subset D * of your training set D
-    \item Choose a random subset A * of attributes
-    \item Build a decision tree from A * and D *
+    \item Choose a random subset D* of your training set D
+    \item Choose a random subset A* of attributes
+    \item Build a decision tree from A* and D*
     \item Repeat step 1 – 3 for the number of decision trees you want
 \end{enumerate}
 \noindent
@@ -2478,6 +2480,125 @@ Random forests try to address the problems of decision trees. They are simply a 
 \begin{enumerate}
     \item Get a separate decision from each tree in the random forest
     \item Combine the result of each tree to obtain the final decision by taking the average for regression or majority vote for classification
+\end{enumerate}
+
+\section{Debugging}
+
+\textbf{Motivation}
+\begin{enumerate}
+    \item You carefully split your data into training, validation and test set
+    \item You put aside your test set
+    \item You train your favorite learning algorithm on the training set
+    \item You get 20\% error on the validation set which is unacceptably high
+\end{enumerate}
+
+\subsection{Bias and Variance}
+Different sources of error can prevent supervised learning algorithms from generalizing beyond their training set. The \textbf{bias} results from false assumptions in the learning algorithm. High bias can cause an algorithm to miss the relevant structure between features and target. While the \textbf{variance} results from sensitivity to small fluctuations in the training set. High variance can cause an algorithm to model the random noise in the training data rather than the intended outputs.
+
+\begin{itemize}
+    \item A model with high bias and low variance \textbf{underfits} the data
+    \item A model with low bias and high variance \textbf{overfits} the data
+\end{itemize}
+
+Also refer to the figure \ref{fig:underoverfittingbiasvariance} in section \ref{sec:Regularisation}.
+
+\subsubsection{Under- and Overfitting in Classification}
+\noindent
+\textbf{Underfitting}
+\begin{itemize}
+    \item A straight line is just not complex enough to separate the classes
+    \item This model performs badly on both training and test data
+\end{itemize}
+
+\noindent
+\textbf{Overfitting}
+\begin{itemize}
+    \item This model optimizes to much with respect to the training data
+    \item It shows high performance on training but low performance on test data
+\end{itemize}
+
+\subsubsection{Under- and Overfitting in Regression}
+
+\begin{figure}[tbh!]
+    \centering
+    \includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/underfitting_overfitting_regression}
+    \caption{Underfitting and Overfitting in Regression}
+    \label{fig:underfittingoverfittingregression}
+\end{figure}
+
+\vspace{1em}
+
+\noindent
+\textbf{Underfitting}
+\begin{itemize}
+    \item A straight line is just not complex enough to approximate the data
+    \item This model performs badly on both training and test data
+\end{itemize}
+
+\noindent
+\textbf{Overfitting}
+\begin{itemize}
+    \item This model optimizes to much with respect to the training data
+    \item It shows high performance on training but low performance on test data
+\end{itemize}
+
+\clearpage
+
+\subsubsection{Learning Curve for Underfitting}
+     
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/underfitting_learning_curve}
+    \caption{Underfitting has bad performance on training and test data}
+    \label{fig:underfittinglearningcurve}
+\end{figure}
+
+\subsubsection{Counteracting Underfitting}
+Underfitting is often easier to repair, as it means that your model is misses relevant structures, so you can try to make it more complex through:
+\begin{itemize}
+    \item Try a larger set of features
+    \item Try a different set of features
+    \item Try more complex machine learning algorithms
+\end{itemize}
+
+\subsubsection{Learning Curve for Overfitting}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/overfitting_learning_curve}
+    \caption{Overfitting has good performance on training but bad performance on test data}
+    \label{fig:overfittinglearningcurve}
+\end{figure}
+
+\subsubsection{Counteracting Overfitting}
+Overfitting happens more frequently and is much harder to repair. It occurs cause your model is to sensitive to the training data, you could try to:
+\begin{itemize}
+    \item Try getting more training data
+    \item Try better data cleaning and eliminate outliers
+    \item Try a smaller set of features through feature selection
+    \item Try early stopping during iterative training
+    \item Try tuning the regularization parameter
+    \item Try ensemble methods
+\end{itemize}
+
+\subsubsection{Early Stopping}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\linewidth, keepaspectratio]{Pictures/early_stopping}
+    \caption{Stopping the training early to avoid ovefitting}
+    \label{fig:earlystopping}
+\end{figure}
+
+\subsection{How to Approach a Machine Learning Project}
+
+\begin{enumerate}
+    \item Data quality assessment is always worth the time
+    \item Visualize your data
+    \item Specify and implement a water-proof quality assessment workflow
+    \item Implement a quick-and-dirty baseline classifier or regressor
+    \item Run error analysis and diagnostics
+    \item Learn and improve
 \end{enumerate}
 
 \end{document}
