@@ -200,14 +200,14 @@ There are different ways to cope with NULL variables, but they have to be addres
 
 \begin{itemize}
     \item Delete all rows with NULL values \\
-          Might be the easiest way if you have loads of data
+        Might be the easiest way if you have loads of data
     \item Fill in the missing values manually (e.g. from other sources) \\
-          Might be the hardest way if you have loads of data
+        Might be the hardest way if you have loads of data
     \item Fill in a global constant like N/A, UNKNOWN
     \item Use a measure for central tendency \\
-          e.g. take the mean if your data is symmetric or take the median if its skewed
+        e.g. take the mean if your data is symmetric or take the median if its skewed
     \item Use a measure for central tendency per class \\
-          e.g. take different values for healthy and sick people
+        e.g. take different values for healthy and sick people
     \item Use e.g Regression to 'guess' the missing values
 \end{itemize}
 
@@ -329,7 +329,7 @@ This plot is a \textbf{visual representation of the five number summary} and can
 
 Values $1.5 \cdot IQR$ above the 3rd or below the 1st Quartile can be considered outliers and are displayed with small circles.
 
-\subsubsection{Variance}
+\subsubsection{Variance} \label{sec:variance}
 The variance shows \textbf{how much the values are spread on average}. This is measured by squaring the sum of all deviations from the mean
 
 \begin{equation}
@@ -340,7 +340,7 @@ The standard deviation $\sigma$ is calculated as $\sqrt{variance}$
 
 \newpage
 
-\subsubsection{Covariance}
+\subsubsection{Covariance} \label{sec:covariance}
 The covariance is used to determine whether two variables are \textbf{connected} to each other.
 
 If both variables are on the same side of the mean, the variance is \textbf{positive}, the variables are probably connected. Meaning if the value of one variable is rising, the other one will most likely rise as well.
@@ -764,16 +764,16 @@ The problem with Linear Regression is, that it does not scale well. For problems
 The gradient $\nabla f$ of the scalar function $f: \mathbb{R}^2 \rightarrow \mathbb{R}, (x,y) \mapsto f(x,y) = z$ is a vector, whose components are partial derivatives of $f$.
 
 \begin{equation}
-\nabla f(x,y) =
-\begin{bmatrix}
-\frac{\delta f}{\delta x}(x,y) \\
-\frac{\delta f}{\delta z}(x,y)
-\end{bmatrix}
-=
-\begin{bmatrix}
-f_x (x,y) \\
-f_y (x,y)
-\end{bmatrix}
+    \nabla f(x,y) =
+    \begin{bmatrix}
+        \frac{\delta f}{\delta x}(x,y) \\
+        \frac{\delta f}{\delta z}(x,y)
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        f_x (x,y) \\
+        f_y (x,y)
+    \end{bmatrix}
 \end{equation}
 
 \subsubsection{Example of a gradient}
@@ -781,88 +781,88 @@ f_y (x,y)
 Calculate the gradient of the function $f(x,y) = (3x+2y)^2$ in general and in the point $(1,2)$.
 
 \begin{align*}
-\nabla f(x,y) & = \begin{bmatrix}
-6(3x + 2y) \\
-4(3x + 2y)
-\end{bmatrix} \\
-\nabla f(1,2) & = \begin{bmatrix}
-42 \\
-28
-\end{bmatrix}
-\end{align*}
+    \nabla f(x,y) & = \begin{bmatrix}
+        6(3x + 2y) \\
+        4(3x + 2y)
+    \end{bmatrix} \\
+        \nabla f(1,2) & = \begin{bmatrix}
+            42 \\
+            28
+        \end{bmatrix}
+        \end{align*}
 
-\subsection{Properties of the gradient}
-\begin{itemize}
-    \item The Gradient of a function f is a vector consisting of the partial derivatives of f with respect to all of its variables
-    \item It points to the direction of maximal increase
-    \item The negative Gradient points to the direction of maximal decrease
-    \item The Gradient being a null-vector indicates a local extrema
-    \item The Gradient is perpendicular to the contour lines of that function
-\end{itemize}
+        \subsection{Properties of the gradient}
+        \begin{itemize}
+            \item The Gradient of a function f is a vector consisting of the partial derivatives of f with respect to all of its variables
+            \item It points to the direction of maximal increase
+            \item The negative Gradient points to the direction of maximal decrease
+            \item The Gradient being a null-vector indicates a local extrema
+            \item The Gradient is perpendicular to the contour lines of that function
+        \end{itemize}
 
-\subsection{Gradient descent}
-To find a local minima of a function $f$ we follow the direction of the steepest descent, and thus the negative Gradient. As the Gradient is constantly changing, we have to take small steps.
+        \subsection{Gradient descent}
+        To find a local minima of a function $f$ we follow the direction of the steepest descent, and thus the negative Gradient. As the Gradient is constantly changing, we have to take small steps.
 
-\subsubsection{Batch Gradient Descent}
-Elevating the strengths of vectors we can Gradient Descent along all columns of our data. For this we want to minimize the cost function
-\begin{equation}
-J(\theta) = \frac{1}{2n}\sum_{i=1}^{n}(h(bm{\theta},\textbf{x}^{(i)})-y^{(i)})^2
-\end{equation}
+        \subsubsection{Batch Gradient Descent}
+        Elevating the strengths of vectors we can Gradient Descent along all columns of our data. For this we want to minimize the cost function
+        \begin{equation}
+            J(\theta) = \frac{1}{2n}\sum_{i=1}^{n}(h(bm{\theta},\textbf{x}^{(i)})-y^{(i)})^2
+        \end{equation}
 
-where $h(\bm{\theta},\textbf{x}^{(i)})$ is
+        where $h(\bm{\theta},\textbf{x}^{(i)})$ is
 
-\begin{equation}
-h(\bm{\theta},\bm{x}^{(i)}) = \bm{x}^{(i)}\bm{\theta} = \theta_0 + \theta_1 x^{(i)}_1 + \theta_2 x^{(i)}_2 + \cdots + \theta_m x^{(i)}_m
-\end{equation}
+        \begin{equation}
+            h(\bm{\theta},\bm{x}^{(i)}) = \bm{x}^{(i)}\bm{\theta} = \theta_0 + \theta_1 x^{(i)}_1 + \theta_2 x^{(i)}_2 + \cdots + \theta_m x^{(i)}_m
+        \end{equation}
 
-And calculate the next iteration with the learning rate $\alpha$ (usually $0\leq\alpha\leq0.1$)
+        And calculate the next iteration with the learning rate $\alpha$ (usually $0\leq\alpha\leq0.1$)
 
-\begin{equation}
-\bm{\theta}_{k+1} = \bm{\theta}_{k} -\alpha\nabla J(\bm{\theta}_k)
-\end{equation}
+        \begin{equation}
+            \bm{\theta}_{k+1} = \bm{\theta}_{k} -\alpha\nabla J(\bm{\theta}_k)
+        \end{equation}
 
-It can be shown that this yields
+        It can be shown that this yields
 
-\begin{equation}
-\bm{\theta}_{k+1} = \bm{\theta}_{k} -\alpha\frac{1}{n}(h(\bm{\theta},\bm{x}^{(i)})-y^{(i)})\cdot\bm{x}^{(i)}
-\end{equation}
+        \begin{equation}
+            \bm{\theta}_{k+1} = \bm{\theta}_{k} -\alpha\frac{1}{n}(h(\bm{\theta},\bm{x}^{(i)})-y^{(i)})\cdot\bm{x}^{(i)}
+        \end{equation}
 
-\subsection{Stochastic Gradient Descent}
-In Batch Gradient Descent the update to the parameter vector $\bm{\theta}$ is done all at once using the whole set of $n$ training samples. If $n$ is in the order of several $10^6$, this update process can become slow. One possible alternative is to update $\bm{\theta}$ for each training sample separately. This is done by randomly shuffling the training examples first and then updating $\bm{\theta}$ for each training sample.
+        \subsection{Stochastic Gradient Descent}
+        In Batch Gradient Descent the update to the parameter vector $\bm{\theta}$ is done all at once using the whole set of $n$ training samples. If $n$ is in the order of several $10^6$, this update process can become slow. One possible alternative is to update $\bm{\theta}$ for each training sample separately. This is done by randomly shuffling the training examples first and then updating $\bm{\theta}$ for each training sample.
 
-\subsubsection{Instructions}
-\begin{itemize}
-    \item Choose an initial parameter vector $\bm{\theta}$ and a learning rate $\alpha$
-    \item Repeat until an approximate miminum is obtained
-    \begin{itemize}
-        \item Randomly shuffle the samples in the training set
-        \item For each sample $i \in {1,2,...,n}$ do
-        \begin{equation*}
-        \bm{\theta}_{k+1} = \bm{\theta}_{k} -\alpha\nabla J_i(\bm{\theta}_k) = \bm{\theta}_{k} -\alpha\frac{1}{n}(h(\bm{\theta}_k,\bm{x}^{(i)})-y^{(i)})\cdot\bm{x}^{(i)}
-        \end{equation*}
-        where $h(\bm{\theta}_k,\bm{x}^{(i)})=\bm{\theta}_k^T \bm{x}^{(i)}$ and
-        \begin{equation*}
-        J_i(\bm{\theta}) = \frac{1}{2n}(h(\bm{\theta}_k,\bm{x}^{(i)})-y^{(i)})^2
-        \end{equation*}
-        is the cost for one data point $(x^{(i)},y^{(i)})$
-    \end{itemize}
-\end{itemize}
+        \subsubsection{Instructions}
+        \begin{itemize}
+            \item Choose an initial parameter vector $\bm{\theta}$ and a learning rate $\alpha$
+            \item Repeat until an approximate miminum is obtained
+                \begin{itemize}
+                    \item Randomly shuffle the samples in the training set
+                    \item For each sample $i \in {1,2,...,n}$ do
+                        \begin{equation*}
+                            \bm{\theta}_{k+1} = \bm{\theta}_{k} -\alpha\nabla J_i(\bm{\theta}_k) = \bm{\theta}_{k} -\alpha\frac{1}{n}(h(\bm{\theta}_k,\bm{x}^{(i)})-y^{(i)})\cdot\bm{x}^{(i)}
+                        \end{equation*}
+                        where $h(\bm{\theta}_k,\bm{x}^{(i)})=\bm{\theta}_k^T \bm{x}^{(i)}$ and
+                        \begin{equation*}
+                            J_i(\bm{\theta}) = \frac{1}{2n}(h(\bm{\theta}_k,\bm{x}^{(i)})-y^{(i)})^2
+                        \end{equation*}
+                        is the cost for one data point $(x^{(i)},y^{(i)})$
+                \end{itemize}
+        \end{itemize}
 
-The difference to Batch Gradient Descent is that only one piece of data from the dataset is used to calculate the updated parameter and this piece of data is chosen randomly.
+        The difference to Batch Gradient Descent is that only one piece of data from the dataset is used to calculate the updated parameter and this piece of data is chosen randomly.
 
-\subsubsection{Stochastic Gradient Descent - Example}
+        \subsubsection{Stochastic Gradient Descent - Example}
 
-\begin{minipage}{0.55\textwidth}
-    \begin{lstlisting}
+        \begin{minipage}{0.55\textwidth}
+            \begin{lstlisting}
     def parallel_cost(X,Y,x_data,y_data):
     m = X.shape[0]; n = X.shape[1]
     tot = np.zeros((m,n))
     for i in range(1,len(x_data)):
     tot += (X + Y * x_data[i] - y_data[i]) ** 2
     return tot/(2 * len(x_data))
-    
+
     alpha = 0.03; epochs = 2000
-    
+
     for epoch in np.arange(0,epochs):
     arr = np.arange(X.shape[0])
     np.random.shuffle(arr)
@@ -874,124 +874,124 @@ The difference to Batch Gradient Descent is that only one piece of data from the
     theta = theta - alpha * grad_i
     theta0_path.append(theta[0])
     theta1_path.append(theta[1])
-    \end{lstlisting}
-\end{minipage}
-\hfill
-\begin{minipage}{0.4\textwidth}
-    \centering
-    \includegraphics[keepaspectratio, height=\linewidth]{Pictures/stochastic_gradient_descent}
-    \captionof{figure}{Stochastic Gradient Descent}
-    \label{fig:stochasticgradientdescent}
-\end{minipage}
+            \end{lstlisting}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.4\textwidth}
+            \centering
+            \includegraphics[keepaspectratio, height=\linewidth]{Pictures/stochastic_gradient_descent}
+            \captionof{figure}{Stochastic Gradient Descent}
+            \label{fig:stochasticgradientdescent}
+        \end{minipage}
 
-\subsection{Polynomial Regression, Feature Scaling and Checking Convergence}
+        \subsection{Polynomial Regression, Feature Scaling and Checking Convergence}
 
-If we do not have a linear relationship, but a polynomial one between the features and estimated outcome, our equation is in the general form of
+        If we do not have a linear relationship, but a polynomial one between the features and estimated outcome, our equation is in the general form of
 
-\begin{equation}
-h(\bm{\theta},\bm{x}) = \theta_0 + \theta_1 x^1 + \theta_2 x^2 + \cdots + \theta_n x^n
-\end{equation}
+        \begin{equation}
+            h(\bm{\theta},\bm{x}) = \theta_0 + \theta_1 x^1 + \theta_2 x^2 + \cdots + \theta_n x^n
+        \end{equation}
 
-We could then use the features $x_1 = x$, $x_2 = x^2$ and $x_3 = x^3$, but if the features are not in the same range, we have a problem. To solve this we must use feature scaling:
+        We could then use the features $x_1 = x$, $x_2 = x^2$ and $x_3 = x^3$, but if the features are not in the same range, we have a problem. To solve this we must use feature scaling:
 
-\begin{enumerate}
-    \item Make sure the features are on a similar scale and get every feature into the range of $-1\leq x_i \leq 1$
-    \begin{enumerate}
-        \item Replace $x_i$ with $x_i - \bar{x}_i$ to have features with an approximately zero mean. Does not apply to $x_0 = 1$
-        \item Divide $x_i - \bar{x}_i$ by the range of $x_i = max(x_i) - min(x_i)$ or the standard deviation of $x_i$
-    \end{enumerate}
-    \item Test if Gradient Descent is working correctly by plotting the cost function $J(\bm{\theta})$ versus the number of iterations
-    \item Declare convergence if $J(\bm{\theta})$ decreases by less than a given threshold (for example $10^-3$) in one iteration
-\end{enumerate}
+        \begin{enumerate}
+            \item Make sure the features are on a similar scale and get every feature into the range of $-1\leq x_i \leq 1$
+                \begin{enumerate}
+                    \item Replace $x_i$ with $x_i - \bar{x}_i$ to have features with an approximately zero mean. Does not apply to $x_0 = 1$
+                    \item Divide $x_i - \bar{x}_i$ by the range of $x_i = max(x_i) - min(x_i)$ or the standard deviation of $x_i$
+                \end{enumerate}
+            \item Test if Gradient Descent is working correctly by plotting the cost function $J(\bm{\theta})$ versus the number of iterations
+            \item Declare convergence if $J(\bm{\theta})$ decreases by less than a given threshold (for example $10^-3$) in one iteration
+        \end{enumerate}
 
-For sufficiently small $\alpha$, $J(\bm{\theta})$ should decrease in every iteration, but a too small $\alpha$ leads to a slow convergence. Start with $\alpha = 0.001$, proceed with $0.003, 0.01, 0.03, 0.1, ...$ .
+        For sufficiently small $\alpha$, $J(\bm{\theta})$ should decrease in every iteration, but a too small $\alpha$ leads to a slow convergence. Start with $\alpha = 0.001$, proceed with $0.003, 0.01, 0.03, 0.1, ...$ .
 
-\section{Linear Regression}
+        \section{Linear Regression}
 
-\begin{wrapfigure}[16]{R}{0.5\textwidth}
-    \centering
-    \includegraphics[keepaspectratio=true,height=14\baselineskip]{linear_regression.png}
-    \caption{Linear Regression}
-    \label{fig:linear_regression}
-\end{wrapfigure}
+        \begin{wrapfigure}[16]{R}{0.5\textwidth}
+            \centering
+            \includegraphics[keepaspectratio=true,height=14\baselineskip]{linear_regression.png}
+            \caption{Linear Regression}
+            \label{fig:linear_regression}
+        \end{wrapfigure}
 
-Linear regression is a \textbf{supervised machine learning algorithm} to predict values based on previous variables.
+        Linear regression is a \textbf{supervised machine learning algorithm} to predict values based on previous variables.
 
-It can also be used to verify whether two variablex X and Y are \textbf{dependant} on each other.
+        It can also be used to verify whether two variablex X and Y are \textbf{dependant} on each other.
 
-\vspace{10px}
+        \vspace{10px}
 
-Linear Regression produces a \textbf{straight line} (who would have thought) and each data point has a certain distance from that line. That distance is called \textbf{error} or \textbf{residual}.
+        Linear Regression produces a \textbf{straight line} (who would have thought) and each data point has a certain distance from that line. That distance is called \textbf{error} or \textbf{residual}.
 
-These errors should cancel each other out, as the regression-line should be placed in the middle of all the points.
+        These errors should cancel each other out, as the regression-line should be placed in the middle of all the points.
 
-\vspace{10px}
+        \vspace{10px}
 
-The equation for a 'normal' line is $g(x) = m \cdot x + q$, where $m$ symbolizes the slope of the line and $q$ tells you where the line crosses the $y$-axis.
+        The equation for a 'normal' line is $g(x) = m \cdot x + q$, where $m$ symbolizes the slope of the line and $q$ tells you where the line crosses the $y$-axis.
 
-The equation for the regression line is very much like the 'normal' line-equation, but we use greek symbols, because why not...
+        The equation for the regression line is very much like the 'normal' line-equation, but we use greek symbols, because why not...
 
-\begin{equation}
-    h_{\theta}(x) = \theta^{}_{0} + \theta^{}_{1} \cdot x
-\end{equation}
+        \begin{equation}
+            h_{\theta}(x) = \theta^{}_{0} + \theta^{}_{1} \cdot x
+        \end{equation}
 
-\vspace{10px}
+        \vspace{10px}
 
-As mentioned before, deviation from that line are called errors. Therefore, the error of a given point $i$ can be calculated from the difference of the actual $y_{i}$ from the $h_{\theta}(x)$ (the $y$ on the line)
+        As mentioned before, deviation from that line are called errors. Therefore, the error of a given point $i$ can be calculated from the difference of the actual $y_{i}$ from the $h_{\theta}(x)$ (the $y$ on the line)
 
-\begin{equation}
-    e_{i} = y_{i} - (\theta^{}_{0} + \theta^{}_{1} \cdot x_{i})
-\end{equation}
+        \begin{equation}
+            e_{i} = y_{i} - (\theta^{}_{0} + \theta^{}_{1} \cdot x_{i})
+        \end{equation}
 
-\vspace{10px}
+        \vspace{10px}
 
-The goal of linear regression is to find the \textbf{optimal line}, ergo the line that \textbf{produces the smallest errors}.
+        The goal of linear regression is to find the \textbf{optimal line}, ergo the line that \textbf{produces the smallest errors}.
 
-However, as mentioned earlier, the errors usually cancel each other out, as sometimes the line lies above the data point (negative error) and sometimes it lies below it (positive error). To solve that problem, the parameter we will use to determine the quality of the produced line will be \textbf{the sum of squared error}. By squaring the errors, we can't have negative errors (because squared numbers cannot be negative). Therefore, the smaller the sum of squared errors, the better the line.
+        However, as mentioned earlier, the errors usually cancel each other out, as sometimes the line lies above the data point (negative error) and sometimes it lies below it (positive error). To solve that problem, the parameter we will use to determine the quality of the produced line will be \textbf{the sum of squared error}. By squaring the errors, we can't have negative errors (because squared numbers cannot be negative). Therefore, the smaller the sum of squared errors, the better the line.
 
-The sum of squared errors can be calculated as follows:
+        The sum of squared errors can be calculated as follows:
 
-\begin{equation}
-    J(\theta^{}_{0}, \theta^{}_{1}) = \frac{1}{2n} \sum^{n}_{i=1}(e_{i})^2 = \frac{1}{2n} \sum^{n}_{i=1}[y_{i} - (\theta^{}_{0} + \theta^{}_{1} \cdot x_{i})]^2
-\end{equation}
+        \begin{equation}
+            J(\theta^{}_{0}, \theta^{}_{1}) = \frac{1}{2n} \sum^{n}_{i=1}(e_{i})^2 = \frac{1}{2n} \sum^{n}_{i=1}[y_{i} - (\theta^{}_{0} + \theta^{}_{1} \cdot x_{i})]^2
+        \end{equation}
 
-\vspace{10px}
+        \vspace{10px}
 
-To minimize $J(\theta^{}_{0}, \theta^{}_{1})$, the \textbf{gradient} of $J$ must be \textbf{minimized} or, ideally, zeroed.
+        To minimize $J(\theta^{}_{0}, \theta^{}_{1})$, the \textbf{gradient} of $J$ must be \textbf{minimized} or, ideally, zeroed.
 
-This leads to the following formulas for $\theta^{}_{0}$ and $\theta^{}_{1}$
+        This leads to the following formulas for $\theta^{}_{0}$ and $\theta^{}_{1}$
 
-\begin{minipage}{0.45\textwidth}
-    \begin{equation}
-        \theta^{}_{1} = \frac{S_{xy}}{S_{xx}}
-    \end{equation}
-\end{minipage} \hfill
-\begin{minipage}{0.45\textwidth}
-    \begin{equation}
-        \theta^{}_{0} = \bar y - \theta^{}_{1} \cdot \bar x
-    \end{equation}
-\end{minipage}
+        \begin{minipage}{0.45\textwidth}
+            \begin{equation}
+                \theta^{}_{1} = \frac{S_{xy}}{S_{xx}}
+            \end{equation}
+        \end{minipage} \hfill
+        \begin{minipage}{0.45\textwidth}
+            \begin{equation}
+                \theta^{}_{0} = \bar y - \theta^{}_{1} \cdot \bar x
+            \end{equation}
+        \end{minipage}
 
-Where $\bar x$ and $\bar y$ are the \textbf{mean} of the $x$ and $y$ values respectively
+        Where $\bar x$ and $\bar y$ are the \textbf{mean} of the $x$ and $y$ values respectively
 
-\vspace{10px}
+        \vspace{10px}
 
-$S_{xx}$ and $S_{xy}$ are called \textbf{regression coefficients} and are calculated as follows:
+        $S_{xx}$ and $S_{xy}$ are called \textbf{regression coefficients} and are calculated as follows:
 
-\begin{minipage}{0.45\textwidth}
-    \begin{equation}
-        S_{xy} = \sum^{n}_{i=1}(x_{i}-\bar x)(y_{i}-\bar y)
-    \end{equation}
-\end{minipage} \hfill
-\begin{minipage}{0.45\textwidth}
-    \begin{equation}
-        S_{xx} = \sum^{n}_{i=1}(x_{i}-\bar x)^2
-    \end{equation}
-\end{minipage}
+        \begin{minipage}{0.45\textwidth}
+            \begin{equation}
+                S_{xy} = \sum^{n}_{i=1}(x_{i}-\bar x)(y_{i}-\bar y)
+            \end{equation}
+        \end{minipage} \hfill
+        \begin{minipage}{0.45\textwidth}
+            \begin{equation}
+                S_{xx} = \sum^{n}_{i=1}(x_{i}-\bar x)^2
+            \end{equation}
+        \end{minipage}
 
-\paragraph{Example} \mbox{}\\
+        \paragraph{Example} \mbox{}\\
 
-\begin{flalign*}
+        \begin{flalign*}
     &X = [4, 6, 8, 10]& \\
     &Y = [2.3, 4.1, 5.7, 6.9]& \\
     &\bar X = \frac{1}{4} (4 \cdot 6 \cdot 8 \cdot 10) = 7& \\
@@ -1000,139 +1000,139 @@ $S_{xx}$ and $S_{xy}$ are called \textbf{regression coefficients} and are calcul
     &S_{xy} = (4-7)(2.3-7.25)+(6-7)(4.1-7.25)+(8-7)(5.7-7.25)+(10-7)(6.9-7.25)=15.4& \\
     &\theta^{}_{1} = \frac{20}{15.4} = 0.77& \\
     &\theta^{}_{0} = 4.75-(0.77-7) = -0.64&
-\end{flalign*}
+        \end{flalign*}
 
-From this follows that the regression line is:
+        From this follows that the regression line is:
 
-\begin{equation*}
-    h_{\theta}(x) = -0.64 \cdot 0.77 \cdot x
-\end{equation*}
+        \begin{equation*}
+            h_{\theta}(x) = -0.64 \cdot 0.77 \cdot x
+        \end{equation*}
 
-\begin{figure}[htb!]
-    \centering
-    \includegraphics[keepaspectratio=true, width=\linewidth]{regression_line.png}
-    \caption{Regression line of the example}
-    \label{fig:regression_line}
-\end{figure}
+        \begin{figure}[htb!]
+            \centering
+            \includegraphics[keepaspectratio=true, width=\linewidth]{regression_line.png}
+            \caption{Regression line of the example}
+            \label{fig:regression_line}
+        \end{figure}
 
-From figure \ref{fig:regression_line} we can now see that for $x_{i}=12$, $y$ would most likely be at $8.6$.
+        From figure \ref{fig:regression_line} we can now see that for $x_{i}=12$, $y$ would most likely be at $8.6$.
 
-\subsection{Coefficient of Determination}
+        \subsection{Coefficient of Determination}
 
-This coefficients was already mentioned in section \ref{sec:r_squared} as 'way to measure how good a regression is'. But how does it even do that?
+        This coefficients was already mentioned in section \ref{sec:r_squared} as 'way to measure how good a regression is'. But how does it even do that?
 
-As mentioned earlier, the goal of a good regression is to \textbf{minimize the sum of squared errors}. However, there are three kinds of sum of squared Errors:
+        As mentioned earlier, the goal of a good regression is to \textbf{minimize the sum of squared errors}. However, there are three kinds of sum of squared Errors:
 
-\vspace{10px}
+        \vspace{10px}
 
-\begin{minipage}{0.4\textwidth}
-    \begin{description}
-        \item[$\bar y$:] Mean of all $Y$
-        \item[$\bar x$:] Mean of all $X$
-        \item[$\hat y_{i}$:] Expected value of $y$ based on the regression line
-        \item[$y_{i}$:] Actual value of $y$
-        \item[$SST:$] \textit{Total sum of squares} \\
-              Sum of SSE and SSR
-        \item[$SSE:$ ] \textit{Sum of squared Errors} \\
-              The sum of the deviations from the predicted points to the regression line
-        \item[$SSR:$ ] \textit{Sum of squares explained by regression} \\
-              The sum of all deviations from the mean ($\bar y)$ to the regression line
-    \end{description}
-\end{minipage} \hfill
-\begin{minipage}{0.6\textwidth}
-    \includegraphics[keepaspectratio=true,width=\textwidth]{SST.JPG}
-\end{minipage}
+        \begin{minipage}{0.4\textwidth}
+            \begin{description}
+                \item[$\bar y$:] Mean of all $Y$
+                \item[$\bar x$:] Mean of all $X$
+                \item[$\hat y_{i}$:] Expected value of $y$ based on the regression line
+                \item[$y_{i}$:] Actual value of $y$
+                \item[$SST:$] \textit{Total sum of squares} \\
+                    Sum of SSE and SSR
+                \item[$SSE:$ ] \textit{Sum of squared Errors} \\
+                    The sum of the deviations from the predicted points to the regression line
+                \item[$SSR:$ ] \textit{Sum of squares explained by regression} \\
+                    The sum of all deviations from the mean ($\bar y)$ to the regression line
+            \end{description}
+        \end{minipage} \hfill
+        \begin{minipage}{0.6\textwidth}
+            \includegraphics[keepaspectratio=true,width=\textwidth]{SST.JPG}
+        \end{minipage}
 
-\vspace{10px}
+        \vspace{10px}
 
-As illustrated in the figure above, $SST = SSR + SSE$.
+        As illustrated in the figure above, $SST = SSR + SSE$.
 
-\begin{align}
-    SST &= \sum^{n}_{i=1}(y_{i}-\bar y)^2\\
-    SSE &= \sum^{n}_{i=1}(y_{i}-\hat y)^2 &\\
-    SSR &= \sum^{n}_{i=1}(\hat y_{i}-\bar y)^2
-\end{align}
-
-
-But how does the aforementioned Coefficient of Determination relate to all of this?
-
-$R^2$ is the \textbf{fraction of the total error that can be explained by the regression}. If all errors can be explained by the regression ($R^2 = 1$), then the regression is perfect
-
-\begin{equation}
-    R^2 = \frac{SSR}{SST} = \frac{SST-SSE}{SST} = 1 - \frac{SSE}{SST}
-\end{equation}
-
-\vspace{10px}
-
-There's yet another error, the \textit{Mean Squared Error} (MSE). MSE is basically the mean of $SSE$. It is calculated as
-
-\begin{equation}
-    MSE = \frac{SSE}{n-2} = \frac{1}{n-2}\sum_{i=1}^{n}(y_{i}-\hat{y}^{}_{i})^2
-\end{equation}
-
-\newpage
-
-\subsection{Correlation Analysis}
-
-So now thath you have the regression parameters $\theta^{}_{0}$ and $\theta^{}_{1}$. which make out the regression line. However, that regression line is only as good as your parameters. So how do you test how well you calculated the parameters?
-
-Easy, you calculate the \textbf{standard deviation of these parameters}.
-
-\begin{equation}
-    s_{\theta_{0}} = \sqrt{MSE} \cdot \sqrt{\frac{1}{n} + \frac{\bar{x}^2}{\sum_{i=1}^{n}{(x_i-\bar{x})^2}}}
-\end{equation}
-
-\begin{equation}
-    s_{\theta_{1}} = \sqrt{MSE}\cdot \sqrt{\frac{1}{\sum_{i=1}^{n}{(x_i-\bar{x})^2}}}
-\end{equation}
-
-\vspace{10px}
-
-Based on these standard deviations, you can calculate a \textbf{confidence interval}. This interval is a \textbf{degree of uncertainty}. Say we conducted a study and we publish our results with a \textbf{confidence level} of 95\%.
-
-This means that if we used the same sampling method to select different samples and computed an interval estimate for each sample, we would expect the true population parameter to fall within the interval estimates 95\% of the time.
-
-\vspace{10px}
-
-These intervals can be calculated with the aforementioned standard deviation of $\theta^{}_{0}$ and $\theta^{}_{1}$ and some \textit{critical values}. These critical values depend on how high your confidence level and degrees of freedom are.
-
-\begin{figure}[htb!]
-    \centering
-    \includegraphics[keepaspectratio=true, width=\linewidth]{CriticalBordersTInterval.png}
-    \caption{Critical Values for Confidence Intervals}
-    \label{fig:critical_values}
-\end{figure}
+        \begin{align}
+            SST &= \sum^{n}_{i=1}(y_{i}-\bar y)^2\\
+            SSE &= \sum^{n}_{i=1}(y_{i}-\hat y)^2 &\\
+            SSR &= \sum^{n}_{i=1}(\hat y_{i}-\bar y)^2
+        \end{align}
 
 
-Degrees of freedom tell you how many regression parameters you already had to calculate. Take for example $SSE$,where both $\theta^{}_{0}$ and $\theta^{}_{1}$ are needed. Therefore, $SSE$ has a degree of freedom of $n-2$, given that you had to calculate 2 parameters.
+        But how does the aforementioned Coefficient of Determination relate to all of this?
 
-\vspace{10px}
+        $R^2$ is the \textbf{fraction of the total error that can be explained by the regression}. If all errors can be explained by the regression ($R^2 = 1$), then the regression is perfect
 
-\noindent Confidence Intervals can be calculated with $[\theta_0 - (critical\ value \cdot \theta_0);\theta_0 + (critical\ value \cdot \theta_0)]$
+        \begin{equation}
+            R^2 = \frac{SSR}{SST} = \frac{SST-SSE}{SST} = 1 - \frac{SSE}{SST}
+        \end{equation}
+
+        \vspace{10px}
+
+        There's yet another error, the \textit{Mean Squared Error} (MSE). MSE is basically the mean of $SSE$. It is calculated as
+
+        \begin{equation}
+            MSE = \frac{SSE}{n-2} = \frac{1}{n-2}\sum_{i=1}^{n}(y_{i}-\hat{y}^{}_{i})^2
+        \end{equation}
+
+        \newpage
+
+        \subsection{Correlation Analysis}
+
+        So now thath you have the regression parameters $\theta^{}_{0}$ and $\theta^{}_{1}$. which make out the regression line. However, that regression line is only as good as your parameters. So how do you test how well you calculated the parameters?
+
+        Easy, you calculate the \textbf{standard deviation of these parameters}.
+
+        \begin{equation}
+            s_{\theta_{0}} = \sqrt{MSE} \cdot \sqrt{\frac{1}{n} + \frac{\bar{x}^2}{\sum_{i=1}^{n}{(x_i-\bar{x})^2}}}
+        \end{equation}
+
+        \begin{equation}
+            s_{\theta_{1}} = \sqrt{MSE}\cdot \sqrt{\frac{1}{\sum_{i=1}^{n}{(x_i-\bar{x})^2}}}
+        \end{equation}
+
+        \vspace{10px}
+
+        Based on these standard deviations, you can calculate a \textbf{confidence interval}. This interval is a \textbf{degree of uncertainty}. Say we conducted a study and we publish our results with a \textbf{confidence level} of 95\%.
+
+        This means that if we used the same sampling method to select different samples and computed an interval estimate for each sample, we would expect the true population parameter to fall within the interval estimates 95\% of the time.
+
+        \vspace{10px}
+
+        These intervals can be calculated with the aforementioned standard deviation of $\theta^{}_{0}$ and $\theta^{}_{1}$ and some \textit{critical values}. These critical values depend on how high your confidence level and degrees of freedom are.
+
+        \begin{figure}[htb!]
+            \centering
+            \includegraphics[keepaspectratio=true, width=\linewidth]{CriticalBordersTInterval.png}
+            \caption{Critical Values for Confidence Intervals}
+            \label{fig:critical_values}
+        \end{figure}
 
 
-\newpage
+        Degrees of freedom tell you how many regression parameters you already had to calculate. Take for example $SSE$,where both $\theta^{}_{0}$ and $\theta^{}_{1}$ are needed. Therefore, $SSE$ has a degree of freedom of $n-2$, given that you had to calculate 2 parameters.
 
-\subsection{Linear Regression Example}
+        \vspace{10px}
 
-\begin{wrapfigure}[14]{R}{0.4\textwidth}
-    \centering
-    \includegraphics[keepaspectratio=true,height=10\baselineskip]{linear_regression_example.png}
-\end{wrapfigure}
-\begin{flalign*}
+        \noindent Confidence Intervals can be calculated with $[\theta_0 - (critical\ value \cdot \theta_0);\theta_0 + (critical\ value \cdot \theta_0)]$
+
+
+        \newpage
+
+        \subsection{Linear Regression Example}
+
+        \begin{wrapfigure}[14]{R}{0.4\textwidth}
+            \centering
+            \includegraphics[keepaspectratio=true,height=10\baselineskip]{linear_regression_example.png}
+        \end{wrapfigure}
+        \begin{flalign*}
     &X = [14, 16, 27, 42, 83, 50, 39]& \\
     &Y = [2, 5, 7, 9, 20, 13, 10]& \\
-\end{flalign*}
-\vspace{-40px}
-\begin{flalign*}
+        \end{flalign*}
+        \vspace{-40px}
+        \begin{flalign*}
     &\bar X = \frac{1}{7} \sum^{7}_{i=1}(x_{i}) =
     \frac{14+16+27+42+83+50+39}{7} \\
     &= \frac{271}{7} = \doubleunderline{38.7}& \\
     &\bar Y = \frac{1}{7} \sum^{7}_{i=1}(y_{i}) =
-    \frac{2+5+7+9+28+13+10}{7} = \frac{66}{7} = \doubleunderline{9.4}& \\
-\end{flalign*}
-\vspace{-40px}
-\begin{flalign*}
+            \frac{2+5+7+9+28+13+10}{7} = \frac{66}{7} = \doubleunderline{9.4}& \\
+        \end{flalign*}
+        \vspace{-40px}
+        \begin{flalign*}
     &S_{xy} = \sum^{7}_{i=1}(x_{i}-\bar x)(y_{i}-\bar y) = (14-38.7)(2-9.4)
     +(16-38.7)(5-9.4)
     +(27-38.7)(7-9.4) \\
@@ -1140,9 +1140,9 @@ Degrees of freedom tell you how many regression parameters you already had to ca
     +(83-38.7)(20-9.4)
     +(50-38.7)(13-9.4) \\
     &+(39-38.7)(10-9.4)=\doubleunderline{819} \\
-\end{flalign*}
-\vspace{-40px}
-\begin{flalign*}
+        \end{flalign*}
+        \vspace{-40px}
+        \begin{flalign*}
     &S_{xx} = \sum^{7}_{i=1}(x_{i}-\bar x)^2 = (14-38.7)^2
     +(16-38.7)^2
     +(27-38.7)^2
@@ -1150,69 +1150,69 @@ Degrees of freedom tell you how many regression parameters you already had to ca
     +(83-38.7)^2 \\
     &+(50-38.7)^2
     +(39-38.7)^2 = \doubleunderline{3363.4}
-\end{flalign*}
-\vspace{-20px}
-\begin{flalign*}
+        \end{flalign*}
+        \vspace{-20px}
+        \begin{flalign*}
     &\theta_1 = \frac{S_{xy}}{S_{xx}} = \frac{819}{3363.4} = \doubleunderline{0.24}&
-\end{flalign*}
-\vspace{-20px}
-\begin{flalign*}
+        \end{flalign*}
+        \vspace{-20px}
+        \begin{flalign*}
     &\theta_0 = \bar y - \theta_1 \cdot \bar x = 9.4 - 0.24 \cdot 38.7 = \doubleunderline{-0.008}&
-\end{flalign*}
-\vspace{-20px}
-\begin{flalign*}
+        \end{flalign*}
+        \vspace{-20px}
+        \begin{flalign*}
     &SSE = \sum_{i=1}^{7}(y_{i}-\hat{y}_{i})^2 = \sum_{i=1}^{7}(y_i - (\theta_0 + \theta_1 \cdot x))^2 = \sum_{i=1}^{7}(y_i - (-0.008 + 0.24 \cdot x))^2 \\
     &= \sum_{i=1}^{7}(y_i - (-0.232 \cdot x))^2 = \doubleunderline{5.87}&
-\end{flalign*}
-\vspace{-20px}
-\begin{flalign*}
+        \end{flalign*}
+        \vspace{-20px}
+        \begin{flalign*}
     &SSR = \sum_{i}^{7}(\hat{y}_{i}-\bar{y})^2 = \sum_{i}^{7}((\theta_0 + \theta_1 \cdot x)-38.7)^2 = \sum_{i}^{7}((-0.008 + 0.24 \cdot x)-38.7)^2 \\
     &= \sum_{i}^{7}((-0.232 \cdot x)-38.7)^2=\doubleunderline{199.84}&
-\end{flalign*}
-\vspace{-20px}
-\begin{flalign*}
+        \end{flalign*}
+        \vspace{-20px}
+        \begin{flalign*}
     &SST = SSE+SSR = 5.87 + 199.84 = \doubleunderline{205.71}&
-\end{flalign*}
-\vspace{-20px}
-\begin{flalign*}
+        \end{flalign*}
+        \vspace{-20px}
+        \begin{flalign*}
     &R^2 = \frac{SSR}{SST} = \frac{199.84}{205.71} = \doubleunderline{0.97}&
-\end{flalign*}
-\vspace{-10px}
-\begin{flalign*}
+        \end{flalign*}
+        \vspace{-10px}
+        \begin{flalign*}
     &MSE = \frac{SSE}{n-2} = \frac{5.87}{7-2}=\doubleunderline{1.17}&
-\end{flalign*}
-\vspace{-20px}
-\begin{flalign*}
+        \end{flalign*}
+        \vspace{-20px}
+        \begin{flalign*}
     &s_{\theta_{0}} = \sqrt{MSE} \cdot \sqrt{\frac{1}{n} + \frac{\bar{x}^2}{\sum_{i=1}^{n}{(x_i-\bar{x})^2}}} = \sqrt{1.17} \cdot \sqrt{\frac{1}{7} + \frac{38.7^2}{\sum_{i=1}^{n}{(x_i-38.7)^2}}} = \doubleunderline{-0.008}&
-\end{flalign*}
-\vspace{-10px}
-\begin{flalign*}
+        \end{flalign*}
+        \vspace{-10px}
+        \begin{flalign*}
     &s_{\theta_{1}} = \sqrt{MSE}\cdot \sqrt{\frac{1}{\sum_{i=1}^{n}{(x_i-\bar{x})^2}}} = \sqrt{1.17} \cdot \sqrt{\frac{1}{\sum_{i=1}^{n}{(x_i-38.7)^2}}} = \doubleunderline{0.019}& &
-\end{flalign*}
-\vspace{-10px}
-\begin{flalign*}
+        \end{flalign*}
+        \vspace{-10px}
+        \begin{flalign*}
     &Interval\ \theta_0 = [\theta_0 - 2.57 \cdot \theta_0; \theta_0 + 2.57 \cdot \theta_0] = \doubleunderline{[-2.14;2.12]} &
-\end{flalign*}
-\vspace{-20px}
-\begin{flalign*}
+        \end{flalign*}
+        \vspace{-20px}
+        \begin{flalign*}
     &Interval\ \theta_1 [\theta_1 - 2.57 \cdot \theta_1; \theta_1 + 2.57 \cdot \theta_1] = \doubleunderline{[0.20;0.29]}&
-\end{flalign*}
+        \end{flalign*}
 
-\newpage
-\restoregeometry
+        \newpage
+        \restoregeometry
 
 
-The results of the last page can also be achieved with the following python-code:
+        The results of the last page can also be achieved with the following python-code:
 
-\begin{lstlisting}
+        \begin{lstlisting}
 import matplotlib.pyplot as plt
 import scipy.stats as st
 import seaborn as sns
 import pandas as pd
 import numpy as np
 
-%precision 10
-%matplotlib inline
+        %precision 10
+        %matplotlib inline
 
 x=np.array([14, 16, 27, 42, 83, 50, 39])
 y=np.array([2, 5, 7, 9, 20, 13, 10])
@@ -1254,145 +1254,145 @@ print("Interval theta0: [" + str(thet0 - (2.57*Sthet0)) + " ; " + str(thet0 + (2
 
 print("Interval theta1: [" + str(thet1 - (2.57*Sthet1)) + " ; " + str(thet1 + (2.57*Sthet1)) + "]")
 
-\end{lstlisting}
+        \end{lstlisting}
 
 
 
-\subsection{Multple Linear Regression}
+        \subsection{Multple Linear Regression}
 
-Linear Regeression is great and all, but what if you wanted to predict an independent value based on \textbf{multiple} other values? In that case we would need \textbf{multilinear regression}.
-\noindent
-In Muliple Linear Regression we try to fit a plane instead of a line. This plane is defined by
-\begin{equation}
-    y = h_\theta(x_1,x_2) = \theta_0 + \theta_1 x_1 + \theta_2 x_2
-\end{equation}
-And mapped to the sample with index $i$
-\begin{equation*}
-    y_i = \theta_0 + \theta_1 x_{1,i} + \theta_2 x_{2,i} + e_i
-\end{equation*}
+        Linear Regeression is great and all, but what if you wanted to predict an independent value based on \textbf{multiple} other values? In that case we would need \textbf{multilinear regression}.
+        \noindent
+        In Muliple Linear Regression we try to fit a plane instead of a line. This plane is defined by
+        \begin{equation}
+            y = h_\theta(x_1,x_2) = \theta_0 + \theta_1 x_1 + \theta_2 x_2
+        \end{equation}
+        And mapped to the sample with index $i$
+        \begin{equation*}
+            y_i = \theta_0 + \theta_1 x_{1,i} + \theta_2 x_{2,i} + e_i
+        \end{equation*}
 
-This can be transformed to matrices
+        This can be transformed to matrices
 
-\begin{equation*}
-    \begin{bmatrix}
-        y_1    \\
-        y_2    \\
-        \vdots \\
-        y_n
-    \end{bmatrix}
-    =
-    \begin{bmatrix}
-        1 & x_{1,1} & x_{2,1} \\
-        1 & x_{1,2} & x_{2,2} \\
-          & \vdots  &         \\
-        1 & x_{1,n} & x_{2,n} \\
-    \end{bmatrix}
-    \begin{bmatrix}
-        \theta_0 \\
-        \theta_1 \\
-        \theta_2
-    \end{bmatrix}
-    +
-    \begin{bmatrix}
-        e_1    \\
-        e_2    \\
-        \vdots \\
-        e_n
-    \end{bmatrix}
-\end{equation*}
+        \begin{equation*}
+            \begin{bmatrix}
+                y_1    \\
+                y_2    \\
+                \vdots \\
+                y_n
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+                1 & x_{1,1} & x_{2,1} \\
+                1 & x_{1,2} & x_{2,2} \\
+                  & \vdots  &         \\
+                1 & x_{1,n} & x_{2,n} \\
+            \end{bmatrix}
+            \begin{bmatrix}
+                \theta_0 \\
+                \theta_1 \\
+                \theta_2
+            \end{bmatrix}
+            +
+            \begin{bmatrix}
+                e_1    \\
+                e_2    \\
+                \vdots \\
+                e_n
+            \end{bmatrix}
+        \end{equation*}
 
-This can be solved as follows
+        This can be solved as follows
 
-\begin{equation*}
-    \bm{\theta} = (\bm{X}^T\bm{X})^-1\bm{X}^T\bm{y}
-\end{equation*}
+        \begin{equation*}
+            \bm{\theta} = (\bm{X}^T\bm{X})^-1\bm{X}^T\bm{y}
+        \end{equation*}
 
-In more than three dimensions our plane becomes a hyperplane, and the model is
+        In more than three dimensions our plane becomes a hyperplane, and the model is
 
-\begin{equation*}
-    y_i = \theta_0 + \theta_1 x_{1,i} + \theta_2 x_{2,i} + \cdots + \theta_m x_{m,i}  + e_i=\sum_{k=0}^{n}\theta_k x_{k,i} + e_i
-\end{equation*}
+        \begin{equation*}
+            y_i = \theta_0 + \theta_1 x_{1,i} + \theta_2 x_{2,i} + \cdots + \theta_m x_{m,i}  + e_i=\sum_{k=0}^{n}\theta_k x_{k,i} + e_i
+        \end{equation*}
 
-\subsubsection{Example multilinear regression}
+        \subsubsection{Example multilinear regression}
 
-Suppose we want to predict the weight of a weightlifter based on the training hours per week and the delivery of protein.
+        Suppose we want to predict the weight of a weightlifter based on the training hours per week and the delivery of protein.
 
-\vspace{10px}
+        \vspace{10px}
 
-\begin{minipage}{0.25\textwidth}
-    \begin{tabular}{cccc}
-        \toprule
-        \thead{i} & \thead{y} & \thead{$x_1$} & \thead{$x_2$} \\
-        \hline
-        1         & 93        & 2             & 1.1           \\
-        \hline
-        2         & 106       & 2             & 1.9           \\
-        \hline
-        3         & 146       & 4             & 2             \\
-        \hline
-        4         & 140       & 5             & 1.5           \\
-        \hline
-        5         & 151       & 6             & 1.3           \\
-        \hline
-        6         & 158       & 7             & 2.1           \\
-        \hline
-        7         & 130       & 4             & 1.8           \\
-        \hline
-        8         & 159       & 5             & 2.5           \\
-        \bottomrule
-    \end{tabular}
-\end{minipage}\hfill
-\begin{minipage}{0.75\textwidth}
-    \begin{description}
-        \item[$i$: ] No. of observation
-        \item[$y$: ] Weight in kg
-        \item[$x_1$: ] Training h/week
-        \item[$x_2$: ] Protein intake g/kg/day
-    \end{description}
+        \begin{minipage}{0.25\textwidth}
+            \begin{tabular}{cccc}
+                \toprule
+                \thead{i} & \thead{y} & \thead{$x_1$} & \thead{$x_2$} \\
+                \hline
+                1         & 93        & 2             & 1.1           \\
+                \hline
+                2         & 106       & 2             & 1.9           \\
+                \hline
+                3         & 146       & 4             & 2             \\
+                \hline
+                4         & 140       & 5             & 1.5           \\
+                \hline
+                5         & 151       & 6             & 1.3           \\
+                \hline
+                6         & 158       & 7             & 2.1           \\
+                \hline
+                7         & 130       & 4             & 1.8           \\
+                \hline
+                8         & 159       & 5             & 2.5           \\
+                \bottomrule
+            \end{tabular}
+        \end{minipage}\hfill
+        \begin{minipage}{0.75\textwidth}
+            \begin{description}
+                \item[$i$: ] No. of observation
+                \item[$y$: ] Weight in kg
+                \item[$x_1$: ] Training h/week
+                \item[$x_2$: ] Protein intake g/kg/day
+            \end{description}
 
-    We assume that the function to calculate the weight from training-hours and protein intake is as follows:
-\end{minipage}
+            We assume that the function to calculate the weight from training-hours and protein intake is as follows:
+        \end{minipage}
 
-\vspace{10px}
+        \vspace{10px}
 
-\begin{equation*}
-    y = h_\theta (x_1, x_2) = \theta_0 + \theta_1 \cdot x_1 + \theta_2 \cdot x_2
-\end{equation*}
+        \begin{equation*}
+            y = h_\theta (x_1, x_2) = \theta_0 + \theta_1 \cdot x_1 + \theta_2 \cdot x_2
+        \end{equation*}
 
-\begin{figure}[htb!]
-    \centering
-    \includegraphics[keepaspectratio=true, width=\linewidth]{multilinear_regression.png}
-    \caption{Model of the multilinear regression (\textcopyright J. Bürgler, 2019)}
-    \label{multilinear_regression}
-\end{figure}
+        \begin{figure}[htb!]
+            \centering
+            \includegraphics[keepaspectratio=true, width=\linewidth]{multilinear_regression.png}
+            \caption{Model of the multilinear regression (\textcopyright J. Bürgler, 2019)}
+            \label{multilinear_regression}
+        \end{figure}
 
-The following solution  minimizes the sum of squared errors in this model (and therefore get a hella good regression).
+        The following solution  minimizes the sum of squared errors in this model (and therefore get a hella good regression).
 
-\begin{equation*}
-    \theta = (X^T X)^{-1} X^T y =
-    \begin{bmatrix}
-        \theta_0 \\
-        \theta_1 \\
-        \theta_2
-    \end{bmatrix}
-    \rightarrow
-    \begin{bmatrix}
-        55.7 \\
-        11.1 \\
-        17.5
-    \end{bmatrix}
-\end{equation*}
+        \begin{equation*}
+            \theta = (X^T X)^{-1} X^T y =
+            \begin{bmatrix}
+                \theta_0 \\
+                \theta_1 \\
+                \theta_2
+            \end{bmatrix}
+            \rightarrow
+            \begin{bmatrix}
+                55.7 \\
+                11.1 \\
+                17.5
+            \end{bmatrix}
+        \end{equation*}
 
-According to this, the regression plane would be:
-\begin{equation*}
-    y = h_\theta (x_1, x_2) = 55.7 + 11.1 \cdot x_1 + 17.5 \cdot x_2
-\end{equation*}
+        According to this, the regression plane would be:
+        \begin{equation*}
+            y = h_\theta (x_1, x_2) = 55.7 + 11.1 \cdot x_1 + 17.5 \cdot x_2
+        \end{equation*}
 
-\newpage
+        \newpage
 
-Of course, this can also be done rather easily in Python:
+        Of course, this can also be done rather easily in Python:
 
-\begin{lstlisting}
+        \begin{lstlisting}
 import numpy as np
 
 X = np.matrix([[2,1.1],[2,1.9],[4,2.0],[5,1.5],[6,1.3],[7,2.1],[4,1.8],[5,2.5]])
@@ -1408,180 +1408,180 @@ X_ext = np.c_[np.ones((n,1)),X]
 theta = np.linalg.inv(X_ext.T.dot(X_est)).dot(X_ext.T).dot(y)
 
 print(theta)
-\end{lstlisting}
+        \end{lstlisting}
 
 
-\section{Regularisation}
-Under- and overfitting are common problems in machine learning. Underfitting occurs when the model is to general and can't aptly represent the data. Overfitting occurs, when the model is too precisely fitted to the training data.
+        \section{Regularisation}
+        Under- and overfitting are common problems in machine learning. Underfitting occurs when the model is to general and can't aptly represent the data. Overfitting occurs, when the model is too precisely fitted to the training data.
 
-\begin{figure}[htb!]
-    \centering
-    \begin{subfigure}{0.6\linewidth}
-        \centering
-        \includegraphics[keepaspectratio,width=\linewidth]{Pictures/under_and_overfitting}
-        \caption{Example of different fittings}
-    \end{subfigure}
-    \begin{subfigure}{0.6\linewidth}
-        \centering
-        \includegraphics[keepaspectratio,width=\linewidth]{Pictures/biases_and_variances}
-        \caption{Examples of different biases and variances}
-    \end{subfigure}
-    \caption{Under- and Overfitting, Biases and Variances}
-\end{figure}
+        \begin{figure}[htb!]
+            \centering
+            \begin{subfigure}{0.6\linewidth}
+                \centering
+                \includegraphics[keepaspectratio,width=\linewidth]{Pictures/under_and_overfitting}
+                \caption{Example of different fittings}
+            \end{subfigure}
+            \begin{subfigure}{0.6\linewidth}
+                \centering
+                \includegraphics[keepaspectratio,width=\linewidth]{Pictures/biases_and_variances}
+                \caption{Examples of different biases and variances}
+            \end{subfigure}
+            \caption{Under- and Overfitting, Biases and Variances}
+        \end{figure}
 
-To address overfitting we can try these approaches
-\begin{enumerate}
-    \item Reduce the number of features
-          \begin{itemize}
-              \item Manually select which features to keep
-              \item Model selection algorithm
-          \end{itemize}
-    \item Regularisation
-          \begin{itemize}
-              \item Keep all features, but reduce magnitude of parameters $\theta_i$
-              \item Works well with lots of features which each contribute just a bit to predict y
-          \end{itemize}
-\end{enumerate}
+        To address overfitting we can try these approaches
+        \begin{enumerate}
+            \item Reduce the number of features
+                \begin{itemize}
+                    \item Manually select which features to keep
+                    \item Model selection algorithm
+                \end{itemize}
+            \item Regularisation
+                \begin{itemize}
+                    \item Keep all features, but reduce magnitude of parameters $\theta_i$
+                    \item Works well with lots of features which each contribute just a bit to predict y
+                \end{itemize}
+        \end{enumerate}
 
-\subsection{Ridge Regularisation}
-\begin{equation}
-    J(\theta) = \frac{1}{2n}\left[\sum_{i=1}^{n}(h(\theta,x_i)-y_i)^2 + \lambda \sum_{j=1}^{m}\theta_j^2\right]
-\end{equation}
+        \subsection{Ridge Regularisation}
+        \begin{equation}
+            J(\theta) = \frac{1}{2n}\left[\sum_{i=1}^{n}(h(\theta,x_i)-y_i)^2 + \lambda \sum_{j=1}^{m}\theta_j^2\right]
+        \end{equation}
 
-The second sum goes from $1$ to the number of features $m$ and it does not contain $\theta_0$. The regularisation hyperparameter $\lambda$ controls the amount of regularisation. If $\lambda = 0$ there will be no regularization, and if $\lambda = \infty$ there will be underfitting because only $\theta_0$ will be different from zero.
-In Ridge regularised regression, we choose $\theta$ to minimize $J(\theta)$:
-\begin{equation}
-    \hat{\theta} = \underset{\theta}{\text{argmin}} J(\theta)
-\end{equation}
+        The second sum goes from $1$ to the number of features $m$ and it does not contain $\theta_0$. The regularisation hyperparameter $\lambda$ controls the amount of regularisation. If $\lambda = 0$ there will be no regularization, and if $\lambda = \infty$ there will be underfitting because only $\theta_0$ will be different from zero.
+        In Ridge regularised regression, we choose $\theta$ to minimize $J(\theta)$:
+        \begin{equation}
+            \hat{\theta} = \underset{\theta}{\text{argmin}} J(\theta)
+        \end{equation}
 
-\begin{itemize}[leftmargin=*, labelindent=3cm, labelsep=1cm]
-    \item[large $\lambda$] High Bias / Underfit
-    \item[intermediate $\lambda$] Correct
-    \item[small $\lambda$] High Variance / Overfit
-\end{itemize}
+        \begin{itemize}[leftmargin=*, labelindent=3cm, labelsep=1cm]
+            \item[large $\lambda$] High Bias / Underfit
+            \item[intermediate $\lambda$] Correct
+            \item[small $\lambda$] High Variance / Overfit
+        \end{itemize}
 
-\subsection{How to choose the right model}
+        \subsection{How to choose the right model}
 
-\subsubsection{Hold-out / Simple Cross Validation}
-\begin{enumerate}
-    \item Randomly split the Sample $S$ into $S_{train}$ and $S_{cv}$ called the \textbf{hold-out cross validation set}. A standard split is 70\% $S_{train}$ and 30\% $S_{cv}$.
-    \item For each degree of the polynomial $k$, train the model $M_k$ on $S_{train}$ to get the parameter vector $\bm{\theta}_k$
-    \item Select $\bm{\theta}_k$ with the smallest error $\hat{\varepsilon}_{S_{cv}}(\bm{\theta}_k)$
-          \begin{equation*}
-              k = \underset{k\in{1,2,...,10}}{\text{argmin}}\hat{\varepsilon}_{S_{cv}}(\bm{\theta}_k)
-          \end{equation*}
-          where $\hat{\varepsilon}_{S_{cv}}(\bm{\theta}_k)$ is the empirical error, if we use $\bm{\theta}_k$ as the parameter vector on the cross validation set $S_{cv}$.
-\end{enumerate}
+        \subsubsection{Hold-out / Simple Cross Validation}
+        \begin{enumerate}
+            \item Randomly split the Sample $S$ into $S_{train}$ and $S_{cv}$ called the \textbf{hold-out cross validation set}. A standard split is 70\% $S_{train}$ and 30\% $S_{cv}$.
+            \item For each degree of the polynomial $k$, train the model $M_k$ on $S_{train}$ to get the parameter vector $\bm{\theta}_k$
+            \item Select $\bm{\theta}_k$ with the smallest error $\hat{\varepsilon}_{S_{cv}}(\bm{\theta}_k)$
+                \begin{equation*}
+                    k = \underset{k\in{1,2,...,10}}{\text{argmin}}\hat{\varepsilon}_{S_{cv}}(\bm{\theta}_k)
+                \end{equation*}
+                where $\hat{\varepsilon}_{S_{cv}}(\bm{\theta}_k)$ is the empirical error, if we use $\bm{\theta}_k$ as the parameter vector on the cross validation set $S_{cv}$.
+        \end{enumerate}
 
-The issue with \textbf{hold-out cross validation} is, that it wastes the amount of data used for the cross validation.
+        The issue with \textbf{hold-out cross validation} is, that it wastes the amount of data used for the cross validation.
 
-\subsubsection{k-fold Cross Validation}
+        \subsubsection{k-fold Cross Validation}
 
-To reduce the waste of data, we could hold out less data used per run: we use k-fold cross validation \textbf{k-fold cross validation}.
+        To reduce the waste of data, we could hold out less data used per run: we use k-fold cross validation \textbf{k-fold cross validation}.
 
-\begin{enumerate}
-    \item Randomly split $S$ into $l$ disjoint subsets $S_1, S_2, ... , S_l$ of $\frac{n}{l}$ training examples each
-    \item Evaluate each model $M_k, k\in{1,2, ... , 10}$ as follows
-          \begin{itemize}
-              \item For $j=1,2,...,l$ train $M_k$ on all data, except the subset $S_j$ to get $\bm{\theta}_{kj}$ and test $\bm{\theta}_{kj}$ on $S_j$ to get the empirical error $\hat{\varepsilon}_{S_j}(\bm{\theta}_{kj})$
-              \item The estimated generalisation of the model $M_k$ is then calculated as the average of the $\hat{\varepsilon}_{S_j}(\bm{\theta}_{kj})$
-                    \begin{equation*}
-                        \frac{1}{l}\sum_{j=1}^{l}\hat{\varepsilon}_{S_j}(\bm{\theta}_{kj}) \text{ where } \hat{\varepsilon}_{S_j}(\bm{\theta}_{kj})=\frac{1}{2n}\sum_{i=1}^{n}(h(\bm{\theta}_k,\bm{x}^{(i)})-y^{(i)})^2
-                    \end{equation*}
-          \end{itemize}
-    \item Pick the model $M-K$ with the lowest estimated generalisation error and retrain that model on the entirety of the training set $S$.
-\end{enumerate}
+        \begin{enumerate}
+            \item Randomly split $S$ into $l$ disjoint subsets $S_1, S_2, ... , S_l$ of $\frac{n}{l}$ training examples each
+            \item Evaluate each model $M_k, k\in{1,2, ... , 10}$ as follows
+                \begin{itemize}
+                    \item For $j=1,2,...,l$ train $M_k$ on all data, except the subset $S_j$ to get $\bm{\theta}_{kj}$ and test $\bm{\theta}_{kj}$ on $S_j$ to get the empirical error $\hat{\varepsilon}_{S_j}(\bm{\theta}_{kj})$
+                    \item The estimated generalisation of the model $M_k$ is then calculated as the average of the $\hat{\varepsilon}_{S_j}(\bm{\theta}_{kj})$
+                        \begin{equation*}
+                            \frac{1}{l}\sum_{j=1}^{l}\hat{\varepsilon}_{S_j}(\bm{\theta}_{kj}) \text{ where } \hat{\varepsilon}_{S_j}(\bm{\theta}_{kj})=\frac{1}{2n}\sum_{i=1}^{n}(h(\bm{\theta}_k,\bm{x}^{(i)})-y^{(i)})^2
+                        \end{equation*}
+                \end{itemize}
+            \item Pick the model $M-K$ with the lowest estimated generalisation error and retrain that model on the entirety of the training set $S$.
+        \end{enumerate}
 
-\section{Support Vector Machines}
+        \section{Support Vector Machines}
 
-\subsection{Scalar Product}
-The scalar product between two vectors $\vec{a}, \vec{b}$ is defined as
-\begin{equation}
-\vec{a}\cdot\vec{b}=\sum_{i=1}^{n}a_i b_i = a_1 b_1 + a_2 b_2 + \cdots + a_n b_n
-\end{equation}
-\noindent
-The following rules hold true for the scalar product
+        \subsection{Scalar Product}
+        The scalar product between two vectors $\vec{a}, \vec{b}$ is defined as
+        \begin{equation}
+            \vec{a}\cdot\vec{b}=\sum_{i=1}^{n}a_i b_i = a_1 b_1 + a_2 b_2 + \cdots + a_n b_n
+        \end{equation}
+        \noindent
+        The following rules hold true for the scalar product
 
-\begin{itemize}[leftmargin=*, labelindent=5cm, labelsep=0.5cm]
-	\item[\textbf{symmetry}] $\vec{a}\cdot\vec{b} = \vec{b}\cdot\vec{a}$
-	\item[\textbf{distributivity}] $\vec{a}\cdot(\vec{b}+\vec{c}) = \vec{a}\cdot\vec{b} + \vec{a}\cdot\vec{c} $
-	\item[\textbf{multiplication by scalars}] $\lambda(\vec{a}\cdot\vec{b}) = (\lambda\vec{a})\cdot\vec{b} = \vec{a}\cdot(\lambda\vec{b})$
-\end{itemize}
-\noindent
-Using the scalar product we can define the length of a vector, also called the $\text{L}^2$-Norm
+        \begin{itemize}[leftmargin=*, labelindent=5cm, labelsep=0.5cm]
+            \item[\textbf{symmetry}] $\vec{a}\cdot\vec{b} = \vec{b}\cdot\vec{a}$
+            \item[\textbf{distributivity}] $\vec{a}\cdot(\vec{b}+\vec{c}) = \vec{a}\cdot\vec{b} + \vec{a}\cdot\vec{c} $
+            \item[\textbf{multiplication by scalars}] $\lambda(\vec{a}\cdot\vec{b}) = (\lambda\vec{a})\cdot\vec{b} = \vec{a}\cdot(\lambda\vec{b})$
+        \end{itemize}
+        \noindent
+        Using the scalar product we can define the length of a vector, also called the $\text{L}^2$-Norm
 
-\begin{equation}
-\| \vec{a} \| = \sqrt{a_1^2 + a_2^2 + \cdots + a_n^2} = \sqrt{\vec{a}\cdot\vec{a}}
-\end{equation}
-\noindent
-Two vectors are orthogonal if and only if their scalar product is zero:
-\begin{equation}
-\vec{a}\cdot\vec{b} = 0 \Leftrightarrow \vec{a} \perp \vec{b}
-\end{equation}
+        \begin{equation}
+            \| \vec{a} \| = \sqrt{a_1^2 + a_2^2 + \cdots + a_n^2} = \sqrt{\vec{a}\cdot\vec{a}}
+        \end{equation}
+        \noindent
+        Two vectors are orthogonal if and only if their scalar product is zero:
+        \begin{equation}
+            \vec{a}\cdot\vec{b} = 0 \Leftrightarrow \vec{a} \perp \vec{b}
+        \end{equation}
 
-\paragraph{Example of scalar product}
-\begin{equation*}
-\begin{bmatrix}1\\2\end{bmatrix}\cdot\begin{bmatrix}3\\4\end{bmatrix} = 1\cdot 3 + 2\cdot 4 = 11
-\end{equation*}
+        \paragraph{Example of scalar product}
+        \begin{equation*}
+            \begin{bmatrix}1\\2\end{bmatrix}\cdot\begin{bmatrix}3\\4\end{bmatrix} = 1\cdot 3 + 2\cdot 4 = 11
+        \end{equation*}
 
-\subsubsection{The Hessian normal form of a straight line}
+        \subsubsection{The Hessian normal form of a straight line}
 
-The straight line $g$ is defined by some point $x_0$ and the normal vector $\vec{n}$ with length 1 (refer to figure \ref{fig:hessiannormalform}).
+        The straight line $g$ is defined by some point $x_0$ and the normal vector $\vec{n}$ with length 1 (refer to figure \ref{fig:hessiannormalform}).
 
-\begin{figure}[htb!]
-	\centering
-	\includegraphics[keepaspectratio, width=0.4\linewidth]{Pictures/Hessian_normal_form}
-	\caption{Plot of $g$ and the relevant vectors $\vec{x_0}$ and $\vec{n}$}
-	\label{fig:hessiannormalform}
-\end{figure}
-\noindent
-For any point $x$ on the line we have
-\begin{equation*}
-\vec{n}\cdot(\vec{x}-\vec{x_0})=0
-\end{equation*}
-\noindent
-And find
-\begin{equation*}
-\Rightarrow n_x x + n_y y -(n_x x_0  n_y y_0) = n_x x +n_y y + d = 0
-\end{equation*}
-\noindent
-With $d=-(n_x x_0 +n_y y_0)$ the signed distance $-\vec{n}\cdot\vec{x_0}$ from the origin
+        \begin{figure}[htb!]
+            \centering
+            \includegraphics[keepaspectratio, width=0.4\linewidth]{Pictures/Hessian_normal_form}
+            \caption{Plot of $g$ and the relevant vectors $\vec{x_0}$ and $\vec{n}$}
+            \label{fig:hessiannormalform}
+        \end{figure}
+        \noindent
+        For any point $x$ on the line we have
+        \begin{equation*}
+            \vec{n}\cdot(\vec{x}-\vec{x_0})=0
+        \end{equation*}
+        \noindent
+        And find
+        \begin{equation*}
+            \Rightarrow n_x x + n_y y -(n_x x_0  n_y y_0) = n_x x +n_y y + d = 0
+        \end{equation*}
+        \noindent
+        With $d=-(n_x x_0 +n_y y_0)$ the signed distance $-\vec{n}\cdot\vec{x_0}$ from the origin
 
-The generalisation of the Hessian normal form to a plane in 3D-space is straight forward:
-\begin{equation}
-\vec{n}\cdot(\vec{x} - \vec{x_0}) = 0 \text{ \textbf{or} } \vec{n}\cdot\vec{x} + d = 0\text{ with } d = -\vec{n}\cdot\vec{x_0}
-\end{equation}
+        The generalisation of the Hessian normal form to a plane in 3D-space is straight forward:
+        \begin{equation}
+            \vec{n}\cdot(\vec{x} - \vec{x_0}) = 0 \text{ \textbf{or} } \vec{n}\cdot\vec{x} + d = 0\text{ with } d = -\vec{n}\cdot\vec{x_0}
+        \end{equation}
 
-\paragraph{Example of the Hessian Normal Form}
-The line $g$ is taken from figure \ref{fig:hessiannormalformexample}
+        \paragraph{Example of the Hessian Normal Form}
+        The line $g$ is taken from figure \ref{fig:hessiannormalformexample}
 
-\begin{figure}[tbh!]
-	\centering
-	\includegraphics[width=0.5\linewidth, keepaspectratio]{Pictures/hessian_normal_form_example}
-	\caption{Annotated figure \ref{fig:hessiannormalform}}
-	\label{fig:hessiannormalformexample}
-\end{figure}
+        \begin{figure}[tbh!]
+            \centering
+            \includegraphics[width=0.5\linewidth, keepaspectratio]{Pictures/hessian_normal_form_example}
+            \caption{Annotated figure \ref{fig:hessiannormalform}}
+            \label{fig:hessiannormalformexample}
+        \end{figure}
 
-\begin{align*}
-\vec{n} &= \frac{1}{\sqrt{13}} \begin{bmatrix}2\\3\end{bmatrix}\\
-0 &= \vec{n}\cdot(\vec{x}-\vec{x_0})\\
-&= \frac{1}{\sqrt{13}} \begin{bmatrix}2\\3\end{bmatrix} \cdot(\begin{bmatrix}x\\y\end{bmatrix} - \begin{bmatrix}0.5\\2\end{bmatrix})\\
+        \begin{align*}
+            \vec{n} &= \frac{1}{\sqrt{13}} \begin{bmatrix}2\\3\end{bmatrix}\\
+            0 &= \vec{n}\cdot(\vec{x}-\vec{x_0})\\
+              &= \frac{1}{\sqrt{13}} \begin{bmatrix}2\\3\end{bmatrix} \cdot(\begin{bmatrix}x\\y\end{bmatrix} - \begin{bmatrix}0.5\\2\end{bmatrix})\\
 &= \frac{1}{\sqrt{13}} \begin{bmatrix}2\\3\end{bmatrix} \cdot \begin{bmatrix}x - 0.5\\ y - 2\end{bmatrix}
 \end{align*}
 
 \subsubsection{Motivation for Support Vector Machines}
 
 \begin{itemize}
-	\item Classifying data means splitting it up
-	\item There are many ways to split the data, even using only a linear function
-	\item We want the best possible split
+    \item Classifying data means splitting it up
+    \item There are many ways to split the data, even using only a linear function
+    \item We want the best possible split
 \end{itemize}
 
 \begin{figure}
-	\centering
-	\includegraphics[keepaspectratio,width=0.4\linewidth]{Pictures/support_vector_machine_ex1}
-	\caption{Support Vector Machine}
-	\label{fig:supportvectormachineex1}
+    \centering
+    \includegraphics[keepaspectratio,width=0.4\linewidth]{Pictures/support_vector_machine_ex1}
+    \caption{Support Vector Machine}
+    \label{fig:supportvectormachineex1}
 \end{figure}
 
 The line in the middle of figure \ref{fig:supportvectormachineex1} is called the hyperplane (a line in two dimensions, a plane in three). We know that this is the best possible split, because it is the furthest from both clusters. The data points (samples) closest to the hyperplane are called support vectors.
@@ -1589,40 +1589,40 @@ The line in the middle of figure \ref{fig:supportvectormachineex1} is called the
 \subsection{Basic ideas and features}
 
 \begin{itemize}
-	\item Finds optimal hyperplane for linearly separable patterns
-	\item Extended patterns which are not linearly separable are transformed into another (possibly higher dimensional) feature space
-	\item Not affected by the local minima problem
-	\item No dimensionality problem
-	\item Modular design allows separate implementation of various components
-	\item Support vectors are the data points or samples closest to the decision hyperplane
-	\item Support vectors are the most difficult to classify
-	\item Support vectors directly influence the position of the decision hyperplane and are the critical elements in the training set
-	\item Problem of finding an optimal separating hyperplane can be solved using standard optimisation techniques
+    \item Finds optimal hyperplane for linearly separable patterns
+    \item Extended patterns which are not linearly separable are transformed into another (possibly higher dimensional) feature space
+    \item Not affected by the local minima problem
+    \item No dimensionality problem
+    \item Modular design allows separate implementation of various components
+    \item Support vectors are the data points or samples closest to the decision hyperplane
+    \item Support vectors are the most difficult to classify
+    \item Support vectors directly influence the position of the decision hyperplane and are the critical elements in the training set
+    \item Problem of finding an optimal separating hyperplane can be solved using standard optimisation techniques
 \end{itemize}
 
 \subsubsection{Linear Classifier}
 A linear classifier has the form
 \begin{equation}
-f(\vec{x}) = \theta_0 + \theta_1 x_1 + \cdots + \theta_m x_m = b + w_1 x_1 + w_2 x_2 + \cdots + w_m x_m = b + \vec{w}^T \vec{x}_b
+    f(\vec{x}) = \theta_0 + \theta_1 x_1 + \cdots + \theta_m x_m = b + w_1 x_1 + w_2 x_2 + \cdots + w_m x_m = b + \vec{w}^T \vec{x}_b
 \end{equation}
 \noindent
 where $\vec{w} = \begin{bmatrix}
-\theta_0\\\theta_1\\\vdots\\\theta_m
+    \theta_0\\\theta_1\\\vdots\\\theta_m
 \end{bmatrix}$ is the normal vector on the hyperplane and $b = \theta_0$ is the bias.
 
 \subsubsection{How to determine optimality}
 
 \begin{figure}[htb!]
-	\centering
-	\includegraphics[keepaspectratio, width=0.4\linewidth]{Pictures/support_vector_machine_hyperplane}
-	\caption{Hyperplane with support vectors in red}
-	\label{fig:supportvectormachinehyperplane}
+    \centering
+    \includegraphics[keepaspectratio, width=0.4\linewidth]{Pictures/support_vector_machine_hyperplane}
+    \caption{Hyperplane with support vectors in red}
+    \label{fig:supportvectormachinehyperplane}
 \end{figure}
 
 In figure \ref{fig:supportvectormachinehyperplane} $\vec{w}$ is the normal vector on the decision hyperplane, its length depends on the margin which is
 maximised through the Support Vector Machine. Maximising the margin $\frac{2}{\| \vec{w} \|}$ is equivalent to minimising $\frac{\vec{w}^T \vec{w}}{2}$, therefore we
 \begin{equation}\label{eq:hard_margin_problem}
-\underset{\vec{w}, b}{\text{minimise}}\ \frac{1}{2}\vec{w}^T \vec{w}
+    \underset{\vec{w}, b}{\text{minimise}}\ \frac{1}{2}\vec{w}^T \vec{w}
 \end{equation}
 \noindent
 subject to $y^{(i)}(\vec{w}^T \vec{x}^{(i)}+b)\geq 1$ for $i = 1,2,...,n$
@@ -1634,16 +1634,16 @@ subject to $y^{(i)}(\vec{w}^T \vec{x}^{(i)}+b)\geq 1$ for $i = 1,2,...,n$
 So far we have discussed the hard margin problem (see equation \ref{eq:hard_margin_problem}), which fails if the problem is not separable. To address this we could introduce a \textbf{slack variable} $\zeta_i$ for each data point $x^{(i)}$ and solve the \textbf{soft margin problem}
 
 \begin{equation}\label{eq:soft_margin_problem}
-\underset{\vec{w}, b}{\text{minimise}}\ \frac{1}{2}\vec{w}^T \vec{w} + C\sum_{i=1}^{n}\zeta_i \text{ subject to } y^{(i)}(\vec{w}^T \vec{x}^{(i)} + b) \geq 1 - \zeta_i
+    \underset{\vec{w}, b}{\text{minimise}}\ \frac{1}{2}\vec{w}^T \vec{w} + C\sum_{i=1}^{n}\zeta_i \text{ subject to } y^{(i)}(\vec{w}^T \vec{x}^{(i)} + b) \geq 1 - \zeta_i
 \end{equation}
 \noindent
 with $\zeta_i \geq 0$ for $i=1,2,...,n$. The slack variable $\zeta_i$ measures how much the $i$-th instance $\vec{x}^{(i)}$ is allowed to violate the margin.
 
 \begin{figure}
-	\centering
-	\includegraphics[keepaspectratio,width=0.4\linewidth]{Pictures/soft_margin_svm}
-	\caption{Support Vector Machine with soft margins}
-	\label{fig:svm_softmargins}
+    \centering
+    \includegraphics[keepaspectratio,width=0.4\linewidth]{Pictures/soft_margin_svm}
+    \caption{Support Vector Machine with soft margins}
+    \label{fig:svm_softmargins}
 \end{figure}
 
 \subsubsection{The slack variable explained}
@@ -1651,9 +1651,9 @@ with $\zeta_i \geq 0$ for $i=1,2,...,n$. The slack variable $\zeta_i$ measures h
 The margin can be less than 1, by setting $\zeta_i > 0$, but then this gets factored in as a penalty $C\zeta_i$ in the minimisation. Thus the sum $\sum_{i=1}^{n}\zeta_i$ gives an upper bound on the number of training errors. With this soft margin Support Vector Machines minimise training error traded off against better margins. The parameter $C$ is the \textit{regularisation parameter}, which provides a way to control overfitting:
 
 \begin{itemize}[leftmargin=*, labelindent=5cm, labelsep=0.5cm]
-	\item[small $C$ ($C \rightarrow 0$)] Constraints are easily ignored, we obtain a large margin
-	\item[large $C$ ($C \rightarrow \infty$)] Constraints are hard to ignore, we obtain a narrow margin
-	\item[$C = \infty$)] All constraints enforced, we have a hard margin
+    \item[small $C$ ($C \rightarrow 0$)] Constraints are easily ignored, we obtain a large margin
+    \item[large $C$ ($C \rightarrow \infty$)] Constraints are hard to ignore, we obtain a narrow margin
+    \item[$C = \infty$)] All constraints enforced, we have a hard margin
 \end{itemize}
 
 Therefore we still have a quadratic optimisation problem with a unique minimum and we only have to deal with the parameter $C$.
@@ -1663,38 +1663,38 @@ Therefore we still have a quadratic optimisation problem with a unique minimum a
 The kernel transforms a problem to another coordinate system, where the problem may be linearly separable.
 
 \begin{figure}[htb!]
-	\centering
-	\includegraphics[keepaspectratio, width=0.5\linewidth]{Pictures/KernelTrick.pdf}
-	\caption{Course of action for the kernel method}
-	\label{fig:kerneltrick}
+    \centering
+    \includegraphics[keepaspectratio, width=0.5\linewidth]{Pictures/KernelTrick.pdf}
+    \caption{Course of action for the kernel method}
+    \label{fig:kerneltrick}
 \end{figure}
 
 \subsubsection{Kernel Functions Examples}
 
 \begin{itemize}[leftmargin=*, labelindent=3.5cm, labelsep=0.5cm]
-	\item[polar coordinates] $\Phi: \mathbb{R}^2 \rightarrow \mathbb{R}^2, \begin{bmatrix}x_1\\x_2\end{bmatrix}\mapsto\begin{bmatrix}r\\\theta\end{bmatrix}=\begin{bmatrix}\sqrt{x_1^2 + x_2^2}\\\arctan(\frac{x_2}{x_2})\pm\pi\end{bmatrix}$ (refer to figure \ref{fig:kernelfunctionspolarcoordinates})
-	\item[polynomial mapping] $\Phi: \mathbb{R}^2 \rightarrow \mathbb{R}^3, (x_1,x_2) \mapsto (z_1,z_2,z_3) = (x_1^2,\sqrt{2}\cdot x_1\cdot x_2, x_2^2) = \Phi(x_1,x_2)$ (refer to figure \ref{fig:kernelfunctionspolynomialmapping})
-	\item[radial] $\Phi(x_1,x_2) = e^{-\frac{\| x_1 - x_2 \|^2}{2\sigma^2}}$
+    \item[polar coordinates] $\Phi: \mathbb{R}^2 \rightarrow \mathbb{R}^2, \begin{bmatrix}x_1\\x_2\end{bmatrix}\mapsto\begin{bmatrix}r\\\theta\end{bmatrix}=\begin{bmatrix}\sqrt{x_1^2 + x_2^2}\\\arctan(\frac{x_2}{x_2})\pm\pi\end{bmatrix}$ (refer to figure \ref{fig:kernelfunctionspolarcoordinates})
+    \item[polynomial mapping] $\Phi: \mathbb{R}^2 \rightarrow \mathbb{R}^3, (x_1,x_2) \mapsto (z_1,z_2,z_3) = (x_1^2,\sqrt{2}\cdot x_1\cdot x_2, x_2^2) = \Phi(x_1,x_2)$ (refer to figure \ref{fig:kernelfunctionspolynomialmapping})
+    \item[radial] $\Phi(x_1,x_2) = e^{-\frac{\| x_1 - x_2 \|^2}{2\sigma^2}}$
 \end{itemize}
 
 \begin{figure}[htb!]
-	\centering
-	\includegraphics[keepaspectratio,width=0.7\linewidth]{Pictures/kernel_functions_polar_coordinates}
-	\caption{Transformation from cartesian to polar coordinate system}
-	\label{fig:kernelfunctionspolarcoordinates}
+    \centering
+    \includegraphics[keepaspectratio,width=0.7\linewidth]{Pictures/kernel_functions_polar_coordinates}
+    \caption{Transformation from cartesian to polar coordinate system}
+    \label{fig:kernelfunctionspolarcoordinates}
 \end{figure}
 
 \begin{figure}[htb!]
-	\centering
-	\includegraphics[keepaspectratio,width=0.7\linewidth]{Pictures/kernel_functions_polynomial_mapping}
-	\caption{Transformation to higher dimension}
-	\label{fig:kernelfunctionspolynomialmapping}
+    \centering
+    \includegraphics[keepaspectratio,width=0.7\linewidth]{Pictures/kernel_functions_polynomial_mapping}
+    \caption{Transformation to higher dimension}
+    \label{fig:kernelfunctionspolynomialmapping}
 \end{figure}
 
 Kernel function $\Phi$ satisfy:
 \begin{enumerate}[leftmargin=*, labelindent=5cm, labelsep=0.5cm]
-	\item[positive semidefinite]$\forall x_1,x_2(\Phi(x_1,x_2)\geq 0)$
-	\item[symmetric] $\Phi(x_1,x_2) = \Phi(x_2,x_1)$
+    \item[positive semidefinite]$\forall x_1,x_2(\Phi(x_1,x_2)\geq 0)$
+    \item[symmetric] $\Phi(x_1,x_2) = \Phi(x_2,x_1)$
 \end{enumerate}
 
 \section{Clustering and Association Rules}
@@ -1704,40 +1704,40 @@ Kernel function $\Phi$ satisfy:
 The k-Means algorithm is an algorithm that automatically identifies cluster centers. One has to specify the amount of clusters one wants before it can start though. The algorithm functions as follows:
 
 \begin{enumerate}
-	\item Input: Number of clusters $k>0$ and data points $x_1,...,x_n \in \mathbb{R}^m$
-	\item Randomly choose $k$ cluster centers $\mu_1,...,\mu_k \in \mathbb{R}^m$
-	\item Repeat until convergence
-	\begin{enumerate}
-		\item Assign each data point $x_i$ to its neares cluster center $\mu_j$
-		\begin{equation*}
-			c_i = \underset{j\in\{1,...,k\}}{\text{argmin}}\ \| x_i - \mu_j \|^2
-		\end{equation*}
-		\item  Update each cluster center to the mean of all assigned data points
-		\begin{equation*}
-			\mu_j := \frac{\sum_{i:c_i=j} x_i}{|\{i:c_i = j\}|}
-		\end{equation*}
-	\end{enumerate}
+    \item Input: Number of clusters $k>0$ and data points $x_1,...,x_n \in \mathbb{R}^m$
+    \item Randomly choose $k$ cluster centers $\mu_1,...,\mu_k \in \mathbb{R}^m$
+    \item Repeat until convergence
+        \begin{enumerate}
+            \item Assign each data point $x_i$ to its neares cluster center $\mu_j$
+                \begin{equation*}
+                    c_i = \underset{j\in\{1,...,k\}}{\text{argmin}}\ \| x_i - \mu_j \|^2
+                \end{equation*}
+            \item  Update each cluster center to the mean of all assigned data points
+                \begin{equation*}
+                    \mu_j := \frac{\sum_{i:c_i=j} x_i}{|\{i:c_i = j\}|}
+                \end{equation*}
+        \end{enumerate}
 \end{enumerate}
 
 \subsubsection{A note on the Euclidean Distance between two points}
 \begin{align*}
-	x &= (x_1,x_2)\\
-	\| x \| &= \sqrt{x_1^2 + x_2^2}\\
-	\| x \|^2 &= x_1^2 + x_2^2\\
-	y &= (y_1, y_2)\\
-	\| x - y \| &= \sqrt{(x_1 - y_1)^2 + (x_2 - y_2)^2}
+    x &= (x_1,x_2)\\
+    \| x \| &= \sqrt{x_1^2 + x_2^2}\\
+    \| x \|^2 &= x_1^2 + x_2^2\\
+    y &= (y_1, y_2)\\
+    \| x - y \| &= \sqrt{(x_1 - y_1)^2 + (x_2 - y_2)^2}
 \end{align*}
 
 \subsubsection{Clustering Distortion}
 
 The total distortion can be measured by summing up the squared distance between each point and it's cluster center
 \begin{equation}
-	\sum_{i=1}^{n}\| x_i -\mu_{c_i} \|^2
+    \sum_{i=1}^{n}\| x_i -\mu_{c_i} \|^2
 \end{equation}
 
 The average distortion per data point is
 \begin{equation}
-	\frac{1}{n}\sum_{i=1}^{n}\| x_i -\mu_{c_i} \|^2
+    \frac{1}{n}\sum_{i=1}^{n}\| x_i -\mu_{c_i} \|^2
 \end{equation}
 
 Average distortion allows to compare clusterings over different data sets
@@ -1751,10 +1751,10 @@ Optimal clustering minimises the total distortion, which is a NP-hard problem fo
 The choice of clusters balances between low distortion and fewest number of clusters. The elbow method finds a good compromise in general (see figure \ref{fig:elbowmethod}).
 
 \begin{figure}[htb!]
-	\centering
-	\includegraphics[keepaspectratio, width=0.4\linewidth]{Pictures/elbow_method}
-	\caption{The elbow method to find the best number of clusters}
-	\label{fig:elbowmethod}
+    \centering
+    \includegraphics[keepaspectratio, width=0.4\linewidth]{Pictures/elbow_method}
+    \caption{The elbow method to find the best number of clusters}
+    \label{fig:elbowmethod}
 \end{figure}
 
 \subsection{Association}
@@ -1762,49 +1762,49 @@ The choice of clusters balances between low distortion and fewest number of clus
 An \textbf{association rule} is an implication $X\rightarrow Y$, where $X$ and $Y$ are disjoint item sets (refer to \ref{fig:associationrule}).
 
 \begin{figure}[htb!]
-	\centering
-	\includegraphics[keepaspectratio, width=0.7\linewidth]{Pictures/association_rule}
-	\caption{A graphical representation of an Association Rule Learner}
-	\label{fig:associationrule}
+    \centering
+    \includegraphics[keepaspectratio, width=0.7\linewidth]{Pictures/association_rule}
+    \caption{A graphical representation of an Association Rule Learner}
+    \label{fig:associationrule}
 \end{figure}
 
 \subsubsection{Support of a Set of Items}
 
 Support is the proportion of transactions which contains a specific item set, and thus measures how frequently items ar bought together.
 \begin{equation*}
-	\text{support}(\{i_1,...,i_n\}) = \frac{\#\text{purchases of \{i_1,...,i_n\}}}{\# \text{transactions}}
+    \text{support}(\{i_1,...,i_n\}) = \frac{\#\text{purchases of \{i_1,...,i_n\}}}{\# \text{transactions}}
 \end{equation*}
 
 \begin{figure}[htb!]
-	\centering
-	\includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/support_example}
-	\caption{Examples of support}
-	\label{fig:supportexample}
+    \centering
+    \includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/support_example}
+    \caption{Examples of support}
+    \label{fig:supportexample}
 \end{figure}
 
 \subsubsection{Support of an Association Rule}
 
 The support of an association rule is defined as
 \begin{equation*}
-	\text{support}(X\rightarrow Y) = \text{support}(X\cup Y)
+    \text{support}(X\rightarrow Y) = \text{support}(X\cup Y)
 \end{equation*}
 
 The support is \emph{direction invariant} and therefore cannot measure the quality of a directed rule
 \begin{equation*}
-	\text{support}(X\rightarrow Y) = \text{support}(Y\rightarrow X)
+    \text{support}(X\rightarrow Y) = \text{support}(Y\rightarrow X)
 \end{equation*}
 
 \begin{figure}[tbh!]
-	\centering
-	\includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/support_association_rule}
-	\caption{Support of association rules}
-	\label{fig:supportassociationrule}
+    \centering
+    \includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/support_association_rule}
+    \caption{Support of association rules}
+    \label{fig:supportassociationrule}
 \end{figure}
 
 The support measures how frequently an item set occurs in the data. Rules with low support may occur simply by chance, while \textbf{good association rules have a high support}.
 
 \begin{theorem}
-	Support = Interestingness
+    Support = Interestingness
 \end{theorem}
 
 \subsubsection{Confidence of an Association Rule}
@@ -1812,51 +1812,51 @@ The support measures how frequently an item set occurs in the data. Rules with l
 The \textbf{confidence} of an association rule is defined as
 
 \begin{equation*}
-	\text{confidence}(X\rightarrow Y) = \frac{\text{support}(X\cup Y)}{\text{support}(X)}
+    \text{confidence}(X\rightarrow Y) = \frac{\text{support}(X\cup Y)}{\text{support}(X)}
 \end{equation*}
 
 \begin{figure}[tbh!]
-	\centering
-	\includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/confidence_association_rule}
-	\caption{Examples of confidence}
-	\label{fig:confidenceassociationrule}
+    \centering
+    \includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/confidence_association_rule}
+    \caption{Examples of confidence}
+    \label{fig:confidenceassociationrule}
 \end{figure}
 
 For a given rule $X \rightarrow Y$, the higher the confidence, the more likely it is for $Y$ to be present in transactions that contain $X$. Confidence therefore measures reliability or trustworthiness of a rule, and a \textbf{good association rule has high confidence}.
 
 \begin{theorem}
-	Confidence = Trustworthiness
+    Confidence = Trustworthiness
 \end{theorem}
 
 \subsubsection{Apriori Algorithm}
 
 Given a set of transactions we want to find all rules having a minimum support $\geq \text{min}_s$ and a minimum confidence $\geq \text{min}_c$. The Apriori Algorithm finds such association rules in two steps:
 \begin{enumerate}
-	\item Generate frequent item sets satisfying the support threshold
-	\item Extract rules from frequent item sets satisfying the confidence threshold
+    \item Generate frequent item sets satisfying the support threshold
+    \item Extract rules from frequent item sets satisfying the confidence threshold
 \end{enumerate}
 
 The Apriori Algorithm has the following two properties, the second one allows for efficient pruning (refer to figure \ref{fig:supersetpruning}):
 
 \begin{enumerate}
-	\item If an item set is \textbf{frequent} (has high support), all of its subsets must be frequent too
-	\item If an item set is \textbf{infrequent} (has low support), all of its super-sets must be infrequent too
+    \item If an item set is \textbf{frequent} (has high support), all of its subsets must be frequent too
+    \item If an item set is \textbf{infrequent} (has low support), all of its super-sets must be infrequent too
 \end{enumerate}
 
 \begin{figure}[tbh!]
-	\centering
-	\includegraphics[width=0.5\linewidth, keepaspectratio]{Pictures/superset_pruning}
-	\caption{Pruning of supersets of sets with low support}
-	\label{fig:supersetpruning}
+    \centering
+    \includegraphics[width=0.5\linewidth, keepaspectratio]{Pictures/superset_pruning}
+    \caption{Pruning of supersets of sets with low support}
+    \label{fig:supersetpruning}
 \end{figure}
 
 After the pruning we generate Rules from the Frequent Item Sets and prune this tree as well. The method for pruning is based on the fact that if a rule $[X \rightarrow Y - X]$ violates the confidence threshold, then any rule $[X’ \rightarrow Y - X’]$ with $X’$ being a subset of $X$ violates the confidence threshold as well (refer to figure \ref{fig:subsetpruning})
 
 \begin{figure}[tbh!]
-	\centering
-	\includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/subset_pruning}
-	\caption{Pruning of subset of a low confidence set}
-	\label{fig:subsetpruning}
+    \centering
+    \includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/subset_pruning}
+    \caption{Pruning of subset of a low confidence set}
+    \label{fig:subsetpruning}
 \end{figure}
 
 \subsubsection{Lift of an Association Rule}
@@ -1864,26 +1864,26 @@ After the pruning we generate Rules from the Frequent Item Sets and prune this t
 The \textbf{lift} of an association rule is defined as and measures how many times more often $X$ and $Y$ show up together than expected if they were statistically independent.
 
 \begin{equation*}
-	\text{lift}(X\rightarrow Y) = \frac{\text{support}(X\cup Y)}{\text{support}(X)\cdot\text{support}(Y)}
+    \text{lift}(X\rightarrow Y) = \frac{\text{support}(X\cup Y)}{\text{support}(X)\cdot\text{support}(Y)}
 \end{equation*}
 
 \begin{figure}[tbh!]
-	\centering
-	\includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/lift_association_rule}
-	\caption{Example of lift}
-	\label{fig:liftassociationrule}
+    \centering
+    \includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/lift_association_rule}
+    \caption{Example of lift}
+    \label{fig:liftassociationrule}
 \end{figure}
 
 \begin{itemize}[leftmargin=*, labelindent=3cm, labelsep=1cm]
-	\item[lift = 1] $X$ and $Y$ are statistically independent
-	\item[lift < 1] indicates that $X$ and $Y$ appear less often together than expected, the occurrence of $X$ has a negative effect on the occurrence of $Y$ and vice-versa, $X$ and $Y$ are \textbf{anti-correlated}
-	\item[lift > 1] indicates that $X$ and $Y$ appear more often together than expected, the occurrence of $X$ has a positive effect on the occurrence of $Y$ and vice-versa, $X$ and $Y$ are \textbf{correlated}
+    \item[lift = 1] $X$ and $Y$ are statistically independent
+    \item[lift < 1] indicates that $X$ and $Y$ appear less often together than expected, the occurrence of $X$ has a negative effect on the occurrence of $Y$ and vice-versa, $X$ and $Y$ are \textbf{anti-correlated}
+    \item[lift > 1] indicates that $X$ and $Y$ appear more often together than expected, the occurrence of $X$ has a positive effect on the occurrence of $Y$ and vice-versa, $X$ and $Y$ are \textbf{correlated}
 \end{itemize}
 
 In general, the larger the lift value, the stronger the association between $X$ and $Y$. A good rule has high lift.
 
 \begin{theorem}
-	Lift = Association Strength
+    Lift = Association Strength
 \end{theorem}
 
 \section{Anomaly or Outlier Detection}
@@ -1911,11 +1911,11 @@ We can solve the problem of outlier detection with machine learning:
     \item[\textbf{Supervised Learning}] Outlier detection can be considered a classification problem with categories \emph{normal} and \emph{outlier}.\\
         When outliers are rare events, collecting enough training data becomes a severe issue, and special measures must be taken because the two classes are extremely disbalanced
     \item[\textbf{Unsupervised Learning}] These methods assume that outliers deviate from the structural pattern of normal data objects.
-    \begin{enumerate}
-        \item Statistical Methods
-        \item Proximity-based Methods
-        \item Clustering Methods
-    \end{enumerate}
+        \begin{enumerate}
+            \item Statistical Methods
+            \item Proximity-based Methods
+            \item Clustering Methods
+        \end{enumerate}
 \end{itemize}
 
 \subsection{Statistical Methods}
@@ -1996,9 +1996,9 @@ Calculate the reachability distance of $A$ to all its k-nearest neighbours and t
     \text{lrd}_k (A) :=
     \frac{1}{
         \left(
-        \frac{
-            \sum_{B\in N_k (A)} \text{reachability distance}_k (A,B)
-        }{|N_k(A)|}
+            \frac{
+                \sum_{B\in N_k (A)} \text{reachability distance}_k (A,B)
+            }{|N_k(A)|}
         \right)
     }
 \end{equation}
@@ -2082,11 +2082,11 @@ The history of recommender systems can be split into three waves:
 
 \begin{description}
     \item[1st wave (1991 - 2000)] \mbox{}\\
-          5-star ratings
+        5-star ratings
     \item[2nd wave (2001 - 2010)] \mbox{}\\
-          Integration of personal web pages/facebook/myspace etc.
+        Integration of personal web pages/facebook/myspace etc.
     \item[3rd wave (2011 - )] \mbox{} \\
-          Smart technologies, big data, voice activated assistants
+        Smart technologies, big data, voice activated assistants
 \end{description}
 
 \begin{figure}[htb!]
@@ -2290,6 +2290,9 @@ Disadvantages
 
 \vspace{10px}
 
+\subsection{Low Rank Matrix Factorization}
+\label{sec:matrix_factorization}
+
 To improve the recommendations for sparsely filled matrices, there's something called \textbf{Low Rank Matrix Factorization}. The matrix we saw before (Fig. \ref{fig:item_to_item_collaborative_filtering},
 \ref{fig:user_similarity}, \ref{fig:book_similarity}) can be split up in two matrices, which are more densely filled.
 
@@ -2384,9 +2387,11 @@ The following figure shows that more features don't necessarily produce better r
 \vspace{10px}
 
 \begin{wrapfigure}[20]{R}{0.4\textwidth}
-	\centering
-	\includegraphics[keepaspectratio,height=14\baselineskip]{data_points_2d}
+    \centering
+    \includegraphics[keepaspectratio,height=14\baselineskip]{data_points_2d}
 \end{wrapfigure}
+
+\subsection{Reduction by Projection}
 
 Let's say we want to reduce the dimensions on the right to one dimension instead of two. Which dimension should be removed to keep the most information? Price or Area?
 
@@ -2397,32 +2402,186 @@ If you look at the following figure, you can see that for the correct solution, 
 \vspace{-20px}
 
 \begin{align*}
-\text{Area} = \alpha_1 \cdot \text{Area} + \beta_1 \cdot \text{Price}
+    \text{Area} = \alpha_1 \cdot \text{Area} + \beta_1 \cdot \text{Price}
 \end{align*}
 
 \vspace{-30px}
 
 \begin{align*}
-\text{Price} = \alpha_2 \cdot \text{Area} + \beta_2 \cdot \text{Price}
+    \text{Price} = \alpha_2 \cdot \text{Area} + \beta_2 \cdot \text{Price}
 \end{align*}
 
 or more precisely:
 
 \noindent\begin{minipage}{.5\linewidth}
-\begin{align*}
-x' = x \cdot cos \theta + y \cdot sin \theta
-\end{align*}
+    \begin{align*}
+        x' = x \cdot cos \theta + y \cdot sin \theta
+    \end{align*}
 \end{minipage}%
 \noindent\begin{minipage}{.5\linewidth}
-\begin{align*}
-y' = -x \cdot sin \theta + y \cdot cos \theta
-\end{align*}
+    \begin{align*}
+        y' = -x \cdot sin \theta + y \cdot cos \theta
+    \end{align*}
 \end{minipage}
 
 \begin{figure}[htb!]
-	\centering
-    \includegraphics[keepaspectratio,width=\linewidth]{data_projections}
+    \centering
+    \includegraphics[keepaspectratio,width=0.9\textwidth]{data_projections}
     \caption{Different ways to reduce dimensions of data points}
 \end{figure}
+
+\begin{minipage}{0.45\textwidth}
+    \includegraphics[keepaspectratio=true,height=11\baselineskip]{retained_information.png}
+    \captionof{figure}{How to measure retained information}
+    \label{fig:retained_information}
+\end{minipage} \hfill
+\begin{minipage}{0.45\textwidth}
+    With almost any dimension reduction, some information will get lost. The question is \textit{how much}?
+
+    Generally, the following holds true:
+
+    \begin{quote}
+        \blockquote{The smaller the error, the larger the variance, the more informative the projection}
+    \end{quote}
+
+    As can be seen in fig. \ref{fig:retained_information}, the further away the vector strays from the variance term, the larger the projection error grows. This in turn falsifies the information. 
+
+    Therefore: The best projection is the one that minimizes information loss or equivalently that maximizes the variance.
+\end{minipage}
+
+\subsection{Data Redundancy}
+
+As said in the previous page: With almost any dimension reduction, some information will get lost.
+
+However, sometimes this does not hold true. This is the case if some of the data is \textit{redundant}
+
+\vspace{10px}
+
+Take for example a \textbf{mean-centered feature} that always takes the same value (so, the mean). This feature dow not give you any valuable information and can therefore safely be dropped.
+
+Another example are \textbf{several features that essentially say the same}, say the height of a test person in centimeters and in inches. One of the two can be dropped. In the unlikely case that both measurements need to be used, one can easily be calculated.
+
+
+\subsection{Strategies for Dimensionality Reduction} \label{sec:strategies}
+
+To summarize: There are two strategies to reduce the number of dimensions:
+
+\begin{enumerate}
+    \item Eliminate redundancy \\
+        Fully redundant features can be dropped without any information loss \\
+        Combine features in order to remove all covariance in the data
+    \item Destroy as little information as possible \\
+        Mimize the information loss during the projection by maximizing the retained variance in the projected data.
+\end{enumerate}
+
+\subsection{Base Transformation on Data Matrices}
+
+As already seen in section \ref{sec:matrix_factorization}, a $m \times n$ matrix $Y$ can be split up in a $m \times n$ matrix $X$ and a $m \times m$ matrix $P$.
+
+\begin{align*}
+    P \cdot X = Y 
+\end{align*}
+\begin{align*}
+    \begin{bmatrix}
+        \hdots & \hdots & \hdots \\
+        \hdots & \hdots & \hdots \\
+        \hdots & \hdots & \hdots
+    \end{bmatrix}
+    \cdot
+    \begin{bmatrix}
+        \vdots & \vdots & \vdots & \vdots & \vdots \\
+        \vdots & \vdots & \vdots & \vdots & \vdots \\
+        \vdots & \vdots & \vdots & \vdots & \vdots 
+    \end{bmatrix}
+    = 
+    \begin{bmatrix}
+        \vdots & \vdots & \vdots & \vdots & \vdots \\
+        \vdots & \vdots & \vdots & \vdots & \vdots \\
+        \vdots & \vdots & \vdots & \vdots & \vdots 
+    \end{bmatrix}
+\end{align*}
+
+\noindent $P$ essentially just rotates and stretches $X$ to transform it into $Y$. Therefore, $P$ performs \textbf{base transformation} on $X$.
+
+\noindent The rows of $P$ are the new base vectors of $Y$, also called \textbf{principal components}
+
+\subsection{Eigenvectors and Eigenvalues}
+
+\begin{description}
+    \item[Eigenvector: ] A vector that does only stretch or rotate (but noth both) a matrix $A$ when multiplied with the matrix
+    \item[Eigenvalue: ] A factor of the eigenvector
+\end{description}
+
+\noindent A vector $ v \neq 0$ is called an eigenvector if it satisfies $Av = \lambda v$. $\lambda$ is called the eigenvalue of the eigenvector $v$.
+
+Eigenvectors (and therefore eigenvalues) only exist for \textbf{squared matrices}.o
+
+\vspace{10px}
+
+Another neat fact is that every square matrix $A$ can be written as
+
+\begin{align}
+    A = EDE^T
+\end{align}
+
+where $D$ is a diagonal matrix of eigenvalues and $E$ is a matrix of eigenvectors of $A$ arranged as columns.
+
+
+\subsection{Principal Component Analysis (PCA)}
+
+As already discussed in section \ref{sec:covariance}, the \textbf{covariance matrix} shows the covariance from all $X$ with all $Y$. As $Cov(x,x) = Var(x)$, the covariance matrix has the variance of $X$ in its diagonal
+
+\vspace{10px}
+
+The covariance matrix of a data matrix Y, $S_Y$ shows covariance between features in the off-diagonal terms. As we have learned in section \ref{sec:strategies}, we want to eliminate covariance between features to reduce redundancy. Therefore, the covariance matrix $S_Y$ should be a \textbf{diagonal matrix} (meaning all values except the diagonal values are zero). 
+
+Additionally, the diagonal values of $S_Y$, which show the variance of each dimension can be used to eliminate low-variance dimension, as they are nearly mean-centered and therefore useless.
+
+\vspace{10px}
+
+Since $Y = PX$, we can say 
+
+\begin{align*}
+    S_Y = \frac{1}{n-1} YY^T &= \frac{1}{n-1} (PX)(PX)^T &= \frac{1}{n-1} PXX^TP^T &= \frac{1}{n-1}P(XX^T)P^T
+\end{align*}
+
+Therefore, the goal of PCA is to find a square matrix $P$ to a data matrix $X$ where the following holds true:
+
+\begin{align}
+    P(XX^T)P^T \text{  is a diagonal matrix}
+\end{align}
+
+The rows of this matrix $P$ are the \textbf{principal components} of $X$.
+
+\subsubsection{Calculation}
+
+\begin{enumerate}
+    \item Compute all eigenvectors of $XX^T$
+    \item Build a matrix $E$ whose columns are the eigenvectors of $XX^T$
+    \item Define $P = E^T$
+\end{enumerate}
+
+\subsubsection{Dimensionality Reduction with PCA}
+\begin{itemize}
+    \item The diagonal covariance matrix $S_Y$ is made of the eigenvalues of $XX^T$
+    \item Every eigenvalue corresponds to the variance of one feature in our data matrix $Y$
+    \item Features with zero variance do not contain any information $\rightarrow$ Drop them
+    \item The sum of eigenvalues corresponds to the total variance in the data
+    \item Caluclate the percentage of how much each feature contributes to the total variance
+    \item Drop the features that don't contribute enough variance to be relevant
+\end{itemize}
+
+In practice:
+
+\begin{enumerate}
+    \item Each eigenvector (row) in $P = E^T$ matches to one eigenvalue in $S_Y$
+    \item sort the eigenvalues in $S_Y$ in decreasing order and rearrange the rows in $P$
+    \item Eliminate features (rows) from the lowest to the highest eigenvalue
+\end{enumerate}
+    
+
+
+
+
 
 \end{document}
