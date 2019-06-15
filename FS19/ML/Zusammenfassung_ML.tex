@@ -2370,6 +2370,59 @@ Instead the data must be split over several users, because to assess how good th
 
 An often used performance measurement is $P@k$ (Precision @ k). How many of the $k$ recommended items were actually relevant. In case many users have less than $k$ recommended products, you could also go with $minP@k$.
 
+\section{Dimensionality Reduction}
 
+In Big Data, the provided data usually has \textit{a lot} of features, many of which do not add any significant information and could be deleted without losing anything important.
+
+The following figure shows that more features don't necessarily produce better results
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[keepaspectratio, width=0.9\textwidth]{dimensionality_reduction.png}
+\end{figure}
+
+\vspace{10px}
+
+\begin{wrapfigure}[20]{R}{0.4\textwidth}
+	\centering
+	\includegraphics[keepaspectratio,height=14\baselineskip]{data_points_2d}
+\end{wrapfigure}
+
+Let's say we want to reduce the dimensions on the right to one dimension instead of two. Which dimension should be removed to keep the most information? Price or Area?
+
+\vspace{10px}
+
+If you look at the following figure, you can see that for the correct solution, you need to think a bit outside the box. Instead of simply cutting away one or another dimension, the dimensions are \textit{rotated} and are a linear combination of the original dimensions. 
+
+\vspace{-20px}
+
+\begin{align*}
+\text{Area} = \alpha_1 \cdot \text{Area} + \beta_1 \cdot \text{Price}
+\end{align*}
+
+\vspace{-30px}
+
+\begin{align*}
+\text{Price} = \alpha_2 \cdot \text{Area} + \beta_2 \cdot \text{Price}
+\end{align*}
+
+or more precisely:
+
+\noindent\begin{minipage}{.5\linewidth}
+\begin{align*}
+x' = x \cdot cos \theta + y \cdot sin \theta
+\end{align*}
+\end{minipage}%
+\noindent\begin{minipage}{.5\linewidth}
+\begin{align*}
+y' = -x \cdot sin \theta + y \cdot cos \theta
+\end{align*}
+\end{minipage}
+
+\begin{figure}[htb!]
+	\centering
+    \includegraphics[keepaspectratio,width=\linewidth]{data_projections}
+    \caption{Different ways to reduce dimensions of data points}
+\end{figure}
 
 \end{document}
