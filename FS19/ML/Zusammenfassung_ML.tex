@@ -1,11 +1,11 @@
-\documentclass[a4paper, 11pt]{article}
+\documentclass[11pt]{article}
 
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
 
 \usepackage{comment} % enables the use of multi-line comments (\ifx \fi) 
 \usepackage{lipsum} %This package just generates Lorem Ipsum filler text. 
-\usepackage{fullpage} % changes the margin
+\usepackage[a4paper,margin=1.5cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{gensymb}
 \usepackage{graphicx}
@@ -87,7 +87,6 @@
 
 \begin{document}
 
-\newgeometry{top=0in, bottom=0in}
 \title{Machine Learning FS2019\\[0.2em]\normalsize{\url{https://github.com/taneher/HSLU/tree/master/FS19/ML}}}
 \author{Alex Neher, Pascal Baumann}
 \maketitle
@@ -96,8 +95,6 @@
 
 \newpage
 \graphicspath{{./Pictures/}}
-
-\restoregeometry
 
 \section{Introduction}
 
@@ -2175,8 +2172,6 @@ The idea of Context-Based Recommendations is to recommend the user similar produ
     \item Compute predictions for products labelled with $?$ based on item similarity (See Equation \ref{eq:sim} on page \pageref{eq:sim})
     \item Recommend products with high prediction value
 \end{enumerate}
-
-\newpage
 
 \begin{wrapfigure}[14]{R}{0.5\textwidth}
     \centering
