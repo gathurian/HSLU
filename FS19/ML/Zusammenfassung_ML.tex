@@ -2822,11 +2822,28 @@ Most artificial neural network (ANN) are layered. We distinguish between the fol
     \item Recurrent networks (includes feedback into previous layers).
 \end{enumerate}
 
+\begin{figure}[tbh!]
+    \centering
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/singlelayer_feedforward_network}
+        \caption{A single-layer feedforward network}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_feedforward_network}
+        \caption{Multi-layer feedforward network with one hidden layer}
+    \end{subfigure}
+    \caption{Feedforward networks}
+    \label{fig:feedforwardnetworks}
+\end{figure}
+
 \subsection{The Artificial Neuron}
 
 \begin{figure}[tbh!]
     \centering
-    \includegraphics[width=0.6\linewidth, keepaspectratio]{Pictures/artificial_neuron_layers}
+    \includegraphics[width=0.5\linewidth, keepaspectratio]{Pictures/artificial_neuron_layers}
     \caption{Slice of an input and output layer in an artificial neurol network}
     \label{fig:artificialneuronlayers}
 \end{figure}
@@ -2907,5 +2924,213 @@ The artificial neural network in figure \ref{fig:artificialneuronlayers} can be 
     \begin{bmatrix}y_1\\y_2\end{bmatrix} &= \sigma\left( \begin{bmatrix}w_{10}&w_{11}&w_{12}\\w_{20}&w_{21}&w_{22}\end{bmatrix}\begin{bmatrix}x_0\\x_1\\x_2\end{bmatrix} \right)\\
     \vec{y} &= \sigma(\vec{W}\vec{x})
 \end{align}
+
+\subsection{Single-Layer Feedforward Networks}
+Input nodes do no computation, they are just used as input. All output nodes compute their output using the same activation function $\sigma$ (either the Heaviside Step function or the Sigmoid function). These networks are used as binary classifiers if the problem is linearly separable and called Perceptrons.
+
+\subsubsection{Learning Rules - Weights Update}
+
+The update of the weight $w_{ji}$ from input $x_i$ to output $y_j$ with the learning rate $\eta$ being a constant typically between $0 ... 0.5$
+\begin{equation}
+    \Delta w_{ji} = \eta\cdot y_j \cdot x_i
+\end{equation}
+
+When we factor in the error $e_j$ to account for a target value $t_j$ too high or too low than the actual output $y_j$, we get what is called the \textbf{$\delta$-rule} by Widrow and Hoff or \textbf{Hebb's learning rule} by Bürgler.
+
+\begin{align}\label{eq:widrowhoffrule}
+    e_j &= t_j - y_j\\
+    \Delta w_{ji} &= \eta\cdot e_j \cdot x_i
+\end{align}
+
+\paragraph{Example} Realise the logic AND function using a single layer feedforward network and the Heaviside function. The starting values are $w_{10}=-1$, $w_{11}=1$, $w_{12}=0$ and $\eta=0.3$.
+
+\begin{figure}[tbh!]
+    \centering
+    \begin{subfigure}{0.45\linewidth}
+        \includegraphics[keepaspectratio,width=\linewidth]{Pictures/AND_logic_function}
+        \caption{Function to simulate in the example}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \includegraphics[keepaspectratio,width=\linewidth]{Pictures/example_network}
+        \caption{Network used in the example}
+    \end{subfigure}
+    \caption{Example parameters}
+    \label{fig:exampleparameters}
+\end{figure}
+
+\begin{tabularx}{\linewidth}{XXXXXXXXcXXX}
+    \hline
+    $w_{10}$ & $w_{11}$ & $w_{12}$ & $x_1$ & $x_2$ & $\eta$ & $y_1$ & $t$ & $\eta (t-y_1)$ & $\Delta w_{10}$ & $\Delta w_{11}$ & $\Delta w_{12}$\\
+    \hline
+    -1 & 1 & 0 & 1 & 1 & 0.3 & 0 & 1 & & & &\\
+    \hline
+    & & & & & & & & & & & \\
+    \hline
+\end{tabularx}
+
+\begin{align*}
+    \text{net}_1 = w_{10} + w_{11}x_1 + w_{12}x_2 &= -1 + 1\cdot 1 + 0\cdot 1 = 0\\
+    y_1 = h(\text{net}_1) &= h(0) = 0\\
+    e_1 = t - y_1 &= 1 - 0 = 1\\
+    \eta \cdot e_1 = \eta (t - y_1) &= 0.3\cdot 1 = 0.3\\
+    \Delta w_{10} = \eta (t - y_1) \cdot x_0 &= 0.3\cdot 1\cdot 1 = 0.3\\
+    \Delta w_{11} = \eta (t - y_1) \cdot x_1 &= 0.3\cdot 1\cdot 1 = 0.3\\
+    \Delta w_{12} = \eta (t - y_1) \cdot x_2 &= 0.3\cdot 1\cdot 1 = 0.3\\
+\end{align*}
+
+
+\begin{tabularx}{\linewidth}{XXXXXXXXcXXX}
+    \hline
+    $w_{10}$ & $w_{11}$ & $w_{12}$ & $x_1$ & $x_2$ & $\eta$ & $y_1$ & $t$ & $\eta (t-y_1)$ & $\Delta w_{10}$ & $\Delta w_{11}$ & $\Delta w_{12}$\\
+    \hline
+    -1 & 1 & 0 & 1 & 1 & 0.3 & 0 & 1 & 0.3 & 0.3 & 0.3 & 0.3\\
+    \hline
+    & & & & & & & & & & & \\
+    \hline
+\end{tabularx}
+
+\begin{align*}
+    w'_{10} = w_{10} + \Delta w_{10} &= -1 + 0.3\cdot 1\cdot 1 = -1 + 0.3 = -0.7\\
+    w'_{11} = w_{11} + \Delta w_{11} &= 1 + 0.3\cdot 1\cdot 1 = 1 + 0.3 = 1.3 \\
+    w'_{12} = w_{12} + \Delta w_{12} &= 0.3 + 0.3\cdot 1\cdot 1 = 0 + 0.3 = 0.3 \\
+\end{align*}
+
+\begin{tabularx}{\linewidth}{XXXXXXXXcXXX}
+    \hline
+    $w_{10}$ & $w_{11}$ & $w_{12}$ & $x_1$ & $x_2$ & $\eta$ & $y_1$ & $t$ & $\eta (t-y_1)$ & $\Delta w_{10}$ & $\Delta w_{11}$ & $\Delta w_{12}$\\
+    \hline
+    -1 & 1 & 0 & 1 & 1 & 0.3 & 0 & 1 & 0.3 & 0.3 & 0.3 & 0.3\\
+    \hline
+    -0.7 & 1.3 & 0.3 & 1 & 0 & 0.3 & 1 & 0 & -0.3 & -0.3 & -0.3 & 0\\
+    \hline
+\end{tabularx}
+
+\begin{align*}
+    \text{net}_1 = w_{10} + w_{11}x_1 + w_{12}x_2 &= -0.7 + 1.3 \cdot 1 + 0.3 \cdot 0 = 0.6\\
+    y_1 = h(\text{net}_1) &= h(0.6) = 1\\
+    e_1 = t - y_1 &= 0 - 1 = -1\\
+    \eta \cdot e_1 = \eta (t - y_1) &= 0.3\cdot -1 = -0.3\\
+    w'_{10} = w_{10} + \Delta w_{10} &= -0.7 + 0.3\cdot (-1)\cdot 1 = -0.7 - 0.3 = -1\\
+    w'_{11} = w_{11} + \Delta w_{11} &= 1.3 + 0.3\cdot (-1)\cdot 1 = 1.3 - 0.3 = 1 \\
+    w'_{12} = w_{12} + \Delta w_{12} &= 0.3 + 0.3\cdot (-1)\cdot 0 = 0.3 + 0 = 0.3 \\
+\end{align*}
+
+\begin{tabularx}{\linewidth}{XXXXXXXXcXXX}
+    \hline
+    $w_{10}$ & $w_{11}$ & $w_{12}$ & $x_1$ & $x_2$ & $\eta$ & $y_1$ & $t$ & $\eta (t-y_1)$ & $\Delta w_{10}$ & $\Delta w_{11}$ & $\Delta w_{12}$\\
+    \hline
+    -1 & 1 & 0 & 1 & 1 & 0.3 & 0 & 1 & 0.3 & 0.3 & 0.3 & 0.3\\
+    \hline
+    -0.7 & 1.3 & 0.3 & 1 & 0 & 0.3 & 1 & 0 & -0.3 & -0.3 & -0.3 & 0\\
+    \hline
+    -1 & 1 & 0.3 & 0 & 0 & 0.3 & 0 & 0 & 0 & 0 & 0 & 0\\
+    \hline
+\end{tabularx}
+
+\begin{align*}
+    \text{net}_1 = w_{10} + w_{11}x_1 + w_{12}x_2 &= -1 + 1 \cdot 0 + 0.3 \cdot 0 = -1\\
+    y_1 = h(\text{net}_1) &= h(-1) = 0\\
+    e_1 = t - y_1 &= 0 - 0 = 0\\
+    \eta \cdot e_1 = \eta (t - y_1) &= 0.3\cdot 0 = 0\\
+    w'_{10} = w_{10} + \Delta w_{10} &= -1 + 0.3\cdot 0 \cdot 1 = -1 + 0 = -1\\
+    w'_{11} = w_{11} + \Delta w_{11} &= 1 + 0.3\cdot 0 \cdot 0 = 1 + 0 = 1 \\
+    w'_{12} = w_{12} + \Delta w_{12} &= 0.3 + 0.3\cdot 0 \cdot 0 = 0.3 + 0 = 0.3 \\
+\end{align*}
+
+\begin{tabularx}{\linewidth}{XXXXXXXXcXXX}
+    \hline
+    $w_{10}$ & $w_{11}$ & $w_{12}$ & $x_1$ & $x_2$ & $\eta$ & $y_1$ & $t$ & $\eta (t-y_1)$ & $\Delta w_{10}$ & $\Delta w_{11}$ & $\Delta w_{12}$\\
+    \hline
+    -1 & 1 & 0 & 1 & 1 & 0.3 & 0 & 1 & 0.3 & 0.3 & 0.3 & 0.3\\
+    \hline
+    -0.7 & 1.3 & 0.3 & 1 & 0 & 0.3 & 1 & 0 & -0.3 & -0.3 & -0.3 & 0\\
+    \hline
+    -1 & 1 & 0.3 & 0 & 0 & 0.3 & 0 & 0 & 0 & 0 & 0 & 0\\
+    \hline
+    -1 & 1 & 0.3 & 0 & 1 & 0.3 & 0 & 0 & 0 & 0 & 0 & 0\\
+    \hline
+\end{tabularx}
+
+\begin{align*}
+    \text{net}_1 = w_{10} + w_{11}x_1 + w_{12}x_2 &= -1 + 1 \cdot 0 + 0.3 \cdot 1 = -0.7\\
+    y_1 = h(\text{net}_1) &= h(-0.7) = 0\\
+    e_1 = t - y_1 &= 0 - 0 = 0\\
+    \eta \cdot e_1 = \eta (t - y_1) &= 0.3\cdot 0 = 0\\
+    w'_{10} = w_{10} + \Delta w_{10} &= -1 + 0.3\cdot 0 \cdot 1 = -1 + 0 = -1\\
+    w'_{11} = w_{11} + \Delta w_{11} &= 1 + 0.3\cdot 0 \cdot 0 = 1 + 0 = 1 \\
+    w'_{12} = w_{12} + \Delta w_{12} &= 0.3 + 0.3\cdot 0 \cdot 1 = 0.3 + 0 = 0.3 \\
+\end{align*}
+
+\begin{tabularx}{\linewidth}{XXXXXXXXcXXX}
+    \hline
+    $w_{10}$ & $w_{11}$ & $w_{12}$ & $x_1$ & $x_2$ & $\eta$ & $y_1$ & $t$ & $\eta (t-y_1)$ & $\Delta w_{10}$ & $\Delta w_{11}$ & $\Delta w_{12}$\\
+    \hline
+    -1 & 1 & 0 & 1 & 1 & 0.3 & 0 & 1 & 0.3 & 0.3 & 0.3 & 0.3\\
+    \hline
+    -0.7 & 1.3 & 0.3 & 1 & 0 & 0.3 & 1 & 0 & -0.3 & -0.3 & -0.3 & 0\\
+    \hline
+    -1 & 1 & 0.3 & 0 & 0 & 0.3 & 0 & 0 & 0 & 0 & 0 & 0\\
+    \hline
+    -1 & 1 & 0.3 & 0 & 1 & 0.3 & 0 & 0 & 0 & 0 & 0 & 0\\
+    \hline
+    -1 & 1 & 0.3 & 1 & 0 & 0.3 & 0 & 0 & 0 & 0 & 0 & 0\\
+    \hline
+\end{tabularx}
+
+\begin{align*}
+\text{net}_1 = w_{10} + w_{11}x_1 + w_{12}x_2 &= -1 + 1 \cdot 1 + 0.3 \cdot 0 = 0\\
+y_1 = h(\text{net}_1) &= h(0) = 0\\
+e_1 = t - y_1 &= 0 - 0 = 0\\
+\eta \cdot e_1 = \eta (t - y_1) &= 0.3\cdot 0 = 0\\
+w'_{10} = w_{10} + \Delta w_{10} &= -1 + 0.3\cdot 0 \cdot 1 = -1 + 0 = -1\\
+w'_{11} = w_{11} + \Delta w_{11} &= 1 + 0.3\cdot 0 \cdot 1 = 1 + 0 = 1 \\
+w'_{12} = w_{12} + \Delta w_{12} &= 0.3 + 0.3\cdot 0 \cdot 0 = 0.3 + 0 = 0.3 \\
+\end{align*}
+
+\begin{tabularx}{\linewidth}{XXXXXXXXcXXX}
+    \hline
+    $w_{10}$ & $w_{11}$ & $w_{12}$ & $x_1$ & $x_2$ & $\eta$ & $y_1$ & $t$ & $\eta (t-y_1)$ & $\Delta w_{10}$ & $\Delta w_{11}$ & $\Delta w_{12}$\\
+    \hline
+    -1 & 1 & 0 & 1 & 1 & 0.3 & 0 & 1 & 0.3 & 0.3 & 0.3 & 0.3\\
+    \hline
+    -0.7 & 1.3 & 0.3 & 1 & 0 & 0.3 & 1 & 0 & -0.3 & -0.3 & -0.3 & 0\\
+    \hline
+    -1 & 1 & 0.3 & 0 & 0 & 0.3 & 0 & 0 & 0 & 0 & 0 & 0\\
+    \hline
+    -1 & 1 & 0.3 & 0 & 1 & 0.3 & 0 & 0 & 0 & 0 & 0 & 0\\
+    \hline
+    -1 & 1 & 0.3 & 1 & 1 & 0.3 & 1 & 1 & 0 & 0 & 0 & 0\\
+    \hline
+\end{tabularx}
+
+\begin{align*}
+\text{net}_1 = w_{10} + w_{11}x_1 + w_{12}x_2 &= -1 + 1 \cdot 1 + 0.3 \cdot 1 = 0.3\\
+y_1 = h(\text{net}_1) &= h(0.3) = 1\\
+e_1 = t - y_1 &= 1 - 1 = 0\\
+\eta \cdot e_1 = \eta (t - y_1) &= 0.3\cdot 0 = 0\\
+w'_{10} = w_{10} + \Delta w_{10} &= -1 + 0.3\cdot 0 \cdot 1 = -1 + 0 = -1\\
+w'_{11} = w_{11} + \Delta w_{11} &= 1 + 0.3\cdot 0 \cdot 1 = 1 + 0 = 1 \\
+w'_{12} = w_{12} + \Delta w_{12} &= 0.3 + 0.3\cdot 0 \cdot 1 = 0.3 + 0 = 0.3 \\
+\end{align*}
+
+\subsubsection{Updating Weights Using Vectors}
+
+Given the input vector $\vec{x}$ and the weight vector $w_j$ for a given node $j$ we can write the output after the activation function $h$ with $n$ input nodes as follows
+\begin{equation}
+    y_j = h\left( \sum_{i=0}^{n} w_{ji} x_i \right) = h(\vec{w}_j \cdot \vec{x})
+\end{equation}
+
+\noindent
+Therefore we can write the output as
+\begin{equation}
+y_j = h(\vec{w}_j \cdot \vec{x}) = \left\{ \begin{matrix} 1 & \vec{w}_j \cdot \vec{x} \geq 0\\ 0 & \vec{w}_j \cdot \vec{x} < 0 \end{matrix} \right.
+\end{equation}
+
+\noindent
+And the update of the weights $\vec{w}'_j$ written as follows
+
+\begin{equation}
+    \vec{w}'_j = \vec{w}_j + \eta (t - y_j)\cdot \vec{x}
+\end{equation}
 
 \end{document}
