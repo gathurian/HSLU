@@ -1875,9 +1875,9 @@ The \textbf{lift} of an association rule is defined as and measures how many tim
 \end{figure}
 
 \begin{itemize}[leftmargin=*, labelindent=3cm, labelsep=1cm]
-    \item[lift = 1] $X$ and $Y$ are statistically independent
-    \item[lift < 1] indicates that $X$ and $Y$ appear less often together than expected, the occurrence of $X$ has a negative effect on the occurrence of $Y$ and vice-versa, $X$ and $Y$ are \textbf{anti-correlated}
-    \item[lift > 1] indicates that $X$ and $Y$ appear more often together than expected, the occurrence of $X$ has a positive effect on the occurrence of $Y$ and vice-versa, $X$ and $Y$ are \textbf{correlated}
+    \item[lift $= 1$] $X$ and $Y$ are statistically independent
+    \item[lift $< 1$] indicates that $X$ and $Y$ appear less often together than expected, the occurrence of $X$ has a negative effect on the occurrence of $Y$ and vice-versa, $X$ and $Y$ are \textbf{anti-correlated}
+    \item[lift $> 1$] indicates that $X$ and $Y$ appear more often together than expected, the occurrence of $X$ has a positive effect on the occurrence of $Y$ and vice-versa, $X$ and $Y$ are \textbf{correlated}
 \end{itemize}
 
 In general, the larger the lift value, the stronger the association between $X$ and $Y$. A good rule has high lift.
@@ -3132,5 +3132,43 @@ And the update of the weights $\vec{w}'_j$ written as follows
 \begin{equation}
     \vec{w}'_j = \vec{w}_j + \eta (t - y_j)\cdot \vec{x}
 \end{equation}
+
+\subsection{Multi-Layer Feedforward Networks}
+A multi-layer network has an input layer, where no computation is done, one or more hidden layers where computation take place, and one output layer. The signals can only travel forward, so there is no feedback or loops. A notable example is the multilayer Perceptron.
+
+\begin{figure}[tbh!]
+    \centering
+    \includegraphics[keepaspectratio, width=0.6\linewidth]{Pictures/fully_connected_multilayer_feedforward_network}
+    \caption{A fully connected multilayer feedworward network with one hidden layer}
+    \label{fig:fullyconnectedmultilayerfeedforwardnetwork}
+\end{figure}
+
+In figure \ref{fig:fullyconnectedmultilayerfeedforwardnetwork} the bias neuron always has the index 0 and a set value of 1. We have two input neurons and a hidden layer with three neurons. The weights of the connection between input and hidden layer are denoted by $w_{ji}^{(1)}$ (from input nodes $x_i$ to hidden layer nodes $h_j$) and the ones between hidden and output layer are denoted by $w_{kj}^{(2)}$ (from hidden nodes $h_i$ to output nodes $y_k$). In all of this we would like to minimise the (L2-) error $E$ of the training sample $(\vec{x}^{(\nu)}, \vec{t}^{(\nu)})$ with input $\vec{x}^{(\nu)}$ and output $ \vec{t}^{(\nu)}$. $N_O$ is the count of output nodes, $N_I$ the count of input nodes and $N_H$ the count of hidden nodes.
+\begin{equation}
+    E\left(\vec{W}^{(1)}, \vec{W}^{(2)}\right) = \frac{1}{2} \sum_{k=1}^{N_O} \left(e_k^{(\nu)}\right)^2 = \frac{1}{2} \sum_{k=1}^{N_O} \left(t_k^{(\nu)} - y_k^{(\nu)}\right)^2
+\end{equation}
+
+\subsubsection{Forward Sweep}
+
+\begin{enumerate}
+    \item Read input/target pair $(\vec{x},\vec{t})$
+    \item For each hidden neuron $j = 1,2,...,N_H$ compute $h_j=\sigma\left(\sum_{i=0}^{N_I} w_ji^{(1)} x_i \right)$
+    \item For each output neuron $k = 1,2,...,N_O$ compute $y_k=\sigma\left(\sum_{j=0}^{N_H} w_kj^{(2)} h_j \right)$, the error $e_k = t_k - y_k$ and the resulting Delta $\delta_k^{(o)} = y_k(1-y_k)e_k$
+\end{enumerate}
+
+The forward propagation can be written in matrix notation:
+\begin{align*}
+    h_j=\sigma\left(\sum_{i=0}^{N_I} w_ji^{(1)} x_i \right) &\Rightarrow \vec{h} = \sigma\left( \vec{W}^{(1)} \vec{x} \right)\\
+    y_k=\sigma\left(\sum_{j=0}^{N_H} w_kj^{(2)} h_j \right) &\Rightarrow \vec{y} = \sigma\left( \vec{W}^{(2)} \vec{h} \right)
+\end{align*}
+
+\subsubsection{Backpropagation}
+
+\begin{enumerate}
+    \item Correct the weights $w_kj^{(2)}$ according to $\Delta w_kj^{(2)} = \eta \delta_k^{(o)} h_i$
+    \item For each hidden neuron $j = 1,2...,N_H$ compute $\delta_j^{(h)} = h_i(1-h_i)\sum_{k=1}^{N_O} \delta_k^{(o)} w_{kj}^{(2)}$ where we sum over all successors $k$ of the hidden neuron $i$
+    \item Correct the weights $w_ji^{(1)} according to $$\Delta w_ji^{(1)} = \eta \delta_j^{(h)} x_i$
+    \item If not converged or not all input pairs, return to Step 1 of the Forward Sweep
+\end{enumerate}
 
 \end{document}
