@@ -117,10 +117,10 @@ So summarizing these two quotes, it can be said, that machine learning is define
 There are different disciplines in machine learning:
 
 \begin{description}
-    \item[Supervised Learning: ] The algorithm is given \textbf{labeled training data} and learns to \textbf{predict} the \textbf{labels} of yet unseen examples.
-    \item[Unsupervised Learning: ] The algorithm is given \textbf{unlabeled data} and \textbf{creates labels by itself} based on the structure of the given data
-    \item[Semi-Supervised Learning: ] A \textbf{mixture} of supervised and unsupervised learning. This approach is usually chosen if there is only \textbf{very little labeled test data}
-    \item[Reinforcement Learning: ] No data is availabe, but the algorithm is \textbf{being rewarded}. The algorithm searches the ideal behaviour that maximises its reward (Not subject of this lecture)
+    \item[Supervised Learning: ] The algorithm is given \textbf{labelled training data} and learns to \textbf{predict} the \textbf{labels} of yet unseen examples.
+    \item[Unsupervised Learning: ] The algorithm is given \textbf{unlabelled data} and \textbf{creates labels by itself} based on the structure of the given data
+    \item[Semi-Supervised Learning: ] A \textbf{mixture} of supervised and unsupervised learning. This approach is usually chosen if there is only \textbf{very little labelled test data}
+    \item[Reinforcement Learning: ] No data is available, but the algorithm is \textbf{being rewarded}. The algorithm searches the ideal behaviour that maximises its reward (Not subject of this lecture)
 \end{description}
 
 These classifications can be subdivided even more:
@@ -134,7 +134,7 @@ These classifications can be subdivided even more:
 
 The main difference between \textbf{classification} and \textbf{regression} is that when using classification, the result is \textbf{categorical}, whereas regression returns \textbf{numerical} results.
 
-\textbf{Clustering} is similar to classificiation. However, while classification algorithms sort the given data into given groups, clustering algorithms determine these groups \textbf{by themself}. This means, you can give a clustering algorithm a seemingly random dataset and the algorithm finds some kind of structure in it.
+\textbf{Clustering} is similar to classification. However, while classification algorithms sort the given data into given groups, clustering algorithms determine these groups \textbf{by themselves}. This means, you can give a clustering algorithm a seemingly random dataset and the algorithm finds some kind of structure in it.
 
 \newpage
 
@@ -164,7 +164,7 @@ There are many reasons why the data quality could be poor:
 
 \subsection{Data Quality Assessment}
 
-Before even starting to assess the data-quality, it is seldomly a bad idea to \textbf{clean} the data first.
+Before even starting to assess the data-quality, it is seldom a bad idea to \textbf{clean} the data first.
 
 \begin{enumerate}
     \item Identify and remove duplicates
@@ -188,7 +188,7 @@ If you change anything from the original data set, you should always
 \begin{description}
     \item[Identify data sources and their trustworthiness]
     \item[Interpret statical key figures: ] See following sections
-    \item[Visualize selected portions of the data: ] e.g. with Pair Plots (See Abb. \ref{fig:pair_plots} )
+    \item[Visualize selected portions of the data: ] e.g. with Pair Plots (see figure \ref{fig:pair_plots} )
     \item[Manually check data ranges] Negative Salaries, People more than 200 years old...
     \item[Validate plausibility of attribute correlation: ] e.g. are mileage and number of seats in a core correlated? Can one of the columns be removed for redundancy?
     \item[Measure data redundancy: ] Can certain columns be removed due to not adding any real value to the data
@@ -228,7 +228,7 @@ These figures can give you a rough overview about the whereabouts of your data-m
 
 \textbf{Mean} \\
 
-This is the averge in a set of numeric data. You add all data and divide it by the number of data points
+This is the average in a set of numeric data. You add all data and divide it by the number of data points
 
 \begin{equation}
     \mu_{x}=\frac{1}{n} \sum^{n}_{i=1} x_{i}
@@ -244,7 +244,7 @@ This is the value that occurs the most in a given set of data
 
 \noindent \textbf{Median} \\
 
-This is the middlemost value of a sorted set of data. In contrast to the Mean, the Median can give information concerning the distribution of the data.
+This is the middle most value of a sorted set of data. In contrast to the Mean, the Median can give information concerning the distribution of the data.
 
 Given a dataset of $1, 2, 3, 4, 5$, the median and mean are both $3$. However, if we have $1, 2, 3, 1000, 10000$, the mean is $2201.2$ whereas the mean is still $3$
 
@@ -270,9 +270,9 @@ $Mean - Mode > 0 \rightarrow$ Positive skewness / Right-skewed data
 
 \subsubsection{Quartile \& Interquartile Range (IQR)}
 
-The three quartiles divide your data into four equal-sized, cnsecutive subsets.
+The three quartiles divide your data into four equal-sized, consecutive subsets.
 
-To calculate $Q1$, take the median of your data and then again the madian of the left half of the data.
+To calculate $Q1$, take the median of your data and then again the median of the left half of the data.
 
 \begin{figure}[htb!]
     \centering
@@ -357,7 +357,7 @@ The \textbf{covariance matrix} shows the covariance from all $X$ with all $Y$. A
 
 
 \subsubsection{Pearson Correlation} \label{sec:pearson}
-Both the covariance and the variance are connected to the scale of the dataset, so the covariance of $X=[1,2,3,4,5] / Y=[6,7,8,9,10]$ is 2.5, whereas the covariance of $X=[1000,2000,3000,4000,5000] / Y=[6000,7000,8000,9000,10000]$ is 2'500'000'000. However, the Perason Correlation is 1 in both examples.
+Both the covariance and the variance are connected to the scale of the dataset, so the covariance of $X=[1,2,3,4,5] / Y=[6,7,8,9,10]$ is 2.5, whereas the covariance of $X=[1000,2000,3000,4000,5000] / Y=[6000,7000,8000,9000,10000]$ is 2'500'000'000. However, the Pearson Correlation is 1 in both examples.
 
 \begin{equation}
     \rho(X,Y)=\frac{Cov(X,Y)}{\sigma_{x} \sigma_{y}} =
@@ -365,7 +365,7 @@ Both the covariance and the variance are connected to the scale of the dataset, 
 \end{equation}
 The Pearson Correlation is always between 1 and -1.
 
-\noindent 1 means the data is perfectly correlated, whereas -1 means that the data is perfectly incorrelated
+\noindent 1 means the data is perfectly correlated, whereas -1 means that the data is perfectly uncorrelated
 
 \subsection{Normalization}
 It is immensely important that all data is normalized before we run a machine learning algorithm over it. Considering the data in figure \ref{fig:vector_space_modefig}, 'Mileage' and 'Price' are in a completely different scale. If the mileage of the first shown car goes up 500 miles, it's not really a big deal. However, a price increase by 500 would double the car's price.
@@ -388,7 +388,7 @@ Such differently scaled data can (and will) falsify the result of every machine 
 
 \noindent \textbf{Z-Score Normalization}
 
-\noindent The dataset is transformed in such a way, that the mean becomes 0 (so-called \textit{mean-centering}) and the standard deviation is 1
+\noindent The dataset is transformed in such a way, that the mean becomes 0 (so-called \textit{mean-centring}) and the standard deviation is 1
 
 \begin{equation}
     x \rightarrow \frac{x - \mu_{x}}{\sigma_{x}}
@@ -398,7 +398,7 @@ Such differently scaled data can (and will) falsify the result of every machine 
 
 \subsection{Feature Engineering}
 
-Sometimes, data has to be modified to be better accessible/processable for machine learning algorithms. These algorithmus can work the best with simple numbers, so that's the data we should be striving for:
+Sometimes, data has to be modified to be better accessible/processable for machine learning algorithms. These algorithms can work the best with simple numbers, so that's the data we should be striving for:
 
 \begin{figure}[htb!]
     \centering
@@ -531,7 +531,7 @@ Count the minimal number of changes necessary to turn one string into another:
     \label{fig:decision_boundaries}
 \end{figure}
 
-Classifications usually end in somithing like Figure \ref{fig:decision_boundaries}. The example shows a classification whether a tumor is benign or cancerous. Brown means cancerous and blue means benign. Even though the data points are the same in all pictures, different approaches yield different results.
+Classifications usually end in something like figure \ref{fig:decision_boundaries}. The example shows a classification whether a tumour is benign or cancerous. Brown means cancerous and blue means benign. Even though the data points are the same in all pictures, different approaches yield different results.
 
 The goal of a 'good' classification-algorithm is to produce as few false-positive (algorithm says is cancer, but is actually not) and false-negatives (algorithm says its benign but is actually cancerous) as possible.
 
@@ -545,7 +545,7 @@ The data in Fig. \ref{fig:decision_boundaries} is still theoretically linearly s
     \label{fig:kernel_trick}
 \end{figure}
 
-\subsection{k-Nearest-Neighbor}
+\subsection{k-Nearest-Neighbour}
 
 \begin{minipage}{0.55\textwidth}
     \begin{lstlisting}
@@ -573,25 +573,25 @@ The data in Fig. \ref{fig:decision_boundaries} is still theoretically linearly s
     \label{fig:knn-regression}
 \end{wrapfigure}
 
-The k-neeares-Neighbor algorithm assigns the label of its nearest datapoint to the sample datapoint. If \code{n\_neighbors} is $>1$, it assigns the label of the most neighbours (via majority voting).
+The k-nearest-Neighbour algorithm assigns the label of its nearest data point to the sample data point. If \code{n\_neighbours} is $>1$, it assigns the label of the most neighbours (via majority voting).
 
 \vspace{10px}
 
 Even though the K-NN algorithm is pretty slow compared to other algorithms, it is often a good choice if you only have a limited amount of data, because other, more performant algorithms usually require a lot more data to get decent predictions.
 
-Usually, k-NN treats all neighbors as equals. However, you could assign a weight to each datapoint. This weight depends on the distance $d$ from the sample point. This is especially useful if you want to use k-NN to e.g. form a regression line.
+Usually, k-NN treats all neighbours as equals. However, you could assign a weight to each data point. This weight depends on the distance $d$ from the sample point. This is especially useful if you want to use k-NN to e.g. form a regression line.
 
-You can use k-NN for regression by simply assigning the mean of all $k$ neighbors as label to the sample data.
+You can use k-NN for regression by simply assigning the mean of all $k$ neighbours as label to the sample data.
 
 \subsection{Training- and Testdata}
 If you use the same data to train and test your algorithm, it might occur that the algorithm is 'memorizing' the data and gives you brilliant results. However, if you release it into the wild, where it encounters different data, it will perform really poorly. This is called \textbf{overfitting}
 
-To counter overfitting, you usually split your data into \textbf{trainingdata} and \textbf{testdata}. You train the algorithm with the training data and test it with the testdata (who would've thought...).
+To counter overfitting, you usually split your data into \textbf{training data} and \textbf{test data}. You train the algorithm with the training data and test it with the test data (who would've thought...).
 
 \begin{figure}[htb!]
     \centering
     \includegraphics[keepaspectratio=true,width=0.9\textwidth]{training_testdata.png}
-    \caption{Split your data into training- and testdata}
+    \caption{Split your data into training- and test data}
     \label{fig:training_testdata}
 \end{figure}
 
@@ -605,7 +605,7 @@ If you need to tweak your hyperparameters a lot (e.g. the 'k' in k-NN), you shou
 
 \vspace{10px}
 
-Therefore, it is recommended that you add \textbf{validation data} to your workflow. You train your model with the training data, validate the results with the validatin data, and if the result is satisfactory, you can test it on entirely different test data.
+Therefore, it is recommended that you add \textbf{validation data} to your workflow. You train your model with the training data, validate the results with the validation data, and if the result is satisfactory, you can test it on entirely different test data.
 
 \begin{figure}[htb!]
     \centering
@@ -625,7 +625,7 @@ This method requires quite a lot of data. If you do not have the required amount
 
 \subsection{Measuring the performance of classification}
 
-To verify that your tweaked parameters are indeed within the margin that is acceptable, you need to do some quality assuranc first.
+To verify that your tweaked parameters are indeed within the margin that is acceptable, you need to do some quality assurance first.
 
 \subsubsection{Confusion Matrix}
 
@@ -673,7 +673,7 @@ In our case the Accuracy would be $\frac{50+100}{50+100+5+10} = \frac{150}{165} 
 
 \subsubsection{Sensitivity}
 
-Accuracy works great on balanced data, but it's not reliable on inbalanced data because Accuracy only checks how many times the classifier was right.
+Accuracy works great on balanced data, but it's not reliable on imbalanced data because Accuracy only checks how many times the classifier was right.
 
 If there were 5000 NO instances and 20 YES instances, a classifier that only returns NO would have an accuracy of over 99\%.
 
@@ -689,7 +689,7 @@ If there were 5000 NO instances and 20 YES instances, a classifier that only ret
 
 In our confusion matrix from earlier, the Sensitivity would be $\frac{100}{100 + 5} = \frac{100}{105} = 0.95 = 95\%$
 
-\subsubsection{Sepcificity}
+\subsubsection{Specificity}
 This is the inverse of the Sensitivity. It counts how many NO the algorithm correctly predicted.o
 
 \begin{equation}
@@ -742,7 +742,7 @@ However, it is still one of the best methods to solve a classification problem w
     R^2 = 1- \frac{\frac{1}{m} \sum^{m}_{i=1}(y_{i} - f_{i})^2}{\frac{1}{m} \sum^{m}_{i=1}(y_{i} - \bar{y})^2} =1 - \frac{\sum^{m}_{i=1}(y_{i} - f_{i})^2}{\sum^{m}_{i=1}(y_{i} - \bar{y})^2}
 \end{equation}
 
-$R^2$ is a staticstical measure of how well the predictions approximate the real data points.
+$R^2$ is a statistical measure of how well the predictions approximate the real data points.
 The top is the sum of squared errors (how much does the prediction deviate from the actual value) and the botom is the deviation of the mean.
 
 $R^3 = 1$ is a perfect prediction-line
@@ -833,7 +833,7 @@ In Batch Gradient Descent the update to the parameter vector $\bm{\theta}$ is do
 \subsubsection{Instructions}
 \begin{itemize}
     \item Choose an initial parameter vector $\bm{\theta}$ and a learning rate $\alpha$
-    \item Repeat until an approximate miminum is obtained
+    \item Repeat until an approximate minimum is obtained
           \begin{itemize}
               \item Randomly shuffle the samples in the training set
               \item For each sample $i \in {1,2,...,n}$ do
@@ -917,7 +917,7 @@ For sufficiently small $\alpha$, $J(\bm{\theta})$ should decrease in every itera
 
 Linear regression is a \textbf{supervised machine learning algorithm} to predict values based on previous variables.
 
-It can also be used to verify whether two variablex X and Y are \textbf{dependant} on each other.
+It can also be used to verify whether two variables X and Y are \textbf{dependant} on each other.
 
 \vspace{10px}
 
@@ -929,7 +929,7 @@ These errors should cancel each other out, as the regression-line should be plac
 
 The equation for a 'normal' line is $g(x) = m \cdot x + q$, where $m$ symbolizes the slope of the line and $q$ tells you where the line crosses the $y$-axis.
 
-The equation for the regression line is very much like the 'normal' line-equation, but we use greek symbols, because why not...
+The equation for the regression line is very much like the 'normal' line-equation, but we use Greek symbols, because why not...
 
 \begin{equation}
     h_{\theta}(x) = \theta^{}_{0} + \theta^{}_{1} \cdot x
@@ -1074,7 +1074,7 @@ There's yet another error, the \textit{Mean Squared Error} (MSE). MSE is basical
 
 \subsection{Correlation Analysis}
 
-So now thath you have the regression parameters $\theta^{}_{0}$ and $\theta^{}_{1}$. which make out the regression line. However, that regression line is only as good as your parameters. So how do you test how well you calculated the parameters?
+So now that you have the regression parameters $\theta^{}_{0}$ and $\theta^{}_{1}$. which make out the regression line. However, that regression line is only as good as your parameters. So how do you test how well you calculated the parameters?
 
 Easy, you calculate the \textbf{standard deviation of these parameters}.
 
@@ -1254,15 +1254,15 @@ print("Interval theta0: [" + str(thet0 - (2.57*Sthet0)) + " ; " + str(thet0 + (2
 
 print("Interval theta1: [" + str(thet1 - (2.57*Sthet1)) + " ; " + str(thet1 + (2.57*Sthet1)) + "]")
 
-        \end{lstlisting}
+\end{lstlisting}
 
 
 
-\subsection{Multple Linear Regression}
+\subsection{Multiple Linear Regression}
 
-Linear Regeression is great and all, but what if you wanted to predict an independent value based on \textbf{multiple} other values? In that case we would need \textbf{multilinear regression}.
+Linear Regression is great and all, but what if you wanted to predict an independent value based on \textbf{multiple} other values? In that case we would need \textbf{multi-linear regression}.
 \noindent
-In Muliple Linear Regression we try to fit a plane instead of a line. This plane is defined by
+In Multiple Linear Regression we try to fit a plane instead of a line. This plane is defined by
 \begin{equation}
     y = h_\theta(x_1,x_2) = \theta_0 + \theta_1 x_1 + \theta_2 x_2
 \end{equation}
@@ -1313,7 +1313,7 @@ In more than three dimensions our plane becomes a hyperplane, and the model is
     y_i = \theta_0 + \theta_1 x_{1,i} + \theta_2 x_{2,i} + \cdots + \theta_m x_{m,i}  + e_i=\sum_{k=0}^{n}\theta_k x_{k,i} + e_i
 \end{equation*}
 
-\subsubsection{Example multilinear regression}
+\subsubsection{Example multi-linear regression}
 
 Suppose we want to predict the weight of a weightlifter based on the training hours per week and the delivery of protein.
 
@@ -1701,18 +1701,18 @@ Kernel function $\Phi$ satisfy:
 
 \subsection{k-Means Algorithm}
 
-The k-Means algorithm is an algorithm that automatically identifies cluster centers. One has to specify the amount of clusters one wants before it can start though. The algorithm functions as follows:
+The k-Means algorithm is an algorithm that automatically identifies cluster centres. One has to specify the amount of clusters one wants before it can start though. The algorithm functions as follows:
 
 \begin{enumerate}
     \item Input: Number of clusters $k>0$ and data points $x_1,...,x_n \in \mathbb{R}^m$
-    \item Randomly choose $k$ cluster centers $\mu_1,...,\mu_k \in \mathbb{R}^m$
+    \item Randomly choose $k$ cluster centres $\mu_1,...,\mu_k \in \mathbb{R}^m$
     \item Repeat until convergence
           \begin{enumerate}
-              \item Assign each data point $x_i$ to its neares cluster center $\mu_j$
+              \item Assign each data point $x_i$ to its nearest cluster centre $\mu_j$
                     \begin{equation*}
                         c_i = \underset{j\in\{1,...,k\}}{\text{argmin}}\ \| x_i - \mu_j \|^2
                     \end{equation*}
-              \item  Update each cluster center to the mean of all assigned data points
+              \item  Update each cluster centre to the mean of all assigned data points
                     \begin{equation*}
                         \mu_j := \frac{\sum_{i:c_i=j} x_i}{|\{i:c_i = j\}|}
                     \end{equation*}
@@ -1730,7 +1730,7 @@ The k-Means algorithm is an algorithm that automatically identifies cluster cent
 
 \subsubsection{Clustering Distortion}
 
-The total distortion can be measured by summing up the squared distance between each point and it's cluster center
+The total distortion can be measured by summing up the squared distance between each point and it's cluster centre
 \begin{equation}
     \sum_{i=1}^{n}\| x_i -\mu_{c_i} \|^2
 \end{equation}
@@ -1888,7 +1888,7 @@ In general, the larger the lift value, the stronger the association between $X$ 
 
 \section{Anomaly or Outlier Detection}
 
-Anomaly or Outlier Detection is an important topic in unsupervised learning. Anomaly and outlier are used as synonyms. Anomalies are patterns in data that do not conform to a well-defined notion of normal behavior.
+Anomaly or Outlier Detection is an important topic in unsupervised learning. Anomaly and outlier are used as synonyms. Anomalies are patterns in data that do not conform to a well-defined notion of normal behaviour.
 
 \begin{figure}[tbh!]
     \centering
@@ -2019,7 +2019,7 @@ The local outlier factor is the local reachability density of a point in compari
 \end{equation}
 
 \begin{itemize}[leftmargin=*, labelindent=2cm, labelsep=1cm]
-    \item[$\text{LOF}(k) \approx 1$] similar density as neighbors : \textbf{Normal}
+    \item[$\text{LOF}(k) \approx 1$] similar density as neighbours : \textbf{Normal}
     \item[$\text{LOF}(k) < 1$] higher density than neighbors : \textbf{Inlier}
     \item[$\text{LOF}(k) > 1$]  lower density than neighbors : \textbf{Outlier}
 \end{itemize}
@@ -2066,7 +2066,7 @@ Or easier said:
     \blockquote[Jennach et. al., 2010]{A recommender system is a software application capable of suggesting interesting things to its users after learning their preferences over time}
 \end{quote}
 
-So basically recommender systems are the algorithms that show up under your amazon searches as 'customers who bought [xxx] also bought [yyy]'.
+So basically recommender systems are the algorithms that show up under your Amazon searches as 'customers who bought [xxx] also bought [yyy]'.
 
 As opposed to Support or Lift, recommender systems are \textbf{individualized}.
 
@@ -2100,7 +2100,7 @@ The history of recommender systems can be split into three waves:
 \subsection{Business Model}
 
 \begin{itemize}
-    \item Recommender Systems are only proviced as SaaS (Software as a Service), you only rent the system
+    \item Recommender Systems are only provided as SaaS (Software as a Service), you only rent the system
     \item All data is managed by the vendors. The clients only get the recommendations produced by this data and can display them at their will
     \item Subscription prices for these systems are related to their success, usually clients pay a percentage of their revenue
     \item Due to the recent privacy-boom, some customers and clients do not want to provide all shopping data to these system-vendors. They'd rather have an in-house system.
@@ -2148,7 +2148,7 @@ To summarize:
 
 Instead of checking what customers actually bought, why not check and leverage what customers \textit{want} to buy?
 
-Thanks to user ratings, wish lists, watchlists, viewed items etc, online vendors can create a very detailed shopping profile of their customers.
+Thanks to user ratings, wish lists, watch lists, viewed items etc., online vendors can create a very detailed shopping profile of their customers.
 
 \begin{figure}[htb!]
     \centering
@@ -2167,7 +2167,7 @@ Thanks to user ratings, wish lists, watchlists, viewed items etc, online vendors
 The idea of Context-Based Recommendations is to recommend the user similar products they have not rated/bought yet.
 
 \begin{enumerate}
-    \item Manually or automatically attribute your catalog data
+    \item Manually or automatically attribute your catalogue data
     \item Collect as much user preferences as you can (e.g. by ratings, wish lists, item viewed etc.)
     \item Compute predictions for products labelled with $?$ based on item similarity (See Equation \ref{eq:sim} on page \pageref{eq:sim})
     \item Recommend products with high prediction value
@@ -2179,7 +2179,7 @@ The idea of Context-Based Recommendations is to recommend the user similar produ
     \caption{Context Based Recommendations with Neighbours}
     \label{fig:context_based_recommendations_2}
 \end{wrapfigure}
-Another approach of Context-Based Recommendations is to analyze similar products:
+Another approach of Context-Based Recommendations is to analyse similar products:
 
 \vspace{10px}
 
@@ -2233,7 +2233,7 @@ This approach is similar to the similar products context based recommendations, 
 A set of users who liked the same items in the past, probably share the same preferences. Therefore, the user gets recommendations of products that many 'Neighbours' (similar users) liked, but the user has not purchased (yet).
 
 
-There's a similar approach as to the Context-Based Recommendations, but there's no need for product attributes anymore. The formula to calculate how much user $u$ will wile product $j$ is also fairly similar.
+There's a similar approach as to the Context-Based Recommendations, but there's no need for product attributes any more. The formula to calculate how much user $u$ will wile product $j$ is also fairly similar.
 
 \begin{figure}[htb!]
     \centering
@@ -2261,7 +2261,7 @@ There's a similar approach as to the Context-Based Recommendations, but there's 
 
 \subsection{Item-to-Item Collaborative Filtering}
 
-Because user proviles constantly change, pre-computation does not necessarily work. In contrast, for pairs fo items, similarity is stable and can be pre-computed.
+Because user provides constantly change, pre-computation does not necessarily work. In contrast, for pairs fo items, similarity is stable and can be pre-computed.
 
 The main difference is that we compare row vectors for neighbour search instead of column vectors.
 
@@ -2457,9 +2457,9 @@ However, sometimes this does not hold true. This is the case if some of the data
 
 \vspace{10px}
 
-Take for example a \textbf{mean-centered feature} that always takes the same value (so, the mean). This feature does not give you any valuable information and can therefore safely be dropped.
+Take for example a \textbf{mean-centred feature} that always takes the same value (so, the mean). This feature does not give you any valuable information and can therefore safely be dropped.
 
-Another example are \textbf{several features that essentially say the same}, say the height of a test person in centimeters and in inches. One of the two can be dropped. In the unlikely case that both measurements need to be used, one can easily be calculated from the other.
+Another example are \textbf{several features that essentially say the same}, say the height of a test person in centimetres and in inches. One of the two can be dropped. In the unlikely case that both measurements need to be used, one can easily be calculated from the other.
 
 
 \subsection{Strategies for Dimensionality Reduction} \label{sec:strategies}
@@ -2536,7 +2536,7 @@ As already discussed in section \ref{sec:covariance}, the \textbf{covariance mat
 
 The covariance matrix of a data matrix Y, $S_Y$ shows covariance between features in the off-diagonal terms. As we have learned in section \ref{sec:strategies}, we want to eliminate covariance between features to reduce redundancy. Therefore, the covariance matrix $S_Y$ should be a \textbf{diagonal matrix} (meaning all values except the diagonal values are zero).
 
-Additionally, the diagonal values of $S_Y$, which show the variance of each dimension can be used to eliminate low-variance dimension, as they are nearly mean-centered and therefore useless.
+Additionally, the diagonal values of $S_Y$, which show the variance of each dimension can be used to eliminate low-variance dimension, as they are nearly mean-centred and therefore useless.
 
 \vspace{10px}
 
@@ -2615,7 +2615,7 @@ A decision tree is a decision support tool that uses a tree-like model of decisi
 We need a way to measure how informative a feature is. Then, we always select the most informative feature. There are two main variants called information gain and Gini index.
 
 \subsection{Gini Impurity}
-Gini impurity is a measure of how often a randomly chosen element from the set would be incorrectly labeled if it was randomly labeled according to the distribution of labels in the subset. Gini impurity is non-negative and reaches zero when all cases in the node fall into a single target category. Choose the feature with lowest Gini impurity value for splitting.
+Gini impurity is a measure of how often a randomly chosen element from the set would be incorrectly labelled if it was randomly labelled according to the distribution of labels in the subset. Gini impurity is non-negative and reaches zero when all cases in the node fall into a single target category. Choose the feature with lowest Gini impurity value for splitting.
 
 \begin{equation}
     \sum_{i=1}^{J}p_i \sum_{k\neq i} p_k = \sum_{i=1}^{J}p_i(1-p_i) = \sum_{i=1}^{J}(p_i - p_i^2) = \sum_{i=1}^{J}p_i - \sum_{i=1}^{J}p_i^2 = 1 -\sum_{i=1}^{J}p_i^2
