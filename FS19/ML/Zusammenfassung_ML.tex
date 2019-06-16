@@ -3156,6 +3156,7 @@ In figure \ref{fig:fullyconnectedmultilayerfeedforwardnetwork} the bias neuron a
     \item For each output neuron $k = 1,2,...,N_O$ compute $y_k=\sigma\left(\sum_{j=0}^{N_H} w_kj^{(2)} h_j \right)$, the error $e_k = t_k - y_k$ and the resulting Delta $\delta_k^{(o)} = y_k(1-y_k)e_k$
 \end{enumerate}
 
+\noindent
 The forward propagation can be written in matrix notation:
 \begin{align*}
     h_j=\sigma\left(\sum_{i=0}^{N_I} w_ji^{(1)} x_i \right) &\Rightarrow \vec{h} = \sigma\left( \vec{W}^{(1)} \vec{x} \right)\\
@@ -3170,5 +3171,85 @@ The forward propagation can be written in matrix notation:
     \item Correct the weights $w_ji^{(1)} according to $$\Delta w_ji^{(1)} = \eta \delta_j^{(h)} x_i$
     \item If not converged or not all input pairs, return to Step 1 of the Forward Sweep
 \end{enumerate}
+
+\subsubsection{Example for the Calculation}
+
+\begin{figure}[tbh!]
+    \centering
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_feedforward_example_01}
+        \caption{Starting values}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_feedforward_example_02}
+        \caption{$h_1 = \sigma\left( 1\cdot 2 + 0.1 \cdot (-2) + 0.9 \cdot (-2) \right) = \sigma(0) = 0.5$}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_feedforward_example_03}
+        \caption{$h_1 = \sigma\left( 1\cdot 2 + 0.1 \cdot 3 + 0.9 \cdot 3 \right) = \sigma(5) = 0.9933$}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_feedforward_example_04}
+        \caption{All values for the hidden layer calculated}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_feedforward_example_05}
+        \caption{Final weights}
+    \end{subfigure}
+    \caption{Calculation of the node values of a multilayer feedforward networks}
+    \label{fig:feedforwardnetworks}
+\end{figure}
+
+\noindent
+Backpropagation with target values $t_1 = 0$, $t_2 = 1$ and learning rate $\eta = 0.2$.
+
+\begin{figure}[tbh!]
+    \centering
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_feedforward_example_05}
+        \caption{Starting weights}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_backward_propagation_example_01}
+        \caption{$\delta_1^{(o)} = y_1 (1 - y_1)(t_1 - y_1) = 0.122\cdot (1-0.122)\cdot (0.0-0.122) = -0.01307$}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_backward_propagation_example_02}
+        \caption{$\delta_2^{(o)} = y_2 (1 - y_2)(t_2 - y_2) = 0.728\cdot (1-0.728)\cdot (1.0-0.728) = 0.05386$}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_backward_propagation_example_03}
+        \caption{$w_{10}^{(2)} = w_{10}^{(2)} + \eta \delta_1^{(o)} h_0 = 3 + 0.2\cdot (-0.01307)\cdot 1 = 2.99739$}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_backward_propagation_example_04}
+        \caption{$w_{20}^{(2)} = w_{20}^{(2)} + \eta \delta_2^{(o)} h_0 = -2 + 0.2\cdot (0.05386)\cdot 1 = -1.98923$}
+    \end{subfigure}
+    \caption{Calculation of the weights of a multilayer feedforward networks}
+    \label{fig:backwardpropagationnetworks}
+\end{figure}
+
+\noindent
+To calculate the delta for the neurons of the hidden layers, we sum over all successors of neuron $j$
+
+\begin{equation}
+    \delta_j^{(h)} = h_j (1 - h_j) \sum_{k=1}^{N_O} w_{kj}{(2)} \delta_k^{(o)}
+\end{equation}
+
+\noindent
+Then we correct the weight of $w_{ji}^{(1)}$ according to the following formula, with $\eta$ as the learning rate.
+\begin{equation}
+    w_{ji}^{(1)} \leftarrow w_{ji}^{(1)} + \Delta w_{ji}^{(1)} = w_{ji}^{(1)} + \eta\delta_j^{(h)} x_i
+\end{equation}
 
 \end{document}
