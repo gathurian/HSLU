@@ -2580,4 +2580,236 @@ In practice:
     \item Eliminate features (rows) from the lowest to the highest eigenvalue
 \end{enumerate}
 
+\section{Decision Trees and Random Forests}
+
+A decision tree is a decision support tool that uses a tree-like model of decisions and their possible consequences, including chance event outcomes, resource costs, and utility. It is one way to display an algorithm that only contains conditional control statements. 
+
+\subsection{Historical Survey of Decision Tree Algorithms}
+
+\begin{itemize}
+    \item ID3 (Iterative Dichotomiser 3) invented in 1986\\
+    Uses \textbf{information gain} for feature selection
+    \item C4.5 added a number of improvements and extensions to ID3\\
+    Uses \textbf{information gain} for feature selection, integrates these numerical features though automated interval partitioning, has more sophisticated tree pruning and features with costs
+    \item CART (Classification and Regression Trees) is very similar to C4.5\\
+    can be used for classification and regression, uses \textbf{Gini index} for feature selection in classification, then uses variance reduction (mean squared error) for feature selection in regression, constructs binary trees with feature selection for every possible split and is used in scikit-learn in an optimised version
+\end{itemize}
+
+\begin{figure}[tbh!]
+    \centering
+    \includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/decision_tree_example}
+    \caption{An example of a decision tree based on a purchase}
+    \label{fig:decisiontreeexample}
+\end{figure}
+
+\subsection{Tree Construction Rules}
+
+\begin{enumerate}
+    \item If only positive or negative instances are left, stop branching and assign the corresponding decision as leaf node\\Example: On Offer = 0\% or 50\%
+    \item If some positive and some negative examples remain, choose another feature and refine the tree one step further\\Example: On Offer = 20\% $\rightarrow$ next feature: Saturday
+    \item If no instances are left, such a combination of feature values does not occur in the training set. In this case, look at the parent node and decide according to the more frequent label
+    \item If there are still instances but no features any more, the training data is contradictory, noisy, non-deterministic or contains hidden features. In this case, decide according to the more frequent label.
+\end{enumerate}
+
+\subsubsection{Splitting Criterion}
+We need a way to measure how informative a feature is. Then, we always select the most informative feature. There are two main variants called information gain and Gini index.
+
+\subsection{Gini Impurity}
+Gini impurity is a measure of how often a randomly chosen element from the set would be incorrectly labeled if it was randomly labeled according to the distribution of labels in the subset. Gini impurity is non-negative and reaches zero when all cases in the node fall into a single target category. Choose the feature with lowest Gini impurity value for splitting.
+
+\begin{equation}
+    \sum_{i=1}^{J}p_i \sum_{k\neq i} p_k = \sum_{i=1}^{J}p_i(1-p_i) = \sum_{i=1}^{J}(p_i - p_i^2) = \sum_{i=1}^{J}p_i - \sum_{i=1}^{J}p_i^2 = 1 -\sum_{i=1}^{J}p_i^2
+\end{equation}
+
+\subsubsection{Example for a Gini calculation}
+\begin{itemize}[leftmargin=*, labelindent=4cm, labelsep=1cm]
+    \item[$p(\text{Weather = Rain})$] $\frac{7}{12}$
+    \item[$p(\text{Weather = Sun})$] $\frac{3}{12}$
+    \item[$p(\text{Weather = Cloudy})$] $\frac{2}{12}$
+\end{itemize}
+
+\begin{equation*}
+    \text{Impurity(Weather)} = 1 - (\frac{7}{12})^2 - (\frac{3}{12})^2 - (\frac{2}{12})^2 = \frac{41}{72} \approx 0.569
+\end{equation*}
+
+\subsection{Regression Trees in CART}
+
+The regression trees predict the average value of all instances in a leaf node and are grown like classification trees but with a different splitting criteria. As splitting criteria, they minimise the variance of the values in the same subset.
+
+\begin{figure}[tbh!]
+    \centering
+    \includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/regression_tree_CART}
+    \caption{A CART regression tree}
+    \label{fig:regressiontreecart}
+\end{figure}
+
+\subsection{Advantages and Disadvantages of Decision Trees}
+
+\textbf{Advantages}
+\begin{itemize}
+    \item Simple to understand and interpret for humans
+    \item Can handle both numeric and categorical data
+    \item Require almost no data preparation
+    \item Perform well even on larger datasets
+\end{itemize}
+
+\noindent
+\textbf{Disadvantages}
+\begin{itemize}
+    \item Trees are often not as accurate as other approaches
+    \item Learners tend to create over-complex trees that do not generalize well - they overfit the data
+    \item A small change in the training data can result in a big change in the tree - highly sensitive to the training data
+\end{itemize}
+
+\subsection{Association Rules versus Decision Trees}
+
+Mining association rules is unsupervised learning, whereas building decision trees is supervised learning. Whereas association rules process pure transactions, decision trees incorporate other information. Therefore both techniques can be used in a personalized and impersonalised manner.
+
+\subsection{Random Forest}
+
+Random forests try to address the problems of decision trees. They are simply a collection of decision trees built from the same training set using \textbf{random sampling with replacement} and a \textbf{random attribute selection}, the prediction from a forest is a combination of the individual tree's results.
+
+\begin{figure}[tbh!]
+    \centering
+    \includegraphics[width=0.7\linewidth, keepaspectratio]{random_forest_diagram}
+    \caption{An illustration of a random forest}
+    \label{fig:randomforest}
+\end{figure}
+
+\subsubsection{Building a Random Forest}
+
+\textbf{Training Phase}
+\begin{enumerate}
+    \item Choose a random subset D* of your training set D
+    \item Choose a random subset A* of attributes
+    \item Build a decision tree from A* and D*
+    \item Repeat step 1 – 3 for the number of decision trees you want
+\end{enumerate}
+\noindent
+\textbf{Decision Phase}
+\begin{enumerate}
+    \item Get a separate decision from each tree in the random forest
+    \item Combine the result of each tree to obtain the final decision by taking the average for regression or majority vote for classification
+\end{enumerate}
+
+\section{Debugging}
+
+\textbf{Motivation}
+\begin{enumerate}
+    \item You carefully split your data into training, validation and test set
+    \item You put aside your test set
+    \item You train your favourite learning algorithm on the training set
+    \item You get 20\% error on the validation set which is unacceptably high
+\end{enumerate}
+
+\subsection{Bias and Variance}
+Different sources of error can prevent supervised learning algorithms from generalizing beyond their training set. The \textbf{bias} results from false assumptions in the learning algorithm. High bias can cause an algorithm to miss the relevant structure between features and target. While the \textbf{variance} results from sensitivity to small fluctuations in the training set. High variance can cause an algorithm to model the random noise in the training data rather than the intended outputs.
+
+\begin{itemize}
+    \item A model with high bias and low variance \textbf{underfits} the data
+    \item A model with low bias and high variance \textbf{overfits} the data
+\end{itemize}
+
+Also refer to the figure \ref{fig:underoverfittingbiasvariance} in section \ref{sec:Regularisation}.
+
+\subsubsection{Under- and Overfitting in Classification}
+\noindent
+\textbf{Underfitting}
+\begin{itemize}
+    \item A straight line is just not complex enough to separate the classes
+    \item This model performs badly on both training and test data
+\end{itemize}
+
+\noindent
+\textbf{Overfitting}
+\begin{itemize}
+    \item This model optimizes to much with respect to the training data
+    \item It shows high performance on training but low performance on test data
+\end{itemize}
+
+\subsubsection{Under- and Overfitting in Regression}
+
+\begin{figure}[tbh!]
+    \centering
+    \includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/underfitting_overfitting_regression}
+    \caption{Underfitting and Overfitting in Regression}
+    \label{fig:underfittingoverfittingregression}
+\end{figure}
+
+\vspace{1em}
+
+\noindent
+\textbf{Underfitting}
+\begin{itemize}
+    \item A straight line is just not complex enough to approximate the data
+    \item This model performs badly on both training and test data
+\end{itemize}
+
+\noindent
+\textbf{Overfitting}
+\begin{itemize}
+    \item This model optimizes to much with respect to the training data
+    \item It shows high performance on training but low performance on test data
+\end{itemize}
+
+\clearpage
+
+\subsubsection{Learning Curve for Underfitting}
+     
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/underfitting_learning_curve}
+    \caption{Underfitting has bad performance on training and test data}
+    \label{fig:underfittinglearningcurve}
+\end{figure}
+
+\subsubsection{Counteracting Underfitting}
+Underfitting is often easier to repair, as it means that your model is misses relevant structures, so you can try to make it more complex through:
+\begin{itemize}
+    \item A larger set of features
+    \item A different set of features
+    \item More complex machine learning algorithms
+\end{itemize}
+
+\subsubsection{Learning Curve for Overfitting}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\linewidth, keepaspectratio]{Pictures/overfitting_learning_curve}
+    \caption{Overfitting has good performance on training but bad performance on test data}
+    \label{fig:overfittinglearningcurve}
+\end{figure}
+
+\subsubsection{Counteracting Overfitting}
+Overfitting happens more frequently and is much harder to repair. It occurs because your model is to sensitive to the training data, you could try to:
+\begin{itemize}
+    \item Getting more training data
+    \item Better data cleaning and eliminate outliers
+    \item A smaller set of features through feature selection
+    \item Early stopping during iterative training
+    \item Tuning the regularization parameter
+    \item Ensemble methods
+\end{itemize}
+
+\subsubsection{Early Stopping}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\linewidth, keepaspectratio]{Pictures/early_stopping}
+    \caption{Stopping the training early to avoid ovefitting}
+    \label{fig:earlystopping}
+\end{figure}
+
+\subsection{How to Approach a Machine Learning Project}
+
+\begin{enumerate}
+    \item Data quality assessment is always worth the time
+    \item Visualize your data
+    \item Specify and implement a water-proof quality assessment workflow
+    \item Implement a quick-and-dirty baseline classifier or regressor
+    \item Run error analysis and diagnostics
+    \item Learn and improve
+\end{enumerate}
+
+
 \end{document}
