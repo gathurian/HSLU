@@ -2813,7 +2813,7 @@ Overfitting happens more frequently and is much harder to repair. It occurs beca
 
 \section{Artificial Neural Networks}
 
-Artificial neural networks try to imitate a biological neural system. The smallest subunit of it is called a neuron, which combines one or multiple input signals from preceding neurons and based on these signals computes an output signal which is propagated to selected neighbouring neurons. A large number of neurons in multiple layers is able to solve complex problems.
+Artificial neural networks try to imitate a biological neural system. The smallest subunit of it is called a neuron. A neuron combines one or multiple input signals from preceding neurons and based on these signals computes an output signal which is propagated to selected neighbouring neurons. A large number of neurons in multiple layers is able to solve complex problems.
 
 Most artificial neural network (ANN) are layered. We distinguish between the following three types
 \begin{enumerate}
@@ -2848,7 +2848,7 @@ Most artificial neural network (ANN) are layered. We distinguish between the fol
     \label{fig:artificialneuronlayers}
 \end{figure}
 
-Each neuron fires only if the calculated signal from all the inputs is over a threshold $\theta$. For each neuron $j$ the weighted sum of the $n$ input signal $\text{net}_j$ is calculated as
+Each neuron fires only if the calculated signal from all the inputs is over a threshold $\theta$. For each neuron $j$, the weighted sum of the $n$ input signal $\text{net}_j$ is calculated as
 \begin{equation}
     \text{net}_j = \sum_{i=0}^{n} w_{ji} x_i = w_{j0}x_0 + w_{j1}x_1 + \cdots + w_{jn}x_n = w_{j0} \cdot 1 + w_{j1}x_1 + \cdots + w_{jn}x_n
 \end{equation}
@@ -2935,7 +2935,7 @@ The update of the weight $w_{ji}$ from input $x_i$ to output $y_j$ with the lear
     \Delta w_{ji} = \eta\cdot y_j \cdot x_i
 \end{equation}
 
-When we factor in the error $e_j$ to account for a target value $t_j$ too high or too low than the actual output $y_j$, we get what is called the \textbf{$\delta$-rule} by Widrow and Hoff or \textbf{Hebb's learning rule} by Bürgler.
+When we factor in the error $e_j$ to account for a target value $t_j$ higher or lower than the actual output $y_j$, we get what is called the \textbf{$\delta$-rule} by Widrow and Hoff or \textbf{Hebb's learning rule} by Bürgler.
 
 \begin{align}\label{eq:widrowhoffrule}
     e_j &= t_j - y_j\\
@@ -3115,7 +3115,7 @@ w'_{12} = w_{12} + \Delta w_{12} &= 0.3 + 0.3\cdot 0 \cdot 1 = 0.3 + 0 = 0.3 \\
 
 \subsubsection{Updating Weights Using Vectors}
 
-Given the input vector $\vec{x}$ and the weight vector $w_j$ for a given node $j$ we can write the output after the activation function $h$ with $n$ input nodes as follows
+Given the input vector $\vec{x}$ and the weight vector $w_j$ for a given node $j$, we can write the output after the activation function $h$ with $n$ input nodes as follows
 \begin{equation}
     y_j = h\left( \sum_{i=0}^{n} w_{ji} x_i \right) = h(\vec{w}_j \cdot \vec{x})
 \end{equation}
@@ -3127,7 +3127,7 @@ y_j = h(\vec{w}_j \cdot \vec{x}) = \left\{ \begin{matrix} 1 & \vec{w}_j \cdot \v
 \end{equation}
 
 \noindent
-And the update of the weights $\vec{w}'_j$ written as follows
+And the update of the weights $\vec{w}'_j$ is written as follows
 
 \begin{equation}
     \vec{w}'_j = \vec{w}_j + \eta (t - y_j)\cdot \vec{x}
