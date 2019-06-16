@@ -1005,7 +1005,7 @@ $S_{xx}$ and $S_{xy}$ are called \textbf{regression coefficients} and are calcul
 From this follows that the regression line is:
 
 \begin{equation*}
-    h_{\theta}(x) = -0.64 \cdot 0.77 \cdot x
+    h_{\theta}(x) = -0.64 + 0.77 \cdot x
 \end{equation*}
 
 \begin{figure}[htb!]
@@ -1412,7 +1412,7 @@ print(theta)
 
 
 \section{Regularisation}
-Under- and overfitting are common problems in machine learning. Underfitting occurs when the model is to general and can't aptly represent the data. Overfitting occurs, when the model is too precisely fitted to the training data.
+Under- and overfitting are common problems in machine learning. Underfitting occurs when the model is too general and can't aptly represent the data. Overfitting occurs, when the model is too precisely fitted to the training data.
 
 \begin{figure}[htb!]
     \centering
@@ -1770,7 +1770,7 @@ An \textbf{association rule} is an implication $X\rightarrow Y$, where $X$ and $
 
 \subsubsection{Support of a Set of Items}
 
-Support is the proportion of transactions which contains a specific item set, and thus measures how frequently items ar bought together.
+Support is the proportion of transactions which contains a specific item set, and thus measures how frequently items are bought together.
 \begin{equation*}
     \text{support}(\{i_1,...,i_n\}) = \frac{\#\text{purchases of \{i_1,...,i_n\}}}{\# \text{transactions}}
 \end{equation*}
@@ -1875,9 +1875,9 @@ The \textbf{lift} of an association rule is defined as and measures how many tim
 \end{figure}
 
 \begin{itemize}[leftmargin=*, labelindent=3cm, labelsep=1cm]
-    \item[lift = 1] $X$ and $Y$ are statistically independent
-    \item[lift < 1] indicates that $X$ and $Y$ appear less often together than expected, the occurrence of $X$ has a negative effect on the occurrence of $Y$ and vice-versa, $X$ and $Y$ are \textbf{anti-correlated}
-    \item[lift > 1] indicates that $X$ and $Y$ appear more often together than expected, the occurrence of $X$ has a positive effect on the occurrence of $Y$ and vice-versa, $X$ and $Y$ are \textbf{correlated}
+    \item[lift $= 1$] $X$ and $Y$ are statistically independent
+    \item[lift $< 1$] indicates that $X$ and $Y$ appear less often together than expected, the occurrence of $X$ has a negative effect on the occurrence of $Y$ and vice-versa, $X$ and $Y$ are \textbf{anti-correlated}
+    \item[lift $> 1$] indicates that $X$ and $Y$ appear more often together than expected, the occurrence of $X$ has a positive effect on the occurrence of $Y$ and vice-versa, $X$ and $Y$ are \textbf{correlated}
 \end{itemize}
 
 In general, the larger the lift value, the stronger the association between $X$ and $Y$. A good rule has high lift.
@@ -2138,7 +2138,7 @@ Another example: If I buy ski boots, you could assume that I already own a pair 
 To summarize:
 
 \begin{itemize}
-    \item Recommendations by Associations are \textit{fast}. No data collection and evaluation necessa4ry
+    \item Recommendations by Associations are \textit{fast}. No data collection and evaluation necessary
     \item Associations are \textit{context aware}. Only pairs of products that match together will be recommended together
     \item Associations can be specifically \textit{tailored} to certain businesses
     \item Associations look at \textit{shopping carts} instead of buyers and do not consider the customers personal preferences
@@ -2261,7 +2261,7 @@ There's a similar approach as to the Context-Based Recommendations, but there's 
 
 \subsection{Item-to-Item Collaborative Filtering}
 
-Because user provides constantly change, pre-computation does not necessarily work. In contrast, for pairs fo items, similarity is stable and can be pre-computed.
+Because user provides constantly change, pre-computation does not necessarily work. In contrast, for pairs of items, similarity is stable and can be pre-computed.
 
 The main difference is that we compare row vectors for neighbour search instead of column vectors.
 
@@ -2568,7 +2568,7 @@ The rows of this matrix $P$ are the \textbf{principal components} of $X$.
     \item Every eigenvalue corresponds to the variance of one feature in our data matrix $Y$
     \item Features with zero variance do not contain any information $\rightarrow$ Drop them
     \item The sum of eigenvalues corresponds to the total variance in the data
-    \item Caluclate the percentage of how much each feature contributes to the total variance
+    \item Calculate the percentage of how much each feature contributes to the total variance
     \item Drop the features that don't contribute enough variance to be relevant
 \end{itemize}
 
@@ -2796,7 +2796,7 @@ Overfitting happens more frequently and is much harder to repair. It occurs beca
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.6\linewidth, keepaspectratio]{Pictures/early_stopping}
-    \caption{Stopping the training early to avoid ovefitting}
+    \caption{Stopping the training early to avoid overfitting}
     \label{fig:earlystopping}
 \end{figure}
 
@@ -2811,5 +2811,445 @@ Overfitting happens more frequently and is much harder to repair. It occurs beca
     \item Learn and improve
 \end{enumerate}
 
+\section{Artificial Neural Networks}
+
+Artificial neural networks try to imitate a biological neural system. The smallest subunit of it is called a neuron. A neuron combines one or multiple input signals from preceding neurons and based on these signals computes an output signal which is propagated to selected neighbouring neurons. A large number of neurons in multiple layers is able to solve complex problems.
+
+Most artificial neural network (ANN) are layered. We distinguish between the following three types
+\begin{enumerate}
+    \item Single-layer feedforward networks
+    \item Multilayer feedforward networks
+    \item Recurrent networks (includes feedback into previous layers).
+\end{enumerate}
+
+\begin{figure}[tbh!]
+    \centering
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/singlelayer_feedforward_network}
+        \caption{A single-layer feedforward network}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_feedforward_network}
+        \caption{Multi-layer feedforward network with one hidden layer}
+    \end{subfigure}
+    \caption{Feedforward networks}
+    \label{fig:feedforwardnetworks}
+\end{figure}
+
+\subsection{The Artificial Neuron}
+
+\begin{figure}[tbh!]
+    \centering
+    \includegraphics[width=0.5\linewidth, keepaspectratio]{Pictures/artificial_neuron_layers}
+    \caption{Slice of an input and output layer in an artificial neural network}
+    \label{fig:artificialneuronlayers}
+\end{figure}
+
+Each neuron fires only if the calculated signal from all the inputs is over a threshold $\theta$. For each neuron $j$, the weighted sum of the $n$ input signal $\text{net}_j$ is calculated as
+\begin{equation}
+    \text{net}_j = \sum_{i=0}^{n} w_{ji} x_i = w_{j0}x_0 + w_{j1}x_1 + \cdots + w_{jn}x_n = w_{j0} \cdot 1 + w_{j1}x_1 + \cdots + w_{jn}x_n
+\end{equation}
+
+Each weight $w_{ji}$ follows the pattern $w_{\text{ReceivingNode}\ \text{InputNode}}$ so $w_{12}$ means the weight for the node 1 and signal node 2. The node $x_0$ always has a value of 1 and is used as a threshold $\theta_j = -w_{j0}$. Thus if a neuron fires can be written as
+
+\begin{align*}
+    \text{net}_j &> 0\\
+    \sum_{i=0}^{n} w_{ji} x_i &> 0\\
+    w_{j0} + \sum_{i=1}^{n} w_{ji} x_i &> 0\\
+    -\theta_j + \sum_{i=1}^{n} w_{ji} x_i &> 0\\
+    \sum_{i=1}^{n} w_{ji} x_i &> \theta_j\\
+    \sum_{i=1}^{n} w_{ji} x_i &> -w_{j0}
+\end{align*}
+
+To model the firing of the $j$-th output neurons, we have to apply the \textbf{activation function} $\sigma$ to the net input
+
+\begin{equation}
+    y_j = \sigma(\text{net}_j) = \sigma(\sum_{i=0}^{n} w_{ji} x_i) = \sigma(w_{j0}x_0 + w_{j1}x_1 + \cdots + w_{jn}x_n)
+\end{equation}
+
+\subsection{The Activation Function}
+The binary threshold function with threshold zero ($\theta = 0$) is the usual Heaviside function. Shifting this function, we obtain the binary threshold function with threshold $\theta$. The threshold is also called bias.
+
+\begin{figure}[tbh!]
+    \centering
+    \begin{subfigure}{0.45\linewidth}
+        \includegraphics[keepaspectratio,width=\linewidth]{Pictures/heaviside_zero}
+        \caption{Heaviside Function with threshold zero}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \includegraphics[keepaspectratio,width=\linewidth]{Pictures/heaviside_theta}
+        \caption{Heaviside Function with threshold $\theta$}
+    \end{subfigure}
+    \caption{Heaviside Functions}
+    \label{fig:heavisidefunction}
+\end{figure}
+
+Using the Heaviside-Function $h$ we can write
+
+\begin{align}
+    \sigma(\text{net}_j) &= h(\text{net}_j - \theta_j)\\
+    \sigma(\text{net}_j) &= \left\{ \begin{matrix}0 & \text{net}_j < \theta\\1 & \text{net}_j \geq \theta\end{matrix} \right.
+\end{align}
+
+\begin{figure}[tbh!]
+    \centering
+    \includegraphics[keepaspectratio, width=0.7\linewidth]{Pictures/sigmoid_function}
+    \caption{The sigmoid activation function}
+    \label{fig:sigmoidfunction}
+\end{figure}
+
+\begin{equation}
+    \sigma(\text{net}_j) = \left\{ \begin{matrix}0 & \text{net}_j \leq -a\\ \frac{\text{net}_j}{2a} +\frac{1}{2} & -a<\text{net}_j<a \\ 1 & \text{net}_j \geq a \end{matrix} \right.
+\end{equation}
+
+\begin{equation}
+    \sigma(\text{net}_j) = \frac{1}{1+e^{-a\cdot\text{net}_j}}
+\end{equation}
+
+\begin{equation}\label{eq:sigmoidderivative}
+    \sigma'(\text{net}_j) = a\cdot\sigma(\text{net}_j)(1-\sigma(\text{net}_j))
+\end{equation}
+
+
+For $a\rightarrow\infty$ the sigmoid function converges towards the Heaviside function. Contrary to the threshold function, the sigmoid function has a continuous derivative (see equation \ref{eq:sigmoidderivative}). This is of paramount importance in multilayer neural networks where we have to apply back propagation.
+
+\subsection{Description of a Neural Network using Matrices}
+
+The artificial neural network in figure \ref{fig:artificialneuronlayers} can be described using matrices as follows
+
+\begin{align}
+    \begin{bmatrix}y_1\\y_2\end{bmatrix} &= \sigma\left( \begin{bmatrix}w_{10}&w_{11}&w_{12}\\w_{20}&w_{21}&w_{22}\end{bmatrix}\begin{bmatrix}x_0\\x_1\\x_2\end{bmatrix} \right)\\
+    \vec{y} &= \sigma(\vec{W}\vec{x})
+\end{align}
+
+\subsection{Single-Layer Feedforward Networks}
+Input nodes do no computation, they are just used as input. All output nodes compute their output using the same activation function $\sigma$ (either the Heaviside Step function or the Sigmoid function). These networks are used as binary classifiers if the problem is linearly separable and called Perceptrons.
+
+\subsubsection{Learning Rules - Weights Update}
+
+The update of the weight $w_{ji}$ from input $x_i$ to output $y_j$ with the learning rate $\eta$ being a constant typically between $0 ... 0.5$
+\begin{equation}
+    \Delta w_{ji} = \eta\cdot y_j \cdot x_i
+\end{equation}
+
+When we factor in the error $e_j$ to account for a target value $t_j$ higher or lower than the actual output $y_j$, we get what is called the \textbf{$\delta$-rule} by Widrow and Hoff or \textbf{Hebb's learning rule} by Bürgler.
+
+\begin{align}\label{eq:widrowhoffrule}
+    e_j &= t_j - y_j\\
+    \Delta w_{ji} &= \eta\cdot e_j \cdot x_i
+\end{align}
+
+\paragraph{Example} Realise the logic AND function using a single layer feedforward network and the Heaviside function. The starting values are $w_{10}=-1$, $w_{11}=1$, $w_{12}=0$ and $\eta=0.3$.
+
+\begin{figure}[tbh!]
+    \centering
+    \begin{subfigure}{0.45\linewidth}
+        \includegraphics[keepaspectratio,width=\linewidth]{Pictures/AND_logic_function}
+        \caption{Function to simulate in the example}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \includegraphics[keepaspectratio,width=\linewidth]{Pictures/example_network}
+        \caption{Network used in the example}
+    \end{subfigure}
+    \caption{Example parameters}
+    \label{fig:exampleparameters}
+\end{figure}
+
+\begin{tabularx}{\linewidth}{XXXXXXXXcXXX}
+    \hline
+    $w_{10}$ & $w_{11}$ & $w_{12}$ & $x_1$ & $x_2$ & $\eta$ & $y_1$ & $t$ & $\eta (t-y_1)$ & $\Delta w_{10}$ & $\Delta w_{11}$ & $\Delta w_{12}$\\
+    \hline
+    -1 & 1 & 0 & 1 & 1 & 0.3 & 0 & 1 & & & &\\
+    \hline
+    & & & & & & & & & & & \\
+    \hline
+\end{tabularx}
+
+\begin{align*}
+    \text{net}_1 = w_{10} + w_{11}x_1 + w_{12}x_2 &= -1 + 1\cdot 1 + 0\cdot 1 = 0\\
+    y_1 = h(\text{net}_1) &= h(0) = 0\\
+    e_1 = t - y_1 &= 1 - 0 = 1\\
+    \eta \cdot e_1 = \eta (t - y_1) &= 0.3\cdot 1 = 0.3\\
+    \Delta w_{10} = \eta (t - y_1) \cdot x_0 &= 0.3\cdot 1\cdot 1 = 0.3\\
+    \Delta w_{11} = \eta (t - y_1) \cdot x_1 &= 0.3\cdot 1\cdot 1 = 0.3\\
+    \Delta w_{12} = \eta (t - y_1) \cdot x_2 &= 0.3\cdot 1\cdot 1 = 0.3\\
+\end{align*}
+
+
+\begin{tabularx}{\linewidth}{XXXXXXXXcXXX}
+    \hline
+    $w_{10}$ & $w_{11}$ & $w_{12}$ & $x_1$ & $x_2$ & $\eta$ & $y_1$ & $t$ & $\eta (t-y_1)$ & $\Delta w_{10}$ & $\Delta w_{11}$ & $\Delta w_{12}$\\
+    \hline
+    -1 & 1 & 0 & 1 & 1 & 0.3 & 0 & 1 & 0.3 & 0.3 & 0.3 & 0.3\\
+    \hline
+    & & & & & & & & & & & \\
+    \hline
+\end{tabularx}
+
+\begin{align*}
+    w'_{10} = w_{10} + \Delta w_{10} &= -1 + 0.3\cdot 1\cdot 1 = -1 + 0.3 = -0.7\\
+    w'_{11} = w_{11} + \Delta w_{11} &= 1 + 0.3\cdot 1\cdot 1 = 1 + 0.3 = 1.3 \\
+    w'_{12} = w_{12} + \Delta w_{12} &= 0.3 + 0.3\cdot 1\cdot 1 = 0 + 0.3 = 0.3 \\
+\end{align*}
+
+\begin{tabularx}{\linewidth}{XXXXXXXXcXXX}
+    \hline
+    $w_{10}$ & $w_{11}$ & $w_{12}$ & $x_1$ & $x_2$ & $\eta$ & $y_1$ & $t$ & $\eta (t-y_1)$ & $\Delta w_{10}$ & $\Delta w_{11}$ & $\Delta w_{12}$\\
+    \hline
+    -1 & 1 & 0 & 1 & 1 & 0.3 & 0 & 1 & 0.3 & 0.3 & 0.3 & 0.3\\
+    \hline
+    -0.7 & 1.3 & 0.3 & 1 & 0 & 0.3 & 1 & 0 & -0.3 & -0.3 & -0.3 & 0\\
+    \hline
+\end{tabularx}
+
+\begin{align*}
+    \text{net}_1 = w_{10} + w_{11}x_1 + w_{12}x_2 &= -0.7 + 1.3 \cdot 1 + 0.3 \cdot 0 = 0.6\\
+    y_1 = h(\text{net}_1) &= h(0.6) = 1\\
+    e_1 = t - y_1 &= 0 - 1 = -1\\
+    \eta \cdot e_1 = \eta (t - y_1) &= 0.3\cdot -1 = -0.3\\
+    w'_{10} = w_{10} + \Delta w_{10} &= -0.7 + 0.3\cdot (-1)\cdot 1 = -0.7 - 0.3 = -1\\
+    w'_{11} = w_{11} + \Delta w_{11} &= 1.3 + 0.3\cdot (-1)\cdot 1 = 1.3 - 0.3 = 1 \\
+    w'_{12} = w_{12} + \Delta w_{12} &= 0.3 + 0.3\cdot (-1)\cdot 0 = 0.3 + 0 = 0.3 \\
+\end{align*}
+
+\begin{tabularx}{\linewidth}{XXXXXXXXcXXX}
+    \hline
+    $w_{10}$ & $w_{11}$ & $w_{12}$ & $x_1$ & $x_2$ & $\eta$ & $y_1$ & $t$ & $\eta (t-y_1)$ & $\Delta w_{10}$ & $\Delta w_{11}$ & $\Delta w_{12}$\\
+    \hline
+    -1 & 1 & 0 & 1 & 1 & 0.3 & 0 & 1 & 0.3 & 0.3 & 0.3 & 0.3\\
+    \hline
+    -0.7 & 1.3 & 0.3 & 1 & 0 & 0.3 & 1 & 0 & -0.3 & -0.3 & -0.3 & 0\\
+    \hline
+    -1 & 1 & 0.3 & 0 & 0 & 0.3 & 0 & 0 & 0 & 0 & 0 & 0\\
+    \hline
+\end{tabularx}
+
+\begin{align*}
+    \text{net}_1 = w_{10} + w_{11}x_1 + w_{12}x_2 &= -1 + 1 \cdot 0 + 0.3 \cdot 0 = -1\\
+    y_1 = h(\text{net}_1) &= h(-1) = 0\\
+    e_1 = t - y_1 &= 0 - 0 = 0\\
+    \eta \cdot e_1 = \eta (t - y_1) &= 0.3\cdot 0 = 0\\
+    w'_{10} = w_{10} + \Delta w_{10} &= -1 + 0.3\cdot 0 \cdot 1 = -1 + 0 = -1\\
+    w'_{11} = w_{11} + \Delta w_{11} &= 1 + 0.3\cdot 0 \cdot 0 = 1 + 0 = 1 \\
+    w'_{12} = w_{12} + \Delta w_{12} &= 0.3 + 0.3\cdot 0 \cdot 0 = 0.3 + 0 = 0.3 \\
+\end{align*}
+
+\begin{tabularx}{\linewidth}{XXXXXXXXcXXX}
+    \hline
+    $w_{10}$ & $w_{11}$ & $w_{12}$ & $x_1$ & $x_2$ & $\eta$ & $y_1$ & $t$ & $\eta (t-y_1)$ & $\Delta w_{10}$ & $\Delta w_{11}$ & $\Delta w_{12}$\\
+    \hline
+    -1 & 1 & 0 & 1 & 1 & 0.3 & 0 & 1 & 0.3 & 0.3 & 0.3 & 0.3\\
+    \hline
+    -0.7 & 1.3 & 0.3 & 1 & 0 & 0.3 & 1 & 0 & -0.3 & -0.3 & -0.3 & 0\\
+    \hline
+    -1 & 1 & 0.3 & 0 & 0 & 0.3 & 0 & 0 & 0 & 0 & 0 & 0\\
+    \hline
+    -1 & 1 & 0.3 & 0 & 1 & 0.3 & 0 & 0 & 0 & 0 & 0 & 0\\
+    \hline
+\end{tabularx}
+
+\begin{align*}
+    \text{net}_1 = w_{10} + w_{11}x_1 + w_{12}x_2 &= -1 + 1 \cdot 0 + 0.3 \cdot 1 = -0.7\\
+    y_1 = h(\text{net}_1) &= h(-0.7) = 0\\
+    e_1 = t - y_1 &= 0 - 0 = 0\\
+    \eta \cdot e_1 = \eta (t - y_1) &= 0.3\cdot 0 = 0\\
+    w'_{10} = w_{10} + \Delta w_{10} &= -1 + 0.3\cdot 0 \cdot 1 = -1 + 0 = -1\\
+    w'_{11} = w_{11} + \Delta w_{11} &= 1 + 0.3\cdot 0 \cdot 0 = 1 + 0 = 1 \\
+    w'_{12} = w_{12} + \Delta w_{12} &= 0.3 + 0.3\cdot 0 \cdot 1 = 0.3 + 0 = 0.3 \\
+\end{align*}
+
+\begin{tabularx}{\linewidth}{XXXXXXXXcXXX}
+    \hline
+    $w_{10}$ & $w_{11}$ & $w_{12}$ & $x_1$ & $x_2$ & $\eta$ & $y_1$ & $t$ & $\eta (t-y_1)$ & $\Delta w_{10}$ & $\Delta w_{11}$ & $\Delta w_{12}$\\
+    \hline
+    -1 & 1 & 0 & 1 & 1 & 0.3 & 0 & 1 & 0.3 & 0.3 & 0.3 & 0.3\\
+    \hline
+    -0.7 & 1.3 & 0.3 & 1 & 0 & 0.3 & 1 & 0 & -0.3 & -0.3 & -0.3 & 0\\
+    \hline
+    -1 & 1 & 0.3 & 0 & 0 & 0.3 & 0 & 0 & 0 & 0 & 0 & 0\\
+    \hline
+    -1 & 1 & 0.3 & 0 & 1 & 0.3 & 0 & 0 & 0 & 0 & 0 & 0\\
+    \hline
+    -1 & 1 & 0.3 & 1 & 0 & 0.3 & 0 & 0 & 0 & 0 & 0 & 0\\
+    \hline
+\end{tabularx}
+
+\begin{align*}
+\text{net}_1 = w_{10} + w_{11}x_1 + w_{12}x_2 &= -1 + 1 \cdot 1 + 0.3 \cdot 0 = 0\\
+y_1 = h(\text{net}_1) &= h(0) = 0\\
+e_1 = t - y_1 &= 0 - 0 = 0\\
+\eta \cdot e_1 = \eta (t - y_1) &= 0.3\cdot 0 = 0\\
+w'_{10} = w_{10} + \Delta w_{10} &= -1 + 0.3\cdot 0 \cdot 1 = -1 + 0 = -1\\
+w'_{11} = w_{11} + \Delta w_{11} &= 1 + 0.3\cdot 0 \cdot 1 = 1 + 0 = 1 \\
+w'_{12} = w_{12} + \Delta w_{12} &= 0.3 + 0.3\cdot 0 \cdot 0 = 0.3 + 0 = 0.3 \\
+\end{align*}
+
+\begin{tabularx}{\linewidth}{XXXXXXXXcXXX}
+    \hline
+    $w_{10}$ & $w_{11}$ & $w_{12}$ & $x_1$ & $x_2$ & $\eta$ & $y_1$ & $t$ & $\eta (t-y_1)$ & $\Delta w_{10}$ & $\Delta w_{11}$ & $\Delta w_{12}$\\
+    \hline
+    -1 & 1 & 0 & 1 & 1 & 0.3 & 0 & 1 & 0.3 & 0.3 & 0.3 & 0.3\\
+    \hline
+    -0.7 & 1.3 & 0.3 & 1 & 0 & 0.3 & 1 & 0 & -0.3 & -0.3 & -0.3 & 0\\
+    \hline
+    -1 & 1 & 0.3 & 0 & 0 & 0.3 & 0 & 0 & 0 & 0 & 0 & 0\\
+    \hline
+    -1 & 1 & 0.3 & 0 & 1 & 0.3 & 0 & 0 & 0 & 0 & 0 & 0\\
+    \hline
+    -1 & 1 & 0.3 & 1 & 1 & 0.3 & 1 & 1 & 0 & 0 & 0 & 0\\
+    \hline
+\end{tabularx}
+
+\begin{align*}
+\text{net}_1 = w_{10} + w_{11}x_1 + w_{12}x_2 &= -1 + 1 \cdot 1 + 0.3 \cdot 1 = 0.3\\
+y_1 = h(\text{net}_1) &= h(0.3) = 1\\
+e_1 = t - y_1 &= 1 - 1 = 0\\
+\eta \cdot e_1 = \eta (t - y_1) &= 0.3\cdot 0 = 0\\
+w'_{10} = w_{10} + \Delta w_{10} &= -1 + 0.3\cdot 0 \cdot 1 = -1 + 0 = -1\\
+w'_{11} = w_{11} + \Delta w_{11} &= 1 + 0.3\cdot 0 \cdot 1 = 1 + 0 = 1 \\
+w'_{12} = w_{12} + \Delta w_{12} &= 0.3 + 0.3\cdot 0 \cdot 1 = 0.3 + 0 = 0.3 \\
+\end{align*}
+
+\subsubsection{Updating Weights Using Vectors}
+
+Given the input vector $\vec{x}$ and the weight vector $w_j$ for a given node $j$, we can write the output after the activation function $h$ with $n$ input nodes as follows
+\begin{equation}
+    y_j = h\left( \sum_{i=0}^{n} w_{ji} x_i \right) = h(\vec{w}_j \cdot \vec{x})
+\end{equation}
+
+\noindent
+Therefore we can write the output as
+\begin{equation}
+y_j = h(\vec{w}_j \cdot \vec{x}) = \left\{ \begin{matrix} 1 & \vec{w}_j \cdot \vec{x} \geq 0\\ 0 & \vec{w}_j \cdot \vec{x} < 0 \end{matrix} \right.
+\end{equation}
+
+\noindent
+And the update of the weights $\vec{w}'_j$ is written as follows
+
+\begin{equation}
+    \vec{w}'_j = \vec{w}_j + \eta (t - y_j)\cdot \vec{x}
+\end{equation}
+
+\subsection{Multi-Layer Feedforward Networks}
+A multi-layer network has an input layer, where no computation is done, one or more hidden layers where computation take place, and one output layer. The signals can only travel forward, so there is no feedback or loops. A notable example is the multilayer Perceptron.
+
+\begin{figure}[tbh!]
+    \centering
+    \includegraphics[keepaspectratio, width=0.6\linewidth]{Pictures/fully_connected_multilayer_feedforward_network}
+    \caption{A fully connected multilayer feedworward network with one hidden layer}
+    \label{fig:fullyconnectedmultilayerfeedforwardnetwork}
+\end{figure}
+
+In figure \ref{fig:fullyconnectedmultilayerfeedforwardnetwork} the bias neuron always has the index 0 and a set value of 1. We have two input neurons and a hidden layer with three neurons. The weights of the connection between input and hidden layer are denoted by $w_{ji}^{(1)}$ (from input nodes $x_i$ to hidden layer nodes $h_j$) and the ones between hidden and output layer are denoted by $w_{kj}^{(2)}$ (from hidden nodes $h_i$ to output nodes $y_k$). In all of this we would like to minimise the (L2-) error $E$ of the training sample $(\vec{x}^{(\nu)}, \vec{t}^{(\nu)})$ with input $\vec{x}^{(\nu)}$ and output $ \vec{t}^{(\nu)}$. $N_O$ is the count of output nodes, $N_I$ the count of input nodes and $N_H$ the count of hidden nodes.
+\begin{equation}
+    E\left(\vec{W}^{(1)}, \vec{W}^{(2)}\right) = \frac{1}{2} \sum_{k=1}^{N_O} \left(e_k^{(\nu)}\right)^2 = \frac{1}{2} \sum_{k=1}^{N_O} \left(t_k^{(\nu)} - y_k^{(\nu)}\right)^2
+\end{equation}
+
+\subsubsection{Forward Sweep}
+
+\begin{enumerate}
+    \item Read input/target pair $(\vec{x},\vec{t})$
+    \item For each hidden neuron $j = 1,2,...,N_H$ compute $h_j=\sigma\left(\sum_{i=0}^{N_I} w_ji^{(1)} x_i \right)$
+    \item For each output neuron $k = 1,2,...,N_O$ compute $y_k=\sigma\left(\sum_{j=0}^{N_H} w_kj^{(2)} h_j \right)$, the error $e_k = t_k - y_k$ and the resulting Delta $\delta_k^{(o)} = y_k(1-y_k)e_k$
+\end{enumerate}
+
+\noindent
+The forward propagation can be written in matrix notation:
+\begin{align*}
+    h_j=\sigma\left(\sum_{i=0}^{N_I} w_ji^{(1)} x_i \right) &\Rightarrow \vec{h} = \sigma\left( \vec{W}^{(1)} \vec{x} \right)\\
+    y_k=\sigma\left(\sum_{j=0}^{N_H} w_kj^{(2)} h_j \right) &\Rightarrow \vec{y} = \sigma\left( \vec{W}^{(2)} \vec{h} \right)
+\end{align*}
+
+\subsubsection{Backpropagation}
+
+\begin{enumerate}
+    \item Correct the weights $w_kj^{(2)}$ according to $\Delta w_kj^{(2)} = \eta \delta_k^{(o)} h_i$
+    \item For each hidden neuron $j = 1,2...,N_H$ compute $\delta_j^{(h)} = h_i(1-h_i)\sum_{k=1}^{N_O} \delta_k^{(o)} w_{kj}^{(2)}$ where we sum over all successors $k$ of the hidden neuron $i$
+    \item Correct the weights $w_ji^{(1)} according to $$\Delta w_ji^{(1)} = \eta \delta_j^{(h)} x_i$
+    \item If not converged or not all input pairs, return to Step 1 of the Forward Sweep
+\end{enumerate}
+
+\subsubsection{Example for the Calculation}
+
+\begin{figure}[tbh!]
+    \centering
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_feedforward_example_01}
+        \caption{Starting values}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_feedforward_example_02}
+        \caption{$h_1 = \sigma\left( 1\cdot 2 + 0.1 \cdot (-2) + 0.9 \cdot (-2) \right) = \sigma(0) = 0.5$}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_feedforward_example_03}
+        \caption{$h_1 = \sigma\left( 1\cdot 2 + 0.1 \cdot 3 + 0.9 \cdot 3 \right) = \sigma(5) = 0.9933$}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_feedforward_example_04}
+        \caption{All values for the hidden layer calculated}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_feedforward_example_05}
+        \caption{Final weights}
+    \end{subfigure}
+    \caption{Calculation of the node values of a multilayer feedforward networks}
+    \label{fig:feedforwardnetworks}
+\end{figure}
+
+\noindent
+Backpropagation with target values $t_1 = 0$, $t_2 = 1$ and learning rate $\eta = 0.2$.
+
+\begin{figure}[tbh!]
+    \centering
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_feedforward_example_05}
+        \caption{Starting weights}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_backward_propagation_example_01}
+        \caption{$\delta_1^{(o)} = y_1 (1 - y_1)(t_1 - y_1) = 0.122\cdot (1-0.122)\cdot (0.0-0.122) = -0.01307$}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_backward_propagation_example_02}
+        \caption{$\delta_2^{(o)} = y_2 (1 - y_2)(t_2 - y_2) = 0.728\cdot (1-0.728)\cdot (1.0-0.728) = 0.05386$}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_backward_propagation_example_03}
+        \caption{$w_{10}^{(2)} = w_{10}^{(2)} + \eta \delta_1^{(o)} h_0 = 3 + 0.2\cdot (-0.01307)\cdot 1 = 2.99739$}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \includegraphics[keepaspectratio, height=5cm]{Pictures/multilayer_backward_propagation_example_04}
+        \caption{$w_{20}^{(2)} = w_{20}^{(2)} + \eta \delta_2^{(o)} h_0 = -2 + 0.2\cdot (0.05386)\cdot 1 = -1.98923$}
+    \end{subfigure}
+    \caption{Calculation of the weights of a multilayer feedforward networks}
+    \label{fig:backwardpropagationnetworks}
+\end{figure}
+
+\noindent
+To calculate the delta for the neurons of the hidden layers, we sum over all successors of neuron $j$
+
+\begin{equation}
+    \delta_j^{(h)} = h_j (1 - h_j) \sum_{k=1}^{N_O} w_{kj}{(2)} \delta_k^{(o)}
+\end{equation}
+
+\noindent
+Then we correct the weight of $w_{ji}^{(1)}$ according to the following formula, with $\eta$ as the learning rate.
+\begin{equation}
+    w_{ji}^{(1)} \leftarrow w_{ji}^{(1)} + \Delta w_{ji}^{(1)} = w_{ji}^{(1)} + \eta\delta_j^{(h)} x_i
+\end{equation}
 
 \end{document}
