@@ -2811,5 +2811,101 @@ Overfitting happens more frequently and is much harder to repair. It occurs beca
     \item Learn and improve
 \end{enumerate}
 
+\section{Artificial Neural Networks}
+
+Artificial neural networks try to imitate a biological neural system. The smallest subunit of it is called a neuron, which combines one or multiple input signals from preceding neurons and based on these signals computes an output signal which is propagated to selected neighbouring neurons. A large number of neurons in multiple layers is able to solve complex problems.
+
+Most artificial neural network (ANN) are layered. We distinguish between the following three types
+\begin{enumerate}
+    \item Single-layer feedforward networks
+    \item Multilayer feedforward networks
+    \item Recurrent networks (includes feedback into previous layers).
+\end{enumerate}
+
+\subsection{The Artificial Neuron}
+
+\begin{figure}[tbh!]
+    \centering
+    \includegraphics[width=0.6\linewidth, keepaspectratio]{Pictures/artificial_neuron_layers}
+    \caption{Slice of an input and output layer in an artificial neurol network}
+    \label{fig:artificialneuronlayers}
+\end{figure}
+
+Each neuron fires only if the calculated signal from all the inputs is over a threshold $\theta$. For each neuron $j$ the weighted sum of the $n$ input signal $\text{net}_j$ is calculated as
+\begin{equation}
+    \text{net}_j = \sum_{i=0}^{n} w_{ji} x_i = w_{j0}x_0 + w_{j1}x_1 + \cdots + w_{jn}x_n = w_{j0} \cdot 1 + w_{j1}x_1 + \cdots + w_{jn}x_n
+\end{equation}
+
+Each weight $w_{ji}$ follows the pattern $w_{\text{ReceivingNode}\ \text{InputNode}}$ so $w_{12}$ means the weight for the node 1 and signal node 2. The node $x_0$ always has a value of 1 and is used as a threshold $\theta_j = -w_{j0}$. Thus if a neuron fires can be written as
+
+\begin{align*}
+    \text{net}_j &> 0\\
+    \sum_{i=0}^{n} w_{ji} x_i &> 0\\
+    w_{j0} + \sum_{i=1}^{n} w_{ji} x_i &> 0\\
+    -\theta_j + \sum_{i=1}^{n} w_{ji} x_i &> 0\\
+    \sum_{i=1}^{n} w_{ji} x_i &> \theta_j\\
+    \sum_{i=1}^{n} w_{ji} x_i &> -w_{j0}
+\end{align*}
+
+To model the firing of the $j$-th output neurons, we have to apply the \textbf{activation function} $\sigma$ to the net input
+
+\begin{equation}
+    y_j = \sigma(\text{net}_j) = \sigma(\sum_{i=0}^{n} w_{ji} x_i) = \sigma(w_{j0}x_0 + w_{j1}x_1 + \cdots + w_{jn}x_n)
+\end{equation}
+
+\subsection{The Activation Function}
+The binary threshold function with threshold zero ($\theta = 0$) is the usual Heaviside function. Shifting this function, we obtain the binary threshold function with threshold $\theta$. The threshold is also called bias.
+
+\begin{figure}[tbh!]
+    \centering
+    \begin{subfigure}{0.45\linewidth}
+        \includegraphics[keepaspectratio,width=\linewidth]{Pictures/heaviside_zero}
+        \caption{Heaviside Function with threshold zero}
+    \end{subfigure}
+    \begin{subfigure}{0.45\linewidth}
+        \includegraphics[keepaspectratio,width=\linewidth]{Pictures/heaviside_theta}
+        \caption{Heaviside Function with threshold $\theta$}
+    \end{subfigure}
+    \caption{Heaviside Functions}
+    \label{fig:heavisidefunction}
+\end{figure}
+
+Using the Heaviside-Function $h$ we can write
+
+\begin{align}
+    \sigma(\text{net}_j) &= h(\text{net}_j - \theta_j)\\
+    \sigma(\text{net}_j) &= \left\{ \begin{matrix}0 & \text{net}_j < \theta\\1 & \text{net}_j \geq \theta\end{matrix} \right.
+\end{align}
+
+\begin{figure}[tbh!]
+    \centering
+    \includegraphics[keepaspectratio, width=0.7\linewidth]{Pictures/sigmoid_function}
+    \caption{The sigmoid activation function}
+    \label{fig:sigmoidfunction}
+\end{figure}
+
+\begin{equation}
+    \sigma(\text{net}_j) = \left\{ \begin{matrix}0 & \text{net}_j \leq -a\\ \frac{\text{net}_j}{2a} +\frac{1}{2} & -a<\text{net}_j<a \\ 1 & \text{net}_j \geq a \end{matrix} \right.
+\end{equation}
+
+\begin{equation}
+    \sigma(\text{net}_j) = \frac{1}{1+e^{-a\cdot\text{net}_j}}
+\end{equation}
+
+\begin{equation}\label{eq:sigmoidderivative}
+    \sigma'(\text{net}_j) = a\cdot\sigma(\text{net}_j)(1-\sigma(\text{net}_j))
+\end{equation}
+
+
+For $a\rightarrow\infty$ the sigmoid function converges towards the Heaviside function. Contrary to the threshold function, the sigmoid function has a continuous derivative (see equation \ref{eq:sigmoidderivative}). This is of paramount importance in multilayer neural networks where we have to apply back propagation.
+
+\subsection{Description of a Neural Network using Matrices}
+
+The artificial neural network in figure \ref{fig:artificialneuronlayers} can be described using matrices as follows
+
+\begin{align}
+    \begin{bmatrix}y_1\\y_2\end{bmatrix} &= \sigma\left( \begin{bmatrix}w_{10}&w_{11}&w_{12}\\w_{20}&w_{21}&w_{22}\end{bmatrix}\begin{bmatrix}x_0\\x_1\\x_2\end{bmatrix} \right)\\
+    \vec{y} &= \sigma(\vec{W}\vec{x})
+\end{align}
 
 \end{document}
