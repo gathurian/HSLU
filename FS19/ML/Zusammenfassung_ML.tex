@@ -472,7 +472,7 @@ The cosine similarity is essentially just the scalar product of the two points.
 \vspace{10px}
 
 \begin{equation} \label{eq:sim}
-    sim(X,Y) = \frac{\sum^{n}_{i=i}{x_{i} y_{i}}}{\sqrt{\sum^{n}_{i=i}{x_{i}}^2\sqrt{\sum^{n}_{i=i}{y_{i}}^2}}}
+    sim(X,Y) = \frac{\sum^{n}_{i=i}{x_{i} y_{i}}}{\sqrt{\sum^{n}_{i=i}{x_{i}}^2}\sqrt{\sum^{n}_{i=i}{y_{i}}^2}}
 \end{equation}
 \begin{equation}
     dist(X,Y) = 1 - sim(X,Y)
@@ -2255,7 +2255,7 @@ There's a similar approach as to the Context-Based Recommendations, but there's 
     \centering
     \includegraphics[keepaspectratio=true, width=0.9\textwidth]{user_to_user_collaborative_filtering_v3.png}
     \caption{Example of N-Based User to User Filtering Recommendations}
-    \label{fig:context_based_example}
+    \label{fig:user_to_user_recommendation}
 \end{figure}
 
 
