@@ -228,7 +228,7 @@ These figures can give you a rough overview about the whereabouts of your data-m
 
 \textbf{Mean} \\
 
-This is the averge in a set of numeric data. You add all data and divide it by the number of data points
+This is the average in a set of numeric data. You add all data and divide it by the number of data points
 
 \begin{equation}
     \mu_{x}=\frac{1}{n} \sum^{n}_{i=1} x_{i}
@@ -246,7 +246,7 @@ This is the value that occurs the most in a given set of data
 
 This is the middlemost value of a sorted set of data. In contrast to the Mean, the Median can give information concerning the distribution of the data.
 
-Given a dataset of $1, 2, 3, 4, 5$, the median and mean are both $3$. However, if we have $1, 2, 3, 1000, 10000$, the mean is $2201.2$ whereas the mean is still $3$
+Given a dataset of $1, 2, 3, 4, 5$, the median and mean are both $3$. However, if we have $1, 2, 3, 1000, 10000$, the mean is $2201.2$ whereas the median is still $3$
 
 \newpage
 
@@ -333,7 +333,7 @@ Values $1.5 \cdot IQR$ above the 3rd or below the 1st Quartile can be considered
 The variance shows \textbf{how much the values are spread on average}. This is measured by squaring the sum of all deviations from the mean
 
 \begin{equation}
-    \frac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)^2
+    Var(x) = \frac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)^2
 \end{equation}
 
 The standard deviation $\sigma$ is calculated as $\sqrt{variance}$
@@ -690,7 +690,7 @@ If there were 5000 NO instances and 20 YES instances, a classifier that only ret
 In our confusion matrix from earlier, the Sensitivity would be $\frac{100}{100 + 5} = \frac{100}{105} = 0.95 = 95\%$
 
 \subsubsection{Sepcificity}
-This is the inverse of the Sensitivity. It counts how many NO the algorithm correctly predicted.o
+This is the inverse of the Sensitivity. It counts how many NO the algorithm correctly predicted.
 
 \begin{equation}
     Specificity= \frac{True\ Negative}{Actual\ NO} = \frac{True\ Negative}{True\ Negative + False\ Positive}
@@ -745,9 +745,9 @@ However, it is still one of the best methods to solve a classification problem w
 $R^2$ is a staticstical measure of how well the predictions approximate the real data points.
 The top is the sum of squared errors (how much does the prediction deviate from the actual value) and the botom is the deviation of the mean.
 
-$R^3 = 1$ is a perfect prediction-line
+$R^2 = 1$ is a perfect prediction-line
 
-$R^3 = 0.53$ means that 53\% of the of the predictions are correct and can be explained by the model.
+$R^2 = 0.53$ means that 53\% of the of the predictions are correct and can be explained by the model.
 
 \newpage
 
@@ -806,7 +806,7 @@ To find a local minima of a function $f$ we follow the direction of the steepest
 \subsubsection{Batch Gradient Descent}
 Elevating the strengths of vectors we can Gradient Descent along all columns of our data. For this we want to minimise the cost function
 \begin{equation}
-    J(\theta) = \frac{1}{2n}\sum_{i=1}^{n}(h(bm{\theta},\textbf{x}^{(i)})-y^{(i)})^2
+    J(\theta) = \frac{1}{2n}\sum_{i=1}^{n}(h({\theta},\textbf{x}^{(i)})-y^{(i)})^2
 \end{equation}
 
 where $h(\bm{\theta},\textbf{x}^{(i)})$ is
@@ -906,6 +906,8 @@ We could then use the features $x_1 = x$, $x_2 = x^2$ and $x_3 = x^3$, but if th
 
 For sufficiently small $\alpha$, $J(\bm{\theta})$ should decrease in every iteration, but a too small $\alpha$ leads to a slow convergence. Start with $\alpha = 0.001$, proceed with $0.003, 0.01, 0.03, 0.1, ...$ .
 
+\newpage
+
 \section{Linear Regression}
 
 \begin{wrapfigure}[16]{R}{0.5\textwidth}
@@ -974,8 +976,7 @@ This leads to the following formulas for $\theta^{}_{0}$ and $\theta^{}_{1}$
 
 Where $\bar x$ and $\bar y$ are the \textbf{mean} of the $x$ and $y$ values respectively
 
-\vspace{10px}
-
+\newpage
 $S_{xx}$ and $S_{xy}$ are called \textbf{regression coefficients} and are calculated as follows:
 
 \begin{minipage}{0.45\textwidth}
@@ -994,12 +995,12 @@ $S_{xx}$ and $S_{xy}$ are called \textbf{regression coefficients} and are calcul
 \begin{flalign*}
     &X = [4, 6, 8, 10]& \\
     &Y = [2.3, 4.1, 5.7, 6.9]& \\
-    &\bar X = \frac{1}{4} (4 \cdot 6 \cdot 8 \cdot 10) = 7& \\
-    &\bar Y = \frac{1}{4} (2.3 \cdot 4.1 \cdot 5.7 \cdot 6.9) = 7.25& \\
-    &S_{xx} = (4-7)^2+(6-7)^2+(8-7)^2+(10-7)^2 = 20& \\
-    &S_{xy} = (4-7)(2.3-7.25)+(6-7)(4.1-7.25)+(8-7)(5.7-7.25)+(10-7)(6.9-7.25)=15.4& \\
-    &\theta^{}_{1} = \frac{20}{15.4} = 0.77& \\
-    &\theta^{}_{0} = 4.75-(0.77-7) = -0.64&
+    &\bar X = \frac{1}{4} (4 \cdot 6 \cdot 8 \cdot 10) = \doubleunderline{7}& \\
+    &\bar Y = \frac{1}{4} (2.3 \cdot 4.1 \cdot 5.7 \cdot 6.9) = \doubleunderline{7.25}& \\
+    &S_{xx} = (4-7)^2+(6-7)^2+(8-7)^2+(10-7)^2 = \doubleunderline{20}& \\
+    &S_{xy} = (4-7)(2.3-7.25)+(6-7)(4.1-7.25)+(8-7)(5.7-7.25)+(10-7)(6.9-7.25)=\doubleunderline{15.4}& \\
+    &\theta^{}_{1} = \frac{20}{15.4} = \doubleunderline{0.77}& \\
+    &\theta^{}_{0} = 4.75-(0.77-7) = \doubleunderline{-0.64}&
 \end{flalign*}
 
 From this follows that the regression line is:
@@ -1254,7 +1255,7 @@ print("Interval theta0: [" + str(thet0 - (2.57*Sthet0)) + " ; " + str(thet0 + (2
 
 print("Interval theta1: [" + str(thet1 - (2.57*Sthet1)) + " ; " + str(thet1 + (2.57*Sthet1)) + "]")
 
-        \end{lstlisting}
+\end{lstlisting}
 
 
 
@@ -1304,7 +1305,7 @@ This can be transformed to matrices
 This can be solved as follows
 
 \begin{equation*}
-    \bm{\theta} = (\bm{X}^T\bm{X})^-1\bm{X}^T\bm{y}
+    \bm{\theta} = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}
 \end{equation*}
 
 In more than three dimensions our plane becomes a hyperplane, and the model is
@@ -1563,7 +1564,7 @@ The line $g$ is taken from figure \ref{fig:hessiannormalformexample}
 \end{figure}
 
 \begin{align*}
-    \vec{n} & = \frac{1}{\sqrt{13}} \begin{bmatrix}2\\3\end{bmatrix}                                                                  \\
+    \vec{n} & = \frac{1}{\sqrt{13}} \begin{bmatrix}2\\3\end{bmatrix} (\|\vec{n}\| = 13 \rightarrow \frac{1}{\sqrt{13}} \cdot \vec{n} \rightarrow \| \vec{n} \| = 1 ) \\
     0       & = \vec{n}\cdot(\vec{x}-\vec{x_0})                                                                                  \\
             & = \frac{1}{\sqrt{13}} \begin{bmatrix}2\\3\end{bmatrix} \cdot(\begin{bmatrix}x\\y\end{bmatrix} - \begin{bmatrix}0.5\\2\end{bmatrix}) \\
             & = \frac{1}{\sqrt{13}} \begin{bmatrix}2\\3\end{bmatrix} \cdot \begin{bmatrix}x - 0.5\\ y - 2\end{bmatrix}
@@ -2510,7 +2511,7 @@ As already seen in section \ref{sec:matrix_factorization}, a $m \times n$ matrix
 \begin{description}
     \item[Eigenvector: ] A vector that is a only a multiple of itself (i.e. stretches) when multiplied with the matrix $A$, no rotation!
     \item[Eigenvalue: ] The scalar value by which the vector is stretched when multiplied with the matrix \\
-    The equation looks as follows: $Av = \lambda v$
+          The equation looks as follows: $Av = \lambda v$
 \end{description}
 
 \noindent A vector $ v \neq 0$ is called an eigenvector if it satisfies $Av = \lambda v$. $\lambda$ is called the eigenvalue of the eigenvector $v$.
