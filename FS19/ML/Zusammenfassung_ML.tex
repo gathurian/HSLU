@@ -1005,7 +1005,7 @@ $S_{xx}$ and $S_{xy}$ are called \textbf{regression coefficients} and are calcul
 From this follows that the regression line is:
 
 \begin{equation*}
-    h_{\theta}(x) = -0.64 \cdot 0.77 \cdot x
+    h_{\theta}(x) = -0.64 + 0.77 \cdot x
 \end{equation*}
 
 \begin{figure}[htb!]
@@ -1412,7 +1412,7 @@ print(theta)
 
 
 \section{Regularisation}
-Under- and overfitting are common problems in machine learning. Underfitting occurs when the model is to general and can't aptly represent the data. Overfitting occurs, when the model is too precisely fitted to the training data.
+Under- and overfitting are common problems in machine learning. Underfitting occurs when the model is too general and can't aptly represent the data. Overfitting occurs, when the model is too precisely fitted to the training data.
 
 \begin{figure}[htb!]
     \centering
@@ -1770,7 +1770,7 @@ An \textbf{association rule} is an implication $X\rightarrow Y$, where $X$ and $
 
 \subsubsection{Support of a Set of Items}
 
-Support is the proportion of transactions which contains a specific item set, and thus measures how frequently items ar bought together.
+Support is the proportion of transactions which contains a specific item set, and thus measures how frequently items are bought together.
 \begin{equation*}
     \text{support}(\{i_1,...,i_n\}) = \frac{\#\text{purchases of \{i_1,...,i_n\}}}{\# \text{transactions}}
 \end{equation*}
@@ -2138,7 +2138,7 @@ Another example: If I buy ski boots, you could assume that I already own a pair 
 To summarize:
 
 \begin{itemize}
-    \item Recommendations by Associations are \textit{fast}. No data collection and evaluation necessa4ry
+    \item Recommendations by Associations are \textit{fast}. No data collection and evaluation necessary
     \item Associations are \textit{context aware}. Only pairs of products that match together will be recommended together
     \item Associations can be specifically \textit{tailored} to certain businesses
     \item Associations look at \textit{shopping carts} instead of buyers and do not consider the customers personal preferences
@@ -2261,7 +2261,7 @@ There's a similar approach as to the Context-Based Recommendations, but there's 
 
 \subsection{Item-to-Item Collaborative Filtering}
 
-Because user provides constantly change, pre-computation does not necessarily work. In contrast, for pairs fo items, similarity is stable and can be pre-computed.
+Because user provides constantly change, pre-computation does not necessarily work. In contrast, for pairs of items, similarity is stable and can be pre-computed.
 
 The main difference is that we compare row vectors for neighbour search instead of column vectors.
 
@@ -2568,7 +2568,7 @@ The rows of this matrix $P$ are the \textbf{principal components} of $X$.
     \item Every eigenvalue corresponds to the variance of one feature in our data matrix $Y$
     \item Features with zero variance do not contain any information $\rightarrow$ Drop them
     \item The sum of eigenvalues corresponds to the total variance in the data
-    \item Caluclate the percentage of how much each feature contributes to the total variance
+    \item Calculate the percentage of how much each feature contributes to the total variance
     \item Drop the features that don't contribute enough variance to be relevant
 \end{itemize}
 
@@ -2796,7 +2796,7 @@ Overfitting happens more frequently and is much harder to repair. It occurs beca
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.6\linewidth, keepaspectratio]{Pictures/early_stopping}
-    \caption{Stopping the training early to avoid ovefitting}
+    \caption{Stopping the training early to avoid overfitting}
     \label{fig:earlystopping}
 \end{figure}
 
@@ -2844,7 +2844,7 @@ Most artificial neural network (ANN) are layered. We distinguish between the fol
 \begin{figure}[tbh!]
     \centering
     \includegraphics[width=0.5\linewidth, keepaspectratio]{Pictures/artificial_neuron_layers}
-    \caption{Slice of an input and output layer in an artificial neurol network}
+    \caption{Slice of an input and output layer in an artificial neural network}
     \label{fig:artificialneuronlayers}
 \end{figure}
 
