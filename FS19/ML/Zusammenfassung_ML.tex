@@ -333,10 +333,10 @@ Values $1.5 \cdot IQR$ above the 3rd or below the 1st Quartile can be considered
 The variance shows \textbf{how much the values are spread on average}. This is measured by squaring the sum of all deviations from the mean
 
 \begin{equation}
-    Var(x) = \frac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)^2
+    Var(x) = \frac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu_x)^2
 \end{equation}
 
-The standard deviation $\sigma$ is calculated as $\sqrt{variance}$
+The standard deviation $\sigma$ is the square root of the variance $\sqrt{Var(x)}$
 
 \newpage
 
@@ -350,18 +350,18 @@ If one is above and one is below the mean, the variance is \textbf{negative}, th
 If the variables are \textbf{independent} from each other, the covariance is zero, as they both cancel each other out.
 
 \begin{equation}
-    Cov(x,y) = \frac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)(y_{i} - \mu y)
+    Cov(x,y) = \frac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu_x)(y_{i} - \mu_y)
 \end{equation}
 
 The \textbf{covariance matrix} shows the covariance from all $X$ with all $Y$. As $Cov(x,x) = Var(x)$, the covariance matrix has the variance of $X$ in its diagonal
 
 
 \subsubsection{Pearson Correlation} \label{sec:pearson}
-Both the covariance and the variance are connected to the scale of the dataset, so the covariance of $X=[1,2,3,4,5] / Y=[6,7,8,9,10]$ is 2.5, whereas the covariance of $X=[1000,2000,3000,4000,5000] / Y=[6000,7000,8000,9000,10000]$ is 2'500'000'000. However, the Pearson Correlation is 1 in both examples.
+Both the covariance and the variance are connected to the scale of the dataset, so the covariance of $X=[1,2,3,4,5] , Y=[6,7,8,9,10]$ is 2.5, whereas the covariance of $X=[1000,2000,3000,\allowbreak 4000,5000],\allowbreak Y=[6000,7000,8000,9000,10000]$ is 2'500'000'000. However, the Pearson Correlation is 1 in both examples.
 
 \begin{equation}
     \rho(X,Y)=\frac{Cov(X,Y)}{\sigma_{x} \sigma_{y}} =
-    \frac{\frac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)(y_{i} - \mu y)}{\sqrt{\frac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu x)^2} \cdot \sqrt{\frac{1}{1-n} \sum^{n}_{i=1}(y_{i} - \mu y)^2}}
+    \frac{\frac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu_x)(y_{i} - \mu_y)}{\sqrt{\frac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu_x)^2} \cdot \sqrt{\frac{1}{1-n} \sum^{n}_{i=1}(y_{i} - \mu_y)^2}}
 \end{equation}
 The Pearson Correlation is always between 1 and -1.
 
@@ -438,7 +438,7 @@ The math we want to do is not even overly complicated: We just want to measure t
 The distance between two points is most easily calculated using the \textbf{euclidean distance}:
 
 \begin{equation}
-    dist(X,Y)= \sqrt{\sum^{n}_{i=1}(x_{i}-y{i})^2}
+    dist(X,Y)= \sqrt{\sum^{n}_{i=1}(x_{i}-y_{i})^2}
 \end{equation}
 
 So the distance between the points $(5/10)$ and $(8/6)$ can be calculated as
@@ -533,7 +533,7 @@ Count the minimal number of changes necessary to turn one string into another:
 
 Classifications usually end in something like figure \ref{fig:decision_boundaries}. The example shows a classification whether a tumour is benign or cancerous. Brown means cancerous and blue means benign. Even though the data points are the same in all pictures, different approaches yield different results.
 
-The goal of a 'good' classification-algorithm is to produce as few false-positive (algorithm says is cancer, but is actually not) and false-negatives (algorithm says its benign but is actually cancerous) as possible.
+The goal of a 'good' classification-algorithm is to produce as few false-positives (algorithm says is cancer, but is actually not) and false-negatives (algorithm says its benign but is actually cancerous) as possible.
 
 \subsubsection{Kernel-Trick}
 The data in Fig. \ref{fig:decision_boundaries} is still theoretically linearly separable. But in case it is not, you could use the so-called 'kernel-trick', where you simply add a dimension and change your point of view (see Fig. \ref{fig:kernel_trick})
@@ -568,7 +568,7 @@ The data in Fig. \ref{fig:decision_boundaries} is still theoretically linearly s
 
 \begin{wrapfigure}[15]{L}{0.5\textwidth}
     \centering
-    \includegraphics[keepaspectratio=true,height=12\baselineskip]{k-nn-regression.jpg}
+    \includegraphics[keepaspectratio=true,height=10\baselineskip]{k-nn-regression.jpg}
     \caption{Regression with k-NN}
     \label{fig:knn-regression}
 \end{wrapfigure}
@@ -583,7 +583,7 @@ Usually, k-NN treats all neighbours as equals. However, you could assign a weigh
 
 You can use k-NN for regression by simply assigning the mean of all $k$ neighbours as label to the sample data.
 
-\subsection{Training- and Testdata}
+\subsection{Training- and Test data}
 If you use the same data to train and test your algorithm, it might occur that the algorithm is 'memorizing' the data and gives you brilliant results. However, if you release it into the wild, where it encounters different data, it will perform really poorly. This is called \textbf{overfitting}
 
 To counter overfitting, you usually split your data into \textbf{training data} and \textbf{test data}. You train the algorithm with the training data and test it with the test data (who would've thought...).
@@ -690,7 +690,7 @@ If there were 5000 NO instances and 20 YES instances, a classifier that only ret
 In our confusion matrix from earlier, the Sensitivity would be $\frac{100}{100 + 5} = \frac{100}{105} = 0.95 = 95\%$
 
 \subsubsection{Specificity}
-This is the inverse of the Sensitivity. It counts how many NO the algorithm correctly predicted.o
+This is the inverse of the Sensitivity. It counts how many NO the algorithm correctly predicted.
 
 \begin{equation}
     Specificity= \frac{True\ Negative}{Actual\ NO} = \frac{True\ Negative}{True\ Negative + False\ Positive}
@@ -1567,7 +1567,7 @@ The line $g$ is taken from figure \ref{fig:hessiannormalformexample}
 \begin{align*}
     \vec{n} & = \frac{1}{\sqrt{13}} \begin{bmatrix}2\\3\end{bmatrix} (\|\vec{n}\| = 13 \rightarrow \frac{1}{\sqrt{13}} \cdot \vec{n} \rightarrow \| \vec{n} \| = 1 ) \\
     0       & = \vec{n}\cdot(\vec{x}-\vec{x_0})                                                                                  \\
-            & = \frac{1}{\sqrt{13}} \begin{bmatrix}2\\3\end{bmatrix} \cdot(\begin{bmatrix}x\\y\end{bmatrix} - \begin{bmatrix}0.5\\2\end{bmatrix}) \\
+            & = \frac{1}{\sqrt{13}} \begin{bmatrix}2\\3\end{bmatrix} \cdot\left(\begin{bmatrix}x\\y\end{bmatrix} - \begin{bmatrix}0.5\\2\end{bmatrix}\right) \\
             & = \frac{1}{\sqrt{13}} \begin{bmatrix}2\\3\end{bmatrix} \cdot \begin{bmatrix}x - 0.5\\ y - 2\end{bmatrix}
 \end{align*}
 
@@ -2305,7 +2305,7 @@ One matrix holds all users and their ratings for the products they rated and the
 
 The first matrix (U) holds all users and their ratings. Each row is a user and all the ratings on all products they have made.
 
-The second matrix (V) holds all the products and the rating they've gotten. This matrix is \textbf{transposed}.
+The second matrix (V) holds all the products and the rating they've got. This matrix is \textbf{transposed}.
 
 \begin{figure}[htb!]
     \centering
@@ -2345,13 +2345,13 @@ From this, we can see that the original matrix can be written as $U \times V^T$
 
 $U_{1,1}$ is the rating User 1 gave the book 1,  $U_{2,1}$ is the rating User 2 gave the book 1 etc.
 
-$v$ is the product matrix. The $V_1$ column stores all ratings book 1 has gotten, $V_2$ all ratings of book 2 etc.
+$v$ is the product matrix. The $V_1$ column stores all ratings book 1 has got, $V_2$ all ratings of book 2 etc.
 
 \vspace{10px}
 
 So if we want to check what rating user 3 has given book 5, we just need to calculate $U \times V^T$ and get the entry $(3,5)$.
 
-That way, we can also 'guess' what rating a user would give a book they have not rated or bought yet. The rating of book 2 by user 2 is soterd in $U \times V, (2,2)$.
+That way, we can also 'guess' what rating a user would give a book they have not rated or bought yet. The rating of book 2 by user 2 is sorted in $U \times V, (2,2)$.
 
 
 \subsection{Hybrid Recommender Systems}
@@ -2385,8 +2385,10 @@ The following figure shows that more features don't necessarily produce better r
 
 \begin{figure}[htb!]
     \centering
-    \includegraphics[keepaspectratio, width=0.9\textwidth]{dimensionality_reduction.png}
+    \includegraphics[keepaspectratio, width=0.8\textwidth]{dimensionality_reduction.png}
 \end{figure}
+
+\clearpage
 
 \vspace{10px}
 
@@ -3157,8 +3159,8 @@ In figure \ref{fig:fullyconnectedmultilayerfeedforwardnetwork} the bias neuron a
 
 \begin{enumerate}
     \item Read input/target pair $(\vec{x},\vec{t})$
-    \item For each hidden neuron $j = 1,2,...,N_H$ compute $h_j=\sigma\left(\sum_{i=0}^{N_I} w_ji^{(1)} x_i \right)$
-    \item For each output neuron $k = 1,2,...,N_O$ compute $y_k=\sigma\left(\sum_{j=0}^{N_H} w_kj^{(2)} h_j \right)$, the error $e_k = t_k - y_k$ and the resulting Delta $\delta_k^{(o)} = y_k(1-y_k)e_k$
+    \item For each hidden neuron $j = 1,2,...,N_H$ compute $h_j=\sigma\left(\sum_{i=0}^{N_I} w_{ji}^{(1)} x_i \right)$
+    \item For each output neuron $k = 1,2,...,N_O$ compute $y_k=\sigma\left(\sum_{j=0}^{N_H} w_{kj}^{(2)} h_j \right)$, the error $e_k = t_k - y_k$ and the resulting Delta $\delta_k^{(o)} = y_k(1-y_k)e_k$
 \end{enumerate}
 
 \noindent
@@ -3173,7 +3175,7 @@ The forward propagation can be written in matrix notation:
 \begin{enumerate}
     \item Correct the weights $w_kj^{(2)}$ according to $\Delta w_kj^{(2)} = \eta \delta_k^{(o)} h_i$
     \item For each hidden neuron $j = 1,2...,N_H$ compute $\delta_j^{(h)} = h_i(1-h_i)\sum_{k=1}^{N_O} \delta_k^{(o)} w_{kj}^{(2)}$ where we sum over all successors $k$ of the hidden neuron $i$
-    \item Correct the weights $w_ji^{(1)} according to $$\Delta w_ji^{(1)} = \eta \delta_j^{(h)} x_i$
+    \item Correct the weights $w_{ji}^{(1)} according to $$\Delta w_{ji}^{(1)} = \eta \delta_j^{(h)} x_i$
     \item If not converged or not all input pairs, return to Step 1 of the Forward Sweep
 \end{enumerate}
 
