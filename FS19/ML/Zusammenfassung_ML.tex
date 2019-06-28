@@ -347,7 +347,7 @@ If both variables are on the same side of the mean, the variance is \textbf{posi
 
 If one is above and one is below the mean, the variance is \textbf{negative}, the variables are most likely \textbf{inversely connected} to each other. Meaning if the value of one variable is rising, the other is most likely falling.
 
-If the variables are \textbf{independent} from each other, the covariance is zero, as they both cancel each other out.
+If the variables are \textbf{independent} of each other, the covariance is zero, as they both cancel each other out.
 
 \begin{equation}
     Cov(x,y) = \frac{1}{1-n} \sum^{n}_{i=1}(x_{i} - \mu_x)(y_{i} - \mu_y)
@@ -418,7 +418,7 @@ As described before, machine learning algorithms work best with \textbf{numeric}
     \label{fig:vector_space_modefig}
 \end{figure}
 
-This transformed data can also be visualized in a coordinate system and we can do math with it.
+This transformed data can also be visualized in a coordinate system, and we can do math with it.
 
 \begin{figure}[htb!]
     \centering
@@ -431,7 +431,7 @@ This transformed data can also be visualized in a coordinate system and we can d
 
 \subsection{Similarity of Data}
 
-The math we want to do is not even overly complicated: We just want to measure the distance between different points. Because \textbf{the smaller the distance between two points, the more similar they are}.
+The maths we want to do is not even overly complicated: We just want to measure the distance between different points. Because \textbf{the smaller the distance between two points, the more similar they are}.
 
 \subsubsection{Euclidean Distance}
 
@@ -690,7 +690,7 @@ If there were 5000 NO instances and 20 YES instances, a classifier that only ret
 In our confusion matrix from earlier, the Sensitivity would be $\frac{100}{100 + 5} = \frac{100}{105} = 0.95 = 95\%$
 
 \subsubsection{Specificity}
-This is the inverse of the Sensitivity. It counts how many NO the algorithm correctly predicted.
+This is the inverse of the Sensitivity. It counts how many NOs the algorithm correctly predicted.
 
 \begin{equation}
     Specificity= \frac{True\ Negative}{Actual\ NO} = \frac{True\ Negative}{True\ Negative + False\ Positive}
@@ -747,17 +747,17 @@ The top is the sum of squared errors (how much does the prediction deviate from 
 
 $R^2 = 1$ is a perfect prediction-line
 
-$R^2 = 0.53$ means that 53\% of the of the predictions are correct and can be explained by the model.
+$R^2 = 0.53$ means that 53\% of the predictions are correct and can be explained by the model.
 
 \newpage
 
 \section{Gradient Descent}
-The problem with Linear Regression is, that it does not scale well. For problems like these we can use Gradient Descent. The gradient (denoted with the Nabla Operator $\nabla$) uses the properties of partial derivatives, which compute the slope in regards to an axis in a point $a,b$.
+The problem with Linear Regression is, that it does not scale well. For problems like these we can use Gradient Descent. The gradient (denoted with the Nabla Operator $\nabla$) uses the properties of partial derivatives, which compute the slope with regard to an axis in a point $a,b$.
 
 \begin{figure}[tbh!]
     \centering
     \includegraphics[keepaspectratio=true, width=0.8\linewidth]{Pictures/PartialDerivative}
-    \caption{Partial derivative in regards to the x-axis in the point a,b (\textcopyright J. Bürgler, 2019)}
+    \caption{Partial derivative with regard to the x-axis in the point a,b (\textcopyright J. Bürgler, 2019)}
     \label{fig:partialderivative}
 \end{figure}
 
@@ -806,7 +806,7 @@ To find a local minima of a function $f$ we follow the direction of the steepest
 \subsubsection{Batch Gradient Descent}
 Elevating the strengths of vectors we can Gradient Descent along all columns of our data. For this we want to minimise the cost function
 \begin{equation}
-    J(\theta) = \frac{1}{2n}\sum_{i=1}^{n}(h({\theta},\textbf{x}^{(i)})-y^{(i)})^2
+    J(\theta) = \frac{1}{2n}\sum_{i=1}^{n}(h(\bm{\theta},\textbf{x}^{(i)})-y^{(i)})^2
 \end{equation}
 
 where $h(\bm{\theta},\textbf{x}^{(i)})$ is
@@ -919,7 +919,7 @@ For sufficiently small $\alpha$, $J(\bm{\theta})$ should decrease in every itera
 
 Linear regression is a \textbf{supervised machine learning algorithm} to predict values based on previous variables.
 
-It can also be used to verify whether two variables X and Y are \textbf{dependant} on each other.
+It can also be used to verify whether two variables X and Y are \textbf{dependent} on each other.
 
 \vspace{10px}
 
@@ -1016,11 +1016,11 @@ From this follows that the regression line is:
     \label{fig:regression_line}
 \end{figure}
 
-From figure \ref{fig:regression_line} we can now see that for $x_{i}=12$, $y$ would most likely be at $8.6$.
+From figure \ref{fig:regression_line}, we can now see that for $x_{i}=12$, $y$ would most likely be at $8.6$.
 
 \subsection{Coefficient of Determination}
 
-This coefficients was already mentioned in section \ref{sec:r_squared} as 'way to measure how good a regression is'. But how does it even do that?
+These coefficients were already mentioned in section \ref{sec:r_squared} as 'way to measure how good a regression is'. But how does it even do that?
 
 As mentioned earlier, the goal of a good regression is to \textbf{minimise the sum of squared errors}. However, there are three kinds of sum of squared Errors:
 
@@ -1057,7 +1057,7 @@ As illustrated in the figure above, $SST = SSR + SSE$.
 
 But how does the aforementioned Coefficient of Determination relate to all of this?
 
-$R^2$ is the \textbf{fraction of the total error that can be explained by the regression}. If all errors can be explained by the regression ($R^2 = 1$), then the regression is perfect
+$R^2$ is the \textbf{fraction of the total error that can be explained by the regression}. If all errors can be explained by the regression ($R^2 = 1$), then the regression is perfect.
 
 \begin{equation}
     R^2 = \frac{SSR}{SST} = \frac{SST-SSE}{SST} = 1 - \frac{SSE}{SST}
@@ -1075,7 +1075,7 @@ There's yet another error, the \textit{Mean Squared Error} (MSE). MSE is basical
 
 \subsection{Correlation Analysis}
 
-So now that you have the regression parameters $\theta^{}_{0}$ and $\theta^{}_{1}$. which make out the regression line. However, that regression line is only as good as your parameters. So how do you test how well you calculated the parameters?
+So now that you have the regression parameters $\theta^{}_{0}$ and $\theta^{}_{1}$. We can calculate and graph the regression line. However, that regression line is only as good as your parameters. So how do you test how well you calculated the parameters?
 
 Easy, you calculate the \textbf{standard deviation of these parameters}.
 
@@ -1089,7 +1089,7 @@ Easy, you calculate the \textbf{standard deviation of these parameters}.
 
 \vspace{10px}
 
-Based on these standard deviations, you can calculate a \textbf{confidence interval}. This interval is a \textbf{degree of uncertainty}. Say we conducted a study and we publish our results with a \textbf{confidence level} of 95\%.
+Based on these standard deviations, you can calculate a \textbf{confidence interval}. This interval is a \textbf{degree of uncertainty}. Say we conducted a study, and we publish our results with a \textbf{confidence level} of 95\%.
 
 This means that if we used the same sampling method to select different samples and computed an interval estimate for each sample, we would expect the true population parameter to fall within the interval estimates 95\% of the time.
 
@@ -1658,7 +1658,7 @@ The margin can be less than 1, by setting $\zeta_i > 0$, but then this gets fact
     \item[$C = \infty$)] All constraints enforced, we have a hard margin
 \end{itemize}
 
-Therefore we still have a quadratic optimisation problem with a unique minimum and we only have to deal with the parameter $C$.
+Therefore, we still have a quadratic optimisation problem with a unique minimum, and we only have to deal with the parameter $C$.
 
 \subsection{The Kernel Trick}
 
@@ -1742,11 +1742,11 @@ The average distortion per data point is
     \frac{1}{n}\sum_{i=1}^{n}\| x_i -\mu_{c_i} \|^2
 \end{equation}
 
-Average distortion allows to compare clusterings over different data sets
+Average distortion allows comparing clusters over different data sets
 
 \subsubsection{Convergence and Optimality}
 
-Optimal clustering minimises the total distortion, which is a NP-hard problem for $x>1$. Therefore k-Means only approximates the optimal solution, but always converges, albeit not necessarily to a global minimum. In practice k-Means is executed several time and the clustering with minimum distortion is chosen.
+Optimal clustering minimises the total distortion, which is a NP-hard problem for $x>1$. Therefore, k-Means only approximates the optimal solution, but always converges, albeit not necessarily to a global minimum. In practice k-Means is executed several times and the clustering with minimum distortion is chosen.
 
 \subsubsection{Choose the Number of Clusters}
 
@@ -1911,7 +1911,7 @@ We can solve the problem of outlier detection with machine learning:
 
 \begin{itemize}[leftmargin=*, labelindent=5cm, labelsep=0.5cm]
     \item[\textbf{Supervised Learning}] Outlier detection can be considered a classification problem with categories \emph{normal} and \emph{outlier}.\\
-          When outliers are rare events, collecting enough training data becomes a severe issue, and special measures must be taken because the two classes are extremely disbalanced
+          When outliers are rare events, collecting enough training data becomes a severe issue, and special measures must be taken because the two classes are extremely unbalanced
     \item[\textbf{Unsupervised Learning}] These methods assume that outliers deviate from the structural pattern of normal data objects.
           \begin{enumerate}
               \item Statistical Methods
@@ -1925,7 +1925,7 @@ Statistical methods assume that normal data objects are generated by a stochasti
 
 \begin{enumerate}
     \item Assumption: The data follows a normal distribution with parameters $\mu$ and $\sigma^2$
-    \item Method: Find best parameters with Maximum Likelihood method
+    \item Method: Find the best parameters with Maximum Likelihood method
     \item Conclusion: Find threshold where most of the data is located, for example $\mu \pm 3\sigma$ and classify all data outside of this range as outliers
 \end{enumerate}
 
@@ -2022,8 +2022,8 @@ The local outlier factor is the local reachability density of a point in compari
 
 \begin{itemize}[leftmargin=*, labelindent=2cm, labelsep=1cm]
     \item[$\text{LOF}(k) \approx 1$] similar density as neighbours : \textbf{Normal}
-    \item[$\text{LOF}(k) < 1$] higher density than neighbors : \textbf{Inlier}
-    \item[$\text{LOF}(k) > 1$]  lower density than neighbors : \textbf{Outlier}
+    \item[$\text{LOF}(k) < 1$] higher density than neighbours : \textbf{Inlier}
+    \item[$\text{LOF}(k) > 1$]  lower density than neighbours : \textbf{Outlier}
 \end{itemize}
 
 \subsection{Clustering Methods}
@@ -2032,7 +2032,7 @@ Clustering-based approaches detect outliers by examining the relationship betwee
 
 \begin{enumerate}
     \item Records not belonging to any cluster are outliers
-    \item Records with a large distance to their closest cluster center are outliers
+    \item Records with a large distance to their closest cluster centre are outliers
     \item All records in a small and sparse cluster are considered outliers
 \end{enumerate}
 
@@ -2045,7 +2045,7 @@ Clustering-based approaches detect outliers by examining the relationship betwee
 
 \paragraph{Classification-based Approaches}
 
-Train a classifier, a Support Vector Machine for example, to distinguish normal data from anomalies and generate the decision boundary of the normal class. New objects outside the decision boundary are considered outliers
+Train a classifier, a Support Vector Machine for example, to distinguish normal data from anomalies and generate the decision boundary of the normal class. New objects outside the decision boundary are considered outliers.
 
 \begin{figure}[tbh!]
     \centering
@@ -2108,7 +2108,7 @@ The history of recommender systems can be split into three waves:
     \item All data is managed by the vendors. The clients only get the recommendations produced by this data and can display them at their will
     \item Subscription prices for these systems are related to their success, usually clients pay a percentage of their revenue
     \item Due to the recent privacy-boom, some customers and clients do not want to provide all shopping data to these system-vendors. They'd rather have an in-house system.
-    \item Having loads of data is hardly bad, the \textit{real} success in these systems lies in the configuration of the system and the evaluation of the data. This requires a deep understanding of the recommender algorithm
+    \item Having loads of data is hardly bad, the \textit{real} success in these systems lies in the configuration of the system and the evaluation of the data. This requires a deep understanding of the recommender algorithm.
 \end{itemize}
 
 \subsection{Recommendations by Associations}
@@ -2121,7 +2121,7 @@ To calculate the percentage of buyers who bought $Y$ after buying $X$:
     \frac{X\ and\ Y}{X}
 \end{equation}
 
-This method is simple enough, but does not really work. A good example of why this won't work is Anchovies Paste and Banana. Basically everybody who buys Anchovies Paste also buys Banana. Does that mean they should be sold together as a package? No. Because these two products do not have anything in common. You could pair up basically every 'exotic' product with Banana according to this calculation. This is the case because \textit{Everybody needs bananas}. The fact that they also bought Anchovies Paste does not have anything to do with the fact that they needed bananas
+This method is simple enough, but does not really work. A good example of why this won't work is Anchovies Paste and Banana. Basically everybody who buys Anchovies Paste also buys Banana. Does that mean they should be sold together as a package? No, because these two products do not have anything in common. You could pair up basically every 'exotic' product with Banana according to this calculation. This is the case because \textit{Everybody needs bananas}. The fact that they also bought Anchovies Paste does not have anything to do with the fact that they needed bananas.
 
 \vspace{10px}
 
@@ -2232,7 +2232,7 @@ Disadvantages
     \caption{Context Based Recommendations with Neighbours}
     \label{fig:neighbours}
 \end{wrapfigure}
-This approach is similar to the similar products context based recommendations, but instead of similar products, it compares the customer to \textit{other similar customers}.
+This approach is similar to the similar products' context based recommendations, but instead of similar products, it compares the customer to \textit{other similar customers}.
 
 A set of users who liked the same items in the past, probably share the same preferences. Therefore, the user gets recommendations of products that many 'Neighbours' (similar users) liked, but the user has not purchased (yet).
 
@@ -2364,7 +2364,7 @@ But how could you interpret the different results from the different algorithms?
     \item[Weighted: ] Score an item as a weighted sum of scores from different algorithms
     \item[Mixed: ] Results of different algorithms presented to the user
     \item[Cascade: ] One algorithm refines the result of another one
-    \item[Switching: ] Different methods/algorithms can be used for different usecases
+    \item[Switching: ] Different methods/algorithms can be used for different use cases
 \end{description}
 
 \subsection{Evaluation}
@@ -2460,7 +2460,7 @@ or more precisely:
 
 As said in the previous page: With almost any dimension reduction, some information will get lost.
 
-However, sometimes this does not hold true. This is the case if some of the data is \textit{redundant}
+However, sometimes this does not hold true. This is the case if some data is \textit{redundant}
 
 \vspace{10px}
 
@@ -2641,7 +2641,7 @@ Gini impurity is a measure of how often a randomly chosen element from the set w
 
 \subsection{Regression Trees in CART}
 
-The regression trees predict the average value of all instances in a leaf node and are grown like classification trees but with a different splitting criteria. As splitting criteria, they minimise the variance of the values in the same subset.
+The regression trees predict the average value of all instances in a leaf node and are grown like classification trees but with a different splitting criterion. As splitting criterion, they minimise the variance of the values in the same subset.
 
 \begin{figure}[tbh!]
     \centering
@@ -2670,7 +2670,7 @@ The regression trees predict the average value of all instances in a leaf node a
 
 \subsection{Association Rules versus Decision Trees}
 
-Mining association rules is unsupervised learning, whereas building decision trees is supervised learning. Whereas association rules process pure transactions, decision trees incorporate other information. Therefore both techniques can be used in a personalized and impersonalised manner.
+Mining association rules is unsupervised learning, whereas building decision trees is supervised learning. Whereas association rules process pure transactions, decision trees incorporate other information. Therefore, both techniques can be used in a personalized and unpersonalised manner.
 
 \subsection{Random Forest}
 
@@ -2755,7 +2755,7 @@ Also refer to the figure \ref{fig:underoverfittingbiasvariance} in section \ref{
 \noindent
 \textbf{Overfitting}
 \begin{itemize}
-    \item This model optimizes to much with respect to the training data
+    \item This model optimizes too much with respect to the training data
     \item It shows high performance on training but low performance on test data
 \end{itemize}
 
@@ -2820,7 +2820,7 @@ Overfitting happens more frequently and is much harder to repair. It occurs beca
 
 \section{Artificial Neural Networks}
 
-Artificial neural networks try to imitate a biological neural system. The smallest subunit of it is called a neuron. A neuron combines one or multiple input signals from preceding neurons and based on these signals computes an output signal which is propagated to selected neighbouring neurons. A large number of neurons in multiple layers is able to solve complex problems.
+Artificial neural networks try to imitate a biological neural system. The smallest subunit of it is called a neuron. A neuron combines one or multiple input signals from preceding neurons and based on these signals computes an output signal which is propagated to selected neighbouring neurons. Many neurons in multiple layers are able to solve complex problems.
 
 Most artificial neural network (ANN) are layered. We distinguish between the following three types
 \begin{enumerate}
@@ -2860,7 +2860,7 @@ Each neuron fires only if the calculated signal from all the inputs is over a th
     \text{net}_j = \sum_{i=0}^{n} w_{ji} x_i = w_{j0}x_0 + w_{j1}x_1 + \cdots + w_{jn}x_n = w_{j0} \cdot 1 + w_{j1}x_1 + \cdots + w_{jn}x_n
 \end{equation}
 
-Each weight $w_{ji}$ follows the pattern $w_{\text{ReceivingNode}\ \text{InputNode}}$ so $w_{12}$ means the weight for the node 1 and signal node 2. The node $x_0$ always has a value of 1 and is used as a threshold $\theta_j = -w_{j0}$. Thus if a neuron fires can be written as
+Each weight $w_{ji}$ follows the pattern $w_{\text{ReceivingNode}\ \text{InputNode}}$ so $w_{12}$ means the weight for the node 1 and signal node 2. The node $x_0$ always has a value of 1 and is used as a threshold $\theta_j = -w_{j0}$. Thus, if a neuron fires can be written as
 
 \begin{align*}
     \text{net}_j &> 0\\
