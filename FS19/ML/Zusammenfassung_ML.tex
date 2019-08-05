@@ -470,7 +470,7 @@ The cosine similarity is essentially just the scalar product of the two points.
 \vspace{10px}
 
 \begin{equation} \label{eq:sim}
-    sim(X,Y) = \frac{\sum^{n}_{i=i}{x_{i} y_{i}}}{\sqrt{\sum^{n}_{i=i}{x_{i}}^2}\sqrt{\sum^{n}_{i=i}{y_{i}}^2}}
+    sim(X,Y) = \frac{\sum^{n}_{i=1}{x_{i} y_{i}}}{\sqrt{\sum^{n}_{i=1}{x_{i}}^2}\sqrt{\sum^{n}_{i=1}{y_{i}}^2}}
 \end{equation}
 \begin{equation}
     dist(X,Y) = 1 - sim(X,Y)
@@ -1030,11 +1030,11 @@ As mentioned earlier, the goal of a good regression is to \textbf{minimise the s
         \item[$\bar x$:] Mean of all $X$
         \item[$\hat y_{i}$:] Expected value of $y$ based on the regression line
         \item[$y_{i}$:] Actual value of $y$
-        \item[$SST:$] \textit{Total sum of squares} \\
+        \item[$SST:$] \textit{Total Sum of Squares} \\
               Sum of SSE and SSR
-        \item[$SSE:$ ] \textit{Sum of squared Errors} \\
+        \item[$SSE:$ ] \textit{Sum of Squared Errors} \\
               The sum of the deviations from the predicted points to the regression line
-        \item[$SSR:$ ] \textit{Sum of squares explained by regression} \\
+        \item[$SSR:$ ] \textit{Sum of Squares explained by Regression} \\
               The sum of all deviations from the mean ($\bar y)$ to the regression line
     \end{description}
 \end{minipage} \hfill
@@ -1270,6 +1270,7 @@ And mapped to the sample with index $i$
     y_i = \theta_0 + \theta_1 x_{1,i} + \theta_2 x_{2,i} + e_i
 \end{equation*}
 
+\noindent
 This can be transformed to matrices
 
 \begin{equation*}
@@ -1300,12 +1301,14 @@ This can be transformed to matrices
     \end{bmatrix}
 \end{equation*}
 
+\noindent 
 This can be solved as follows
 
 \begin{equation*}
     \bm{\theta} = (\bm{X}^T\bm{X})^{-1}\bm{X}^T\bm{y}
 \end{equation*}
 
+\noindent
 In more than three dimensions our plane becomes a hyperplane, and the model is
 
 \begin{equation*}
@@ -1349,7 +1352,8 @@ Suppose we want to predict the weight of a weightlifter based on the training ho
         \item[$x_2$: ] Protein intake g/kg/day
     \end{description}
 
-    We assume that the function to calculate the weight from training-hours and protein intake is as follows:
+\noindent
+We assume that the function to calculate the weight from training-hours and protein intake is as follows:
 \end{minipage}
 
 \vspace{10px}
@@ -1365,6 +1369,7 @@ Suppose we want to predict the weight of a weightlifter based on the training ho
     \label{multilinear_regression}
 \end{figure}
 
+\noindent
 The following solution minimises the sum of squared errors in this model (and therefore get a hella good regression).
 
 \begin{equation*}
@@ -1382,6 +1387,7 @@ The following solution minimises the sum of squared errors in this model (and th
     \end{bmatrix}
 \end{equation*}
 
+\noindent
 According to this, the regression plane would be:
 \begin{equation*}
     y = h_\theta (x_1, x_2) = 55.7 + 11.1 \cdot x_1 + 17.5 \cdot x_2
@@ -1389,6 +1395,7 @@ According to this, the regression plane would be:
 
 \newpage
 
+\noindent
 Of course, this can also be done rather easily in Python:
 
 \begin{lstlisting}
@@ -1407,7 +1414,7 @@ X_ext = np.c_[np.ones((n,1)),X]
 theta = np.linalg.inv(X_ext.T.dot(X_est)).dot(X_ext.T).dot(y)
 
 print(theta)
-        \end{lstlisting}
+\end{lstlisting}
 
 
 \section{Regularisation} \label{sec:Regularisation}
@@ -1545,8 +1552,9 @@ And find
     \Rightarrow n_x x + n_y y -(n_x x_0  n_y y_0) = n_x x +n_y y + d = 0
 \end{equation*}
 \noindent
-With $d=-(n_x x_0 +n_y y_0)$ the signed distance $-\vec{n}\cdot\vec{x_0}$ from the origin
+With $d=-(n_x x_0 +n_y y_0)$ equalling the signed distance $-\vec{n}\cdot\vec{x_0}$ from the origin.
 
+\noindent
 The generalisation of the Hessian normal form to a plane in 3D-space is straight forward:
 \begin{equation}
     \vec{n}\cdot(\vec{x} - \vec{x_0}) = 0 \text{ \textbf{or} } \vec{n}\cdot\vec{x} + d = 0\text{ with } d = -\vec{n}\cdot\vec{x_0}
