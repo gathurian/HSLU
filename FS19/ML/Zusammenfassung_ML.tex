@@ -1780,7 +1780,7 @@ An \textbf{association rule} is an implication $X\rightarrow Y$, where $X$ and $
 
 Support is the proportion of transactions which contains a specific item set, and thus measures how frequently items are bought together.
 \begin{equation*}
-    \text{support}(\{i_1,...,i_n\}) = \frac{\#\text{purchases of \{i_1,...,i_n\}}}{\# \text{transactions}}
+    \text{support} (\{i_1,...,i_n\}) = \frac{\#\text{purchases of}\{i_1,...,i_n\}}{\# \text{transactions}}
 \end{equation*}
 
 \begin{figure}[htb!]
@@ -2070,7 +2070,8 @@ Train a classifier, a Support Vector Machine for example, to distinguish normal 
     \blockquote[Burke, 2002]{A recommender system is any system that produces individualized recommendations as output or has the effect of guiding the user in a personalized way to interesting or useful objects in a large space of possible options}
 \end{quote}
 
-Or easier said:
+\noindent
+Or in a more concise manner:
 
 \begin{quote}
     \blockquote[Jennach et. al., 2010]{A recommender system is a software application capable of suggesting interesting things to its users after learning their preferences over time}
@@ -2179,7 +2180,7 @@ The idea of Context-Based Recommendations is to recommend the user similar produ
 \begin{enumerate}
     \item Manually or automatically attribute your catalogue data
     \item Collect as much user preferences as you can (e.g. by ratings, wish lists, item viewed etc.)
-    \item Compute predictions for products labelled with $?$ based on item similarity (See Equation \ref{eq:sim} on page \pageref{eq:sim})
+    \item Compute predictions for products labelled with \textcolor{red}{$?$} based on item similarity (See Equation \ref{eq:sim} on page \pageref{eq:sim})
     \item Recommend products with high prediction value
 \end{enumerate}
 
@@ -2464,15 +2465,12 @@ or more precisely:
 
 \subsection{Data Redundancy}
 
-As said in the previous page: With almost any dimension reduction, some information will get lost.
-
-However, sometimes this does not hold true. This is the case if some data is \textit{redundant}
+As said in the previous page: With almost any dimension reduction, some information will get lost. However, sometimes this does not hold true. This is the case if some data is \textit{redundant}.
 
 \vspace{10px}
 
-Take for example a \textbf{mean-centred feature} that always takes the same value (so, the mean). This feature does not give you any valuable information and can therefore safely be dropped.
-
-Another example are \textbf{several features that essentially say the same}, say the height of a test person in centimetres and in inches. One of the two can be dropped. In the unlikely case that both measurements need to be used, one can easily be calculated from the other.
+\noindent
+Take for example a \textbf{mean-centred feature} that always takes the same value (so, the mean). This feature does not give you any valuable information and can therefore safely be dropped. Another example is \textbf{several features that essentially say the same}, say the height of a test person in centimetres and in inches. One of the two can be dropped. In the unlikely case that both measurements are needed, one can easily be calculated from the other.
 
 
 \subsection{Strategies for Dimensionality Reduction} \label{sec:strategies}
@@ -2526,33 +2524,34 @@ As already seen in section \ref{sec:matrix_factorization}, a $m \times n$ matrix
           The equation looks as follows: $Av = \lambda v$
 \end{description}
 
-\noindent A vector $ v \neq 0$ is called an eigenvector if it satisfies $Av = \lambda v$. $\lambda$ is called the eigenvalue of the eigenvector $v$.
+\noindent
+A vector $ v \neq 0$ is called an eigenvector if it satisfies $Av = \lambda v$. $\lambda$ is called the eigenvalue of the eigenvector $v$.
 
+\vspace{10px}
+\noindent
 Eigenvectors (and therefore eigenvalues) only exist for \textbf{squared matrices}.
 
 \vspace{10px}
-
+\noindent
 Another neat fact is that every square matrix $A$ can be written as
 
 \begin{align}
     A = EDE^T
 \end{align}
 
+\noindent
 where $D$ is a diagonal matrix of eigenvalues and $E$ is a matrix of eigenvectors of $A$ arranged as columns.
 
 
 \subsection{Principal Component Analysis (PCA)}
-
-As already discussed in section \ref{sec:covariance}, the \textbf{covariance matrix} shows the covariance from all $X$ with all $Y$. As $Cov(x,x) = Var(x)$, the covariance matrix has the variance of $X$ in its diagonal
-
-\vspace{10px}
+As already discussed in section \ref{sec:covariance}, the \textbf{covariance matrix} shows the covariance from all $X$ with all $Y$. As $Cov(x,x) = Var(x)$, the covariance matrix has the variance of $X$ in its diagonal.
 
 The covariance matrix of a data matrix Y, $S_Y$ shows covariance between features in the off-diagonal terms. As we have learned in section \ref{sec:strategies}, we want to eliminate covariance between features to reduce redundancy. Therefore, the covariance matrix $S_Y$ should be a \textbf{diagonal matrix} (meaning all values except the diagonal values are zero).
 
 Additionally, the diagonal values of $S_Y$, which show the variance of each dimension can be used to eliminate low-variance dimension, as they are nearly mean-centred and therefore useless.
 
 \vspace{10px}
-
+\noindent
 Since $Y = PX$, we can say
 
 \begin{align*}
@@ -2565,6 +2564,7 @@ Therefore, the goal of PCA is to find a square matrix $P$ to a data matrix $X$ w
     P(XX^T)P^T \text{  is a diagonal matrix}
 \end{align}
 
+\noindent
 The rows of this matrix $P$ are the \textbf{principal components} of $X$.
 
 \subsubsection{Calculation}
@@ -2689,6 +2689,7 @@ Random forests try to address the problems of decision trees. They are simply a 
     \label{fig:randomforest}
 \end{figure}
 
+\newpage
 \subsubsection{Building a Random Forest}
 
 \textbf{Training Phase}
