@@ -20,7 +20,7 @@
 \usepackage{lscape}
 \usepackage{afterpage}
 \usepackage{geometry}
-\usepackage{listingsutf8}
+\usepackage{minted}
 \usepackage{chngcntr}
 \usepackage{multicol}
 \usepackage{xcolor}
@@ -46,31 +46,6 @@
 \definecolor{purple}{rgb}{0.65, 0.12, 0.82}
 \definecolor{darkgreen}{rgb}{0.05,0.56,0.06}
 
-\lstset{frame=tlrb,
-    language=C,
-    aboveskip=3mm,
-    belowskip=3mm,
-    showstringspaces=false,
-    columns=flexible,
-    basicstyle={\small\ttfamily},
-    numbers=left,
-    numberstyle=\tiny\color{gray},
-    keywordstyle=\color{blue},
-    commentstyle=\color{violet},
-    stringstyle=\color{darkgreen},
-    breaklines=true,
-    breakatwhitespace=true,
-    tabsize=3,
-    literate=%
-    {Ö}{{\"O}}1
-    {Ä}{{\"A}}1
-    {Ü}{{\"U}}1
-    {ß}{{\ss}}1
-    {ü}{{\"u}}1
-    {ä}{{\"a}}1
-    {ö}{{\"o}}1
-}
-
 \graphicspath{{img/}}
 
 
@@ -91,24 +66,24 @@ It was originally developed by Dennis M. Ritchie in 1972 and remains one of the 
 
 A 'C'-File should have the file-extension \code{.c} and must contain at least the following lines:
 
-\begin{lstlisting}
+\begin{minted}[linenos,frame=single]{C}
 #include <stdio.h>
 int main(){
 }
-\end{lstlisting}
+\end{minted}
 
 \section{Hello World}
 \begin{minipage}{0.6\textwidth}
     The codeblock to the right shows a simple 'Hello World' program. All it does it print out 'Hello World' on the console, once compiled and run.
 \end{minipage}\hfill
 \begin{minipage}{0.35\textwidth}
-    \begin{lstlisting}
+    \begin{minted}[linenos,frame=single]{C}
 #include <stdio.h>
 int main(){
     printf("Hello World");
     return 0;
 }
-    \end{lstlisting}
+    \end{minted}
 \end{minipage}
 
 The first line of this program \code{\#include <stdio.h>} tells the C-compiler to include the stdio header file before compiling the actual file.
@@ -125,17 +100,21 @@ To run this file, you first have to compile it. Assuming you saved the file as \
 An identifier is a name for a variable or a function. C allows basically all alphanumerical names, as long as they start with a letter or an underscore ('\_'). So \code{abc123} would be a legal variable name, as would be \code{\_11abc}. However \code{1\_ab\#d} would not be. 
 
 \vspace{10px}
-
-
+\noindent
 \textbf{Important:} C is case sensitive, so variable \code{variable} is not the same as \code{VaRiaBlE}.
 
 \vspace{10px}
-
+\noindent
 I'm saying 'basically', because C has reserved some words for language-specific things. These words are:
 
-\begin{lstlisting}
-auto 	else 	long 	switch      break 	enum 	register 	typedef     case 	extern 	return 	union   char 	float 	short 	unsigned    const 	for 	signed 	void   continue 	goto 	sizeof 	volatile    default 	if 	static 	while   do 	int 	struct 	_Packed    double
-\end{lstlisting}
+\begin{minted}{C}
+auto      else       long      switch    break       enum
+register  typedef    case      extern    return
+union     char       float     short     unsigned
+const     for        signed    void      continue    goto
+sizeof    volatile   default   if        static      while
+do        int        struct    _Packed   double
+\end{minted}
 
 \newpage
 
@@ -235,7 +214,7 @@ Alternatively, you can use the \code{sizeof} to get the size of a type (e.g. \co
     \end{description}
 \end{minipage}\hfill
 \begin{minipage}{0.45\textwidth}
-    \begin{lstlisting}
+    \begin{minted}{C}
     #include <stdio.h>
 
     // Variable declaration:
@@ -262,7 +241,7 @@ Alternatively, you can use the \code{sizeof} to get the size of a type (e.g. \co
 
        return 0;
     }
-    \end{lstlisting}
+    \end{minted}
 \end{minipage}
 
 \subsection{Constants and Literals}
@@ -281,7 +260,7 @@ Constants can be defined as hexadecimal (prefix \code{0x}), octal (prefix \code{
     Constants can either be defined with the \code{\#define} preprocessor, or alternatively with the \code{const} keyword. 
 \end{minipage}\hfill
 \begin{minipage}{0.45\textwidth}
-    \begin{lstlisting}
+    \begin{minted}{C}
     #define PI 3.14159
 
     int main(){
@@ -289,7 +268,7 @@ Constants can be defined as hexadecimal (prefix \code{0x}), octal (prefix \code{
         printf("Gravity: %f \n", G);
         printf("Pi: %f", PI);
     }
-    \end{lstlisting}
+    \end{minted}
 \end{minipage}
 
 \section{Storage Classes}
@@ -372,23 +351,23 @@ As most other programming languages, C can choose one or another path depending 
 
 \begin{description}
     \item[if: ] Boolean expression followed by one or more statements, which are only executed if the boolean expression is true \\
-        \begin{lstlisting}[frame=none, numbers=none]
+        \begin{minted}{C}
            if(PI ==  3.14159 ){
                 printf("Pi is set correctly");
            }
-        \end{lstlisting}
+        \end{minted}
     \item[if\ldots else: ] An if statement can have an optional 'else' block, which will only be executed if the boolean expression is false. \\
-        \begin{lstlisting}[frame=none, numbers=none]
+        \begin{minted}{C}
         if(PI ==  3.14159 ){
             printf("Pi is set correctly");
         } else {
     #define PI 3.14159
             printf("Pi has been set to the correct value");
         }
-        \end{lstlisting}
+        \end{minted}
     \item[nested ifs: ] If\ldots else statements can also be nested, so that if one statement holds true, the next one gets checked etc.
     \item[switch: ] A variable is being tested against a list of predefined values. \\
-        \begin{lstlisting}[frame=none, numbers=none]
+        \begin{minted}{C}
         switch(grade) {
         case 'A':
             printf("Excellent! \n");
@@ -399,10 +378,10 @@ As most other programming languages, C can choose one or another path depending 
         default:
             printf("Invalid grade");
         }
-        \end{lstlisting}
+        \end{minted}
     \item[nestd switch: ] Same as if-statements, switch statements can be nested as well.
     \item[?:-Operator: ] Shorthand for if\ldots else. \code{Exp1} is checked. If it is true, \code{Exp2} is checked and becomes the value of the entire expression. If \code{Exp1} is false, \code{Exp3} is checked and becomes the value of the entire expression \\
-        \begin{lstlisting}[frame=none, numbers=none]
+        \begin{minted}{C}
             /* if-else */
             if(a > b){
                 result = x;
@@ -412,8 +391,7 @@ As most other programming languages, C can choose one or another path depending 
 
             /* same thing with ?: */
             result = a > b ? x : y;
-            \end{lstlisting}
-
+       \end{minted}
 \end{description}
 
 \end{document}
